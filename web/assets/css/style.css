@@ -150,7 +150,8 @@ ul.navbar-nav {
 .r-form-1-top-right { float: left; width: 25%; padding-top: 5px; font-size: 66px; color: #fff; line-height: 100px; text-align: right; opacity: 0.3; }
 .r-form-1-bottom { padding: 25px 25px 30px 25px; background: #444; background: rgba(0, 0, 0, 0.7); text-align: left; }
 
-.r-form-1-box input[type="text"], 
+.r-form-1-box input[type="text"],
+.r-form-1-box input[type="password"],
 .r-form-1-box textarea, 
 .r-form-1-box textarea.form-control {
 	height: 50px;
@@ -172,22 +173,26 @@ ul.navbar-nav {
 .r-form-1-box textarea, 
 .r-form-1-box textarea.form-control { height: 100px; padding-top: 10px; padding-bottom: 10px; line-height: 30px; }
 
-.r-form-1-box input[type="text"]:focus, 
+.r-form-1-box input[type="text"]:focus,
+.r-form-1-box input[type="password"]:focus,
 .r-form-1-box textarea:focus, 
 .r-form-1-box textarea.form-control:focus {
 	outline: 0; background: #fff; border: 3px solid #b2402c;
     -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
 }
 
-.r-form-1-box input[type="text"]::-moz-placeholder, 
+.r-form-1-box input[type="text"]::-moz-placeholder,
+.r-form-1-box input[type="password"]::-moz-placeholder,
 .r-form-1-box textarea::-moz-placeholder, 
 .r-form-1-box textarea.form-control::-moz-placeholder { color: #888; }
 
-.r-form-1-box input[type="text"]:-ms-input-placeholder, 
+.r-form-1-box input[type="text"]:-ms-input-placeholder,
+.r-form-1-box input[type="password"]:-ms-input-placeholder,
 .r-form-1-box textarea:-ms-input-placeholder, 
 .r-form-1-box textarea.form-control:-ms-input-placeholder { color: #888; }
 
-.r-form-1-box input[type="text"]::-webkit-input-placeholder, 
+.r-form-1-box input[type="text"]::-webkit-input-placeholder,
+.r-form-1-box input[type="password"]::-webkit-input-placeholder,
 .r-form-1-box textarea::-webkit-input-placeholder, 
 .r-form-1-box textarea.form-control::-webkit-input-placeholder { color: #888; }
 

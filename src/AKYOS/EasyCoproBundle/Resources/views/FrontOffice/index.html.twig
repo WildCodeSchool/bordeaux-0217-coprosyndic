@@ -79,7 +79,8 @@
                     </div>
                 </div>
                 <div class="r-form-1-bottom">
-                    <form role="form" action="" method="post">
+                    {{ render(controller("FOSUserBundle:Security:login")) }}
+                    {#<form role="form" action="" method="post">
                         <div class="form-group">
                             <label class="sr-only" for="r-form-1-first-name">Identifiant</label>
                             <input type="text" name="r-form-1-first-name" placeholder="Identifiant..." class="r-form-1-first-name form-control" id="r-form-1-first-name">
@@ -89,8 +90,9 @@
                             <input type="text" name="r-form-1-last-name" placeholder="Mot de passe..." class="r-form-1-last-name form-control" id="r-form-1-last-name">
                         </div>
                         <button type="submit" class="btn">Se Connecter</button>
-                        <p><center><a href="">Demande d'accès</a></center></p>
-                    </form>
+                    </form>#}
+                    <p><center><a href="">Demande d'accès</a></center></p>
+
                 </div>
             </div>
         </div>
@@ -103,7 +105,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 features section-description wow fadeIn">
-                <h2>Pourquoi choisir EasyCopro?</h2>
+                <h2>Pourquoi choisir EasyCopro ?</h2>
                 <div class="divider-1 wow fadeInUp">. . . . . . . . . .</div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.
                     Ut wisi enim ad minim veniam, quis nostrud tempor incididunt ut labore et.</p>
