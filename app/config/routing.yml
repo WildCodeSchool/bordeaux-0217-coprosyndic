@@ -1,0 +1,4 @@
+akyos_easy_copro:
+    resource: "@AKYOSEasyCoproBundle/Resources/config/routing.yml"
+    prefix:   /
+

@@ -105,6 +105,15 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        // akyos_easy_copro_homepage
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'akyos_easy_copro_homepage');
+            }
+
+            return array (  '_controller' => 'AKYOS\\EasyCoproBundle\\Controller\\DefaultController::indexAction',  '_route' => 'akyos_easy_copro_homepage',);
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }
