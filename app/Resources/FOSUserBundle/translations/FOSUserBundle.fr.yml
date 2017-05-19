@@ -14,7 +14,7 @@ security:
         username: 'Nom d''utilisateur'
         password: 'Mot de passe'
         remember_me: 'Se souvenir de moi'
-        submit: Se connecter
+        submit: 'Se connecter'
 profile:
     show:
         username: 'Nom d''utilisateur'
