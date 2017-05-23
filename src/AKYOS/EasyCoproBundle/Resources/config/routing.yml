@@ -1,3 +1,7 @@
 akyos_easy_copro_homepage:
     path:     /
     defaults: { _controller: AKYOSEasyCoproBundle:Default:index }
+
+SubmitForm:
+    path:     /send
+    defaults: { _controller: AKYOSEasyCoproBundle:Default:SubmitForm }
