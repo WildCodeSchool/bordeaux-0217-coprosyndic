@@ -1,0 +1,4 @@
+services:
+#    akyos_easy_copro.example:
+#        class: AKYOS\EasyCoproBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
