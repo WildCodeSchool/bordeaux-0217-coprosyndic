@@ -1,3 +1,4 @@
+{% block header %}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -26,7 +27,6 @@
 </head>
 
 <body>
-
 <!-- Top menu -->
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
@@ -37,7 +37,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Easy Copro</a>
+            <a class="navbar-brand" href="{{ path('akyos_easy_copro_homepage') }}">Easy Copro</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar-1">
@@ -50,8 +50,9 @@
         </div>
     </div>
 </nav>
-
-<!-- Top content -->
+{% endblock %}
+{% block body %}
+    <!-- Top content -->
 <div class="top-content">
     <div class="container">
 
@@ -230,6 +231,8 @@
     </div>
 </div>
 
+{% endblock %}
+{% block contact %}
 <!-- Contact -->
 <div class="contact-container section-container">
     <div class="container">
@@ -291,8 +294,8 @@
         </div>
     </div>
 </div>
-
-
+{% endblock %}
+{% block footer %}
 <!-- Footer -->
 <footer>
     <div class="container">
@@ -329,15 +332,15 @@
             </div>
             <div class="col-sm-6 footer-menu">
                 <ul>
-                    <li><a class="scroll-link" href="#top-content">Contact</a></li>
-                    <li><a class="scroll-link" href="#features">Mentions légales</a></li>
+                    <li><a class="" href="#">Remonter la Page</a></li>
+                    <li><a class="" href="{{ path('mentions')}}">Mentions légales</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
-
-
+{% endblock %}
+{% block js %}
 <!-- Javascript -->
 <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -352,4 +355,4 @@
 
 </body>
 
-</html>
+</html>{% endblock %}

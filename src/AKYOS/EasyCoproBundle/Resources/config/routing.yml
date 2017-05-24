@@ -5,3 +5,7 @@ akyos_easy_copro_homepage:
 SubmitForm:
     path:     /send
     defaults: { _controller: AKYOSEasyCoproBundle:Default:SubmitForm }
+
+mentions:
+    path:     /mentions
+    defaults: { _controller: AKYOSEasyCoproBundle:Default:mentions }

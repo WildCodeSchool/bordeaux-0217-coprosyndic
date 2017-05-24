@@ -11,6 +11,11 @@ class DefaultController extends Controller
         return $this->render('AKYOSEasyCoproBundle:FrontOffice:index.html.twig');
     }
 
+    public function mentionsAction()
+    {
+        return $this->render('AKYOSEasyCoproBundle:FrontOffice:mentions.html.twig');
+    }
+
     public function SubmitFormAction()
     {
         $message = \Swift_Message::newInstance()
@@ -31,4 +36,5 @@ class DefaultController extends Controller
 
         return $this->redirectToRoute('akyos_easy_copro_homepage');
     }
+
 }
