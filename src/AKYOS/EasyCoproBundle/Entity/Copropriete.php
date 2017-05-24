@@ -140,6 +140,15 @@ class Copropriete
      */
     private $typeChauffage;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="coproprietes")
+     */
+    private $syndic;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Lot", mappedBy="copropriete")
+     */
+    private $lots;
 
     /**
      * Get id
@@ -557,5 +566,70 @@ class Copropriete
     public function getTypeChauffage()
     {
         return $this->typeChauffage;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lots = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set syndic
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
+     *
+     * @return Copropriete
+     */
+    public function setSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic = null)
+    {
+        $this->syndic = $syndic;
+
+        return $this;
+    }
+
+    /**
+     * Get syndic
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Syndic
+     */
+    public function getSyndic()
+    {
+        return $this->syndic;
+    }
+
+    /**
+     * Add lot
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Lot $lot
+     *
+     * @return Copropriete
+     */
+    public function addLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
+    {
+        $this->lots[] = $lot;
+
+        return $this;
+    }
+
+    /**
+     * Remove lot
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Lot $lot
+     */
+    public function removeLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
+    {
+        $this->lots->removeElement($lot);
+    }
+
+    /**
+     * Get lots
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLots()
+    {
+        return $this->lots;
     }
 }

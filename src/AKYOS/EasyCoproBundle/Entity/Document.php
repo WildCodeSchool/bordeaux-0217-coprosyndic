@@ -63,6 +63,21 @@ class Document
      */
     private $url;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="documents")
+     */
+    private $syndic;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Lot", mappedBy="documents")
+     */
+    private $lots;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="documents")
+     */
+    private $categorie;
+
 
     /**
      * Get id
@@ -216,5 +231,94 @@ class Document
     public function getUrl()
     {
         return $this->url;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lots = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set syndic
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
+     *
+     * @return Document
+     */
+    public function setSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic = null)
+    {
+        $this->syndic = $syndic;
+
+        return $this;
+    }
+
+    /**
+     * Get syndic
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Syndic
+     */
+    public function getSyndic()
+    {
+        return $this->syndic;
+    }
+
+    /**
+     * Add lot
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Lot $lot
+     *
+     * @return Document
+     */
+    public function addLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
+    {
+        $this->lots[] = $lot;
+
+        return $this;
+    }
+
+    /**
+     * Remove lot
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Lot $lot
+     */
+    public function removeLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
+    {
+        $this->lots->removeElement($lot);
+    }
+
+    /**
+     * Get lots
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLots()
+    {
+        return $this->lots;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Categorie $categorie
+     *
+     * @return Document
+     */
+    public function setCategorie(\AKYOS\EasyCoproBundle\Entity\Categorie $categorie = null)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Categorie
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }

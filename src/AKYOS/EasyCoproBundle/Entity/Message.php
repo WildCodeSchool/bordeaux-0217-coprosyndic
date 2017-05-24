@@ -42,6 +42,16 @@ class Message
      */
     private $contenu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages_envoyes")
+     */
+    private $expediteur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages_recus")
+     */
+    private $destinataire;
+
 
     /**
      * Get id
@@ -123,5 +133,53 @@ class Message
     public function getContenu()
     {
         return $this->contenu;
+    }
+
+    /**
+     * Set expediteur
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\User $expediteur
+     *
+     * @return Message
+     */
+    public function setExpediteur(\AKYOS\EasyCoproBundle\Entity\User $expediteur = null)
+    {
+        $this->expediteur = $expediteur;
+
+        return $this;
+    }
+
+    /**
+     * Get expediteur
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\User
+     */
+    public function getExpediteur()
+    {
+        return $this->expediteur;
+    }
+
+    /**
+     * Set destinataire
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\User $destinataire
+     *
+     * @return Message
+     */
+    public function setDestinataire(\AKYOS\EasyCoproBundle\Entity\User $destinataire = null)
+    {
+        $this->destinataire = $destinataire;
+
+        return $this;
+    }
+
+    /**
+     * Get destinataire
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\User
+     */
+    public function getDestinataire()
+    {
+        return $this->destinataire;
     }
 }
