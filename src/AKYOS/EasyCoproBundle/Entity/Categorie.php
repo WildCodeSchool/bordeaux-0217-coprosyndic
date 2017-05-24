@@ -35,6 +35,11 @@ class Categorie
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="categorie")
+     */
+    private $documents;
+
 
     /**
      * Get id
@@ -92,5 +97,46 @@ class Categorie
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->documents = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add document
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     *
+     * @return Categorie
+     */
+    public function addDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    {
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     */
+    public function removeDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    {
+        $this->documents->removeElement($document);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 }

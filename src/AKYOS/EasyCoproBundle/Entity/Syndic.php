@@ -112,6 +112,26 @@ class Syndic
      */
     private $contactEmail;
 
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Artisan", inversedBy="syndics")
+     */
+    private $artisans;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="syndic")
+     */
+    private $documents;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Copropriete", mappedBy="syndic")
+     */
+    private $coproprietes;
+
 
     /**
      * Get id
@@ -433,5 +453,140 @@ class Syndic
     public function getContactEmail()
     {
         return $this->contactEmail;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->artisans = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->documents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->coproprietes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\User $user
+     *
+     * @return Syndic
+     */
+    public function setUser(\AKYOS\EasyCoproBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add artisan
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Artisan $artisan
+     *
+     * @return Syndic
+     */
+    public function addArtisan(\AKYOS\EasyCoproBundle\Entity\Artisan $artisan)
+    {
+        $this->artisans[] = $artisan;
+
+        return $this;
+    }
+
+    /**
+     * Remove artisan
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Artisan $artisan
+     */
+    public function removeArtisan(\AKYOS\EasyCoproBundle\Entity\Artisan $artisan)
+    {
+        $this->artisans->removeElement($artisan);
+    }
+
+    /**
+     * Get artisans
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArtisans()
+    {
+        return $this->artisans;
+    }
+
+    /**
+     * Add document
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     *
+     * @return Syndic
+     */
+    public function addDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    {
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     */
+    public function removeDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    {
+        $this->documents->removeElement($document);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
+    /**
+     * Add copropriete
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     *
+     * @return Syndic
+     */
+    public function addCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete)
+    {
+        $this->coproprietes[] = $copropriete;
+
+        return $this;
+    }
+
+    /**
+     * Remove copropriete
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     */
+    public function removeCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete)
+    {
+        $this->coproprietes->removeElement($copropriete);
+    }
+
+    /**
+     * Get coproprietes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCoproprietes()
+    {
+        return $this->coproprietes;
     }
 }

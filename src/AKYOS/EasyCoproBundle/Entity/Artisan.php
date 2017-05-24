@@ -112,6 +112,16 @@ class Artisan
      */
     private $activite;
 
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Syndic", mappedBy="artisans")
+     */
+    private $syndics;
+
 
     /**
      * Get id
@@ -433,5 +443,70 @@ class Artisan
     public function getActivite()
     {
         return $this->activite;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->syndics = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\User $user
+     *
+     * @return Artisan
+     */
+    public function setUser(\AKYOS\EasyCoproBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add syndic
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
+     *
+     * @return Artisan
+     */
+    public function addSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic)
+    {
+        $this->syndics[] = $syndic;
+
+        return $this;
+    }
+
+    /**
+     * Remove syndic
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
+     */
+    public function removeSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic)
+    {
+        $this->syndics->removeElement($syndic);
+    }
+
+    /**
+     * Get syndics
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSyndics()
+    {
+        return $this->syndics;
     }
 }

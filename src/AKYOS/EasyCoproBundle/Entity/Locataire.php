@@ -98,6 +98,16 @@ class Locataire
      */
     private $commentSyndic;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Lot", inversedBy="locataires")
+     */
+    private $lot;
+
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -371,5 +381,53 @@ class Locataire
     public function getCommentSyndic()
     {
         return $this->commentSyndic;
+    }
+
+    /**
+     * Set lot
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Lot $lot
+     *
+     * @return Locataire
+     */
+    public function setLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot = null)
+    {
+        $this->lot = $lot;
+
+        return $this;
+    }
+
+    /**
+     * Get lot
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Lot
+     */
+    public function getLot()
+    {
+        return $this->lot;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\User $user
+     *
+     * @return Locataire
+     */
+    public function setUser(\AKYOS\EasyCoproBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

@@ -25,6 +25,18 @@ class User extends BaseUser
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="expediteur")
+     */
+    private $messages_envoyes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="destinataire")
+     */
+    private $messages_recus;
+
+
+
     public function __construct()
     {
         parent::__construct();
@@ -53,5 +65,73 @@ class User extends BaseUser
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Add messagesEnvoye
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Message $messagesEnvoye
+     *
+     * @return User
+     */
+    public function addMessagesEnvoye(\AKYOS\EasyCoproBundle\Entity\Message $messagesEnvoye)
+    {
+        $this->messages_envoyes[] = $messagesEnvoye;
+
+        return $this;
+    }
+
+    /**
+     * Remove messagesEnvoye
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Message $messagesEnvoye
+     */
+    public function removeMessagesEnvoye(\AKYOS\EasyCoproBundle\Entity\Message $messagesEnvoye)
+    {
+        $this->messages_envoyes->removeElement($messagesEnvoye);
+    }
+
+    /**
+     * Get messagesEnvoyes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessagesEnvoyes()
+    {
+        return $this->messages_envoyes;
+    }
+
+    /**
+     * Add messagesRecus
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Message $messagesRecus
+     *
+     * @return User
+     */
+    public function addMessagesRecus(\AKYOS\EasyCoproBundle\Entity\Message $messagesRecus)
+    {
+        $this->messages_recus[] = $messagesRecus;
+
+        return $this;
+    }
+
+    /**
+     * Remove messagesRecus
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Message $messagesRecus
+     */
+    public function removeMessagesRecus(\AKYOS\EasyCoproBundle\Entity\Message $messagesRecus)
+    {
+        $this->messages_recus->removeElement($messagesRecus);
+    }
+
+    /**
+     * Get messagesRecus
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessagesRecus()
+    {
+        return $this->messages_recus;
     }
 }
