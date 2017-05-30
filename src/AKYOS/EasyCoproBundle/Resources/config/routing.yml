@@ -29,4 +29,4 @@ akyos_easy_copro_backend_artisan_index:
 akyos_easy_copro_backend_admin_index:
     path:     /admin
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:index }
->>>>>>> dev-virginie
+
