@@ -2,10 +2,10 @@ akyos_easy_copro_homepage:
     path:     /
     defaults: { _controller: AKYOSEasyCoproBundle:Default:index }
 
-SubmitForm:
-    path:     /send
-    defaults: { _controller: AKYOSEasyCoproBundle:Contact:SubmitForm }
+akyos_easy_copro_contact:
+    path:     /contact
+    defaults: { _controller: AKYOSEasyCoproBundle:Contact:contact }
 
-mentions:
+akyos_easy_copro_mentions:
     path:     /mentions
     defaults: { _controller: AKYOSEasyCoproBundle:Default:mentions }
