@@ -8,17 +8,17 @@
 
 </head>
 <body>
-<h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour l'édition d'un compte Locataire.</h3>
+<h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour l'édition ou suppression d'un compte Locataire.</h3>
 <em>Pour retourner dans le menu des comptes cliquez <a class="" href="{{ path('akyos_easy_copro_backend_syndic_index')}}">ici</a></em>
 
 <div class="container"><div></br></div>
     <div class="row">
         <select name="Choix_Locataire">
-            <option value="art1">Sectionnez un Locataire</option>
-            <option value="art1">Locataire 1</option>
-            <option value="ar2">Locataire 2</option>
-            <option value="art3">Locataire 3</option>
-            <option value="art4">Locataire 4</option>
+            <option value="loc0">Sectionnez un Locataire</option>
+            <option value="loc1">Locataire 1</option>
+            <option value="loc2">Locataire 2</option>
+            <option value="loc3">Locataire 3</option>
+            <option value="loc4">Locataire 4</option>
         </select>
     </div>
 </div>
@@ -84,7 +84,8 @@
 
         <div class="col-sm-12 text-center">
             <div id="success"></div>
-            <button type="submit" class="btn btn-link-1 scroll-link envoi-btn">Créer le compte Copropriétaire</button>
+            <button type="submit" class="btn btn-link-1 scroll-link envoi-btn">Mettre à jour le compte Locataire</button>
+            <button type="submit" value="delete" class="btn btn-link-1 scroll-link envoi-btn">Supprimer le compte Locataire</button>
         </div>
     </div>
 </div>
