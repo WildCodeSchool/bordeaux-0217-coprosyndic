@@ -1,13 +1,58 @@
-<!DOCTYPE html>
+{% block header %}
+    <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ asset('assets/css/formulaire.css') }}">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easy Copro</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-    <title>Title</title>
+    <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/media-queries.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/formulaire.css') }}">
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="{{ asset('assets/ico/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/ico/apple-touch-icon-57-precomposed.png') }}">
 
 </head>
+
 <body>
+<!-- Top menu -->
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('akyos_easy_copro_homepage') }}">Easy Copro</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="top-navbar-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="scroll-link" href="#features">Fonctionnalités</a></li>
+                <li><a class="scroll-link" href="#how-it-works">Démo</a></li>
+                <li><a class="scroll-link" href="#testimonials">Tarifs</a></li>
+                <li><a class="scroll-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block body %}
 <h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour l'édition ou suppression d'un compte Artisan.</h3>
 <em>Pour retourner dans le menu des comptes cliquez <a class="" href="{{ path('akyos_easy_copro_backend_syndic_index')}}">ici</a></em>
 
@@ -106,8 +151,67 @@
     </div>
 </div>
 </div>
+</br>
+{% endblock %}
+{% block footer %}
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 footer-about wow fadeInUp">
+                    <h3>A propos de nous</h3>
+                    <p>
+                        Akyos Communication est spécialisée depuis 2006 dans la création de site Internet et la communication globale.
+                    </p>
+                    <p>
+                        <a class="scroll-link" href="#about-us">En savoir plus</a>
+                    </p>
+                </div>
+                <div class="col-sm-4 footer-contact-info wow fadeInDown">
+                    <h3>Easy Copro</h3>
+                    <p>
+                        Bientot en vente sur votre plateforme AKYOS, elle vous permettra de gerer sans stress vos copropriétés .
+                    </p>
+                </div>
+                <div class="col-sm-4 footer-social wow fadeInUp">
+                    <h3>Réseaux sociaux</h3>
+                    <p>
+                        <a href="https://www.facebook.com/akyoscomm"><i class="fa fa-facebook"></i></a>
+                        <a href="https://twitter.com/creasiteweb"><i class="fa fa-twitter"></i></a>
+                        <a href="https://plus.google.com/+Akyos_communication"><i class="fa fa-google-plus"></i></a>
+                        <a href="http://www.imgrum.org/tag/akyos"><i class="fa fa-instagram"></i></a>
+                        <a href="https://www.pinterest.com"><i class="fa fa-pinterest"></i></a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 footer-copyright">
+                    &copy; Easy Copro by <a href="http://www..akyos.com" target="_blremakyos.com" target="_blank">AKYOS</a>
+                </div>
+                <div class="col-sm-6 footer-menu">
+                    <ul>
+                        <li><a class="" href="#">Remonter la Page</a></li>
+                        <li><a class="" href="{{ path('akyos_easy_copro_mentions') }}">Mentions légales</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+{% block js %}
+<!-- Javascript -->
+<script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
+<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.backstretch.min.js') }}"></script>
+<script src="{{ asset('assets/js/wow.min.js') }}"></script>
+<script src="{{ asset('assets/js/retina-1.1.0.min.js') }}"></script>
+<script src="{{ asset('assets/js/scripts.js') }}"></script>
+
+<!--[if lt IE 10]>
+<script src="{{ asset('assets/js/placeholder.js') }}"></script>
+<![endif]-->
 
 </body>
-<script src="{{ asset('assets/js/formulaire.js') }}"></script>
-<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+
 </html>
+{% endblock %}
