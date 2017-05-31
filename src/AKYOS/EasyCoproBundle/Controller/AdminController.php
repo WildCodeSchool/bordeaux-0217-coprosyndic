@@ -79,7 +79,6 @@ class AdminController extends Controller
 
     public function deleteSyndicAction(Request $request, Syndic $syndic)
     {
-
         if ($syndic !== null) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($syndic);
