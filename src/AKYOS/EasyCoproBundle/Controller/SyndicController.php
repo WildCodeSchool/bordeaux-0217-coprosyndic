@@ -12,4 +12,19 @@ class SyndicController extends Controller
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig');
     }
+
+    public function newArtisanAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/newArtisan.html.twig');
+    }
+
+    public function newCoproAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/newCopro.html.twig');
+    }
+
+    public function newLocataireAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/newLocataire.html.twig');
+    }
 }

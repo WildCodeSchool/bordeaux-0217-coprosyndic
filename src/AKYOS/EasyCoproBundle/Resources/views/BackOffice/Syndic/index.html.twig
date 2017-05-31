@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h3>Vous êtes sur la page de l'admin {{ app.user.type }}.</h3>
+
+Souhaitez vous créer un formulaire ? <em>cliquez </em> sur l'un des liens ci dessous :</br>
+<li>
+    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_newCopro')}}">Vous souhaitez "Créer un compte Copropriétaire (NIVEAU X)"</a></ul>
+    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_newLocataire')}}">Vous souhaitez "Créer un compte Locataire (NIVEAU X)"</a></ul>
+    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_newArtisan')}}">Vous souhaitez "Créer un compte Artisan (NIVEAU X)"</a></ul>
+</li>
 </body>
 </html>

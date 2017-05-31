@@ -30,3 +30,14 @@ akyos_easy_copro_backend_admin_index:
     path:     /admin
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:index }
 
+akyos_easy_copro_backend_syndic_newArtisan:
+    path:     /syndic/newArtisan
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:newArtisan }
+
+akyos_easy_copro_backend_syndic_newCopro:
+    path:     /syndic/newCopro
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:newCopro }
+
+akyos_easy_copro_backend_syndic_newLocataire:
+    path:     /syndic/newLocataire
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:newLocataire }
