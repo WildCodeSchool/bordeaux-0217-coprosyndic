@@ -1,0 +1,27 @@
+{% extends '@AKYOSEasyCopro/BackOffice/layout.html.twig' %}
+
+{% block title %}
+    Affichage SYNDIC
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Afficher un syndic :</h4>
+    <h4>{{ syndic.nom }}</h4>
+    <ul>
+        <li>{{ syndic.emailBureau }}</li>
+        <li>{{ syndic.adressePrinc }}</li>
+    </ul>
+    <p><a href="{{ path('akyos_easy_copro_backend_admin_edit_syndic', {'id' : syndic.id}) }}">Modifier le syndic</a></p>
+    <p><a href="{{ path('akyos_easy_copro_backend_admin_delete_syndic', {'id' : syndic.id}) }}">Supprimer le syndic</a></p>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

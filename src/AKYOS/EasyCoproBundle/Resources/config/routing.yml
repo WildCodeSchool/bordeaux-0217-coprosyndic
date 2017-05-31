@@ -31,5 +31,21 @@ akyos_easy_copro_backend_admin_index:
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:index }
 
 akyos_easy_copro_backend_admin_create_syndic:
-    path:     /admin/createSyndic
+    path:     /admin/create_syndic
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:createSyndic }
+
+akyos_easy_copro_backend_admin_list_syndic:
+    path:     /admin/list_syndic
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:listSyndic }
+
+akyos_easy_copro_backend_admin_show_syndic:
+    path:     /admin/show_syndic/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:showSyndic }
+
+akyos_easy_copro_backend_admin_edit_syndic:
+    path:     /admin/edit_syndic/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:editSyndic }
+
+akyos_easy_copro_backend_admin_delete_syndic:
+    path:     /admin/delete_syndic/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:deleteSyndic }
