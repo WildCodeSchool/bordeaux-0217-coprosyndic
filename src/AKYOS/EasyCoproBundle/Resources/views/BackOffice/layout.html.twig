@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
     <title>{% block title %}Easy Copro{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+    <meta charset="UTF-8">
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/ico/favicon.png') }}"/>
-    <!-- CSS -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/ico/favicon.png') }}">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style_backoffice.css') }}">
+    {% block stylesheets %}{% endblock %}
 
 </head>
 <body>
 
 <div class="row affix-row">
-    <div class="col-xs-12 col-sm-3 col-md-2 affix-sidebar">
+    <div class="col-sm-3 col-md-2 affix-sidebar">
         <div class="sidebar-nav">
             <div class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
@@ -48,7 +48,7 @@
                             </a>
                             <div class=" non-active collapse" id="toggleDemo0" style="height: 0px;">
                                 <ul class="nav nav-list">
-                                    <li class="col-sm-4 col-md-4">
+                                    <li class="icon-profil-box">
                                         <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
                                         <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
                                         <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
@@ -99,14 +99,10 @@
         </div>
     </div>
     <div class="col-sm-9 col-md-10 affix-content">
-        {% block body %}{% endblock %}
-
+        {% block content %}{% endblock %}
     </div>
 </div>
 
-
-{% block javascripts %}
-<!-- Javascript -->
 <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.backstretch.min.js') }}"></script>
@@ -118,6 +114,9 @@
 <script src="{{ asset('assets/js/placeholder.js') }}"></script>
 <![endif]-->
 
+{% block scripts %}
+{% endblock %}
+
 </body>
 </html>
-{% endblock %}
+

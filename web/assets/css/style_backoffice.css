@@ -1,221 +1,123 @@
+
+
 body {
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
 }
+
 .h4color {
     color: white;
 }
-.actived{
-    background-color:#0e334c;
+
+.actived {
+    background-color: #0e334c;
 }
-.non-active{
+
+.non-active {
     background-color: #578199;
 
 }
-.navbar-default .navbar-nav > li.non-active > a{
+
+.navbar-default .navbar-nav > li.non-active > a {
     color: white;
 }
-.icon-profil-link{
+
+.icon-profil-link {
     display: inline !important;
     background-color: #578199 !important;
 
 }
-.icon-profil-link i:hover{
-    background-color:rgba(14, 51, 76, 0.5) !important;
+
+.icon-profil-link i:hover {
+    background-color: rgba(14, 51, 76, 0.5) !important;
 
 }
 
-ul.nav-list li a{
+ul.nav-list li a {
     background-color: #416173;
     color: white;
 }
+
 .icon-profil {
     padding: 10px 10px;
-    margin-top: 7px;
-    margin-bottom: 7px;
     color: white;
     border: 1px solid #578199;
     box-shadow: inset 1px 1px 4px 0px #343434;
 }
-.icon-profil-box{
+
+
+
+html, body {
+    background-color: #f8f8f8;
+    height: 100%;
+    overflow: hidden;
+}
+
+.affix-content .container .page-header {
+    margin-top: 0;
+}
+/*
+
+.sidebar-nav {
+    position: fixed;
+    width: 100%;
+}
+*/
+
+.affix-sidebar {
+    padding-right: 0;
+    font-size: small;
+    padding-left: 0;
+}
+
+.affix-row, .affix-container, .affix-content {
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.affix-content {
+    background-color: white;
+}
+
+.sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+}
+
+.sidebar-nav .navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+    border: 0;
+}
+
+.sidebar-nav .navbar ul {
+    float: none;
+    display: block;
+}
+
+.sidebar-nav .navbar li {
+    float: none;
+    display: block;
+}
+
+/*.sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}*/
+
+.sidebar-nav .navbar li a:hover {
+    background-color: #0e334c;
+    color: white;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    background-color: #444444;
+    color: white;
+}
+
+.sidebar-nav .navbar .icon-profil-box {
     display: flex;
     justify-content: space-around;
 }
 
-/*@media (min-width: 768px){
-    .affix-content .container {
-        width: 700px;
-    }*/
-
-    html,body{
-        background-color: #f8f8f8;
-        height: 100%;
-        overflow: hidden;
-    }
-    .affix-content .container .page-header{
-        margin-top: 0px;
-    }
-    .sidebar-nav{
-        position:fixed;
-        width:100%;
-    }
-    .affix-sidebar{
-        padding-right:0;
-        font-size:small;
-        padding-left: 0;
-    }
-    .affix-row, .affix-container, .affix-content{
-        height: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .affix-content{
-        background-color:white;
-    }
-    .sidebar-nav .navbar .navbar-collapse {
-        padding: 0;
-        max-height: none;
-    }
-    .sidebar-nav .navbar{
-        border-radius:0;
-        margin-bottom:0;
-        border:0;
-    }
-    .sidebar-nav .navbar ul {
-        float: none;
-        display: block;
-
-    }
-    .sidebar-nav .navbar li {
-        float: none;
-        display: block;
-
-    }
-    .sidebar-nav .navbar li a {
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
-    .sidebar-nav .navbar li a:hover {
-        background-color: #0e334c;
-        color: white;
-    }
-    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-        background-color: #444444;
-        color: white;
-    }
-
-/* .icon-profil {
-     padding: 10px 10px;
-     margin-top: 7px;
-     margin-bottom: 7px;
-     color: white;
-     border: 1px solid #578199;
-     box-shadow: inset 1px 1px 4px 0px #343434;
- }
-
-
-
-@media (min-width: 910px){
- .affix-content .container {
-     width: 600px;
- }
- .affix-content .container .page-header{
-     margin-top: 0;
- }
- .icon-profil {
-     padding: 10px 10px;
-     margin-top: 7px;
-     margin-bottom: 7px;
-     color: white;
-     border: 1px solid #578199;
-     box-shadow: inset 1px 1px 4px 0px #343434;
- }
- .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-     background-color: #444444;
- }
- .icon-profil-box{
-     display: flex;
-     justify-content: space-around;
- }
-}
-
-@media (min-width: 992px) {
- .affix-content .container {
-     width: 900px;
- }
- .icon-profil {
-     padding: 10px 10px;
-     margin-top: 7px;
-     margin-bottom: 7px;
-     margin-left: -15px;
-     color: white;
-     border: 1px solid #578199;
-     box-shadow: inset 1px 1px 4px 0px #343434;
- }
-
- .affix-content .container .page-header {
-     margin-top: 0;
- }
-
- .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-     background-color: #444444;
- }
-
-}
- @media (min-width: 1220px) {
-     .affix-row {
-         overflow: hidden;
-     }
-
-     .affix-content {
-         overflow: auto;
-     }
-
-     .affix-content .container {
-         width: 1000px;
-     }
-
-     .affix-content .container .page-header {
-         margin-top: 0;
-     }
-
-     .affix-content {
-         padding-right: 30px;
-         padding-left: 30px;
-     }
-
-     .affix-title {
-         border-bottom: 1px solid #ecf0f1;
-         padding-bottom: 10px;
-     }
-
-     .navbar-nav {
-         margin: 0;
-     }
-
-     .navbar-collapse {
-         padding: 0;
-     }
-
-     .sidebar-nav .navbar li a > .caret {
-         margin-top: 8px;
-     }
-
-     .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-         background-color: #444444;
-     }
-
-     .list-inline {
-         display: inline !important;
-     }
-
-     .icon-profil {
-         padding: 10px 10px;
-         margin-top: 5px;
-         margin-bottom: 5px;
-         color: white;
-         border: 1px solid #578199;
-         box-shadow: inset 1px 1px 4px 0px #343434;
-     }
- }
-*/
