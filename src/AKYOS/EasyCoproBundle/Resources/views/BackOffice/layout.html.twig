@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Backoffice - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+    <h3>Section {{ app.user.type }}.</h3>
+    {% block content %}{% endblock %}
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

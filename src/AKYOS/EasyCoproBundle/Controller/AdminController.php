@@ -12,4 +12,10 @@ class AdminController extends Controller
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Admin/index.html.twig');
     }
+
+    public function createSyndicAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/create_syndic.html.twig');
+    }
+
 }

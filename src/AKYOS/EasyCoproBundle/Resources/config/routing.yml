@@ -30,3 +30,6 @@ akyos_easy_copro_backend_admin_index:
     path:     /admin
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:index }
 
+akyos_easy_copro_backend_admin_create_syndic:
+    path:     /admin/createSyndic
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:createSyndic }
