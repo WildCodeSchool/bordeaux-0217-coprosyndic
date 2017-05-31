@@ -2,11 +2,149 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ asset('assets/css/formulaire.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <title>Title</title>
+
 </head>
 <body>
-<h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour la création de compte Copropriétaire.</h3>
+<h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour la création d'un compte Copropriétaire.</h3>
+<em>Pour retourner dans les choix de création de comptes cliquez <a class="" href="{{ path('akyos_easy_copro_backend_syndic_index')}}">ici</a></em>
 
+<div class="container">
+    <div class="row">
+        <form class="col-sm-8">
+
+            <h4 class="page-header">Infos de Connexion Plateforme</h4>
+            <form role="form">
+                <div class="form-group float-label-control">
+                    <label for="">Nom d'utilisateur attribué</label>
+                    <input type="text" class="form-control" placeholder="Nom d'utilisateur">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Mot de passe attribué</label>
+                    <input type="password" class="form-control" placeholder="Mot de Passe">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Notes du Syndic sur le Copropriétaire</label>
+                    <textarea class="form-control" placeholder="Notes du Syndic sur le Copropriétaire" rows="1"></textarea>
+                </div>
+                <input type="checkbox" name="conseil" VALUE="no"> est membre du Conseil
+            </form>
+        </form>
+        <form class="col-sm-8">
+            <h4 class="page-header">Infos sur le Copropriétaire</h4>
+            <form role="form">
+                <div class="form-group float-label-control">
+                    <label for="">Nom du copropriétaire</label>
+                    <input type="text" class="form-control" placeholder="Nom du copropriétaire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Prénom du copropriétaire</label>
+                    <input type="text" class="form-control" placeholder="Prénom du copropriétaire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Sexe du copropriétaire</label>
+                    <input type="text" class="form-control" placeholder="Sexe du copropriétaire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Téléphone du copropriétaire</label>
+                    <input type="tel" class="form-control" placeholder="Téléphone du copropriétaire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">E-mail du copropriétaire</label>
+                    <input type="email" class="form-control" placeholder="E-mail du copropriétaire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">RIB du copropriétaire</label>
+                    <input type="text" class="form-control" placeholder="RIB du copropriétaire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Date d'emménagement du copropriétaire</label>
+                    <input type="date" class="form-control" placeholder="Date d'emménagement du copropriétaire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Date de départ du copropriétaire</label>
+                    <input type="date" class="form-control" placeholder="Date de départ du copropriétaire">
+                </div>
+            </form>
+        </form>
+        <form class="col-sm-8">
+            <h4 class="page-header">Infos sur ses Copropriétés</h4>
+            <form role="form">
+                <div class="form-group float-label-control">
+                    <label for="">Copropriétées possédées</label>
+                </div>
+                    <input type="checkbox" name="ca" value="ca">Copropriété A</br>
+                    <input type="checkbox" name="cb" value="cb">Copropriété B</br>
+                    <input type="checkbox" name="cc" value="cc">Copropriété C</br>
+                    <input type="checkbox" name="cd" value="cd">Copropriété D</br>
+                    <input type="checkbox" name="ce" value="ce">Copropriété E</br>
+                </br>
+            </form>
+            <form class="col-sm-8">
+            <form role="form">
+                <div class="form-group float-label-control">
+                    <label for="">Lots possédées</label>
+                </div>
+                    <input type="checkbox" name="la" value="ca">Lot A</br>
+                    <input type="checkbox" name="lb" value="cb">Lot B</br>
+                    <input type="checkbox" name="lc" value="cc">Lot C</br>
+                    <input type="checkbox" name="ld" value="cd">Lot D</br>
+                    <input type="checkbox" name="le" value="ce">Lot E</br>
+                </br>
+            </form>
+            </form>
+            <form class="col-sm-8">
+            <form role="form">
+                <input type="checkbox" name="locataire" value="yes"> est locataire
+                </br>
+                </br>
+                <div class="form-group float-label-control">
+                    <label for="">Nom du locataire</label>
+                    <input type="text" class="form-control" placeholder="Nom du locataire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Prénom du locataire</label>
+                    <input type="text" class="form-control" placeholder="Prénom du locataire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Téléphone du locataire</label>
+                    <input type="tel" class="form-control" placeholder="Téléphone du locataire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Email du locataire</label>
+                    <input type="email" class="form-control" placeholder="Email du locataire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Nb de personnes en charge du locataire</label>
+                    <input type="number" min="0" class="form-control" placeholder="Nb de personnes en charge du locataire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Nb d'enfants du locataire</label>
+                    <input type="number" min="0" class="form-control" placeholder="Nb d'enfants du locataire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Date d'emménagement du locataire</label>
+                    <input type="date" class="form-control" placeholder="Date d'emménagement du locataire">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Date de départ du locataire</label>
+                    <input type="date" class="form-control" placeholder="Date de départ du locataire">
+                </div>
+                <input type="checkbox" name="actuel" value="yes"> est un locataire Actuel
+            </form>
+        </form>
+        </form>
+        <div class="col-sm-12 text-center">
+            <div id="success"></div>
+            <button type="submit" class="btn btn-link-1 scroll-link envoi-btn">Créer le compte Copropriétaire</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 </body>
+<script src="{{ asset('assets/js/formulaire.js') }}"></script>
+<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 </html>
