@@ -1,5 +1,6 @@
+
 {% block header %}
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -53,31 +54,10 @@
 </nav>
 {% endblock %}
 {% block body %}
-<h3>Vous êtes sur la page de l'admin {{ app.user.type }}.</h3>
+    <h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour l'édition d'une Copropriété.</h3>
+    <em>Pour retourner dans le menu des comptes cliquez <a class="" href="{{ path('akyos_easy_copro_backend_syndic_index')}}">ici</a></em>
 
-Souhaitez vous créer un Compte ? <em>cliquez </em> sur l'un des liens ci dessous :</br>
-<li>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addCopro')}}">Vous souhaitez "Créer un compte Copropriétaire (NIVEAU X)"</a></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addLocataire')}}">Vous souhaitez "Créer un compte Locataire (NIVEAU X)"</a></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addArtisan')}}">Vous souhaitez "Créer un compte Artisan (NIVEAU X)"</a></ul>
-    <ul><strong>OU BIEN</strong></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addCopropriete')}}">Vous souhaiteriez plutôt "Créer une Copropriete"</a></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addLot')}}">Vous souhaiteriez plutôt "Créer un Lot"</a></ul>
-</li>
-</br>
-Souhaitez vous éditer un Compte déjà éxistant ? <em>cliquez </em> sur l'un des liens ci dessous :</br>
-<li>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_editCopro')}}">Vous souhaitez "Editer un compte Copropriétaire (NIVEAU X)"</a></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_editLocataire')}}">Vous souhaitez "Editer un compte Locataire (NIVEAU X)"</a></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_editArtisan')}}">Vous souhaitez "Editer un compte Artisan (NIVEAU X)"</a></ul>
-    <ul><strong>OU BIEN</strong></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addCopropriete')}}">Vous souhaiteriez plutôt "Editer une Copropriete"</a></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addLot')}}">Vous souhaiteriez plutôt "Editer un Lot"</a></ul>
-
-</li>
     </br>
-
-
 {% endblock %}
 {% block footer %}
     <!-- Footer -->
