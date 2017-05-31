@@ -28,6 +28,16 @@ class SyndicController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/addLocataire.html.twig');
     }
 
+    public function addLotAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/addLot.html.twig');
+    }
+
+    public function addCoproprieteAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/addCopropriete.html.twig');
+    }
+
     public function editArtisanAction()
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/editArtisan.html.twig');
@@ -41,5 +51,15 @@ class SyndicController extends Controller
     public function editLocataireAction()
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/editLocataire.html.twig');
+    }
+
+    public function editLotAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/editLot.html.twig');
+    }
+
+    public function editCoproprieteAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/editCopropriete.html.twig');
     }
 }

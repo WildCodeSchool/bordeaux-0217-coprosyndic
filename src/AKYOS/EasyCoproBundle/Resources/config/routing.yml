@@ -42,6 +42,14 @@ akyos_easy_copro_backend_syndic_addLocataire:
     path:     /syndic/add/Locataire
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:addLocataire }
 
+akyos_easy_copro_backend_syndic_addLot:
+    path:     /syndic/add/Lot
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:addLot }
+
+akyos_easy_copro_backend_syndic_addCopropriete:
+    path:     /syndic/add/Copropriete
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:addCopropriete }
+
 akyos_easy_copro_backend_syndic_editArtisan:
     path:     /syndic/edit/Artisan
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editArtisan }
@@ -53,3 +61,11 @@ akyos_easy_copro_backend_syndic_editCopro:
 akyos_easy_copro_backend_syndic_editLocataire:
     path:     /syndic/edit/Locataire
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editLocataire }
+
+akyos_easy_copro_backend_syndic_editLot:
+    path:     /syndic/edit/Lot
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editLot }
+
+akyos_easy_copro_backend_syndic_editCopropriete:
+    path:     /syndic/edit/Copropriete
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editCopropriete }
