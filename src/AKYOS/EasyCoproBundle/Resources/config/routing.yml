@@ -30,14 +30,26 @@ akyos_easy_copro_backend_admin_index:
     path:     /admin
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:index }
 
-akyos_easy_copro_backend_syndic_newArtisan:
-    path:     /syndic/newArtisan
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:newArtisan }
+akyos_easy_copro_backend_syndic_addArtisan:
+    path:     /syndic/add/Artisan
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:addArtisan }
 
-akyos_easy_copro_backend_syndic_newCopro:
-    path:     /syndic/newCopro
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:newCopro }
+akyos_easy_copro_backend_syndic_addCopro:
+    path:     /syndic/add/Copro
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:addCopro }
 
-akyos_easy_copro_backend_syndic_newLocataire:
-    path:     /syndic/newLocataire
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:newLocataire }
+akyos_easy_copro_backend_syndic_addLocataire:
+    path:     /syndic/add/Locataire
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:addLocataire }
+
+akyos_easy_copro_backend_syndic_editArtisan:
+    path:     /syndic/edit/Artisan
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editArtisan }
+
+akyos_easy_copro_backend_syndic_editCopro:
+    path:     /syndic/edit/Copro
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editCopro }
+
+akyos_easy_copro_backend_syndic_editLocataire:
+    path:     /syndic/edit/Locataire
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editLocataire }

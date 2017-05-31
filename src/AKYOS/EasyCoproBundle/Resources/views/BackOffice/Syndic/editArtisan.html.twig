@@ -8,8 +8,20 @@
 
 </head>
 <body>
-<h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour la création d'un compte Artisan.</h3>
-<em>Pour retourner dans les choix de création de comptes cliquez <a class="" href="{{ path('akyos_easy_copro_backend_syndic_index')}}">ici</a></em>
+<h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour l'édition d'un compte Artisan.</h3>
+<em>Pour retourner dans le menu des comptes cliquez <a class="" href="{{ path('akyos_easy_copro_backend_syndic_index')}}">ici</a></em>
+
+<div class="container"><div></br></div>
+    <div class="row">
+        <select name="Choix_Artisan">
+            <option value="art1">Sectionnez un Artisan</option>
+            <option value="art1">Artisan 1</option>
+            <option value="ar2">Artisan 2</option>
+            <option value="art3">Artisan 3</option>
+            <option value="art4">Artisan 4</option>
+        </select>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">

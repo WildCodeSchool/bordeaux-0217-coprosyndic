@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ asset('assets/css/formulaire.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    <title>Title</title>
+
+</head>
+<body>
+<h3>Vous êtes sur la page de l'admin {{ app.user.type }} pour la création d'un compte Artisan.</h3>
+<em>Pour retourner dans le menu des comptes cliquez <a class="" href="{{ path('akyos_easy_copro_backend_syndic_index')}}">ici</a></em>
+
+<div class="container">
+    <div class="row">
+        <form class="col-sm-8">
+
+            <h4 class="page-header">Infos de Connexion Plateforme</h4>
+            <form role="form">
+                <div class="form-group float-label-control">
+                    <label for="">Nom d'utilisateur attribué</label>
+                    <input type="text" class="form-control" placeholder="Nom d'utilisateur">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Mot de passe attribué</label>
+                    <input type="password" class="form-control" placeholder="Mot de Passe">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Notes du Syndic sur l'Artisan</label>
+                    <textarea class="form-control" placeholder="Notes du Syndic sur l'Artisan" rows="1"></textarea>
+                </div>
+            </form>
+        </form>
+        <form class="col-sm-8">
+            <h4 class="page-header">Infos sur l'Artisan</h4>
+            <form role="form">
+                <div class="form-group float-label-control">
+                    <label for="">Raison Sociale de l'Artisan</label>
+                    <input type="text" class="form-control" placeholder="Raison Sociale de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Domaine d'activité de l'Artisan</label>
+                    <input type="text" class="form-control" placeholder="Domaine d'activité de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Adresse Principale de l'Artisan</label>
+                    <input type="text" class="form-control" placeholder="Adresse Principale de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Adresse Secondaire de l'Artisan</label>
+                    <input type="text" class="form-control" placeholder="Adresse Secondaire de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Ville de l'Artisan</label>
+                    <input type="text" class="form-control" placeholder="Ville de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Code Postal de l'Artisan</label>
+                    <input type="text" class="form-control" placeholder="Code Postal de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">SIRET de l'Artisan</label>
+                    <input type="text" class="form-control" placeholder="SIRET de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Téléphone Bureau de l'Artisan</label>
+                    <input type="tel" class="form-control" placeholder="Téléphone Bureau de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Téléphone Perso de l'Artisan</label>
+                    <input type="tel" class="form-control" placeholder="Téléphone Bureau de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">E-mail Bureau de l'Artisan</label>
+                    <input type="email" class="form-control" placeholder="E-mail Bureau de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">E-mail Perso de l'Artisan</label>
+                    <input type="email" class="form-control" placeholder="E-mail Perso de l'Artisan">
+                </div>
+                <div class="form-group float-label-control">
+                    <label for="">Contact de l'Artisan</label>
+                    <input type="text" class="form-control" placeholder="Contact de l'Artisan">
+                </div>
+            </form>
+        </form>
+
+        <div class="col-sm-12 text-center">
+            <div id="success"></div>
+            <button type="submit" class="btn btn-link-1 scroll-link envoi-btn">Créer le compte Artisan</button>
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+<script src="{{ asset('assets/js/formulaire.js') }}"></script>
+<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+</html>
