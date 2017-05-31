@@ -113,7 +113,7 @@ class Syndic
     private $contactEmail;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
      */
     private $user;
 
