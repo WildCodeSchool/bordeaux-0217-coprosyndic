@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class LocataireType extends AbstractType
 {
@@ -28,17 +30,13 @@ class LocataireType extends AbstractType
             ->add('prenom', TextType::class,array('attr' => array('placeholder' => 'Prénom du locataire')))
             ->add('telephone', TextType::class,array('attr' => array('placeholder' => 'Télephone du locataire')))
             ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB du locataire')))
-            ->add('dateArrivee', TextType::class,array('attr' => array('placeholder' => 'Date d\'emménagement du locataire')))
-            ->add('dateDepart', TextType::class,array('attr' => array('placeholder' => 'Date de départ du locataire')))
-            ->add('actuel', CheckboxType::class, array(
-                'label'    => 'Locataire Actuel',
-                'required' => true,
-            ))
+            ->add('dateArrivee', DateType::class, array('widget' => 'single_text',))
+            ->add('dateDepart', DateType::class, array('widget' => 'single_text',))
+            ->add('actuel', CheckboxType::class, array('label'    => 'Locataire Actuel', 'required' => true,))
             ->add('submit',SubmitType::class)
         ;
 
         $locataire = $builder->getForm();
-
     }
 
 

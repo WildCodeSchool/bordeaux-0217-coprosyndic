@@ -35,6 +35,11 @@ class LocataireController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($loc);
             $em->flush();
+            $this->addFlash(
+                'ajoutsuccess',
+                'Votre Locataire a bien été ajoutée !'
+            );
+
 
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
