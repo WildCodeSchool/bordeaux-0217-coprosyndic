@@ -16,31 +16,31 @@ use AKYOS\EasyCoproBundle\Entity\Locataire;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
-class LocataireType extends AbstractType
+class CoproType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('user', RegistrationType::class)
             ->add('commentSyndic', TextType::class,array('attr' => array('placeholder' => 'Note du Syndic')))
-            ->add('email', EmailType::class,array('attr' => array('placeholder' => 'Email du locataire')))
-            ->add('nom', TextType::class,array('attr' => array('placeholder' => 'Nom du locataire')))
-            ->add('prenom', TextType::class,array('attr' => array('placeholder' => 'Prénom du locataire')))
-            ->add('telephone', TextType::class,array('attr' => array('placeholder' => 'Télephone du locataire')))
-            ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB du locataire')))
-            ->add('dateArrivee', TextType::class,array('attr' => array('placeholder' => 'Date d\'emménagement du locataire')))
-            ->add('dateDepart', TextType::class,array('attr' => array('placeholder' => 'Date de départ du locataire')))
+            ->add('email', EmailType::class,array('attr' => array('placeholder' => 'Email du copropriétaire')))
+            ->add('nom', TextType::class,array('attr' => array('placeholder' => 'Nom du copropriétaire')))
+            ->add('prenom', TextType::class,array('attr' => array('placeholder' => 'Prénom du copropriétaire')))
+            ->add('telephone', TextType::class,array('attr' => array('placeholder' => 'Télephone du copropriétaire')))
+            ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB du copropriétaire')))
+            ->add('dateArrivee', TextType::class,array('attr' => array('placeholder' => 'Date d\'emménagement du copropriétaire')))
+            ->add('dateDepart', TextType::class,array('attr' => array('placeholder' => 'Date de départ du copropriétaire')))
             ->add('submit',SubmitType::class)
         ;
 
-        $locataire = $builder->getForm();
+        $copro = $builder->getForm();
 
     }
 
 
     public function getBlockPrefix()
     {
-        return 'akyos_easycoprobundle_locataire';
+        return 'akyos_easycoprobundle_copro';
     }
 
 }
