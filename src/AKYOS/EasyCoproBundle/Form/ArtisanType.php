@@ -30,6 +30,7 @@ class ArtisanType extends AbstractType
             ->add('adressePrinc', TextType::class,array('attr' => array('placeholder' => 'Adresse Principale')))
             ->add('adresseSec', TextType::class,array('attr' => array('placeholder' => 'Adresse Secondaire')))
             ->add('ville', TextType::class,array('attr' => array('placeholder' => 'Ville')))
+            ->add('codePostal', TextType::class,array('attr' => array('placeholder' => 'Code Postal')))
             ->add('contactNom', TextType::class,array('attr' => array('placeholder' => 'Nom Contact')))
             ->add('contactPrenom', TextType::class,array('attr' => array('placeholder' => 'Prenom Contact')))
             ->add('contactTelephone', TextType::class,array('attr' => array('placeholder' => 'Contact Téléphone')))

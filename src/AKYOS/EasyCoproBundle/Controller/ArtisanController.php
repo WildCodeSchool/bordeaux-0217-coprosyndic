@@ -29,10 +29,9 @@ class ArtisanController extends Controller
         if ($artisan->isSubmitted() && $artisan->isValid()) {
 
             // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = $passwordEncoder->encodePassword($art, $art->getPlainPassword());
-            $art->setPassword($password);
 
             // 4) save the User!
+            $em=$this->getDoctrine()->getManager();
             $em->persist($art);
             $em->flush();
 
