@@ -30,10 +30,9 @@ class LocataireController extends Controller
         if ($locataire->isSubmitted() && $locataire->isValid()) {
 
             // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = $passwordEncoder->encodePassword($loc, $loc->getPlainPassword());
-            $loc->setPassword($password);
 
             // 4) save the User!
+            $em=$this->getDoctrine()->getManager();
             $em->persist($loc);
             $em->flush();
 

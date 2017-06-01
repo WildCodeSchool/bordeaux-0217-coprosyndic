@@ -28,10 +28,9 @@ class CoproController extends Controller
         if ($copro->isSubmitted() && $copro->isValid()) {
 
             // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = $passwordEncoder->encodePassword($cop, $cop->getPlainPassword());
-            $cop->setPassword($password);
 
             // 4) save the User!
+            $em=$this->getDoctrine()->getManager();
             $em->persist($cop);
             $em->flush();
 

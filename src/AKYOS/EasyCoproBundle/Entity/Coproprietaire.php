@@ -104,7 +104,7 @@ class Coproprietaire
     private $lot;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
      */
     private $user;
 
