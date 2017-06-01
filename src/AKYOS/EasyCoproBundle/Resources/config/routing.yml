@@ -40,7 +40,7 @@ akyos_easy_copro_backend_syndic_addCopro:
 
 akyos_easy_copro_backend_syndic_addLocataire:
     path:     /syndic/add/Locataire
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:addLocataire }
+    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:register}
 
 akyos_easy_copro_backend_syndic_addLot:
     path:     /syndic/add/Lot
