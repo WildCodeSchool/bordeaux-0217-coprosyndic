@@ -32,7 +32,7 @@ akyos_easy_copro_backend_admin_index:
 
 akyos_easy_copro_backend_syndic_addArtisan:
     path:     /syndic/add/Artisan
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:addArtisan }
+    defaults: { _controller: AKYOSEasyCoproBundle:Artisan:register }
 
 akyos_easy_copro_backend_syndic_addCopro:
     path:     /syndic/add/Copro

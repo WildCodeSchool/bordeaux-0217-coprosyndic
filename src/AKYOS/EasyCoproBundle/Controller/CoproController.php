@@ -6,8 +6,6 @@ namespace AKYOS\EasyCoproBundle\Controller;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Form\CoproType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AKYOS\EasyCoproBundle\Entity\Locataire;
-use AKYOS\EasyCoproBundle\Form\LocataireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
