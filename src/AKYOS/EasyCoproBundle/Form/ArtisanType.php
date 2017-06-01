@@ -22,12 +22,9 @@ class ArtisanType extends AbstractType
     {
         $builder
             ->add('user', RegistrationType::class)
-            ->add('commentSyndic', TextType::class,array('attr' => array('placeholder' => 'Note du Syndic')))
-            ->add('email', EmailType::class,array('attr' => array('placeholder' => 'Email de l\'Artisan')))
-            ->add('nom', TextType::class,array('attr' => array('placeholder' => 'Nom de l\'Artisan')))
-            ->add('prenom', TextType::class,array('attr' => array('placeholder' => 'Prénom de l\'Artisan')))
-            ->add('telephone', TextType::class,array('attr' => array('placeholder' => 'Télephone de l\'Artisan')))
-            ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB de l\'Artisan')))
+            ->add('contactEmail', EmailType::class,array('attr' => array('placeholder' => 'Email de l\'Artisan')))
+            ->add('raisonSociale', TextType::class,array('attr' => array('placeholder' => 'Raison Sociale')))
+            ->add('telephoneBureau', TextType::class,array('attr' => array('placeholder' => 'Télephone Bureau')))
             ->add('submit',SubmitType::class)
         ;
 
