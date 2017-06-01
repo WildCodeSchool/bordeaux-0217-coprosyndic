@@ -24,6 +24,7 @@ class ArtisanType extends AbstractType
             ->add('user', RegistrationType::class)
             ->add('raisonSociale', TextType::class,array('attr' => array('placeholder' => 'Raison Sociale')))
             ->add('activite', TextType::class,array('attr' => array('placeholder' => 'Activité')))
+            ->add('siret', TextType::class,array('attr' => array('placeholder' => 'Numéro de SIRET')))
             ->add('emailBureau', EmailType::class,array('attr' => array('placeholder' => 'Email de l\'Artisan')))
             ->add('telephoneBureau', TextType::class,array('attr' => array('placeholder' => 'Télephone Bureau')))
             ->add('adressePrinc', TextType::class,array('attr' => array('placeholder' => 'Adresse Principale')))
