@@ -61,6 +61,11 @@
             {{ form(locataire) }}
         </div>
     </div>
+    {#{% for locataire in app.flashes('notice') %}
+        <div class="alert alert-notice">
+            {{ locataire }}
+        </div>
+    {% endfor %} #}
 </br>
 {% endblock %}
 {% block footer %}
