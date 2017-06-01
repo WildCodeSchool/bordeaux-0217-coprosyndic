@@ -2,5 +2,7 @@
 {% block body %}
 <div class="affix-content">
 <h3>Vous êtes sur la page de l'admin {{ app.user.type }}.</h3>
+    <a href="{{ path('akyos_easy_copro_backoffice_syndic_list_copropriete') }}"><p>Liste des copropriétés</p></a>
+    <a href="{{ path('akyos_easy_copro_backoffice_syndic_create_copropriete') }}"><p>Ajouter une copropriété</p></a>
 </div>
 {% endblock %}

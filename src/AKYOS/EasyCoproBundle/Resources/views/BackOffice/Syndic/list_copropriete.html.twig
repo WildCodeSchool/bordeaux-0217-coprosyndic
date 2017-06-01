@@ -1,0 +1,28 @@
+{% extends '@AKYOSEasyCopro/BackOffice/layout.html.twig' %}
+{% block body %}
+    <div class="table-bordered">
+        <table>
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Immatriculation</th>
+                <th>Date immatriculation</th>
+                <th>Date modif immat</th>
+                <th>Adresse principale</th>
+                <th>Adresse secondaire</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Type de chauffage</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for copropriete in coproprietes %}
+            <tr>
+                <td>{{ copropriete.nom }}</td>
+                <td>{{ copropriete.immatriculation }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
