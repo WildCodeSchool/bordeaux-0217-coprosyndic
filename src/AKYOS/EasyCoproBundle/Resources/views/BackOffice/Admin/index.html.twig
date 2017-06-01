@@ -1,25 +1,23 @@
-{% extends '@AKYOSEasyCopro/BackOffice/layout.html.twig' %}
+{% extends '@AKYOSEasyCopro/BackOffice/Admin/layout.html.twig' %}
+
+{% set userType = app.user.type %}
 
 {% block title %}
-    {{ app.user.type }}
+    {{ userType }}
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block content %}
-    <h2>Page d'accueil : compte SUPERADMIN</h2>
+    <h2>Bienvenue sur l'application EasyCopro</h2>
+    <h4>Vous êtes connecté en tant que <strong>{{ userType }}</strong></h4>
 
     <p>
     {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
     </p>
-
-    <ul>
-        <li><a href="{{ path('akyos_easy_copro_backend_admin_create_syndic') }}">Créer un compte SYNDIC</a></li>
-        <li><a href="{{ path('akyos_easy_copro_backend_admin_list_syndic') }}">Liste des comptes SYNDIC</a></li>
-    </ul>
 {% endblock %}
 
 {% block scripts %}

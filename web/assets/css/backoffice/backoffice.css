@@ -42,35 +42,40 @@ ul.nav-list li a {
     padding: 10px 10px;
     color: white;
     border: 1px solid #578199;
-    box-shadow: inset 1px 1px 4px 0px #343434;
+    box-shadow: inset 1px 1px 4px 0 #343434;
 }
-
-
 
 html, body {
     background-color: #f8f8f8;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .affix-content .container .page-header {
     margin-top: 0;
 }
-/*
-
-.sidebar-nav {
-    position: fixed;
-    width: 100%;
-}
-*/
 
 .affix-sidebar {
     padding-right: 0;
     font-size: small;
     padding-left: 0;
+    height: 100%;
+    background-color: #578199;
 }
 
-.affix-row, .affix-container, .affix-content {
+.affix-row {
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+.top-row {
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    align-items: center;
+}
+
+.affix-container, .affix-content {
     height: 100%;
     margin-left: 0;
     margin-right: 0;
@@ -101,11 +106,6 @@ html, body {
     display: block;
 }
 
-/*.sidebar-nav .navbar li a {
-    padding-top: 12px;
-    padding-bottom: 12px;
-}*/
-
 .sidebar-nav .navbar li a:hover {
     background-color: #0e334c;
     color: white;
@@ -121,3 +121,6 @@ html, body {
     justify-content: space-around;
 }
 
+.top-menu {
+    height: 100%;
+}
