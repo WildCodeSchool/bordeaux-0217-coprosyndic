@@ -22,9 +22,17 @@ class ArtisanType extends AbstractType
     {
         $builder
             ->add('user', RegistrationType::class)
-            ->add('contactEmail', EmailType::class,array('attr' => array('placeholder' => 'Email de l\'Artisan')))
             ->add('raisonSociale', TextType::class,array('attr' => array('placeholder' => 'Raison Sociale')))
+            ->add('activite', TextType::class,array('attr' => array('placeholder' => 'Activité')))
+            ->add('emailBureau', EmailType::class,array('attr' => array('placeholder' => 'Email de l\'Artisan')))
             ->add('telephoneBureau', TextType::class,array('attr' => array('placeholder' => 'Télephone Bureau')))
+            ->add('adressePrinc', TextType::class,array('attr' => array('placeholder' => 'Adresse Principale')))
+            ->add('adresseSec', TextType::class,array('attr' => array('placeholder' => 'Adresse Secondaire')))
+            ->add('ville', TextType::class,array('attr' => array('placeholder' => 'Ville')))
+            ->add('contactNom', TextType::class,array('attr' => array('placeholder' => 'Nom Contact')))
+            ->add('contactPrenom', TextType::class,array('attr' => array('placeholder' => 'Prenom Contact')))
+            ->add('contactTelephone', TextType::class,array('attr' => array('placeholder' => 'Contact Téléphone')))
+            ->add('contactEmail', TextType::class,array('attr' => array('placeholder' => 'Contact Email')))
             ->add('submit',SubmitType::class)
         ;
 

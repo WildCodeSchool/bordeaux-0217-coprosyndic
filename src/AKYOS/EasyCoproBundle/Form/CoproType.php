@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
+use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class CoproType extends AbstractType
 {
@@ -28,8 +29,13 @@ class CoproType extends AbstractType
             ->add('prenom', TextType::class,array('attr' => array('placeholder' => 'Prénom du copropriétaire')))
             ->add('telephone', TextType::class,array('attr' => array('placeholder' => 'Télephone du copropriétaire')))
             ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB du copropriétaire')))
+            ->add('nbEnfants', TextType::class,array('attr' => array('placeholder' => 'Nombre d\'enfants')))
             ->add('dateArrivee', TextType::class,array('attr' => array('placeholder' => 'Date d\'emménagement du copropriétaire')))
             ->add('dateDepart', TextType::class,array('attr' => array('placeholder' => 'Date de départ du copropriétaire')))
+            ->add('membreConseil', CheckboxType::class, array(
+                'label'    => 'Mmebre du Conseil',
+                'required' => true,
+            ))
             ->add('submit',SubmitType::class)
         ;
 
