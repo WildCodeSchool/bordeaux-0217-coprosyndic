@@ -1,0 +1,19 @@
+{% extends '@AKYOSEasyCopro/BackOffice/layout.html.twig' %}
+{% block body %}
+    <div class="table-bordered">
+    <ul>
+                <li>Nom : {{ copropriete.nom }}</li>
+                <li>Immatriculation : {{ copropriete.immatriculation }}</li>
+                <li>Date immatriculation : {{ copropriete.dateImmat|date('d/m/Y') }}</li>
+                <li>Date modif immat : {{ copropriete.dateModifImmat|date('d/m/Y') }}</li>
+                <li>Adresse principale : {{ copropriete.adressePrinc }}</li>
+                <li>Adresse secondaire : {{ copropriete.adresseSec }}</li>
+                <li>Code postal : {{ copropriete.codePostal }}</li>
+                <li>Ville : {{ copropriete.ville }}</li>
+                <li>Type de chauffage : {{ copropriete.typeChauffage }}</li>
+    </ul>
+        <a href="{{ path('akyos_easy_copro_backoffice_syndic_edit_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn ">Modifier</button></a>
+        <a href="{{ path('akyos_easy_copro_backoffice_syndic_delete_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn ">Supprimer</button></a>
+
+    </div>
+{% endblock %}

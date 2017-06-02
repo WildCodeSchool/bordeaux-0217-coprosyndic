@@ -18,7 +18,7 @@
             <tbody>
             {% for copropriete in coproprietes %}
             <tr>
-                <td>{{ copropriete.nom }}</td>
+                <td><a href="{{ path('akyos_easy_copro_backoffice_syndic_show_copropriete', {'id':copropriete.id }) }}">{{ copropriete.nom }}</a></td>
                 <td>{{ copropriete.immatriculation }}</td>
             </tr>
             {% endfor %}

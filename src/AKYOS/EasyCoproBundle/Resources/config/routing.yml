@@ -32,20 +32,20 @@ akyos_easy_copro_backoffice_admin_index:
 
 akyos_easy_copro_backoffice_syndic_list_copropriete:
     path:     /syndic/list_copropriete
-    defaults: { _controller: AKYOSEasyCoproBundle:Copro:list }
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:list }
 
 akyos_easy_copro_backoffice_syndic_edit_copropriete:
-    path:     /syndic/edit_copropriete
-    defaults: { _controller: AKYOSEasyCoproBundle:Copro:edit }
+    path:     /syndic/edit_copropriete/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:edit }
 
 akyos_easy_copro_backoffice_syndic_create_copropriete:
     path:     /syndic/create_copropriete
-    defaults: { _controller: AKYOSEasyCoproBundle:Copro:create }
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:create }
 
 akyos_easy_copro_backoffice_syndic_show_copropriete:
-    path:     /syndic/show_copropriete
-    defaults: { _controller: AKYOSEasyCoproBundle:Copro:show }
+    path:     /syndic/show_copropriete/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:show }
 
 akyos_easy_copro_backoffice_syndic_delete_copropriete:
     path:     /syndic/delete_copropriete
-    defaults: { _controller: AKYOSEasyCoproBundle:Copro:delete }
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:delete }

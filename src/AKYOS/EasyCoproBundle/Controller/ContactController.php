@@ -3,11 +3,12 @@
 namespace AKYOS\EasyCoproBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ContactController extends Controller
 {
 
-    public function contactAction()
+    public function contactAction(Request $request)
     {
         $message = \Swift_Message::newInstance()
             ->setSubject('Formulaire reception')
@@ -24,7 +25,7 @@ class ContactController extends Controller
         ;
 
         $this->get('mailer')->send($message);
-
+        $request->getSession()->getFlashBag()->add('notice', 'Votre message a bien été envoyée.');
         return $this->redirectToRoute('akyos_easy_copro_homepage');
     }
 
