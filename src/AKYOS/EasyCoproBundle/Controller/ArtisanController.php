@@ -34,11 +34,11 @@ class ArtisanController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($art);
             $em->flush();
-
+            $request->getSession()->getFlashBag()->add('infoArtisan', 'Le compte ARTISAN a été créé avec Succès.');
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
-            return $this->redirectToRoute('akyos_easy_copro_backend_syndic_addArtisan');
+            return $this->redirectToRoute('akyos_easy_copro_backend_syndic_index');
         }
 
         return $this->render(

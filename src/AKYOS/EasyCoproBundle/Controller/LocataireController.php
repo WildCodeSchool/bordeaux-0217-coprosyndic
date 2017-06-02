@@ -34,11 +34,8 @@ class LocataireController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($loc);
             $em->flush();
-                /*$this->addFlash(
-                'notice',
-                'Votre Locataire a bien été ajoutée !'
-            );*/
-            return $this->redirectToRoute('akyos_easy_copro_backend_syndic_addLocataire');
+            $request->getSession()->getFlashBag()->add('infoLoc', 'Le compte LOCATAIRE a été créé avec Succès.');
+            return $this->redirectToRoute('akyos_easy_copro_backend_syndic_index');
             }
 
         return $this->render(

@@ -33,11 +33,11 @@ class CoproController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($cop);
             $em->flush();
-
+            $request->getSession()->getFlashBag()->add('infoCopro', 'Le compte COPROPRIETAIRE a été créé avec Succès.');
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
-            return $this->redirectToRoute('akyos_easy_copro_backend_syndic_addCopro');
+            return $this->redirectToRoute('akyos_easy_copro_backend_syndic_index');
         }
 
         return $this->render(
