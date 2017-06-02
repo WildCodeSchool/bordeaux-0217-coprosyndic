@@ -3,8 +3,6 @@
 namespace AKYOS\EasyCoproBundle\DataFixtures\ORM;
 
 use AKYOS\EasyCoproBundle\Entity\Lot;
-use AKYOS\EasyCoproBundle\Entity\Syndic;
-use AKYOS\EasyCoproBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
