@@ -6,6 +6,9 @@ namespace AKYOS\EasyCoproBundle\Controller;
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
+use AKYOS\EasyCoproBundle\Form\ArtisanType;
+use AKYOS\EasyCoproBundle\Form\CoproType;
+use AKYOS\EasyCoproBundle\Form\LocataireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 class SyndicController extends Controller
@@ -18,7 +21,7 @@ class SyndicController extends Controller
 
     public function editArtisanAction(Request $request, Artisan $artisan)
     {
-        $form = $this->createForm(RegisterArtisanType::class, $artisan);
+        $form = $this->createForm(ArtisanType::class, $artisan);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -35,7 +38,7 @@ class SyndicController extends Controller
 
     public function editCoproAction(Request $request, Coproprietaire $coproprietaire)
     {
-        $form = $this->createForm(RegisterCoproprietaireType::class, $coproprietaire);
+        $form = $this->createForm(CoproType::class, $coproprietaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -52,7 +55,7 @@ class SyndicController extends Controller
 
     public function editLocataireAction(Request $request, Locataire $locataire)
     {
-        $form = $this->createForm(RegisterLocataireType::class, $locataire);
+        $form = $this->createForm(LocataireType::class, $locataire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
