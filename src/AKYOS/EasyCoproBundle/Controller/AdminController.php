@@ -23,7 +23,8 @@ class AdminController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $syndic->getUser()->setEnabled(true)->setType("SYNDIC");
+            $syndic->getUser()->setEnabled(true)->setType('SYNDIC');
+            $syndic->getUser()->addRole('ROLE_SYNDIC');
             $em = $this->getDoctrine()->getManager();
             $em->persist($syndic);
             $em->flush();

@@ -93,7 +93,10 @@ class LoadSyndicData implements FixtureInterface, ContainerAwareInterface
                 ->setPassword($encoder->encodePassword($newUser, $syndic["user_password"]))
                 ->setEmail($syndic["user_email"])
                 ->setType($syndic["user_type"])
-                ->setEnabled(true);
+                ->setEnabled(true)
+                ->addRole('ROLE_SYNDIC')
+            ;
+
 
             $newSyndic = new Syndic();
             $newSyndic

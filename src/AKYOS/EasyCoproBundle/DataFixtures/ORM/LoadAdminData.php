@@ -36,7 +36,9 @@ class LoadAdminData implements FixtureInterface, ContainerAwareInterface
             ->setPassword($encoder->encodePassword($newUser, $admin["password"]))
             ->setEmail($admin["email"])
             ->setType($admin["type"])
-            ->setEnabled(true);
+            ->setEnabled(true)
+            ->addRole('ROLE_ADMIN')
+        ;
 
         $manager->persist($newUser);
         $manager->flush();
