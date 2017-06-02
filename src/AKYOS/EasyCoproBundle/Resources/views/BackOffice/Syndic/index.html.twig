@@ -55,36 +55,39 @@
 {% block body %}
 <h3>Vous êtes sur la page de l'admin {{ app.user.type }}.</h3>
 
-Souhaitez vous créer un Compte ? <em>cliquez </em> sur l'un des liens ci dessous :</br>
-<li>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addCopro')}}">Vous souhaitez "Créer un compte Copropriétaire (NIVEAU X)"</a></ul>
+Souhaitez vous créer un Type de Compte ? <em>cliquez </em> sur l'un des liens ci dessous :</br>
+<ul>
+    <li><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addCopro')}}">Vous souhaitez "Créer un compte Copropriétaire (NIVEAU X)"</a></li>
     {% for message in app.session.flashbag.get('infoCopro') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addLocataire')}}">Vous souhaitez "Créer un compte Locataire (NIVEAU X)"</a></ul>
+    <li><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addLocataire')}}">Vous souhaitez "Créer un compte Locataire (NIVEAU X)"</a></li>
     {% for message in app.session.flashbag.get('infoLoc') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addArtisan')}}">Vous souhaitez "Créer un compte Artisan (NIVEAU X)"</a></ul>
+    <li><a class="" href="{{ path('akyos_easy_copro_backend_syndic_addArtisan')}}">Vous souhaitez "Créer un compte Artisan (NIVEAU X)"</a></li>
     {% for message in app.session.flashbag.get('infoArtisan') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
-    <ul><strong>OU BIEN</strong></ul>
-    <ul><a class="" href="#">Vous souhaiteriez plutôt "Créer une Copropriete"</a></ul>
-    <ul><a class="" href="#">Vous souhaiteriez plutôt "Créer un Lot"</a></ul>
-</li>
-</br>
-Souhaitez vous éditer un Compte déjà éxistant ? <em>cliquez </em> sur l'un des liens ci dessous :</br>
-<li>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_editCopro')}}">Vous souhaitez "Editer un compte Copropriétaire (NIVEAU X)"</a></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_editLocataire')}}">Vous souhaitez "Editer un compte Locataire (NIVEAU X)"</a></ul>
-    <ul><a class="" href="{{ path('akyos_easy_copro_backend_syndic_editArtisan')}}">Vous souhaitez "Editer un compte Artisan (NIVEAU X)"</a></ul>
-    <ul><strong>OU BIEN</strong></ul>
-    <ul><a class="" href="#">Vous souhaiteriez plutôt "Editer une Copropriete"</a></ul>
-    <ul><a class="" href="#">Vous souhaiteriez plutôt "Editer un Lot"</a></ul>
-</li>
+    <li><strong>OU BIEN</strong></li>
+</ul>Souhaitez vous afficher un Type de Compte ? <em>cliquez </em> sur l'un des liens ci dessous :</br>
+        <ul class="">
+            <li><a href="{{ path('akyos_easy_copro_backend_artisan_listArtisan') }}">Liste des Artisans</a></li>
+            <li><a href="{{ path('akyos_easy_copro_backend_copro_listCopro') }}">Liste des Copros</a></li>
+            <li><a href="{{ path('akyos_easy_copro_backend_locataire_listLocataire') }}">Liste des Locataires</a></li>
+        </ul>
+    </div>
+    </br>    <li><strong>OU BIEN</strong></li>
+    </ul>Souhaitez vous modifier un Type de Compte ? <em>cliquez </em> sur l'un des liens ci dessous :</br>
+    <ul class="">
+        <li><a href="{{ path('akyos_easy_copro_backend_syndic_editArtisan',{'id': 1}) }}">Editer/Supprimer un Artisan</a></li>
+        <li><a href="{{ path('akyos_easy_copro_backend_syndic_editCopro',{'id': 1}) }}">Editer/Supprimer un Copro</a></li>
+        <li><a href="{{ path('akyos_easy_copro_backend_syndic_editLocataire',{'id': 1}) }}">Editer/Supprimer un Locataire</a></li>
+    </ul>
+    </div>
+    </br>    <li><strong>OU BIEN</strong></li>
 
-    </br>
+
 
 
 {% endblock %}

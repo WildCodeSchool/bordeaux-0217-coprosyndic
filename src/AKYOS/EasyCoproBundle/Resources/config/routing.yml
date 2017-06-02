@@ -43,14 +43,61 @@ akyos_easy_copro_backend_syndic_addLocataire:
     defaults: { _controller: AKYOSEasyCoproBundle:Locataire:register}
 
 akyos_easy_copro_backend_syndic_editArtisan:
-    path:     /syndic/edit/Artisan
+    path:     /syndic/edit/Artisan/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editArtisan }
+
+akyos_easy_copro_backend_syndic_editLocataire:
+    path:     /syndic/edit/Locataire/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editLocataire }
+
+akyos_easy_copro_backend_syndic_editCopro:
+    path:     /syndic/edit/Copro/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editCopro }
+
+akyos_easy_copro_backend_locataire_listLocataire:
+    path:     /locataire/list/Locataire
+    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:listLocataire}
+
+akyos_easy_copro_backend_artisan_listArtisan:
+    path:     /locataire/list/Artisan
+    defaults: { _controller: AKYOSEasyCoproBundle:Artisan:listArtisan}
+
+akyos_easy_copro_backend_copro_listCopro:
+    path:     /locataire/list/Copro
+    defaults: { _controller: AKYOSEasyCoproBundle:Copro:listCopro}
+
+akyos_easy_copro_backend_locataire_showLocataire:
+    path:     /locataire/show/Locataire/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:showLocataire }
+
+akyos_easy_copro_backend_artisan_showArtisan:
+    path:     /artisan/show/Artisan/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Artisan:showArtisan }
+
+akyos_easy_copro_backend_copro_showCopro:
+    path:     /copro/show/Copro/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Copro:showCopro }
+
+akyos_easy_copro_backend_syndic_editLocataire:
+    path:     /syndic/edit/Locataire/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editLocataire }
+
+akyos_easy_copro_backend_syndic_editArtisan:
+    path:     /syndic/edit/Artisan/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editArtisan }
 
 akyos_easy_copro_backend_syndic_editCopro:
-    path:     /syndic/edit/Copro
+    path:     /syndic/edit/Copro/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editCopro }
 
-akyos_easy_copro_backend_syndic_editLocataire:
-    path:     /syndic/edit/Locataire
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editLocataire }
+akyos_easy_copro_backend_syndic_deleteLocataire:
+    path:     /syndic/delete/Locataire/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteLocataire }
 
+akyos_easy_copro_backend_syndic_deleteArtisan:
+    path:     /syndic/delete/Artisan/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteArtisan }
+
+akyos_easy_copro_backend_syndic_deleteCopro:
+    path:     /syndic/delete/Copro/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteCopro }

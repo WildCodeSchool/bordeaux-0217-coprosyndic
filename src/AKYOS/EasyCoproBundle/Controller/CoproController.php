@@ -7,6 +7,7 @@ use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Form\CoproType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class CoproController extends Controller
@@ -44,5 +45,22 @@ class CoproController extends Controller
             '@AKYOSEasyCopro/BackOffice/Syndic/addCopro.html.twig',
             array('copro' => $copro->createView())
         );
+    }
+
+    public function listCoproAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $copros = $em->getRepository(Coproprietaire::class)
+            ->findAll();
+        return $this->render('@AKYOSEasyCopro/BackOffice/Copro/listCopro.html.twig', array(
+            'copros' => $copros,
+        ));
+    }
+
+    public function showCoproAction(Coproprietaire $copro)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Copro/showCopro.html.twig', array(
+            'copro' => $copro,
+        ));
     }
 }

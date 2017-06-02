@@ -46,4 +46,21 @@ class ArtisanController extends Controller
             array('artisan' => $artisan->createView())
         );
     }
+
+    public function listArtisanAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $artisans = $em->getRepository(Artisan::class)
+            ->findAll();
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/listArtisan.html.twig', array(
+            'artisans' => $artisans,
+        ));
+    }
+
+    public function showArtisanAction(Artisan $artisan)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/showArtisan.html.twig', array(
+            'artisan' => $artisan,
+        ));
+    }
 }

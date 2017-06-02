@@ -43,4 +43,21 @@ class LocataireController extends Controller
             array('locataire' => $locataire->createView())
         );
     }
+
+    public function listLocataireAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locataires = $em->getRepository(Locataire::class)
+            ->findAll();
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/listLocataire.html.twig', array(
+            'locataires' => $locataires,
+        ));
+    }
+
+    public function showLocataireAction(Locataire $locataire)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/showLocataire.html.twig', array(
+            'locataire' => $locataire,
+        ));
+    }
 }
