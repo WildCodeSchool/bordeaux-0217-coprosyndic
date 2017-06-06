@@ -32,3 +32,51 @@ monolog:
 
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
+
+bazinga_faker:
+    orm: doctrine
+    locale: fr_FR
+    entities:
+        AKYOS\EasyCoproBundle\Entity\Syndic:
+            number: 5
+            custom_formatters:
+                nom: { method: company }
+                statut : { method: randomElement, parameters: [ ['Valide', 'Expire', 'A jour'] ] }
+                siret: { method: siret }
+                adressePrinc : { method: streetAddress }
+                adresseSec : { method: citySuffix }
+                codePostal : { method: regexify, parameters: [ '[0-9]{5}' ] }
+                ville : { method: city }
+                telephoneBureau : { method: regexify, parameters: [ '0[1-9]{9}' ] }
+                emailBureau : { method: companyEmail }
+                contactNom : { method: lastName }
+                contactPrenom : { method: firstName }
+                contactTelephone : { method: regexify, parameters: [ '0[1-9]{9}' ] }
+                contactEmail : { method: email }
+        AKYOS\EasyCoproBundle\Entity\Copropriete:
+            number: 5
+            custom_formatters:
+                nom : { method: company }
+                immatriculation : { method: randomNumber, parameters: [ 8, false ] }
+                dateImmat : { method: dateTime }
+                dateModifImmat : { method: dateTime }
+                adressePrinc : { method: streetAddress }
+                adresseSec : { method: citySuffix }
+                codePostal : { method: regexify, parameters: [ '[0-9]{5}' ] }
+                ville : { method: city }
+                dateCreation : { method: dateTime }
+                dateDebutGestion : { method: dateTime }
+                parcelleCadastrale: { method: regexify, parameters: ['[A-Z]{2}[0-9]{2}'] }
+                nbBatiments: { method: numberBetween, parameters: [0, 5] }
+                periodeConstruction: { method: dateTime }
+                #nbLots: { method: null }
+                dateReglement: { method: dateTime }
+                nbAscenseurs: { method: numberBetween, parameters: [0, 4] }
+                typeChauffage: { method: randomElement, parameters: [ ['Gaz collectif', 'Electrique'] ] }
+        AKYOS\EasyCoproBundle\Entity\Lot:
+            number: 5
+            custom_formatters:
+                identifiant : { method: regexify, parameters: [ '[A-Z][0-9]{3}' ] }
+                type : { method: randomElement, parameters: [ [ 'appartement', 'partie commune', 'cave', 'garage' ] ] }
+                quotePart : { method: numberBetween, parameters: [ 0, 99 ]}
+                loueAct : { method: boolean }
