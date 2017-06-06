@@ -80,3 +80,19 @@ bazinga_faker:
                 type : { method: randomElement, parameters: [ [ 'appartement', 'partie commune', 'cave', 'garage' ] ] }
                 quotePart : { method: numberBetween, parameters: [ 0, 99 ]}
                 loueAct : { method: boolean }
+        AKYOS\EasyCoproBundle\Entity\Artisan:
+            number: 5
+            custom_formatters:
+                raisonSociale : { method: company }
+                siret: { method: siret }
+                adressePrinc : { method: streetAddress }
+                adresseSec : { method: citySuffix }
+                codePostal : { method: regexify, parameters: [ '[0-9]{5}' ] }
+                ville : { method: city }
+                telephoneBureau : { method: regexify, parameters: [ '0[1-9]{9}' ] }
+                emailBureau : { method: companyEmail }
+                contactNom : { method: lastName }
+                contactPrenom : { method: firstName }
+                contactTelephone : { method: regexify, parameters: [ '0[1-9]{9}' ] }
+                contactEmail : { method: email }
+                activite : { method: jobTitle }
