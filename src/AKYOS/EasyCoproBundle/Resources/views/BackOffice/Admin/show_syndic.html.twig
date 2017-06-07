@@ -20,8 +20,8 @@
         <li>{{ syndic.adressePrinc }}</li>
         <li>...</li>
     </ul>
-    <p><a href="{{ path('akyos_easy_copro_backend_admin_edit_syndic', {'id' : syndic.id}) }}">Modifier le syndic</a></p>
-    <p><a href="{{ path('akyos_easy_copro_backend_admin_delete_syndic', {'id' : syndic.id}) }}">Supprimer le syndic</a></p>
+    <p><a href="{{ path('admin_edit_syndic', {'id' : syndic.id}) }}">Modifier le syndic</a></p>
+    <p><a href="{{ path('admin_delete_syndic', {'id' : syndic.id}) }}">Supprimer le syndic</a></p>
 {% endblock %}
 
 {% block scripts %}

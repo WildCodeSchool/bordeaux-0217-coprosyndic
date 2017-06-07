@@ -1,3 +1,5 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Locataire/layout.html.twig' %}
+
 {% block title %}
     Liste des LOCATAIRES
 {% endblock %}
@@ -7,7 +9,7 @@
 
 {% block content %}
     <p>
-    {% for message in app.session.flashbag.get('infoLoc') %}
+    {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
     </p>
@@ -24,7 +26,7 @@
         <tbody>
         {% for locataire in locataires %}
             <tr>
-                <td><a href="{{ path('akyos_easy_copro_backend_locataire_showLocataire', {'id' : locataire.id}) }}">{{ locataire.id }}</a></td>
+                <td><a href="{{ path('locataire_showLocataire', {'id' : locataire.id}) }}">{{ locataire.id }}</a></td>
                 <td>{{ locataire.nom }}</td>
                 <td>{{ locataire.user.username }}</td>
                 <td>{{ locataire.user.lastLogin|date('d/m/Y') }}</td>

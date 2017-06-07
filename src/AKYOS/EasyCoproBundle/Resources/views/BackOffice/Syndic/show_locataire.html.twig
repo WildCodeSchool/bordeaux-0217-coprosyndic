@@ -1,0 +1,26 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Affichage LOCATAIRE
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Afficher un locataire :</h4>
+    <h4>{{ locataire.nom }}</h4>
+    <ul>
+        <li>{{ locataire.email }}</li>
+        <li>{{ locataire.actuel }}</li>
+        <li>...</li>
+    </ul>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -16,7 +16,7 @@ use AKYOS\EasyCoproBundle\Entity\Locataire;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
-class ArtisanType extends AbstractType
+class CreateArtisanType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

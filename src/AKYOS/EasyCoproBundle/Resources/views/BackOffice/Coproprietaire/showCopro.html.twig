@@ -1,3 +1,5 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
+
 {% block title %}
     Affichage COPROPRIETAIRE
 {% endblock %}
@@ -18,8 +20,8 @@
         <li>{{ copro.adressePrinc }}</li>
         <li>...</li>
     </ul>
-    <p><a href="{{ path('akyos_easy_copro_backend_syndic_editCopro', {'id' : copro.id}) }}">Modifier le Copropriétaire</a></p>
-    <p><a href="{{ path('akyos_easy_copro_backend_syndic_deleteCopro', {'id' : copro.id}) }}">Supprimer le Copropriétaire</a></p>
+    <p><a href="{{ path('syndic_editCopro', {'id' : copro.id}) }}">Modifier le Copropriétaire</a></p>
+    <p><a href="{{ path('syndic_deleteCopro', {'id' : copro.id}) }}">Supprimer le Copropriétaire</a></p>
 {% endblock %}
 
 {% block scripts %}

@@ -1,0 +1,23 @@
+admin_index:
+    path:     /
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:index }
+
+admin_create_syndic:
+    path:     /create/syndic
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:createSyndic }
+
+admin_list_syndics:
+    path:     /list/syndics
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:listSyndic }
+
+admin_show_syndic:
+    path:     /show/syndic/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:showSyndic }
+
+admin_edit_syndic:
+    path:     /edit/syndic/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:editSyndic }
+
+admin_delete_syndic:
+    path:     /delete/syndic/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:deleteSyndic }

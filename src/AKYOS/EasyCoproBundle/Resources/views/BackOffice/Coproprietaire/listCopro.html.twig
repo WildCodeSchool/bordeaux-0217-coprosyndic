@@ -1,3 +1,5 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
+
 {% block title %}
     Liste des COPROPRIETAIRES
 {% endblock %}
@@ -24,7 +26,7 @@
         <tbody>
         {% for copro in copros %}
             <tr>
-                <td><a href="{{ path('akyos_easy_copro_backend_copro_showCopro', {'id' : copro.id}) }}">{{ copro.id }}</a></td>
+                <td><a href="{{ path('copro_showCopro', {'id' : copro.id}) }}">{{ copro.id }}</a></td>
                 <td>{{ copro.nom }}</td>
                 <td>{{ copro.user.username }}</td>
                 <td>{{ copro.user.lastLogin|date('d/m/Y') }}</td>

@@ -1,6 +1,26 @@
-akyos_easy_copro:
+akyos_easy_copro_front_office:
     resource: "@AKYOSEasyCoproBundle/Resources/config/routing.yml"
     prefix:   /
+
+akyos_easy_copro_back_office_admin:
+    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_admin.yml"
+    prefix:   /admin
+
+akyos_easy_copro_back_office_syndic:
+    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_syndic.yml"
+    prefix:   /syndic
+
+akyos_easy_copro_back_office_coproprietaire:
+    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_coproprietaire.yml"
+    prefix:   /coproprietaire
+
+akyos_easy_copro_back_office_locataire:
+    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_locataire.yml"
+    prefix:   /locataire
+
+akyos_easy_copro_back_office_artisan:
+    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_artisan.yml"
+    prefix:   /artisan
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
