@@ -1,0 +1,38 @@
+{% block title %}
+    Liste des LOCATAIRES
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('infoLoc') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Liste des Locataire :</h4>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Nom d'utilisateur</th>
+            <th>Dernière connexion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for locataire in locataires %}
+            <tr>
+                <td><a href="{{ path('akyos_easy_copro_backend_locataire_showLocataire', {'id' : locataire.id}) }}">{{ locataire.id }}</a></td>
+                <td>{{ locataire.nom }}</td>
+                <td>{{ locataire.user.username }}</td>
+                <td>{{ locataire.user.lastLogin|date('d/m/Y') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

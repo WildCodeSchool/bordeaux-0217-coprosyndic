@@ -3,7 +3,12 @@
 namespace AKYOS\EasyCoproBundle\Controller;
 
 
+use AKYOS\EasyCoproBundle\Entity\Locataire;
+use AKYOS\EasyCoproBundle\Form\LocataireType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class LocataireController extends Controller
 {
@@ -11,5 +16,48 @@ class LocataireController extends Controller
     public function indexAction()
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig');
+    }
+
+    public function registerAction(Request $request)
+    {
+        // 1) build the form
+        $loc = new Locataire();
+        $locataire = $this->createForm(LocataireType::class, $loc);
+
+        // 2) handle the submit (will only happen on POST)
+        $locataire->handleRequest($request);
+        if ($locataire->isSubmitted() && $locataire->isValid()) {
+
+            // 3) Encode the password (you could also do this via Doctrine listener)
+
+            // 4) save the User!
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($loc);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('infoLoc', 'Le compte LOCATAIRE a été créé avec Succès.');
+            return $this->redirectToRoute('akyos_easy_copro_backend_syndic_index');
+            }
+
+        return $this->render(
+            '@AKYOSEasyCopro/BackOffice/Syndic/addLocataire.html.twig',
+            array('locataire' => $locataire->createView())
+        );
+    }
+
+    public function listLocataireAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locataires = $em->getRepository(Locataire::class)
+            ->findAll();
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/listLocataire.html.twig', array(
+            'locataires' => $locataires,
+        ));
+    }
+
+    public function showLocataireAction(Locataire $locataire)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/showLocataire.html.twig', array(
+            'locataire' => $locataire,
+        ));
     }
 }
