@@ -6,6 +6,7 @@ namespace AKYOS\EasyCoproBundle\Controller;
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
+use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\ArtisanType;
 use AKYOS\EasyCoproBundle\Form\CoproType;
 use AKYOS\EasyCoproBundle\Form\LocataireType;
@@ -107,6 +108,19 @@ class SyndicController extends Controller
         }
         $request->getSession()->getFlashBag()->add('infoCopro', "Ce compte COPROPRIETAIRE n'existe pas !");
         return $this->redirectToRoute('akyos_easy_copro_backend_syndic_listCopro');
+    }
+
+    public function listCoproprietesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        //var_dump($syndic);
+
+        $coproprietes = $syndic->getCoproprietes();
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietes.html.twig', array(
+            'coproprietes' => $coproprietes,
+        ));
     }
 
 }

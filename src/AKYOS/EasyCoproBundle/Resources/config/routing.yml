@@ -110,3 +110,6 @@ akyos_easy_copro_backend_syndic_deleteCopro:
     path:     /syndic/delete/Copro/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteCopro }
 
+akyos_easy_copro_backend_syndic_list_coproprietes:
+    path:     /syndic/list_coproprietes
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCoproprietes }
