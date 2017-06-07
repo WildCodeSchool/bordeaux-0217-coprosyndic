@@ -20,7 +20,7 @@ class ConnexionController extends Controller
                 return $this->redirectToRoute('akyos_easy_copro_backend_copro_index');
             }
 
-            if($user->getType() == 'LOCATAIRE'){
+            if($user->getType() == 'LOC'){
                 return $this->redirectToRoute('akyos_easy_copro_backend_locataire_index');
             }
 

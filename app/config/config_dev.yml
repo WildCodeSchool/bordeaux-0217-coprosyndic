@@ -38,7 +38,7 @@ bazinga_faker:
     locale: fr_FR
     entities:
         AKYOS\EasyCoproBundle\Entity\Syndic:
-            number: 5
+            number: 3
             custom_formatters:
                 nom: { method: company }
                 statut : { method: randomElement, parameters: [ ['Valide', 'Expire', 'A jour'] ] }
@@ -54,7 +54,7 @@ bazinga_faker:
                 contactTelephone : { method: regexify, parameters: [ '0[1-9]{9}' ] }
                 contactEmail : { method: email }
         AKYOS\EasyCoproBundle\Entity\Copropriete:
-            number: 5
+            number: 6
             custom_formatters:
                 nom : { method: company }
                 immatriculation : { method: randomNumber, parameters: [ 8, false ] }
@@ -67,21 +67,21 @@ bazinga_faker:
                 dateCreation : { method: dateTime }
                 dateDebutGestion : { method: dateTime }
                 parcelleCadastrale: { method: regexify, parameters: ['[A-Z]{2}[0-9]{2}'] }
-                nbBatiments: { method: numberBetween, parameters: [0, 5] }
+                nbBatiments: { method: numberBetween, parameters: [1, 5] }
                 periodeConstruction: { method: dateTime }
                 #nbLots: { method: null }
                 dateReglement: { method: dateTime }
                 nbAscenseurs: { method: numberBetween, parameters: [0, 4] }
                 typeChauffage: { method: randomElement, parameters: [ ['Gaz collectif', 'Electrique'] ] }
         AKYOS\EasyCoproBundle\Entity\Lot:
-            number: 5
+            number: 60
             custom_formatters:
                 identifiant : { method: regexify, parameters: [ '[A-Z][0-9]{3}' ] }
                 type : { method: randomElement, parameters: [ [ 'appartement', 'partie commune', 'cave', 'garage' ] ] }
                 quotePart : { method: numberBetween, parameters: [ 0, 99 ]}
                 loueAct : { method: boolean }
         AKYOS\EasyCoproBundle\Entity\Artisan:
-            number: 5
+            number: 3
             custom_formatters:
                 raisonSociale : { method: company }
                 siret: { method: siret }
@@ -96,3 +96,41 @@ bazinga_faker:
                 contactTelephone : { method: regexify, parameters: [ '0[1-9]{9}' ] }
                 contactEmail : { method: email }
                 activite : { method: jobTitle }
+        AKYOS\EasyCoproBundle\Entity\Coproprietaire:
+            number: 60
+            custom_formatters:
+                nom : { method: lastName }
+                prenom : { method: firstName }
+                telephone : { method: regexify, parameters: [ '0[1-9]{9}' ] }
+                email : { method: email }
+                dateArrivee : {method: dateTime }
+                dateDepart : {method: dateTime }
+                rib : { method: iban, parameters: ['FR'] }
+                nbEnfants : { method: numberBetween, parameters: [0, 9] }
+                membreConseil : {method: boolean, parameters: [ 20 ] }
+                actuel: { method: boolean, parameters: [ 80 ]}
+                commentSyndic: { method: text, parameters: [ 120 ] }
+        AKYOS\EasyCoproBundle\Entity\Locataire:
+            number: 25
+            custom_formatters:
+                nom : { method: lastName }
+                prenom : { method: firstName }
+                telephone : { method: regexify, parameters: [ '0[1-9]{9}' ] }
+                email : { method: email }
+                dateArrivee : {method: dateTime }
+                dateDepart : {method: dateTime }
+                nbPersonnes : { method: numberBetween, parameters: [0, 9] }
+                nbEnfants : { method: numberBetween, parameters: [0, 9] }
+                rib : { method: iban, parameters: ['FR'] }
+                actuel: { method: boolean, parameters: [ 80 ]}
+                commentSyndic: { method: text, parameters: [ 120 ] }
+#        AKYOS\EasyCoproBundle\Entity\Document:
+#            number: 5
+#            custom_formatters:
+#                titre : { method: sentence, parameters: [6, true] }
+#                description : { method: text, parameters: [ 50 ] }
+#                dateAjout: {method: dateTime }
+#                dateModif : {method: dateTime }
+#                confidentialite: { method: numberBetween, parameters: [0, 4] }
+#                url: { method: url }
+
