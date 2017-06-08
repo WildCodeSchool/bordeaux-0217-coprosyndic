@@ -3,6 +3,7 @@
 namespace AKYOS\EasyCoproBundle\Controller;
 
 use AKYOS\EasyCoproBundle\Entity\Copropriete;
+use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Form\CoproprieteType;
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
@@ -10,31 +11,38 @@ use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\CreateArtisanType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
+use AKYOS\EasyCoproBundle\Form\CreateCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
+use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class SyndicController extends Controller
 {
+//Action pour les créations des copropriétés
+
 
     public function indexAction()
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig');
     }
 
-
-    public function listAction()
+    public function listCoproprietesAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $copros = $em->getRepository(Copropriete::class)->findAll();
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_copropriete.html.twig',
-            ['coproprietes' => $copros]);
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $coproprietes = $syndic->getCoproprietes();
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_copropriete.html.twig', array(
+            'coproprietes' => $coproprietes,
+        ));
     }
 
-    public function createAction(Request $request)
+    public function createCoproprieteAction(Request $request)
     {
         $copro = new Copropriete();
-        $form = $this->createForm(CoproprieteType::class, $copro);
+        $form = $this->createForm(CreateCoproprieteType::class, $copro);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -47,7 +55,7 @@ class SyndicController extends Controller
             ['my_form' => $form->createView()]);
     }
 
-    public function showAction($id)
+    public function showCoproprieteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $copro = $em->getRepository(Copropriete::class)->find($id);
@@ -55,11 +63,11 @@ class SyndicController extends Controller
             ['copropriete' => $copro]);
     }
 
-    public function editAction(Request $request, $id){
+    public function editCoproprieteAction(Request $request, $id){
 
         $em = $this->getDoctrine()->getManager();
         $copro = $em->getRepository(Copropriete::class)->find($id);
-        $form = $this->createForm(CoproprieteType::class, $copro);
+        $form = $this->createForm(CreateCoproprieteType::class, $copro);
 
         $form->handleRequest($request);
         // Si method POST et si le form est valid
@@ -70,9 +78,50 @@ class SyndicController extends Controller
             return $this->redirectToRoute('syndic_list_coproprietes');
         }
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_copropriete.html.twig',
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_copropriete.html.twig',
             ['my_form' => $form->createView()]);
     }
+
+    public function deleteCoproprieteAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $copro = $em->getRepository(Copropriete::class)->find($id);
+        $em->remove($copro);
+        $em->flush();
+        $this->addFlash(
+            'success',
+            'La copropriété a bien été supprimée.'
+        );
+        return $this->redirectToRoute('syndic_list_coproprietes');
+    }
+//Action pour les créations des Lots
+
+    public function listLotsAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $copropriete = $em->getRepository(Copropriete::class)->find($id);
+        $lots = $copropriete->getLots();
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_lots.html.twig',
+            ['lots'=>$lots]);
+    }
+
+    public function createLotAction(Request $request){
+        $lot = new Lot();
+        $form = $this->createForm(CreateLotType::class, $lot);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()&&$form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($lot);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', 'Votre lot a bien été ajoutée.');
+            return $this->redirectToRoute('syndic_list_lots');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_lot.html.twig',
+            ['form'=>$form->createView()]);
+    }
+
+//Action pour les créations des comptes Artisans
 
     public function createArtisanAction(Request $request)
     {
@@ -155,6 +204,9 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_list_artisans');
     }
 
+
+//Action pour les créations des comptes Copropriétaires
+
     public function createCoproprietaireAction(Request $request)
     {
         $coproprietaire = new Coproprietaire();
@@ -187,6 +239,9 @@ class SyndicController extends Controller
             'coproprietaire' => $coproprietaire,
         ));
     }
+
+
+//Action pour les créations des comptes Locataires
 
     public function createLocataireAction(Request $request)
     {
@@ -221,17 +276,6 @@ class SyndicController extends Controller
         ));
     }
 
-    public function listCoproprietesAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        $coproprietes = $syndic->getCoproprietes();
-
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietes.html.twig', array(
-            'coproprietes' => $coproprietes,
-        ));
-    }
 
 
 }

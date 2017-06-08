@@ -1,5 +1,5 @@
-{% extends '@AKYOSEasyCopro/BackOffice/layout.html.twig' %}
-{% block body %}
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{% block content %}
     <div class="table-bordered">
     <ul>
                 <li>Nom : {{ copropriete.nom }}</li>
@@ -12,8 +12,8 @@
                 <li>Ville : {{ copropriete.ville }}</li>
                 <li>Type de chauffage : {{ copropriete.typeChauffage }}</li>
     </ul>
-        <a href="{{ path('akyos_easy_copro_backoffice_syndic_edit_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn ">Modifier</button></a>
-        <a href="{{ path('akyos_easy_copro_backoffice_syndic_delete_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn ">Supprimer</button></a>
+        <a href="{{ path('syndic_edit_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn ">Modifier</button></a>
+        <a href="{{ path('syndic_delete_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn ">Supprimer</button></a>
 
     </div>
 {% endblock %}

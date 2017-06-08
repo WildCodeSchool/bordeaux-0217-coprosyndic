@@ -1,28 +1,40 @@
-{% extends '@AKYOSEasyCopro/BackOffice/layout.html.twig' %}
-{% block body %}
-    <div class="table-bordered">
-        <table>
-            <thead>
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Liste des COPROPRIETES
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Liste des copropriétés :</h4>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
             <tr>
+                <th>Id</th>
                 <th>Nom</th>
                 <th>Immatriculation</th>
-                <th>Date immatriculation</th>
-                <th>Date modif immat</th>
-                <th>Adresse principale</th>
-                <th>Adresse secondaire</th>
-                <th>Code postal</th>
-                <th>Ville</th>
-                <th>Type de chauffage</th>
+                <th>Période de construction</th>
             </tr>
-            </thead>
-            <tbody>
-            {% for copropriete in coproprietes %}
+        </thead>
+        <tbody>
+        {% for copropriete in coproprietes %}
             <tr>
-                <td><a href="{{ path('akyos_easy_copro_backoffice_syndic_show_copropriete', {'id':copropriete.id }) }}">{{ copropriete.nom }}</a></td>
+                <td><a href="{{ path('syndic_show_copropriete', {'id':copropriete.id }) }}">{{ copropriete.id }}</a></td>
+                <td>{{ copropriete.nom }}</td>
                 <td>{{ copropriete.immatriculation }}</td>
+                <td>{{ copropriete.periodeConstruction|date('d/m/Y') }}</td>
             </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}
