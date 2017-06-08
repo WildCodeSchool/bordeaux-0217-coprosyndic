@@ -1,0 +1,40 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Artisan/layout.html.twig' %}
+
+{% block title %}
+    Liste des ARTISANS
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('infoArtisan') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Liste des artisans :</h4>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>raisonSociale</th>
+            <th>Nom d'utilisateur</th>
+            <th>Dernière connexion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for artisan in artisans %}
+            <tr>
+                <td><a href="{{ path('akyos_easy_copro_backend_artisan_showArtisan', {'id' : artisan.id}) }}">{{ artisan.id }}</a></td>
+                <td>{{ artisan.raisonSociale }}</td>
+                <td>{{ artisan.user.username }}</td>
+                <td>{{ artisan.user.lastLogin|date('d/m/Y') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

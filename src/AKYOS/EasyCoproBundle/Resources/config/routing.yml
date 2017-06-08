@@ -1,51 +1,11 @@
-akyos_easy_copro_homepage:
+homepage:
     path:     /
-    defaults: { _controller: AKYOSEasyCoproBundle:Connexion:index }
+    defaults: { _controller: AKYOSEasyCoproBundle:FrontOffice:index }
 
-akyos_easy_copro_contact:
-    path:     /send
-    defaults: { _controller: AKYOSEasyCoproBundle:Contact:contact }
+contact:
+    path:     /contact
+    defaults: { _controller: AKYOSEasyCoproBundle:FrontOffice:contact }
 
-akyos_easy_copro_mentions:
+mentions:
     path:     /mentions
-    defaults: { _controller: AKYOSEasyCoproBundle:Default:mentions }
-
-akyos_easy_copro_backoffice_syndic_index:
-    path:     /syndic
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:index }
-
-akyos_easy_copro_backoffice_copro_index:
-    path:     /copro
-    defaults: { _controller: AKYOSEasyCoproBundle:Copro:index }
-
-akyos_easy_copro_backoffice_locataire_index:
-    path:     /locataire
-    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:index }
-
-akyos_easy_copro_backoffice_artisan_index:
-    path:     /artisan
-    defaults: { _controller: AKYOSEasyCoproBundle:Artisan:index }
-
-akyos_easy_copro_backoffice_admin_index:
-    path:     /admin
-    defaults: { _controller: AKYOSEasyCoproBundle:Admin:index }
-
-akyos_easy_copro_backoffice_syndic_list_copropriete:
-    path:     /syndic/list_copropriete
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:list }
-
-akyos_easy_copro_backoffice_syndic_edit_copropriete:
-    path:     /syndic/edit_copropriete/{id}
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:edit }
-
-akyos_easy_copro_backoffice_syndic_create_copropriete:
-    path:     /syndic/create_copropriete
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:create }
-
-akyos_easy_copro_backoffice_syndic_show_copropriete:
-    path:     /syndic/show_copropriete/{id}
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:show }
-
-akyos_easy_copro_backoffice_syndic_delete_copropriete:
-    path:     /syndic/delete_copropriete
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:delete }
+    defaults: { _controller: AKYOSEasyCoproBundle:FrontOffice:mentions }

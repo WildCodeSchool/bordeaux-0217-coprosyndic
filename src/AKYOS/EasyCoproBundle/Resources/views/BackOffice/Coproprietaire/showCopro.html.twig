@@ -1,0 +1,28 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
+
+{% block title %}
+    Affichage COPROPRIETAIRE
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('infoCopro') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Afficher un coproprietaire :</h4>
+    <h4>{{ copro.nom }}</h4>
+    <ul>
+        <li>{{ copro.emailBureau }}</li>
+        <li>{{ copro.adressePrinc }}</li>
+        <li>...</li>
+    </ul>
+    <p><a href="{{ path('syndic_editCopro', {'id' : copro.id}) }}">Modifier le Copropriétaire</a></p>
+    <p><a href="{{ path('syndic_deleteCopro', {'id' : copro.id}) }}">Supprimer le Copropriétaire</a></p>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

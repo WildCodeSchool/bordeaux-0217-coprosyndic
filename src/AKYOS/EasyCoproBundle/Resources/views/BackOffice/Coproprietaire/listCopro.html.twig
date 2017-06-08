@@ -1,0 +1,40 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
+
+{% block title %}
+    Liste des COPROPRIETAIRES
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('infoCopro') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Liste des copropriétaires :</h4>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Nom d'utilisateur</th>
+            <th>Dernière connexion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for copro in copros %}
+            <tr>
+                <td><a href="{{ path('copro_showCopro', {'id' : copro.id}) }}">{{ copro.id }}</a></td>
+                <td>{{ copro.nom }}</td>
+                <td>{{ copro.user.username }}</td>
+                <td>{{ copro.user.lastLogin|date('d/m/Y') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

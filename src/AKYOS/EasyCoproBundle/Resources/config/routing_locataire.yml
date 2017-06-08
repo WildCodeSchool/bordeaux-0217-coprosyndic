@@ -1,0 +1,3 @@
+locataire_index:
+    path:     /
+    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:index }

@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h3>Vous êtes sur la page de l'admin {{ app.user.type }}.</h3>
-</body>
-</html>
+{% extends '@AKYOSEasyCopro/BackOffice/Locataire/layout.html.twig' %}
+
+{% set userType = app.user.type %}
+
+{% block title %}
+    {{ userType }}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <h2>Bienvenue sur l'application EasyCopro</h2>
+    <h4>Vous êtes connecté en tant que <strong>{{ userType }}</strong></h4>
+
+    <p>
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

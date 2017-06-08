@@ -1,0 +1,3 @@
+coproprietaire_index:
+    path:     /
+    defaults: { _controller: AKYOSEasyCoproBundle:Coproprietaire:index }

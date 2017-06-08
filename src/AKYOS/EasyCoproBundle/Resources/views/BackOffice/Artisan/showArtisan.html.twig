@@ -1,0 +1,28 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Artisan/layout.html.twig' %}
+
+{% block title %}
+    Affichage ARTISAN
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('infoArtisan') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Afficher un artisan :</h4>
+    <h4>{{ artisan.raisonSociale }}</h4>
+    <ul>
+        <li>{{ artisan.emailBureau }}</li>
+        <li>{{ artisan.adressePrinc }}</li>
+        <li>...</li>
+    </ul>
+    <p><a href="{{ path('akyos_easy_copro_backend_syndic_editArtisan', {'id' : artisan.id}) }}">Modifier l'Artisan</a></p>
+    <p><a href="{{ path('akyos_easy_copro_backend_syndic_deleteArtisan', {'id' : artisan.id}) }}">Supprimer l'Artisan</a></p>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

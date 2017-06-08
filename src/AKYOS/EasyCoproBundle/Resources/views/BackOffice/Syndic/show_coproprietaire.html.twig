@@ -1,0 +1,26 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Affichage COPROPRIETAIRE
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Afficher un copropriétaire :</h4>
+    <h4>{{ coproprietaire.nom }}</h4>
+    <ul>
+        <li>{{ coproprietaire.email }}</li>
+        <li>{{ coproprietaire.membreConseil }}</li>
+        <li>...</li>
+    </ul>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

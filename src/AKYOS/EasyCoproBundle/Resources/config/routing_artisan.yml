@@ -1,0 +1,3 @@
+artisan_index:
+    path:     /
+    defaults: { _controller: AKYOSEasyCoproBundle:Artisan:index }

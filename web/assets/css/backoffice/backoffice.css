@@ -1,0 +1,127 @@
+
+
+body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+}
+
+.h4color {
+    color: white;
+}
+
+.actived {
+    background-color: #0e334c;
+}
+
+.non-active {
+    background-color: #578199;
+
+}
+
+.navbar-default .navbar-nav > li.non-active > a {
+    color: white;
+}
+
+.icon-profil-link {
+    display: inline !important;
+    background-color: #578199 !important;
+
+}
+
+.icon-profil-link i:hover {
+    background-color: rgba(14, 51, 76, 0.5) !important;
+
+}
+
+ul.nav-list li a {
+    background-color: #416173;
+    color: white;
+}
+
+.icon-profil {
+    padding: 10px 10px;
+    color: white;
+    border: 1px solid #578199;
+    box-shadow: inset 1px 1px 4px 0 #343434;
+}
+
+html, body {
+    background-color: #f8f8f8;
+    height: 100%;
+    overflow: auto;
+}
+
+.affix-content .container .page-header {
+    margin-top: 0;
+}
+
+.affix-sidebar {
+    padding-right: 0;
+    font-size: small;
+    padding-left: 0;
+    height: 100%;
+    background-color: #578199;
+}
+
+.affix-row {
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+.top-row {
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    align-items: center;
+    background-color: #555555;
+}
+
+.affix-container, .affix-content {
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.affix-content {
+    background-color: white;
+}
+
+.sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+}
+
+.sidebar-nav .navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+    border: 0;
+}
+
+.sidebar-nav .navbar ul {
+    float: none;
+    display: block;
+}
+
+.sidebar-nav .navbar li {
+    float: none;
+    display: block;
+}
+
+.sidebar-nav .navbar li a:hover {
+    background-color: #0e334c;
+    color: white;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    background-color: #444444;
+    color: white;
+}
+
+.sidebar-nav .navbar .icon-profil-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.top-menu {
+    height: 100%;
+}

@@ -1,22 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>{% block title %}Easy Copro{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/ico/favicon.png') }}"/>
-    <!-- CSS -->
+    <title>{% block title %}Easy Copro{% endblock %}</title>
+    <meta charset="UTF-8">
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/ico/favicon.png') }}">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style_backoffice.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/backoffice/backoffice.css') }}">
+    {% block stylesheets %}{% endblock %}
 
 </head>
 <body>
 
+
+<div class="row top-row">
+    <div class="col-sm-3 col-md-2 affix-sidebar">
+        <div class="sidebar-nav">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                    <ul class="nav navbar-nav" id="sidenav01">
+                        <li class="active text-center">
+                            <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01"
+                               class="collapsed">
+                                <img src="{{ asset('assets/img/logo.png') }}">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-9 col-md-10 top-menu">
+        <div class="col-sm-6 col-search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Rechercher un document ...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a href="/">
+                <button type="button" class="btn btn-default" aria-label="Accueil">
+                    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+                </button>
+            </a>
+            <a href="">
+                <button type="button" class="btn btn-default" aria-label="Messagerie">
+                    <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+                </button>
+            </a>
+            <a href="{{ path('fos_user_security_logout') }}">
+                <button type="button" class="btn btn-default" aria-label="Deconnexion">
+                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Se déconnecter
+                </button>
+            </a>
+            <a href="">
+                <button type="button" class="btn btn-default" aria-label="Infos">
+                    <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+
 <div class="row affix-row">
-    <div class="col-xs-12 col-sm-3 col-md-2 affix-sidebar">
+    <div class="col-sm-3 col-md-2 affix-sidebar">
         <div class="sidebar-nav">
             <div class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
@@ -31,82 +87,19 @@
                 </div>
                 <div class="navbar-collapse collapse sidebar-navbar-collapse">
                     <ul class="nav navbar-nav" id="sidenav01">
-                        <li class="active">
-                            <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01"
-                               class="collapsed">
-                                <h4>Logo</h4>
-                            </a>
-                        </li>
-                        <li class="actived">
-                            <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01"
-                               class="collapsed">
-                                <h4 class="h4color">
-                                    Nom de la copro
-                                    <br>
-                                    <small>NOM de l'admin <span class="caret"></span></small>
-                                </h4>
-                            </a>
-                            <div class=" non-active collapse" id="toggleDemo0" style="height: 0px;">
-                                <ul class="nav nav-list">
-                                    <li class="col-sm-4 col-md-4">
-                                        <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                                        <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                                        <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                                    </li>
 
-                                    <li><a href="#">Notifications</a></li>
-                                    <li><a href="#">Déconnexion</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="non-active">
-                            <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01"
-                               class="collapsed">
-                                <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard <span
-                                        class="caret pull-right"></span>
-                            </a>
-                            <div class="collapse" id="toggleDemo" style="height: 0px;">
-                                <ul class="nav nav-list">
-                                    <li><a href="#">Submenu1.1</a></li>
-                                    <li><a href="#">Submenu1.2</a></li>
-                                    <li><a href="#">Submenu1.3</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="non-active">
-                            <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01"
-                               class="collapsed">
-                                <span class="glyphicon glyphicon-inbox"></span> Submenu 2 <span
-                                        class="caret pull-right"></span>
-                            </a>
-                            <div class="collapse" id="toggleDemo2" style="height: 0px;">
-                                <ul class="nav nav-list">
-                                    <li><a href="#">Submenu2.1</a></li>
-                                    <li><a href="#">Submenu2.2</a></li>
-                                    <li><a href="#">Submenu2.3</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="non-active"><a href="#"><span class="glyphicon glyphicon-lock"></span> Normal
-                                menu</a></li>
-                        <li class="non-active"><a href="#"><span class="glyphicon glyphicon-calendar"></span> Mail Box
-                                <span class="badge pull-right">42</span></a></li>
-                        <li class="non-active"><a href=""><span class="glyphicon glyphicon-cog"></span> PreferencesMenu</a>
-                        </li>
+                        {% block menu %}{% endblock %}
                     </ul>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-sm-9 col-md-10 affix-content">
-        {% block body %}{% endblock %}
 
+        {% block content %}{% endblock %}
     </div>
 </div>
 
-
-{% block javascripts %}
-<!-- Javascript -->
 <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.backstretch.min.js') }}"></script>
@@ -118,6 +111,10 @@
 <script src="{{ asset('assets/js/placeholder.js') }}"></script>
 <![endif]-->
 
+
+{% block scripts %}
+{% endblock %}
+
 </body>
 </html>
-{% endblock %}
+
