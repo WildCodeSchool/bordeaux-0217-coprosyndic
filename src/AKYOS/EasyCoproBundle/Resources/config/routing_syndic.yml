@@ -37,3 +37,7 @@ syndic_create_locataire:
 syndic_show_locataire:
     path:     /show/locataire/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showLocataire}
+
+syndic_list_coproprietes:
+    path:     /list/coproprietes
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCoproprietes }

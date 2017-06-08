@@ -167,7 +167,7 @@ class SyndicController extends Controller
         ));
     }
 
-    /*public function listCoproprietesAction()
+    public function listCoproprietesAction()
     {
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
@@ -177,6 +177,6 @@ class SyndicController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietes.html.twig', array(
             'coproprietes' => $coproprietes,
         ));
-    }*/
+    }
 
 }

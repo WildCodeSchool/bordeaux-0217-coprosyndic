@@ -46,18 +46,26 @@
             </div>
         </div>
         <div class="col-sm-6 text-right">
-            <button type="button" class="btn btn-default" aria-label="Envelope">
-                <i class="fa fa-home fa-lg" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="btn btn-default" aria-label="Envelope">
-                <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="btn btn-default" aria-label="Disconnect">
-                <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Se déconnecter
-            </button>
-            <button type="button" class="btn btn-default" aria-label="Disconnect">
-                <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
-            </button>
+            <a href="/">
+                <button type="button" class="btn btn-default" aria-label="Accueil">
+                    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+                </button>
+            </a>
+            <a href="">
+                <button type="button" class="btn btn-default" aria-label="Messagerie">
+                    <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+                </button>
+            </a>
+            <a href="{{ path('fos_user_security_logout') }}">
+                <button type="button" class="btn btn-default" aria-label="Deconnexion">
+                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Se déconnecter
+                </button>
+            </a>
+            <a href="">
+                <button type="button" class="btn btn-default" aria-label="Infos">
+                    <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
+                </button>
+            </a>
         </div>
     </div>
 </div>
