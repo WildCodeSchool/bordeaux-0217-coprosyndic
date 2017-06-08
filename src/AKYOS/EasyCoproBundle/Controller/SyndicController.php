@@ -20,6 +20,26 @@ class SyndicController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig');
     }
 
+    public function editAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+        $form = $this->createForm(CreateSyndicType::class, $syndic);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
+
+            return $this->redirectToRoute('syndic_show');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
     public function createArtisanAction(Request $request)
     {
         $artisan = new Artisan();

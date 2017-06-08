@@ -18,4 +18,23 @@ class ArtisanController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/index.html.twig');
     }
 
+    public function editAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        $form = $this->createForm(CreateArtisanType::class, $artisan);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
+
+            return $this->redirectToRoute('artisan_show');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/edit.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 }
