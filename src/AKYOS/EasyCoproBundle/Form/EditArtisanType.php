@@ -2,7 +2,8 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
-use FOS\UserBundle\Form\Type\ProfileType;
+
+use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +16,7 @@ class EditArtisanType extends AbstractType
     {
 
         $builder
-            ->add('user', ProfileType::class)
+            ->add('user', ProfileFormType::class)
             ->add('raisonSociale')
             ->add('activite')
             ->add('siret')

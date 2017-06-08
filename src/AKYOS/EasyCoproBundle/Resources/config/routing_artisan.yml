@@ -1,3 +1,11 @@
 artisan_index:
     path:     /
     defaults: { _controller: AKYOSEasyCoproBundle:Artisan:index }
+
+artisan_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSEasyCoproBundle:Artisan:edit }
+
+artisan_show:
+    path:     /show
+    defaults: { _controller: AKYOSEasyCoproBundle:Artisan:show }
