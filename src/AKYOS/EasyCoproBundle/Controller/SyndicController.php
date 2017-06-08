@@ -23,7 +23,7 @@ class SyndicController extends Controller
     public function editAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $form = $this->createForm(CreateSyndicType::class, $syndic);
         $form->handleRequest($request);
 
@@ -147,10 +147,58 @@ class SyndicController extends Controller
         ));
     }
 
+    public function editCoproprietaireAction(Request $request, Coproprietaire $coproprietaire)
+    {
+        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Le compte COPROPRIETAIRE a bien été modifié.');
+
+            return $this->redirectToRoute('syndic_show_coproprietaire', array(
+                'id' => $coproprietaire->getId(),
+            ));
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_artisan.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    public function deleteCoproprietaireAction(Request $request, Coproprietaire $coproprietaire)
+    {
+        if ($coproprietaire !== null) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($coproprietaire);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Le compte COPROPRIETAIRE a bien été supprimé.');
+
+            return $this->redirectToRoute('syndic_list_coproprietaire');
+        }
+        $request->getSession()->getFlashBag()->add('info', "Ce compte COPROPRIETAIRE n'existe pas !");
+
+        return $this->redirectToRoute('syndic_list_coproprietaire');
+    }
+
     public function showCoproprietaireAction(Coproprietaire $coproprietaire)
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_coproprietaire.html.twig', array(
             'coproprietaire' => $coproprietaire,
+        ));
+    }
+
+    public function listCoproprietaireAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $coproprietaires = $syndic->getCoproprietaire();
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietaires.html.twig', array(
+            'coproprietaires' => $coproprietaires,
         ));
     }
 
@@ -180,11 +228,66 @@ class SyndicController extends Controller
         ));
     }
 
+    public function deleteLocataireAction(Request $request, Locataire $locataire)
+    {
+        if ($locataire !== null) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($locataire);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Le compte LOCATAIRE a bien été supprimé.');
+
+            return $this->redirectToRoute('syndic_list_locataires');
+        }
+        $request->getSession()->getFlashBag()->add('info', "Ce compte LOCATAIRE n'existe pas !");
+
+        return $this->redirectToRoute('syndic_list_locataires');
+    }
+
     public function showLocataireAction(Locataire $locataire)
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_locataire.html.twig', array(
             'locataire' => $locataire,
         ));
+    }
+
+    public function listLocataireAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $locataires = $syndic->getCoproprietaires();
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_locataires.html.twig', array(
+            'locataires' => $locataires,
+        ));
+    }
+
+    public function editLocataireAction(Request $request, Locataire $locataire)
+    {
+        $form = $this->createForm(CreateLocataireType::class, $locataire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Le compte LOCATAIRE a bien été modifié.');
+
+            return $this->redirectToRoute('syndic_show_locataire', array(
+                'id' => $locataire->getId(),
+            ));
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_locataire.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+
+    public function createCoproprieteAction(Request $request)
+    {
+      //TO DO
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_copropriete.html.twig');
     }
 
     public function listCoproprietesAction()

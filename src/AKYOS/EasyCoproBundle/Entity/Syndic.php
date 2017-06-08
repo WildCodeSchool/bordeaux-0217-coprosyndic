@@ -589,4 +589,6 @@ class Syndic
     {
         return $this->coproprietes;
     }
+
+
 }

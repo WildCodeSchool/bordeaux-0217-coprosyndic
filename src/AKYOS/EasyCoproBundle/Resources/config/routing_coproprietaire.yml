@@ -1,3 +1,7 @@
 coproprietaire_index:
     path:     /
     defaults: { _controller: AKYOSEasyCoproBundle:Coproprietaire:index }
+
+coproprietaire_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSEasyCoproBundle:Coproprietaire:edit }

@@ -20,6 +20,8 @@
         <li>{{ locataire.actuel }}</li>
         <li>...</li>
     </ul>
+    <p><a href="{{ path('syndic_edit_locataire', {'id' : artisan.id}) }}">Modifier le locataire</a></p>
+    <p><a href="{{ path('syndic_delete_locataire', {'id' : artisan.id}) }}">Supprimer le locataire</a></p>
 {% endblock %}
 
 {% block scripts %}

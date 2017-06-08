@@ -430,4 +430,5 @@ class Coproprietaire
     {
         return $this->user;
     }
+
 }
