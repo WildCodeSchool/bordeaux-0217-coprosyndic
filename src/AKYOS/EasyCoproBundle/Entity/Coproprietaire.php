@@ -108,6 +108,11 @@ class Coproprietaire
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Syndic", mappedBy="coproprietaires")
+     */
+    private $syndics;
+
 
     /**
      * Get id

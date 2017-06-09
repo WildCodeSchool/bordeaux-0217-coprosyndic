@@ -210,7 +210,7 @@ class SyndicController extends Controller
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
-        $coproprietaires = $syndic->getCoproprietaire();
+        $coproprietaires = $syndic->getCoproprietaires();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietaires.html.twig', array(
             'coproprietaires' => $coproprietaires,
@@ -273,7 +273,7 @@ class SyndicController extends Controller
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
-        $locataires = $syndic->getCoproprietaires();
+        $locataires = $syndic->getLocataires();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_locataires.html.twig', array(
             'locataires' => $locataires,

@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for artisan in artisans %}
+        {% for locataire in locataires %}
             <tr>
                 <td><a href="{{ path('syndic_show_locataire', {'id': locataire.id}) }}">{{ locataire.id }}</a></td>
                 <td>{{ locataire.nom }}</td>
