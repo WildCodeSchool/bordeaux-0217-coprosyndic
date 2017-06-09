@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 class SyndicController extends Controller
 {
 
+    ##################################SYNDIC##################################
+    ##########################################################################
     public function indexAction()
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig');
@@ -33,13 +35,22 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
 
-            return $this->redirectToRoute('syndic_show');
+            return $this->redirectToRoute('syndic_show', array('id' => $syndic->getId()));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
+    public function showAction(Syndic $syndic)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show.html.twig', array(
+            'syndic' => $syndic,
+        ));
+    }
+
+    ##################################ARTISAN#################################
+    ##########################################################################
     public function createArtisanAction(Request $request)
     {
         $artisan = new Artisan();
@@ -121,6 +132,8 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_list_artisans');
     }
 
+    ##############################COPROPRIETAIRE##############################
+    ##########################################################################
     public function createCoproprietaireAction(Request $request)
     {
         $coproprietaire = new Coproprietaire();
@@ -202,6 +215,8 @@ class SyndicController extends Controller
         ));
     }
 
+    ################################LOCATAIRE#################################
+    ##########################################################################
     public function createLocataireAction(Request $request)
     {
         $locataire = new Locataire();
@@ -283,7 +298,8 @@ class SyndicController extends Controller
         ));
     }
 
-
+    ###############################COPROPRIETE################################
+    ##########################################################################
     public function createCoproprieteAction(Request $request)
     {
       //TO DO

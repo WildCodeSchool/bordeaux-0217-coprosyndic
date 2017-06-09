@@ -13,15 +13,14 @@
         <p>Message flash : {{ message }}</p>
     {% endfor %}
     </p>
-    <h4>Afficher un coproprietaire :</h4>
+    <h4>Votre Profil:</h4>
     <h4>{{ copro.nom }}</h4>
     <ul>
         <li>{{ copro.emailBureau }}</li>
         <li>{{ copro.adressePrinc }}</li>
         <li>...</li>
     </ul>
-    <p><a href="{{ path('syndic_editCopro', {'id' : copro.id}) }}">Modifier le Copropriétaire</a></p>
-    <p><a href="{{ path('syndic_deleteCopro', {'id' : copro.id}) }}">Supprimer le Copropriétaire</a></p>
+    <p><a href="{{ path('coproprietaire_edit') }}">Modifier votre Profil</a></p>
 {% endblock %}
 
 {% block scripts %}

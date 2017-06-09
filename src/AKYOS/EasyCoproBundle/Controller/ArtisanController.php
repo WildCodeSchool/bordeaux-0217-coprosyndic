@@ -31,10 +31,17 @@ class ArtisanController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
 
-            return $this->redirectToRoute('artisan_show');
+            return $this->redirectToRoute('artisan_show', array('id' => $artisan->getId()));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/edit.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    public function showAction(Artisan $artisan)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show.html.twig', array(
+            'artisan' => $artisan,
         ));
     }
 }

@@ -26,10 +26,17 @@ class CoproprietaireController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
 
-            return $this->redirectToRoute('coproprietaire_show');
+            return $this->redirectToRoute('coproprietaire_show', array('id' => $coproprietaire->getId()));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/edit.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    public function showAction(Coproprietaire $coproprietaire)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/show.html.twig', array(
+            'coproprietaire' => $coproprietaire,
         ));
     }
 }

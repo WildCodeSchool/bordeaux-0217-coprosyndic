@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
+use AKYOS\EasyCoproBundle\Entity\Locataire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class LocataireController extends Controller
@@ -25,10 +26,17 @@ class LocataireController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
 
-            return $this->redirectToRoute('locataire_show');
+            return $this->redirectToRoute('locataire_show', array('id' => $locataire->getId()));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/edit.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    public function showAction(Locataire $locataire)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show.html.twig', array(
+            'locataire' => $locataire,
         ));
     }
 }
