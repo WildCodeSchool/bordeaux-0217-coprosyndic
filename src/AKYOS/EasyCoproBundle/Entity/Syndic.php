@@ -132,6 +132,10 @@ class Syndic
      */
     private $coproprietes;
 
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
     /**
      * Get id

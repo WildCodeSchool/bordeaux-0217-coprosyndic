@@ -3,6 +3,7 @@
 namespace AKYOS\EasyCoproBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class FrontOfficeController extends Controller
 {
@@ -39,7 +40,7 @@ class FrontOfficeController extends Controller
         return $this->render('AKYOSEasyCoproBundle:FrontOffice:mentions.html.twig');
     }
 
-    public function contactAction()
+    public function contactAction(Request $request)
     {
         $message = \Swift_Message::newInstance()
             ->setSubject('Formulaire reception')
@@ -56,6 +57,7 @@ class FrontOfficeController extends Controller
         ;
 
         $this->get('mailer')->send($message);
+        $request->getSession()->getFlashBag()->add('notice', 'Votre message a bien été envoyée.');
 
         return $this->redirectToRoute('homepage');
     }

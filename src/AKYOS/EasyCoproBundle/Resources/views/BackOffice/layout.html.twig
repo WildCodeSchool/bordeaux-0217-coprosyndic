@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>{% block title %}Easy Copro{% endblock %}</title>
     <meta charset="UTF-8">
 
@@ -15,8 +16,8 @@
 </head>
 <body>
 
-<div class="row top-row">
 
+<div class="row top-row">
     <div class="col-sm-3 col-md-2 affix-sidebar">
         <div class="sidebar-nav">
             <div class="navbar navbar-default" role="navigation">
@@ -86,6 +87,7 @@
                 </div>
                 <div class="navbar-collapse collapse sidebar-navbar-collapse">
                     <ul class="nav navbar-nav" id="sidenav01">
+
                         {% block menu %}{% endblock %}
                     </ul>
                 </div>
@@ -93,6 +95,7 @@
         </div>
     </div>
     <div class="col-sm-9 col-md-10 affix-content">
+
         {% block content %}{% endblock %}
     </div>
 </div>
@@ -107,6 +110,7 @@
 <!--[if lt IE 10]>
 <script src="{{ asset('assets/js/placeholder.js') }}"></script>
 <![endif]-->
+
 
 {% block scripts %}
 {% endblock %}

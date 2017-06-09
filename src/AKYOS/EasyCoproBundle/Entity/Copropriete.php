@@ -150,6 +150,11 @@ class Copropriete
      */
     private $lots;
 
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
     /**
      * Get id
      *

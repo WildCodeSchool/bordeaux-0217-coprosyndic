@@ -1,0 +1,55 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Liste des COPROPRIETES
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    <h4 class="title col-md-9">Liste des copropriétés</h4>
+<div class="col-md-9 col-sm-6 col-xs-12">
+    <div class="card-container">
+        <div class="card">
+            <div class="cover">
+                <img src="{{ asset('assets/img/backgrounds/immeuble.jpg') }}"/>
+            </div>
+            <div class="content">
+                <div class="main">
+                    <table class="table">
+                        <thead class="color-card">
+                        <tr>
+                        <th><h5>Nom</h5></th>
+                        <th><h5>Adresse principale</h5></th>
+                        <th><h5>Code postal</h5></th>
+                        <th><h5>Ville</h5></th>
+                        <th><h5>Début de Gestion</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                    {% for copropriete in coproprietes %}
+                        <tr>
+                            <td><a href="{{ path('syndic_show_copropriete', {'id':copropriete.id }) }}">{{ copropriete.nom }}</a></td>
+                            <td>{{ copropriete.adressePrinc }}</td>
+                            <td>{{ copropriete.codePostal }}</td>
+                            <td>{{ copropriete.ville }}</td>
+                            <td>{{ copropriete.dateDebutGestion|date('d/m/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

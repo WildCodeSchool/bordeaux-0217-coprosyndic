@@ -32,12 +32,48 @@ syndic_show_coproprietaire:
 
 syndic_create_locataire:
     path:     /create/locataire
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createLocataire}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createLocataire }
 
 syndic_show_locataire:
     path:     /show/locataire/{id}
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showLocataire}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showLocataire }
 
 syndic_list_coproprietes:
     path:     /list/coproprietes
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCoproprietes }
+
+syndic_create_copropriete:
+    path:     /create/copropriete
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createCopropriete }
+
+syndic_edit_copropriete:
+    path:     /edit/copropriete/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editCopropriete }
+
+syndic_show_copropriete:
+    path:     /show/copropriete/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showCopropriete }
+
+syndic_delete_copropriete:
+    path:     /delete/copropriete/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteCopropriete }
+
+syndic_list_lots:
+    path:     /list/lots/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listLots }
+
+syndic_create_lot:
+    path:     /create/lot
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createLot }
+
+syndic_edit_lot:
+    path:     /edit/lot/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editLot }
+
+syndic_show_lot:
+    path:     /show/lot/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showLot }
+
+syndic_delete_lot:
+    path:     /delete/lot/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteLot }
