@@ -120,13 +120,12 @@
     </div>
     <div class="col-sm-9 col-md-10 affix-content">
         <div class="row titre-page">
-            <h4 class="titre-page-text">Dashboard</h4>
+            <h4 class="titre-page-text">{% block titre_page %}{% endblock %}</h4>
         </div>
         <div class="row">
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-home fa-fw" aria-hidden="true"></i></a></li>
-                <li><a href="#">Dashboard</a></li>
-                <li class="active">Data</li>
+                <li><i class="fa fa-home fa-fw" aria-hidden="true"></i></li>
+                {% block breadcrumb %}{% endblock %}
             </ol>
         </div>
         <div class="row row-content">
