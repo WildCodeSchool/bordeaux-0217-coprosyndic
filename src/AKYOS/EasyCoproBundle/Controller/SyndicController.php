@@ -82,9 +82,7 @@ class SyndicController extends Controller
     public function listArtisansAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        $artisans = $syndic->getArtisans();
+        $artisans = $em->getRepository(Artisan::class)->findAll();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_artisans.html.twig', array(
             'artisans' => $artisans,
@@ -208,9 +206,7 @@ class SyndicController extends Controller
     public function listCoproprietairesAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        $coproprietaires = $syndic->getCoproprietaires();
+        $coproprietaires = $em->getRepository(Coproprietaire::class)->findAll();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietaires.html.twig', array(
             'coproprietaires' => $coproprietaires,
@@ -271,9 +267,7 @@ class SyndicController extends Controller
     public function listLocatairesAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        $locataires = $syndic->getLocataires();
+        $locataires = $em->getRepository(Locataire::class)->findAll();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_locataires.html.twig', array(
             'locataires' => $locataires,
