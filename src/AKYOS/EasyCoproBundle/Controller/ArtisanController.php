@@ -14,7 +14,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ArtisanController extends Controller
 {
 
-    public function indexAction(){
+    public function indexAction()
+    {
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/index.html.twig');
     }
@@ -32,7 +33,7 @@ class ArtisanController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
 
-            return $this->redirectToRoute('artisan_show');
+            return $this->redirectToRoute('artisan_show', array('id' => $artisan->getId()));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/edit.html.twig', array(
             'form' => $form->createView(),
@@ -42,6 +43,10 @@ class ArtisanController extends Controller
     public function showAction()
     {
 
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show.html.twig', array(
+            'artisan' => $artisan
+        ));
     }
-
 }

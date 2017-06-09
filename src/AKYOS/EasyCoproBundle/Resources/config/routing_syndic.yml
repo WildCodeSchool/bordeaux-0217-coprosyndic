@@ -2,13 +2,22 @@ syndic_index:
     path:     /
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:index }
 
+syndic_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:edit }
+
+syndic_show:
+    path:     /show
+    defaults: {_controller: AKYOSEasyCoproBundle:Syndic:show }
+
+##Artisan##
 syndic_create_artisan:
     path:     /create/artisan
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createArtisan }
 
 syndic_list_artisans:
     path:     /list/artisans
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listArtisan }
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listArtisans }
 
 syndic_show_artisan:
     path:     /show/artisan/{id}
@@ -22,14 +31,28 @@ syndic_delete_artisan:
     path:     /delete/artisan/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteArtisan }
 
+##Coproprietaire##
 syndic_create_coproprietaire:
     path:     /create/coproprietaire
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createCoproprietaire }
+
+syndic_list_coproprietaires:
+    path:     /list/coproprietaire
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCoproprietaires }
 
 syndic_show_coproprietaire:
     path:     /show/coproprietaire/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showCoproprietaire }
 
+syndic_edit_coproprietaire:
+    path:     /edit/coproprietaire/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editCoproprietaire }
+
+syndic_delete_coproprietaire:
+    path:     /delete/coproprietaire/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteCoproprietaire }
+
+##Locataire##
 syndic_create_locataire:
     path:     /create/locataire
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createLocataire }
@@ -37,6 +60,23 @@ syndic_create_locataire:
 syndic_show_locataire:
     path:     /show/locataire/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showLocataire }
+
+syndic_list_locataires:
+    path:     /list/locataire
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listLocataires }
+
+syndic_edit_locataire:
+    path:     /edit/locataire/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:editLocataire }
+
+syndic_delete_locataire:
+    path:     /delete/locataire/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteLocataire }
+
+##Copropriete##
+syndic_create_copropriete:
+    path:     /create/copropriete
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createCopropriete }
 
 syndic_list_coproprietes:
     path:     /list/coproprietes

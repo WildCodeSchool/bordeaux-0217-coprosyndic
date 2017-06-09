@@ -123,6 +123,16 @@ class Syndic
     private $artisans;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Locataire", inversedBy="syndics")
+     */
+    private $locataires;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Coproprietaire", inversedBy="syndics")
+     */
+    private $coproprietaires;
+
+    /**
      * @ORM\OneToMany(targetEntity="Document", mappedBy="syndic")
      */
     private $documents;
@@ -464,6 +474,8 @@ class Syndic
     public function __construct()
     {
         $this->artisans = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->coproprietaires = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->locataires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->documents = new \Doctrine\Common\Collections\ArrayCollection();
         $this->coproprietes = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -524,6 +536,26 @@ class Syndic
     public function getArtisans()
     {
         return $this->artisans;
+    }
+
+    /**
+     * Get locataires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLocataires()
+    {
+        return $this->locataires;
+    }
+
+    /**
+     * Get coproprietaires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCoproprietaires()
+    {
+        return $this->coproprietaires;
     }
 
     /**
@@ -593,4 +625,6 @@ class Syndic
     {
         return $this->coproprietes;
     }
+
+
 }

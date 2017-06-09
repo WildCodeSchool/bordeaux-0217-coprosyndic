@@ -108,6 +108,10 @@ class Locataire
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Syndic", mappedBy="locataires")
+     */
+    private $syndics;
 
     /**
      * Get id
@@ -214,6 +218,7 @@ class Locataire
     {
         return $this->email;
     }
+
 
     /**
      * Set dateArrivee

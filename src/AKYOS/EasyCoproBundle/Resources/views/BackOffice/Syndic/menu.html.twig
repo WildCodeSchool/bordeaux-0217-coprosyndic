@@ -12,6 +12,13 @@
         <ul class="nav nav-list">
             <li><a href="">Diffuser un document</a></li>
             <li><a href="">Documents archivés</a></li>
+            <li class="icon-profil-box">
+                <a class="icon-profil-link" href="{{ path('syndic_show') }}"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
+                <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
+                <a class="icon-profil-link" href="{{ path('fos_user_security_logout') }}"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
+            </li>
+
+            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
         </ul>
     </div>
 </li>
@@ -48,6 +55,7 @@
     </a>
     <div class="collapse" id="toggleCoproprietaires" style="height: 0;">
         <ul class="nav nav-list">
+            <li><a href="{{ path('syndic_list_coproprietaires') }}">Liste des copropriétaires</a></li>
             <li><a href="{{ path('syndic_create_coproprietaire') }}">Créer un copropriétaire</a></li>
         </ul>
     </div>
@@ -59,6 +67,7 @@
     </a>
     <div class="collapse" id="toggleLocataires" style="height: 0;">
         <ul class="nav nav-list">
+            <li><a href="{{ path('syndic_list_locataires') }}">Liste des locataires</a></li>
             <li><a href="{{ path('syndic_create_locataire') }}">Créer un locataire</a></li>
         </ul>
     </div>
