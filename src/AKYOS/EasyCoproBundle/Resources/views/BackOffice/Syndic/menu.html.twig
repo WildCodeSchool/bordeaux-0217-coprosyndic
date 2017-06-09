@@ -1,45 +1,34 @@
-<li class="actived">
-    <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01"
+<li class="non-active">
+    <a href="{{ path('syndic_index') }}"><i class="fa fa-tachometer fa-fw" aria-hidden="true"></i> Dashboard</a>
+</li>
+<li class="non-active">
+    <a href="#" data-toggle="collapse" data-target="#toggleDocuments" data-parent="#sidenav01"
        class="collapsed">
-        <h4 class="h4color">
-            {{ app.user.username }}
-            <br>
-            <small>{{ app.user.type }} <span class="caret"></span></small>
-        </h4>
+        <span class="glyphicon glyphicon-inbox"></span> Mes Documents<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
     </a>
-    <div class="non-active collapse" id="toggleDemo0" style="height: 0;">
+    <div class="collapse" id="toggleDocuments" style="height: 0;">
         <ul class="nav nav-list">
-            <li class="icon-profil-box">
-                <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-            </li>
-
-            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+            <li><a href="">Diffuser un document</a></li>
+            <li><a href="">Documents archivés</a></li>
         </ul>
     </div>
 </li>
-
-<li class="non-active"><a href="{{ path('syndic_index') }}"><span class="glyphicon glyphicon-lock"></span> Accueil</a></li>
-<li class="non-active"><a href="{{ path('syndic_index') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
 <li class="non-active">
     <a href="#" data-toggle="collapse" data-target="#toggleCoproprietes" data-parent="#sidenav01"
        class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Mes Copropriétés<span
-                class="caret pull-right"></span>
+        <span class="glyphicon glyphicon-inbox"></span> Mes Copropriétés<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
     </a>
     <div class="collapse" id="toggleCoproprietes" style="height: 0;">
         <ul class="nav nav-list">
             <li><a href="{{ path('syndic_list_coproprietes') }}">Liste des copropriétés</a></li>
-            {#<li><a href="{{ path('syndic_create_copropriete') }}">Créer une copropriété</a></li>#}
+            <li><a href="">Créer une copropriété</a></li>
         </ul>
     </div>
 </li>
 <li class="non-active">
     <a href="#" data-toggle="collapse" data-target="#toggleArtisans" data-parent="#sidenav01"
        class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Mes Artisans<span
-                class="caret pull-right"></span>
+        <span class="glyphicon glyphicon-inbox"></span> Mes Artisans<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
     </a>
     <div class="collapse" id="toggleArtisans" style="height: 0;">
         <ul class="nav nav-list">
@@ -51,8 +40,7 @@
 <li class="non-active">
     <a href="#" data-toggle="collapse" data-target="#toggleCoproprietaires" data-parent="#sidenav01"
        class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Mes Copropriétaires<span
-                class="caret pull-right"></span>
+        <span class="glyphicon glyphicon-inbox"></span> Mes Copropriétaires<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
     </a>
     <div class="collapse" id="toggleCoproprietaires" style="height: 0;">
         <ul class="nav nav-list">
@@ -63,8 +51,7 @@
 <li class="non-active">
     <a href="#" data-toggle="collapse" data-target="#toggleLocataires" data-parent="#sidenav01"
        class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Mes Locataires<span
-                class="caret pull-right"></span>
+        <span class="glyphicon glyphicon-inbox"></span> Mes Locataires<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
     </a>
     <div class="collapse" id="toggleLocataires" style="height: 0;">
         <ul class="nav nav-list">
@@ -72,6 +59,16 @@
         </ul>
     </div>
 </li>
-<li class="non-active"><a href=""><span class="glyphicon glyphicon-calendar"></span> Messagerie
-        <span class="badge pull-right">3</span></a></li>
-<li class="non-active"><a href=""><span class="glyphicon glyphicon-cog"></span> Préférences</a></li>
+<li class="non-active">
+    <a href="#" data-toggle="collapse" data-target="#toggleMessagerie" data-parent="#sidenav01"
+       class="collapsed">
+        <span class="glyphicon glyphicon-inbox"></span> Messagerie<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+    </a>
+    <div class="collapse" id="toggleMessagerie" style="height: 0;">
+        <ul class="nav nav-list">
+            <li><a href="">Boite de réception</a></li>
+            <li><a href="">Annuaire</a></li>
+            <li><a href="">Envoyer un message</a></li>
+        </ul>
+    </div>
+</li>

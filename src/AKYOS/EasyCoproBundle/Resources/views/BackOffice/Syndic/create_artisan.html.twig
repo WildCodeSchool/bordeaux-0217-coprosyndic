@@ -9,7 +9,25 @@
 
 {% block content %}
     <h4>Créer un artisan :</h4>
-    {{ form(form) }}
+    <div class="col-sm-4">
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+            <input class="form-control" type="text" placeholder="Email address">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+            <input class="form-control" type="password" placeholder="Password">
+        </div>
+    </div>
+    <div>
+    {{ form_start(form) }}
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+            {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
 
 {% block scripts %}
