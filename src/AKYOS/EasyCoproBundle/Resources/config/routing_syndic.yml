@@ -59,7 +59,7 @@ syndic_delete_copropriete:
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteCopropriete }
 
 syndic_list_lots:
-    path:     /list/lots
+    path:     /list/lots/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listLots }
 
 syndic_create_lot:

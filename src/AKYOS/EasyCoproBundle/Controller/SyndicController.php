@@ -100,8 +100,9 @@ class SyndicController extends Controller
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $copropriete = $em->getRepository(Copropriete::class)->find($id);
         $lots = $copropriete->getLots();
+        $coproprietes = $em->getRepository(Copropriete::class)->findAll();
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_lots.html.twig',
-            ['lots'=>$lots]);
+            ['lots'=>$lots, 'coproprietes'=>$coproprietes]);
     }
 
     public function createLotAction(Request $request){
@@ -116,9 +117,45 @@ class SyndicController extends Controller
             $request->getSession()->getFlashBag()->add('notice', 'Votre lot a bien été ajoutée.');
             return $this->redirectToRoute('syndic_list_lots');
         }
-
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_lot.html.twig',
             ['form'=>$form->createView()]);
+    }
+
+    public function showLotAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $lot = $em->getRepository(Lot::class)->find($id);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_lot.html.twig',
+            ['lot'=>$lot]);
+    }
+
+    public function editLotAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $lot = $em->getRepository(Lot::class)->find($id);
+        $form = $this->createForm(CreateLotType::class, $lot);
+
+        $form->handleRequest($request);
+        // Si method POST et si le form est valid
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', 'Votre lot a bien été modifié.');
+            return $this->redirectToRoute('syndic_list_lots');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_lot.html.twig',
+            ['my_form' => $form->createView()]);
+    }
+
+    public function deleteLotAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $lot = $em->getRepository(Lot::class)->find($id);
+        $em->remove($lot);
+        $em->flush();
+        $this->addFlash(
+            'success',
+            'La copropriété a bien été supprimée.'
+        );
+        return $this->redirectToRoute('syndic_list_lots');
     }
 
 //Action pour les créations des comptes Artisans

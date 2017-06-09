@@ -1,0 +1,61 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Liste des LOTS
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+
+
+    <h4>Liste des lots :</h4>
+
+    <select class="form-control">
+       {% for copropriete in coproprietes %}
+        <option>{{ copropriete.nom }}</option>
+       {% endfor %}
+    </select>
+
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Identifiant</th>
+            <th>Type</th>
+            <th>Quote Part</th>
+            <th>Loué actuellement</th>
+            <th>Copropriété</th>
+            <th>Documents</th>
+            <th>Copropriétaires</th>
+            <th>Locataires</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lot in lots %}
+            <tr>
+                <td><a href="{{ path('syndic_show_lot', {'id':lot.id }) }}">{{ lot.id }}</a></td>
+                <td>{{ lot.type }}</td>
+                <td>{{ lot.quotePart }}</td>
+                <td>{{ lot.loueAct }}</td>
+                <td>{{ lot.copropriete.nom }}</td>
+                {% for document in lot.documents %}
+                <td>{{ document.titre }}</td>
+                {% endfor %}
+                {% for coproprietaire in lot.coproprietaires %}
+                <td>{{ coproprietaire.nom }}</td>
+                {% endfor %}
+                {% for locataire in lot.locataires %}
+                <td>{{ locataire.nom }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
