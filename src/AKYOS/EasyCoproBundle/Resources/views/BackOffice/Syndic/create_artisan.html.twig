@@ -7,9 +7,157 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Création d'un artisan
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Créer un artisan</li>
+{% endblock %}
+
 {% block content %}
-    <h4>Créer un artisan :</h4>
-    {{ form(form) }}
+    <p>Compléter le formulaire ci-dessous pour créer un nouveau compte Artisan : </p>
+
+    {{ form_start(form) }}
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Informations du compte</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Mot de passe'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Répétez le mot de passe'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Société</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-building fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.raisonSociale, { 'attr': {'class': 'form-control', 'placeholder':'Raison sociale'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.siret, { 'attr': {'class': 'form-control', 'placeholder':'SIRET'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-briefcase fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.activite, { 'attr': {'class': 'form-control', 'placeholder':'Activité'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.emailBureau, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-phone fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.telephoneBureau, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse postale'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-plus-circle fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adresse'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-pin fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code postal'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-signs fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Utilisateur du compte</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.contactPrenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom du contact'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-bookmark fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.contactNom, { 'attr': {'class': 'form-control', 'placeholder':'Nom du contact'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.contactEmail, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail du contact'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12 text-center">
+            <div class="form-group">
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'}}) }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+    </div>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block scripts %}
