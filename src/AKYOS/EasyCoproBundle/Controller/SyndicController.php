@@ -9,6 +9,7 @@ use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\CreateArtisanType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
+use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

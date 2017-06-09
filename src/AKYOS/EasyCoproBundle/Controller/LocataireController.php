@@ -3,7 +3,9 @@
 namespace AKYOS\EasyCoproBundle\Controller;
 
 use AKYOS\EasyCoproBundle\Entity\Locataire;
+use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class LocataireController extends Controller
 {
