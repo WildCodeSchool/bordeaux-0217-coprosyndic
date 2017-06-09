@@ -38,10 +38,12 @@ class ArtisanController extends Controller
         ));
     }
 
-    public function showAction(Artisan $artisan)
+    public function showAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show.html.twig', array(
-            'artisan' => $artisan,
+            'artisan' => $artisan
         ));
     }
 }

@@ -20,8 +20,8 @@
         <li>{{ coproprietaire.membreConseil }}</li>
         <li>...</li>
     </ul>
-    <p><a href="{{ path('syndic_edit_coproprietaire', {'id' : artisan.id}) }}">Modifier le copropriétaire</a></p>
-    <p><a href="{{ path('syndic_delete_coproprietaire', {'id' : artisan.id}) }}">Supprimer le copropriétaire</a></p>
+    <p><a href="{{ path('syndic_edit_coproprietaire', {'id' : coproprietaire.id}) }}">Modifier le copropriétaire</a></p>
+    <p><a href="{{ path('syndic_delete_coproprietaire', {'id' : coproprietaire.id}) }}">Supprimer le copropriétaire</a></p>
 {% endblock %}
 
 {% block scripts %}

@@ -33,10 +33,12 @@ class CoproprietaireController extends Controller
         ));
     }
 
-    public function showAction(Coproprietaire $coproprietaire)
+    public function showAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/show.html.twig', array(
-            'coproprietaire' => $coproprietaire,
+            'coproprietaire' => $coproprietaire
         ));
     }
 }

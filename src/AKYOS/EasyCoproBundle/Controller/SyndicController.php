@@ -42,13 +42,14 @@ class SyndicController extends Controller
         ));
     }
 
-    public function showAction(Syndic $syndic)
+    public function showAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show.html.twig', array(
-            'syndic' => $syndic,
+            'syndic' => $syndic
         ));
     }
-
     ##################################ARTISAN#################################
     ##########################################################################
     public function createArtisanAction(Request $request)

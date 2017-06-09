@@ -33,10 +33,12 @@ class LocataireController extends Controller
         ));
     }
 
-    public function showAction(Locataire $locataire)
+    public function showAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show.html.twig', array(
-            'locataire' => $locataire,
+            'locataire' => $locataire
         ));
     }
 }

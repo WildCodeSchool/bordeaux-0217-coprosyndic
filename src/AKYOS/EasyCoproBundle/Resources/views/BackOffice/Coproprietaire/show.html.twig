@@ -14,10 +14,10 @@
     {% endfor %}
     </p>
     <h4>Votre Profil:</h4>
-    <h4>{{ copro.nom }}</h4>
+    <h4>{{ coproprietaire.nom }}</h4>
     <ul>
-        <li>{{ copro.emailBureau }}</li>
-        <li>{{ copro.adressePrinc }}</li>
+        <li>{{ coproprietaire.email }}</li>
+        <li>{{ coproprietaire.telephone }}</li>
         <li>...</li>
     </ul>
     <p><a href="{{ path('coproprietaire_edit') }}">Modifier votre Profil</a></p>
