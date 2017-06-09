@@ -17,7 +17,7 @@ syndic_create_artisan:
 
 syndic_list_artisans:
     path:     /list/artisans
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listArtisan }
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listArtisans }
 
 syndic_show_artisan:
     path:     /show/artisan/{id}
@@ -36,9 +36,9 @@ syndic_create_coproprietaire:
     path:     /create/coproprietaire
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createCoproprietaire }
 
-syndic_list_coproprietaire:
+syndic_list_coproprietaires:
     path:     /list/coproprietaire
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCoproprietaire }
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCoproprietaires }
 
 syndic_show_coproprietaire:
     path:     /show/coproprietaire/{id}
@@ -61,9 +61,9 @@ syndic_show_locataire:
     path:     /show/locataire/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showLocataire}
 
-syndic_list_locataire:
+syndic_list_locataires:
     path:     /list/locataire
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listLocataire }
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listLocataires }
 
 syndic_edit_locataire:
     path:     /edit/locataire/{id}

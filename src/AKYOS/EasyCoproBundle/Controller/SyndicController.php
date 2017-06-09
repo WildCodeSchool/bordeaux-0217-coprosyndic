@@ -79,7 +79,7 @@ class SyndicController extends Controller
         ));
     }
 
-    public function listArtisanAction()
+    public function listArtisansAction()
     {
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
@@ -191,11 +191,11 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le compte COPROPRIETAIRE a bien été supprimé.');
 
-            return $this->redirectToRoute('syndic_list_coproprietaire');
+            return $this->redirectToRoute('syndic_list_coproprietaires');
         }
         $request->getSession()->getFlashBag()->add('info', "Ce compte COPROPRIETAIRE n'existe pas !");
 
-        return $this->redirectToRoute('syndic_list_coproprietaire');
+        return $this->redirectToRoute('syndic_list_coproprietaires');
     }
 
     public function showCoproprietaireAction(Coproprietaire $coproprietaire)
@@ -205,7 +205,7 @@ class SyndicController extends Controller
         ));
     }
 
-    public function listCoproprietaireAction()
+    public function listCoproprietairesAction()
     {
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
@@ -268,7 +268,7 @@ class SyndicController extends Controller
         ));
     }
 
-    public function listLocataireAction()
+    public function listLocatairesAction()
     {
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
