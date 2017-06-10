@@ -108,10 +108,11 @@ class Coproprietaire
      */
     private $user;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Syndic", mappedBy="coproprietaires")
-     */
-    private $syndics;
+    //TODO : à supprimer
+//    /**
+//     * @ORM\ManyToMany(targetEntity="Syndic", mappedBy="coproprietaires")
+//     */
+//    private $syndics;
 
 
     /**

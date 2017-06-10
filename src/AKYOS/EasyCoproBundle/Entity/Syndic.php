@@ -122,15 +122,17 @@ class Syndic
      */
     private $artisans;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Locataire", inversedBy="syndics")
-     */
-    private $locataires;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Coproprietaire", inversedBy="syndics")
-     */
-    private $coproprietaires;
+    //TODO : à supprimer
+//    /**
+//     * @ORM\ManyToMany(targetEntity="Locataire", inversedBy="syndics")
+//     */
+//    private $locataires;
+
+//    /**
+//     * @ORM\ManyToMany(targetEntity="Coproprietaire", inversedBy="syndics")
+//     */
+//    private $coproprietaires;
 
     /**
      * @ORM\OneToMany(targetEntity="Document", mappedBy="syndic")
@@ -474,8 +476,9 @@ class Syndic
     public function __construct()
     {
         $this->artisans = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->coproprietaires = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->locataires = new \Doctrine\Common\Collections\ArrayCollection();
+        //TODO : à supprimer
+        //$this->coproprietaires = new \Doctrine\Common\Collections\ArrayCollection();
+        //$this->locataires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->documents = new \Doctrine\Common\Collections\ArrayCollection();
         $this->coproprietes = new \Doctrine\Common\Collections\ArrayCollection();
     }
