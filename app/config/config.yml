@@ -79,3 +79,15 @@ fos_user:
     registration:
         form:
             type: AKYOS\EasyCoproBundle\Form\RegistrationType
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        product_image:
+            uri_prefix:         /assets/img/docs
+            upload_destination: '%kernel.root_dir%/../web/assets/img/docs'
+
+            inject_on_load:     false
+            delete_on_update:   false
+            delete_on_remove:   true
