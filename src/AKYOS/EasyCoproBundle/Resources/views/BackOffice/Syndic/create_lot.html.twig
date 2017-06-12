@@ -7,8 +7,16 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Création d'un lot
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Créer un lot</li>
+{% endblock %}
+
 {% block content %}
-    <h4>Créer un lot :</h4>
     {{ form(form) }}
 {% endblock %}
 
