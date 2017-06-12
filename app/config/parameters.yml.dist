@@ -3,7 +3,7 @@
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
     database_host: us-cdbr-iron-east-03.cleardb.net
-    database_port: 3306
+    database_port: ~
     database_name: heroku_4bc57d81b2a908b
     database_user: b25fff1406d8a8
     database_password: aa5463d1
@@ -16,4 +16,4 @@ parameters:
     mailer_password: jecode4bordeaux
 
     # A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: f8ec78eaacf2e4e6f29849bde00d7bdd08aa5ae2

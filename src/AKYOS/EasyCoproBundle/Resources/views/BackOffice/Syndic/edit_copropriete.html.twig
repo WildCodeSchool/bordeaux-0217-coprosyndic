@@ -1,6 +1,24 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Modification COPROPRIETE
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Edition d'une copropriété
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Editer une copropriété</li>
+{% endblock %}
+
 {% block content %}
-
     {{ form(my_form) }}
+{% endblock %}
 
+{% block scripts %}
 {% endblock %}

@@ -7,8 +7,16 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Création d'une copropriété
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Créer une copropriété</li>
+{% endblock %}
+
 {% block content %}
-    <h4>Créer une copropriété :</h4>
     {{ form(my_form) }}
 {% endblock %}
 

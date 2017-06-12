@@ -7,8 +7,16 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Edition d'un compte Copropriétaire
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Editer un compte Copropriétaire</li>
+{% endblock %}
+
 {% block content %}
-    <h4>Modifier un coproprietaire :</h4>
     {{ form(form) }}
 {% endblock %}
 

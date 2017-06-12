@@ -7,8 +7,16 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Edition d'un compte Locataire
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Editer un compte Locataire</li>
+{% endblock %}
+
 {% block content %}
-    <h4>Modifier un locataire :</h4>
     {{ form(form) }}
 {% endblock %}
 
