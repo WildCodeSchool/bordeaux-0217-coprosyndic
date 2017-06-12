@@ -33,7 +33,9 @@ class CreateCoproprietaireType extends AbstractType
             ->add('prenom', TextType::class,array('attr' => array('placeholder' => 'Prénom du copropriétaire')))
             ->add('telephone', TextType::class,array('attr' => array('placeholder' => 'Télephone du copropriétaire')))
             ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB du copropriétaire')))
-            ->add('nbEnfants', TextType::class,array('attr' => array('placeholder' => 'Nombre d\'enfants')))
+            ->add('nbEnfants', IntegerType::class,array(
+                'attr' => array('placeholder' => 'Nombre d\'enfants'),
+            ))
             ->add('dateArrivee', DateType::class, array('widget' => 'single_text',))
             ->add('dateDepart', DateType::class, array(
                 'widget' => 'single_text',

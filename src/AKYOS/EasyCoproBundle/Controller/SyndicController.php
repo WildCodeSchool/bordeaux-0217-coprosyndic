@@ -296,7 +296,7 @@ class SyndicController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $coproprietaire->getUser()->setEnabled(true)->setType('COPRO');
+            $coproprietaire->getUser()->setType('COPRO');
             $coproprietaire->getUser()->addRole('ROLE_COPRO');
             $em = $this->getDoctrine()->getManager();
             $em->persist($coproprietaire);

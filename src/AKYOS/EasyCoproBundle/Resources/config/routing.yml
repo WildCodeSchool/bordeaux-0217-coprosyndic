@@ -9,3 +9,4 @@ contact:
 mentions:
     path:     /mentions
     defaults: { _controller: AKYOSEasyCoproBundle:FrontOffice:mentions }
+
