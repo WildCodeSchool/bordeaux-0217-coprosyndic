@@ -12,7 +12,10 @@ class FrontOfficeController extends Controller
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
 
             $user = $this->get('security.token_storage')->getToken()->getUser();
-            if($user->getType() == 'SYNDIC'){
+
+            //TODO : modifier conditions pour chaque type de compte
+            //TODO : voir si suppression champ 'Type'
+            if($user->hasRole('ROLE_SYNDIC')){
                 return $this->redirectToRoute('syndic_index');
             }
 

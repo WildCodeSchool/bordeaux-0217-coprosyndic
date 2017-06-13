@@ -76,6 +76,7 @@ class SyndicController extends Controller
             $em->persist($coproprietaire);
             $em->flush();
 
+            //TODO : rajouter l'appel au service pour chaque type de compte
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($coproprietaire->getUser());
 
