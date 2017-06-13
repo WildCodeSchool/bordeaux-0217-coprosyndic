@@ -40,7 +40,7 @@ class Document
     private $docName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      *
      * @var integer
      */
@@ -63,7 +63,7 @@ class Document
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_ajout", type="date")
+     * @ORM\Column(name="date_ajout", type="date", nullable=true)
      */
     private $dateAjout;
 

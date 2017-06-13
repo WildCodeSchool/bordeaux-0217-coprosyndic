@@ -37,7 +37,6 @@ class CreateLocataireType extends AbstractType
             ->add('submit',SubmitType::class)
         ;
 
-        // $locataire = $builder->getForm();
     }
 
 

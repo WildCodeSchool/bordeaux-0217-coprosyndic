@@ -1,0 +1,24 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Modification DOCUMENT
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Edition d'un Document
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Editer un Document</li>
+{% endblock %}
+
+{% block content %}
+    {{ form(form) }}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

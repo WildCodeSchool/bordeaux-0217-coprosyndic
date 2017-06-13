@@ -6,15 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use AKYOS\EasyCoproBundle\Entity\Locataire;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use AKYOS\EasyCoproBundle\Entity\Document;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class CreateDocumentType extends AbstractType
 {
@@ -27,18 +25,16 @@ class CreateDocumentType extends AbstractType
             ->add('description', TextType::class,array('attr' => array('placeholder' => 'Description')))
             ->add('confidentialite', IntegerType::class,array('attr' => array('placeholder' => 'Confidentialité')))
             ->add('url', UrlType::class,array('attr' => array('placeholder' => 'URL')))
-
+            ->add('docFile', FileType::class, array('label' => 'File (PDF file)'))
             ->add('submit',SubmitType::class)
         ;
-
-        //$document = $builder->getForm();
-
     }
 
-
-    public function getBlockPrefix()
+    public function configureOptions(OptionsResolver $resolver)
     {
-        return 'akyos_easycoprobundle_document';
+        $resolver->setDefaults(array(
+            'data_class' => Document::class,
+        ));
     }
 
 }

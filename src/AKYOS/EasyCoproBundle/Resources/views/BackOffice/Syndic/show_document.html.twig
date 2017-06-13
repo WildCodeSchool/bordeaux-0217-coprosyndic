@@ -1,4 +1,4 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Document/layout.html.twig' %}
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
 {% block title %}
     Affichage DOCUMENT
@@ -9,7 +9,7 @@
 
 {% block content %}
     <p>
-    {% for message in app.session.flashbag.get('infoDoc') %}
+    {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
     </p>
@@ -18,8 +18,11 @@
     <ul>
         <li>{{ document.docName }}</li>
         <li>{{ document.description }}</li>
+        <li>{{ document.docFile }}</li>
         <li>...</li>
     </ul>
+    <p><a href="{{ path('syndic_edit_document', {'id' : document.id}) }}">Modifier le document</a></p>
+    <p><a href="{{ path('syndic_delete_document', {'id' : document.id}) }}">Supprimer le document</a></p>
 {% endblock %}
 
 {% block scripts %}
