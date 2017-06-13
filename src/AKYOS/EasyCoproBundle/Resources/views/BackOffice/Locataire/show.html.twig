@@ -1,0 +1,27 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Locataire/layout.html.twig' %}
+
+{% block title %}
+    Affichage SYNDIC
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('infoLoc') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Votre profil :</h4>
+    <h4>{{ locataire.nom }}</h4>
+    <ul>
+        <li>{{ locataire.email }}</li>
+        <li>{{ locataire.actuel }}</li>
+        <li>...</li>
+    </ul>
+    <p><a href="{{ path('locataire_edit')}}">Modifier votre Profil</a></p>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

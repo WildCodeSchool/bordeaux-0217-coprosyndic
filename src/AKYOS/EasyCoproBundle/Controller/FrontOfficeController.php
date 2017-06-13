@@ -56,6 +56,7 @@ class FrontOfficeController extends Controller
             )
         ;
 
+        //TODO : Afficher le FlashMessage sur la page d'accueil
         $this->get('mailer')->send($message);
         $request->getSession()->getFlashBag()->add('notice', 'Votre message a bien été envoyée.');
 

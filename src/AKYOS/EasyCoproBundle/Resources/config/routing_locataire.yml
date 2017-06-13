@@ -1,3 +1,11 @@
 locataire_index:
     path:     /
     defaults: { _controller: AKYOSEasyCoproBundle:Locataire:index }
+
+locataire_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:edit }
+
+locataire_show:
+    path:     /show
+    defaults: {_controller: AKYOSEasyCoproBundle:Locataire:show }

@@ -1,27 +1,5 @@
-<li class="actived">
-    <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01"
-       class="collapsed">
-        <h4 class="h4color">
-            {{ app.user.username }}
-            <br>
-            <small>{{ app.user.type }} <span class="caret"></span></small>
-        </h4>
-    </a>
-    <div class="non-active collapse" id="toggleDemo0" style="height: 0;">
-        <ul class="nav nav-list">
-            <li class="icon-profil-box">
-                <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-            </li>
-
-            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-        </ul>
-    </div>
-</li>
-
 <li class="non-active"><a href="{{ path('artisan_index') }}"><span class="glyphicon glyphicon-lock"></span> Accueil</a></li>
-<li class="non-active"><a href="{{ path('artisan_index') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
+<li class="non-active"><a href="{{ path('artisan_show') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
 <li class="non-active"><a href=""><span class="glyphicon glyphicon-calendar"></span> Messagerie
         <span class="badge pull-right">3</span></a></li>
 <li class="non-active"><a href=""><span class="glyphicon glyphicon-cog"></span> Préférences</a></li>
