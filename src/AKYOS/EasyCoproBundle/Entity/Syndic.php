@@ -528,26 +528,6 @@ class Syndic
     }
 
     /**
-     * Get locataires
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLocataires()
-    {
-        return $this->locataires;
-    }
-
-    /**
-     * Get coproprietaires
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCoproprietaires()
-    {
-        return $this->coproprietaires;
-    }
-
-    /**
      * Add document
      *
      * @param \AKYOS\EasyCoproBundle\Entity\Document $document
