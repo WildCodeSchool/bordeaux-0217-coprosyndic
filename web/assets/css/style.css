@@ -110,7 +110,8 @@ img { max-width: 100%; }
 
 .navbar {
 	margin-bottom: 0;
-	background: #444;
+    min-height: 62px;
+	background-color: rgba(68, 68, 68, 0.5);
 	border: 0;
 	-moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
 	-o-transition: all .6s; -moz-transition: all .6s; -webkit-transition: all .6s; -ms-transition: all .6s; transition: all .6s;
@@ -126,8 +127,11 @@ ul.navbar-nav {
 .navbar-inverse ul.navbar-nav li a:focus { color: #fff; outline: 0; opacity: 1; border: 0; }
 
 .navbar-brand {
+    /*background-size: 89px 72px !important;*/
 	width: 99px;
-	background: url(../img/logo.png) left center no-repeat;
+    padding: 0px;
+    height: 72px;
+    background: url(../img/logo.png) left center no-repeat;
 	text-indent: -99999px;
 }
 
