@@ -15,6 +15,7 @@ use AKYOS\EasyCoproBundle\Form\CreateCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
+use AKYOS\EasyCoproBundle\Repository\CoproprietaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,7 +28,14 @@ class SyndicController extends Controller
     ##########################################################################
     public function indexAction()
     {
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findCoproprietairesBySyndic($syndic);
+
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig', array(
+            'nbre_coproprietaires' => $nbre_coproprietaires,
+        ));
     }
 
     public function listCoproprietesAction()

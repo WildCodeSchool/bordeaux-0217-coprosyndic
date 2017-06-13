@@ -7,6 +7,8 @@
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/backoffice/syndic_dashboard.css') }}">
+
 {% endblock %}
 
 {% block titre_page %}
@@ -20,13 +22,29 @@
 {% block content %}
     <h2>Bienvenue sur l'application EasyCopro</h2>
     <h4>Vous êtes connecté en tant que <strong>{{ userType }}</strong></h4>
+<div class="row affix-row">
+    <div class="col-sm-9 col-md-9">
+        <div class="row">
+            <div class="col-sm-3 col-md-3 stat-box">
+                <h4>COPROPRIETAIRES</h4>
+                <h1 class="text-center">{{ nbre_coproprietaires }}</h1>
+            </div>
+            <div class="col-sm-3 col-md-3 stat-box">
+                <h4>COPROPRIETAIRES</h4>
+                <h1 class="text-center">{{ nbre_coproprietaires }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <p>
+
+
+
+
     {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
-    </p>
-{% endblock %}
+    {% endblock %}
 
 {% block scripts %}
 {% endblock %}
