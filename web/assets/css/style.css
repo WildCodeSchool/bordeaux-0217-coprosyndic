@@ -108,7 +108,7 @@ img { max-width: 100%; }
 
 /***** Top menu *****/
 
-.navbar {
+nav.navbar {
 	margin-bottom: 0;
 	background: #444;
 	border: 0;
