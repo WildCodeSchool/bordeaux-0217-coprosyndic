@@ -332,15 +332,11 @@ class SyndicController extends Controller
             ['my_form' => $form->createView()]);
     }
 
-    public function editCoproprieteAction(Request $request, $id)
+    public function editCoproprieteAction(Request $request, Copropriete $copropriete)
     {
-
-        $em = $this->getDoctrine()->getManager();
-        $copro = $em->getRepository(Copropriete::class)->find($id);
-        $form = $this->createForm(CreateCoproprieteType::class, $copro);
-
+        $form = $this->createForm(CreateCoproprieteType::class, $copropriete);
         $form->handleRequest($request);
-        // Si method POST et si le form est valid
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
@@ -352,12 +348,10 @@ class SyndicController extends Controller
             ['my_form' => $form->createView()]);
     }
 
-    public function showCoproprieteAction($id)
+    public function showCoproprieteAction(Copropriete $copropriete)
     {
-        $em = $this->getDoctrine()->getManager();
-        $copro = $em->getRepository(Copropriete::class)->find($id);
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig',
-            ['copropriete' => $copro]);
+            ['copropriete' => $copropriete]);
     }
 
     public function listCoproprietesAction()
@@ -372,11 +366,10 @@ class SyndicController extends Controller
         ));
     }
 
-    public function deleteCoproprieteAction(Request $request, $id)
+    public function deleteCoproprieteAction(Request $request, Copropriete $copropriete)
     {
         $em = $this->getDoctrine()->getManager();
-        $copro = $em->getRepository(Copropriete::class)->find($id);
-        $em->remove($copro);
+        $em->remove($copropriete);
         $em->flush();
         $request->getSession()->getFlashBag()->add('info', 'La copropriété a bien été supprimée.');
 
@@ -404,10 +397,8 @@ class SyndicController extends Controller
             ['form' => $form->createView()]);
     }
 
-    public function editLotAction(Request $request, $id)
+    public function editLotAction(Request $request, Lot $lot)
     {
-        $em = $this->getDoctrine()->getManager();
-        $lot = $em->getRepository(Lot::class)->find($id);
         $form = $this->createForm(CreateLotType::class, $lot);
         $form->handleRequest($request);
 
@@ -423,10 +414,8 @@ class SyndicController extends Controller
             ['my_form' => $form->createView()]);
     }
 
-    public function showLotAction($id)
+    public function showLotAction(Lot $lot)
     {
-        $em = $this->getDoctrine()->getManager();
-        $lot = $em->getRepository(Lot::class)->find($id);
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_lot.html.twig',
             ['lot' => $lot]);
     }
@@ -445,10 +434,9 @@ class SyndicController extends Controller
             ['lots' => $lots, 'coproprietes' => $coproprietes]);
     }
 
-    public function deleteLotAction(Request $request, $id)
+    public function deleteLotAction(Request $request, Lot $lot)
     {
         $em = $this->getDoctrine()->getManager();
-        $lot = $em->getRepository(Lot::class)->find($id);
         $em->remove($lot);
         $em->flush();
         $request->getSession()->getFlashBag()->add('info', 'Le lot a bien été supprimé.');
