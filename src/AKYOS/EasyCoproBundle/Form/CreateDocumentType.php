@@ -12,11 +12,13 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class CreateDocumentTypeType extends AbstractType
+class CreateDocumentType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -24,7 +26,7 @@ class CreateDocumentTypeType extends AbstractType
             ->add('docName', TextType::class,array('attr' => array('placeholder' => 'Nom du Document')))
             ->add('description', TextType::class,array('attr' => array('placeholder' => 'Description')))
             ->add('confidentialite', IntegerType::class,array('attr' => array('placeholder' => 'Confidentialité')))
-            ->add('url', TextType::class,array('attr' => array('placeholder' => 'URL')))
+            ->add('url', UrlType::class,array('attr' => array('placeholder' => 'URL')))
 
             ->add('submit',SubmitType::class)
         ;

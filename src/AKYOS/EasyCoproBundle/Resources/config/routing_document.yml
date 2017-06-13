@@ -1,0 +1,3 @@
+document_show:
+    path:     /show/{id}
+    defaults: { _controller: AKYOSEasyCoproBundle:Document:show }

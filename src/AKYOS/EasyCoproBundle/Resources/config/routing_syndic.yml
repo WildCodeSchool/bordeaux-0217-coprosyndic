@@ -117,3 +117,18 @@ syndic_show_lot:
 syndic_delete_lot:
     path:     /delete/lot/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteLot }
+
+##Document##
+
+syndic_create_document:
+        path: /docs/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createDocument}
+
+syndic_edit_document:
+        path: /docs/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:editDocument}
+
+syndic_list_documents:
+        path: /docs/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:listDocuments}
+
