@@ -61,14 +61,21 @@ resetting:
     flash:
         success: 'Le mot de passe a été réinitialisé avec succès.'
     email:
-        subject: 'Réinitialisation de votre mot de passe'
+        subject: 'Votre demande de réinitialisation de mot de passe'
         message: |
             Bonjour %username% !
 
-            Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
+            Pour réinitialiser votre mot de passe, merci de vous rendre à l'adresse suivante :
+            %confirmationUrl%
+
+            Si vous n'êtes pas à l'origine de cette demande, veuillez nous contacter directement à contact@easycopro.com.
+
+            Ceci est un message automatique, veuillez ne pas répondre directement à ce message.
 
             Cordialement,
             L'équipe EasyCopro
+
+
 
 layout:
     logout: Déconnexion

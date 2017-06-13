@@ -5,6 +5,7 @@ namespace AKYOS\EasyCoproBundle\Controller;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class CoproprietaireController extends Controller
 {

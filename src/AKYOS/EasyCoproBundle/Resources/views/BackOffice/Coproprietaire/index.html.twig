@@ -10,14 +10,14 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Bienvenue sur l'application EasyCopro</h2>
-    <h4>Vous êtes connecté en tant que <strong>{{ userType }}</strong></h4>
-
     <p>
     {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
     </p>
+
+    <h2>Bienvenue sur l'application EasyCopro</h2>
+    <h4>Vous êtes connecté en tant que <strong>{{ userType }}</strong></h4>
 {% endblock %}
 
 {% block scripts %}
