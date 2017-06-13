@@ -27,7 +27,18 @@
 
 <body>
 
-{#TODO : ajouter une div d'affichage des Flash Messages#}
+<!-- Flash Messages Box -->
+{% for message in app.session.flashbag.get('info') %}
+    <div class="flash-box">
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                ×</button>
+            <span class="glyphicon glyphicon-ok"></span> <strong>Bien reçu !</strong>
+            <hr class="message-inner-separator">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+{% endfor %}
 
 <!-- Top menu -->
 <nav class="navbar navbar-inverse" role="navigation">
@@ -334,6 +345,7 @@
 <script src="{{ asset('assets/js/wow.min.js') }}"></script>
 <script src="{{ asset('assets/js/retina-1.1.0.min.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
+<script src="{{ asset('assets/js/frontoffice/flash_messages_box.js') }}"></script>
 
 <!--[if lt IE 10]>
 <script src="{{ asset('assets/js/placeholder.js') }}"></script>
