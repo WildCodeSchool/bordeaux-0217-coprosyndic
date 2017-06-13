@@ -3,7 +3,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/frontoffice/forgotpassword.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/frontoffice/fosuser_design.css') }}">
 {% endblock fos_user_stylesheets %}
 
 {% block fos_user_content %}
@@ -19,14 +19,12 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="text-center">
-                            <h3><i class="fa fa-lock fa-4x"></i></h3>
-                            <h2 class="text-center">Mot de passe oublié ?</h2>
-                            <div class="panel-body">
-                                <p>{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}</p>
-                                <p><a href="{{ path('homepage') }}">Retour à l'accueil du site</a></p>
-                            </div>
+                    <div class="panel-body text-center">
+                        <h3><i class="fa fa-lock fa-4x"></i></h3>
+                        <h2 class="text-center">Mot de passe oublié ?</h2>
+                        <div class="panel-body">
+                            <p>{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}</p>
+                            <p><a href="{{ path('homepage') }}">Retour à l'accueil du site</a></p>
                         </div>
                     </div>
                 </div>

@@ -35,13 +35,15 @@ registration:
     flash:
         user_created: 'L''utilisateur a été créé avec succès.'
     email:
-        subject: 'Bienvenue %username% !'
+        subject: 'Votre activation de compte'
         message: |
-            Bonjour %username% !
+            Bonjour,
 
-            Pour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%
+            Un compte vient de vous être créée sur l'application EasyCopro.
+            Pour valider votre compte , merci de vous rendre à l'adresse suivante :
+            %confirmationUrl%
             
-            Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.
+            Attention, ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.
 
             Cordialement,
             L'équipe EasyCopro

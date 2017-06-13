@@ -76,6 +76,9 @@ class SyndicController extends Controller
             $em->persist($coproprietaire);
             $em->flush();
 
+            $confirmService = $this->get('akyos.confirm_registration');
+            $confirmService->confirm($coproprietaire->getUser());
+
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
             return $this->redirectToRoute('syndic_show_coproprietaire',

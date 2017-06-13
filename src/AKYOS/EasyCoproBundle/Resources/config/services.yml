@@ -4,3 +4,6 @@ services:
         arguments: ['@router', '@session']
         tags:
             - { name: kernel.event_subscriber }
+    akyos.confirm_registration:
+        class: AKYOS\EasyCoproBundle\Service\RegistrationConfirmation
+        arguments: ['@fos_user.mailer','@fos_user.util.token_generator','@router','@session', '@service_container']
