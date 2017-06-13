@@ -76,7 +76,6 @@ class SyndicController extends Controller
             $em->persist($coproprietaire);
             $em->flush();
 
-            //TODO : Modifier le message flash
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
             return $this->redirectToRoute('syndic_show_coproprietaire',
@@ -160,7 +159,6 @@ class SyndicController extends Controller
             $em->persist($locataire);
             $em->flush();
 
-            //TODO : Modifier le message flash
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
             return $this->redirectToRoute('syndic_show_locataire',
@@ -244,7 +242,6 @@ class SyndicController extends Controller
             $em->persist($artisan);
             $em->flush();
 
-            //TODO : Modifier le message flash
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
             return $this->redirectToRoute('syndic_show_artisan',
