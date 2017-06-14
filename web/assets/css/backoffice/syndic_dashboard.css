@@ -1,6 +1,20 @@
 .stat-box{
     background-color: #ade5ff;
     height: 150px;
+    padding: 0;
     margin-right: 5px;
     margin-bottom: 5px;
+    box-shadow: 1px 1px 3px #aaa;
+
+}
+
+.right-menu{
+    border-left: 1px dotted #0e334c;
+
+
+}
+
+.widget-box{
+    background-color: #ebe9ea;
+    box-shadow: 1px 1px 3px #aaa;
 }

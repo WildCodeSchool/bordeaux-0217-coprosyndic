@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
 
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/ico/favicon.png') }}">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
@@ -24,8 +23,7 @@
                     <ul class="nav navbar-nav" id="sidenav01">
                         <li class="active text-center">
                             <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01"
-                               class="collapsed">
-                                <img src="{{ asset('assets/img/logo.png') }}">
+                               class="collapsed"><img src="{{ asset('assets/img/logo.png') }}">
                             </a>
                         </li>
                     </ul>
@@ -82,6 +80,7 @@
     <div class="col-sm-3 col-md-2 affix-sidebar">
         <div class="sidebar-nav">
             <div class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"
                             data-target=".sidebar-navbar-collapse">
@@ -115,6 +114,7 @@
                         </li>
                         {% block menu %}{% endblock %}
                     </ul>
+                </div>
                 </div>
             </div>
         </div>
