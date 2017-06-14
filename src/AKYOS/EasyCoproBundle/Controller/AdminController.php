@@ -32,6 +32,10 @@ class AdminController extends Controller
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($syndic->getUser());
 
+            $password = $_POST['akyos_easycoprobundle_syndic']['user']['plainPassword']['first'];
+            $documentService = $this->get('akyos.generate_document');
+            $documentService->generateRegistrationDocument($this->getUser(), $syndic, $password);
+
             $request->getSession()->getFlashBag()->add('info', 'Le compte SYNDIC a bien été crée.');
 
             return $this->redirectToRoute('admin_list_syndics');

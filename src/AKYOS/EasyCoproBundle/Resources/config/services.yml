@@ -7,3 +7,7 @@ services:
     akyos.confirm_registration:
         class: AKYOS\EasyCoproBundle\Service\RegistrationConfirmation
         arguments: ['@fos_user.mailer','@fos_user.util.token_generator','@router','@session', '@service_container']
+
+    akyos.generate_document:
+        class: AKYOS\EasyCoproBundle\Service\GenerateDocument
+        arguments: ['@service_container']

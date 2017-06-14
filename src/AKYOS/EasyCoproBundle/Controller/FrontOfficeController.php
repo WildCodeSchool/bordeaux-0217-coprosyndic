@@ -2,8 +2,11 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
+use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
+use AKYOS\EasyCoproBundle\Entity\Syndic;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class FrontOfficeController extends Controller
 {
@@ -29,7 +32,7 @@ class FrontOfficeController extends Controller
                 return $this->redirectToRoute('artisan_index');
             }
 
-            if($user->getType() == 'SUPERADMIN'){
+            if($user->getType() == 'ADMIN'){
                 return $this->redirectToRoute('admin_index');
             }
         }
@@ -62,4 +65,5 @@ class FrontOfficeController extends Controller
 
         return $this->redirectToRoute('homepage');
     }
+
 }

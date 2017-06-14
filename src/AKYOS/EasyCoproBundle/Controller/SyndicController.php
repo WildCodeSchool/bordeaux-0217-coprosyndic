@@ -17,6 +17,7 @@ use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SyndicController extends Controller
 {
@@ -79,10 +80,15 @@ class SyndicController extends Controller
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($coproprietaire->getUser());
 
+            $password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
+            $documentService = $this->get('akyos.generate_document');
+            $documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
+
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
-            return $this->redirectToRoute('syndic_show_coproprietaire',
-                array('id' => $coproprietaire->getId()));
+            return $this->redirectToRoute('syndic_show_coproprietaire', array(
+                'id' => $coproprietaire->getId(),
+                ));
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_coproprietaire.html.twig', array(
@@ -166,6 +172,10 @@ class SyndicController extends Controller
 
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($locataire->getUser());
+
+            $password = $_POST['akyos_easycoprobundle_locataire']['user']['plainPassword']['first'];
+            $documentService = $this->get('akyos.generate_document');
+            $documentService->generateRegistrationDocument($this->getUser(), $locataire, $password);
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
@@ -254,6 +264,10 @@ class SyndicController extends Controller
 
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($artisan->getUser());
+
+            $password = $_POST['akyos_easycoprobundle_artisan']['user']['plainPassword']['first'];
+            $documentService = $this->get('akyos.generate_document');
+            $documentService->generateRegistrationDocument($this->getUser(), $artisan, $password);
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
