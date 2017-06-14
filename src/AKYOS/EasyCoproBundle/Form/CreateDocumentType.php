@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,12 +22,13 @@ class CreateDocumentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('dateAjout', DateType::class,array('attr' => array('placeholder' => 'Date d\'ajout')))
             ->add('titre', TextType::class,array('attr' => array('placeholder' => 'Titre')))
-            ->add('image', TextType::class,array('attr' => array('placeholder' => 'Nom du Document')))
+            ->add('nom', TextType::class,array('attr' => array('placeholder' => 'Nom du Document')))
             ->add('description', TextType::class,array('attr' => array('placeholder' => 'Description')))
             ->add('confidentialite', IntegerType::class,array('attr' => array('placeholder' => 'Confidentialité')))
-            //->add('categorie', TextType::class,array('attr' => array('placeholder' => 'Catégorie')))
-            ->add('imageFile', FileType::class, array('label' => 'File (PDF file)'))
+            ->add('categorie', TextType::class,array('attr' => array('placeholder' => 'Catégorie')))
+            ->add('fichier', FileType::class, array('label' => 'Fichier (PDF file)'))
             ->add('submit',SubmitType::class)
         ;
     }

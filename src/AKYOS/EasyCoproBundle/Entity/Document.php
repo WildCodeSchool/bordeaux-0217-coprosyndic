@@ -57,7 +57,7 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255, unique=true)
+     * @ORM\Column(name="url", type="string", length=255, unique=true, nullable=true)
      */
     private $url;
     /**
@@ -77,14 +77,13 @@ class Document
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $image;
+    private $nom;
 
     /**
-     * @Vich\UploadableField(mapping="img_documents", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="img_documents", fileNameProperty="nom")
      * @var File
      */
-    private $imageFile;
-
+    private $fichier;
 
     /**
      * Get id
@@ -304,16 +303,16 @@ class Document
 
 
     /**
-     * @param File|null $image*
+     * @param File|null $nom*
      */
-    public function setImageFile(File $image = null)
+    public function setFichier(File $nom = null)
     {
-        $this->imageFile = $image;
+        $this->fichier = $nom;
 
         // VERY IMPORTANT:
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
+        if ($nom) {
             // if 'updatedAt' is not defined in your entity, use another property
             $this->dateModif = new \DateTime('now');
         }
@@ -322,24 +321,36 @@ class Document
     /**
      * @return File
      */
-    public function getImageFile()
+    public function getFichier()
     {
-        return $this->imageFile;
+        return $this->fichier;
     }
 
     /**
-     * @param $image
+     * @param $nom
      */
-    public function setImage($image)
+    public function setNom($nom)
     {
-        $this->image = $image;
+        $this->nom = $nom;
     }
 
     /**
      * @return string
      */
-    public function getImage()
+    public function getNom()
     {
-        return $this->image;
+        return $this->nom;
+    }
+
+    /**
+     *
+     */
+    public function upload()
+    {
+        if (null === $this->fichier) {
+            return;
+        }
+
+        // $this->fichier = null;
     }
 }

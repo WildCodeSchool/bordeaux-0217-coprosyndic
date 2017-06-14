@@ -464,14 +464,16 @@ class SyndicController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $document->getImageFile();
+            $file = $document->getFichier();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
             $file->move(
                 $this->getParameter('documents_directory'),
                 $fileName
             );
-            $document->setImage($fileName);
+            $document->setNom($fileName);
+            $document->upload();
             $em = $this->getDoctrine()->getManager();
+            var_dump($document);
             $em->persist($document);
             $em->flush();
 
