@@ -20,9 +20,9 @@
         <li>Description : {{ document.description }}</li>
         <li>Confidentialité : {{ document.confidentialite }}</li>
         <li>Apercu fichier : {{ document.fichier }}
-            <img src="{{ asset('assets/img/docs/' ~ document.nom) }}"></li>
-            <a href="{{ asset('assets/img/docs/' ~ document.nom) }}">Telecharger le fichier</a>
+            <img src="{{ asset('assets/img/docs/' ~ document.nom) }}"><embed src="{{ asset('assets/img/docs/' ~ document.nom) }}" width="500" height="375" type='application/pdf'></li>
         <li>Catégorie : {{ document.categorie }}</li>
+            <li><a href="{{ asset('assets/img/docs/' ~ document.nom) }}">Telecharger le fichier</a></li>
         <li>...</li>
     </ul>
     <p><a href="{{ path('syndic_edit_document', {'id' : document.id}) }}">Modifier le document</a></p>
