@@ -13,9 +13,7 @@ class FrontOfficeController extends Controller
 
             $user = $this->get('security.token_storage')->getToken()->getUser();
 
-            //TODO : modifier conditions pour chaque type de compte
-            //TODO : voir si suppression champ 'Type'
-            if($user->hasRole('ROLE_SYNDIC')){
+            if($user->getType() == 'SYNDIC'){
                 return $this->redirectToRoute('syndic_index');
             }
 

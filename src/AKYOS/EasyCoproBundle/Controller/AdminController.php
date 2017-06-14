@@ -23,11 +23,14 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $syndic->getUser()->setEnabled(true)->setType('SYNDIC');
+            $syndic->getUser()->setType('SYNDIC');
             $syndic->getUser()->addRole('ROLE_SYNDIC');
             $em = $this->getDoctrine()->getManager();
             $em->persist($syndic);
             $em->flush();
+
+            $confirmService = $this->get('akyos.confirm_registration');
+            $confirmService->confirm($syndic->getUser());
 
             $request->getSession()->getFlashBag()->add('info', 'Le compte SYNDIC a bien été crée.');
 

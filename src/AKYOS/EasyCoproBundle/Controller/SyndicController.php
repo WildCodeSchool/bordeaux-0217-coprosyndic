@@ -76,7 +76,6 @@ class SyndicController extends Controller
             $em->persist($coproprietaire);
             $em->flush();
 
-            //TODO : rajouter l'appel au service pour chaque type de compte
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($coproprietaire->getUser());
 
@@ -159,11 +158,14 @@ class SyndicController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $locataire->getUser()->setEnabled(true)->setType('LOC');
+            $locataire->getUser()->setType('LOC');
             $locataire->getUser()->addRole('ROLE_LOC');
             $em = $this->getDoctrine()->getManager();
             $em->persist($locataire);
             $em->flush();
+
+            $confirmService = $this->get('akyos.confirm_registration');
+            $confirmService->confirm($locataire->getUser());
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
@@ -244,11 +246,14 @@ class SyndicController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $artisan->getUser()->setEnabled(true)->setType('ARTISAN');
+            $artisan->getUser()->setType('ARTISAN');
             $artisan->getUser()->addRole('ROLE_ARTISAN');
             $em = $this->getDoctrine()->getManager();
             $em->persist($artisan);
             $em->flush();
+
+            $confirmService = $this->get('akyos.confirm_registration');
+            $confirmService->confirm($artisan->getUser());
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
