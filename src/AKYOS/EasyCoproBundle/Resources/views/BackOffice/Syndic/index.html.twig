@@ -22,19 +22,25 @@
 {% block content %}
     <h2>Bienvenue sur l'application EasyCopro</h2>
     <h4>Vous êtes connecté en tant que <strong>{{ userType }}</strong></h4>
-<div class="row affix-row">
+<div class="container">
+    <div class="row affix-row">
     <div class="col-sm-9 col-md-9">
         <div class="row">
-            <div class="col-sm-3 col-md-3 stat-box">
-                <h4>COPROPRIETAIRES</h4>
+            <div class="col-sm-4 col-md-3 col-xs-6  stat-box">
+                <h4 class="text-center">COPROPRIETAIRES</h4>
                 <h1 class="text-center">{{ nbre_coproprietaires }}</h1>
             </div>
-            <div class="col-sm-3 col-md-3 stat-box">
-                <h4>COPROPRIETAIRES</h4>
-                <h1 class="text-center">{{ nbre_coproprietaires }}</h1>
+            <div class="col-sm-4 col-md-3 col-xs-6 stat-box">
+                <h4 class="text-center">LOCATAIRES</h4>
+                <h1 class="text-center">{{ nbre_locataires }}</h1>
+            </div>
+            <div class="col-sm-4 col-md-3 col-xs-6 stat-box">
+                <h4 class="text-center">ARTISANS</h4>
+                <h1 class="text-center">{{ artisans|length }}</h1>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 

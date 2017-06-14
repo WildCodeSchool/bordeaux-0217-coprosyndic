@@ -29,12 +29,18 @@ class SyndicController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        //Requete Coproprietaire Repository
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findCoproprietairesBySyndic($syndic);
+        //Requete Locataire Repository
+        $nbre_locataires = $em->getRepository(Locataire::class)->findLocataireBySyndic($syndic);
 
+        $artisans = $syndic->getArtisans();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig', array(
             'nbre_coproprietaires' => $nbre_coproprietaires,
+            'nbre_locataires' => $nbre_locataires,
+            'artisans' => $artisans,
         ));
     }
 
