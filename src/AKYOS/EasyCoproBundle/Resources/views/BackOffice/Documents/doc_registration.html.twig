@@ -60,7 +60,10 @@
                     {{ destinataire.adresseSec }}<br>
                     {{ destinataire.codePostal ~ ' ' ~ destinataire.ville }}
                 {% elseif destinataire.user.type == 'SYNDIC' %}
-                    {# TODO : compléter pour destinataire SYNDIC #}
+                    <strong>{{ destinataire.nom }}</strong><br>
+                    {{ destinataire.adressePrinc }}<br>
+                    {{ destinataire.adresseSec }}<br>
+                    {{ destinataire.codePostal ~ ' ' ~ destinataire.ville }}<br>
                 {% else %}
                     <strong>{{ destinataire.prenom ~ ' ' ~ destinataire.nom }}</strong><br>
                     {#TODO : à décommenter quand on pourra choisir la copropriété et le lot#}
@@ -77,9 +80,15 @@
         <div class="col-sm-12">
             <p><strong>Objet : Création de votre compte sur EasyCopro</strong></p>
             <p class="indent">Monsieur, Madame,</p>
-            <p class="indent">Votre syndicat de copropriété {{ expediteur.nom }} vous a généré un compte pour accèder à la plateforme
-                EasyCopro. Vous pouvez donc vous connecter dès à présent sur votre espace personnel. Rendez vous sur
-                www.easycopro.com et saisissez les identifiants suivants :</p>
+            {% if destinataire.user.type == 'SYNDIC' %}
+                <p class="indent">Suite à votre demande, la société AKYOS vous a généré un compte pour accèder à la plateforme
+                    EasyCopro. Vous pouvez donc vous connecter dès à présent sur votre espace personnel. Rendez vous sur
+                    www.easycopro.com et saisissez les identifiants suivants :</p>
+            {% else %}
+                <p class="indent">Votre syndicat de copropriété {{ expediteur.nom }} vous a généré un compte pour accèder à la plateforme
+                    EasyCopro. Vous pouvez donc vous connecter dès à présent sur votre espace personnel. Rendez vous sur
+                    www.easycopro.com et saisissez les identifiants suivants :</p>
+            {% endif %}
             <ul class="identifiants">
                 <li><strong>Identifiant :</strong> {{ destinataire.user.username }}</li>
                 <li><strong>Mot de passe :</strong> {{ password }}</li>

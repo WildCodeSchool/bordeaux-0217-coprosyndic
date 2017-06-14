@@ -36,7 +36,7 @@ class AdminController extends Controller
             $documentService = $this->get('akyos.generate_document');
             $documentService->generateRegistrationDocument($this->getUser(), $syndic, $password);
 
-            $request->getSession()->getFlashBag()->add('info', 'Le compte SYNDIC a bien été crée.');
+            $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été crée avec succès.');
 
             return $this->redirectToRoute('admin_list_syndics');
         }
