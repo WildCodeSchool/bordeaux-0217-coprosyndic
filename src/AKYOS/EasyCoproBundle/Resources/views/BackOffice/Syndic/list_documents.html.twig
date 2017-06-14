@@ -19,8 +19,8 @@
         <tr>
             <th>Id</th>
             <th>Titre</th>
-            <th>Nom du Document</th>
             <th>Description</th>
+            <th>Confidentialité</th>
         </tr>
         </thead>
         <tbody>
@@ -28,8 +28,8 @@
             <tr>
                 <td><a href="{{ path('syndic_show_document', {'id': document.id}) }}">{{ document.id }}</a></td>
                 <td>{{ document.titre }}</td>
-                <td>{{ document.docName }}</td>
                 <td>{{ document.description }}</td>
+                <td>{{ document.confidentialite }}</td>
             </tr>
         {% endfor %}
         </tbody>

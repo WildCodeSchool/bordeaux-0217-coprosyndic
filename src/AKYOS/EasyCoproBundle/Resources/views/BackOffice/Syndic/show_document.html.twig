@@ -16,10 +16,11 @@
     <h4> Document Visionné:</h4>
     <h4>{{ document.titre }}</h4>
     <ul>
-        <li>{{ document.nom }}</li>
-        <li>{{ document.description }}</li>
-        <li>{{ document.confidentialite }}</li>
-        <li>{{ document.fichier }}</li>
+        <li>Intitulé : {{ document.nom }}</li>
+        <li>Description : {{ document.description }}</li>
+        <li>Confidentialité : {{ document.confidentialite }}</li>
+        <li>Apercu fichier : {{ document.fichier }}</li>
+        <li>Catégorie : {{ document.categorie }}</li>
         <li>...</li>
     </ul>
     <p><a href="{{ path('syndic_edit_document', {'id' : document.id}) }}">Modifier le document</a></p>
