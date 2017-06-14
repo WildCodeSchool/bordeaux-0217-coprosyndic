@@ -19,7 +19,8 @@
         <li>Intitulé : {{ document.nom }}</li>
         <li>Description : {{ document.description }}</li>
         <li>Confidentialité : {{ document.confidentialite }}</li>
-        <li>Apercu fichier : {{ document.fichier }}</li>
+        <li>Apercu fichier : {{ document.fichier }}
+            <img src="{{ asset('assets/img/docs/' ~ document.nom) }}"></li>
         <li>Catégorie : {{ document.categorie }}</li>
         <li>...</li>
     </ul>
