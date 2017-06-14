@@ -1,3 +1,4 @@
+
 .stat-box{
     background-color: #ade5ff;
     height: 150px;
@@ -12,9 +13,12 @@
     border-left: 1px dotted #0e334c;
 
 
+
 }
 
 .widget-box{
+    margin-left: 10px;
     background-color: #ebe9ea;
     box-shadow: 1px 1px 3px #aaa;
+    height: 150px;
 }

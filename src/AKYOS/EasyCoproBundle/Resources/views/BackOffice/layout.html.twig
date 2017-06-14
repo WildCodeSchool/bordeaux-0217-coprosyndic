@@ -4,136 +4,146 @@
 
     <title>{% block title %}Easy Copro{% endblock %}</title>
     <meta charset="UTF-8">
+    <meta name="description" content="Macopro outil de gestion des biens immobiliers">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
 
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/ico/favicon.png') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/backoffice/backoffice.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/backoffice/main.css') }}">
+
     {% block stylesheets %}{% endblock %}
 
 </head>
 <body>
 
-<div class="row top-row">
-    <div class="col-sm-3 col-md-2 affix-sidebar">
-        <div class="sidebar-nav">
-            <div class="navbar navbar-default" role="navigation">
-                <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                    <ul class="nav navbar-nav" id="sidenav01">
-                        <li class="active text-center">
-                            <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01"
-                               class="collapsed"><img src="{{ asset('assets/img/logo.png') }}">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<div id="page-wrapper" class="page-loading">
+    <div class="preloader">
+        <div class="inner">
+            <!-- Animation spinner for all modern browsers -->
+            <div class="preloader-spinner themed-background hidden-lt-ie10"></div>
+
+            <!-- Text for IE9 -->
+            <h3 class="text-primary visible-lt-ie10"><strong>Chargement..</strong></h3>
         </div>
     </div>
+    <!-- END Preloader -->
 
+    <div id="page-container" class="header-fixed-top sidebar-visible-lg-full">
 
-    <div class="col-sm-9 col-md-10 top-menu">
-
-        <div class="col-sm-1">
-            <button type="button" class="btn btn-default" aria-label="Reduction menu">
-                <i class="fa fa-caret-left fa-lg" aria-hidden="true"></i>
-            </button>
-        </div>
-
-        <div class="col-sm-5">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Rechercher un document ...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </button>
-                </span>
+        <!-- Main Sidebar -->
+        <div id="sidebar">
+            <div id="sidebar-brand" class="themed-background">
+                <a href="<?= WWW; ?>/dashboard" class="sidebar-title">
+                    <img src="{{ asset('assets/img/logo.png') }}"> <span class="sidebar-nav-mini-hide">Easy<strong>Copro</strong></span>
+                </a>
             </div>
-        </div>
-        <div class="col-sm-6 text-right">
-            <a href="/">
-                <button type="button" class="btn btn-default" aria-label="Accueil">
-                    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
-                </button>
-            </a>
-            <a href="">
-                <button type="button" class="btn btn-default" aria-label="Messagerie">
-                    <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
-                </button>
-            </a>
-            <a href="{{ path('fos_user_security_logout') }}">
-                <button type="button" class="btn btn-default" aria-label="Deconnexion">
-                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Se déconnecter
-                </button>
-            </a>
-            <a href="">
-                <button type="button" class="btn btn-default" aria-label="Infos">
-                    <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
-                </button>
-            </a>
-        </div>
-    </div>
-</div>
 
-<div class="row affix-row">
-    <div class="col-sm-3 col-md-2 affix-sidebar">
-        <div class="sidebar-nav">
-            <div class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target=".sidebar-navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <span class="visible-xs navbar-brand">Sidebar menu</span>
-                </div>
-                <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                    <ul class="nav navbar-nav" id="sidenav01">
-                        <li class="actived">
-                            <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01"
-                               class="collapsed">
-                                <h4 class="h4color">
-                                    {{ app.user.username }}
-                                    <br>
-                                    <small>{{ app.user.type }} <span class="caret"></span></small>
-                                </h4>
-                            </a>
-                            <div class="non-active collapse" id="toggleDemo0" style="height: 0;">
-                                <ul class="nav nav-list">
-                                    <li class="icon-profil-box">
-                                        <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                                        <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                                        <a class="icon-profil-link" href="#"><i class="fa fa-user icon-profil" aria-hidden="true"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
                         {% block menu %}{% endblock %}
+
+            <!-- END Sidebar Extra Info -->
+        </div>
+
+            <!-- Main Container -->
+            <div id="main-container">
+                <header class="navbar navbar-inverse navbar-fixed-top">
+                    <!-- Left Header Navigation -->
+                    <ul class="nav navbar-nav-custom">
+                        <!-- Main Sidebar Toggle Button -->
+                        <li>
+                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');
+                                        this.blur();">
+                                <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                                <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
+                            </a>
+                        </li>
+                        <!-- END Main Sidebar Toggle Button -->
+                        <!-- Header Link -->
+                        <li class="hidden-xs animation-fadeInQuick" id="copro-selector">
+                            <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
+                                <span>Gestion de : &nbsp;</span>&nbsp;  Résidence aux 5 palmiers &nbsp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu text-left" id="all-coownerships-dropdown">
+                                <li class="dropdown-header"><i class="fa fa-building pull-right"></i> <strong>Mes copropriétés</strong></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Résidence aux 5 palmiers</a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Appartement Leclerc</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" data-toggle="modal"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
+                            </ul>
+                        </li>
+                    <!-- END Header Link -->
                     </ul>
+                    <!-- END Left Header Navigation -->
+
+                    <!-- Right Header Navigation -->
+                    <ul class="nav navbar-nav-custom pull-right">
+                        <!-- Search Form -->
+                        <li>
+                            <form action="<?= WWW; ?>/search" method="post" class="navbar-form-custom" role="search">
+                                <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Rechercher..">
+                            </form>
+                        </li>
+                        <!-- END Search Form -->
+
+                        <!-- User Dropdown -->
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar9.jpg" alt="avatar">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-header">
+                                    <strong>{{ app.user.username }}</strong>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="fa fa-pencil-square fa-fw pull-right"></i>
+                                        Mon compte : {{ userType }}
+                                    </a>
+                                </li>
+                                <li class="divider"><li>
+                                <li>
+                                    <a href="">
+                                        <i class="gi gi-settings fa-fw pull-right"></i>
+                                        Paramètres
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('fos_user_security_logout') }}">
+                                        <i class="fa fa-power-off fa-fw pull-right"></i>
+                                        Se déconnecter
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END User Dropdown -->
+                    </ul>
+                    <!-- END Right Header Navigation -->
+            </header>
+            <!-- END Header -->
+
+
+
+            <div class="col-sm-9 col-md-10 affix-content">
+                <div class="row titre-page">
+                    <h4 class="titre-page-text">
+                        {% block titre_page %}{% endblock %}</h4>
                 </div>
+                <div class="row">
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home fa-fw" aria-hidden="true"></i></li>
+                        {% block breadcrumb %}{% endblock %}
+                    </ol>
+                </div>
+                <div class="row row-content">
+                    {% block content %}{% endblock %}
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-9 col-md-10 affix-content">
-        <div class="row titre-page">
-            <h4 class="titre-page-text">{% block titre_page %}{% endblock %}</h4>
-        </div>
-        <div class="row">
-            <ol class="breadcrumb">
-                <li><i class="fa fa-home fa-fw" aria-hidden="true"></i></li>
-                {% block breadcrumb %}{% endblock %}
-            </ol>
-        </div>
-        <div class="row row-content">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
 </div>
+
 
 <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -141,6 +151,8 @@
 <script src="{{ asset('assets/js/wow.min.js') }}"></script>
 <script src="{{ asset('assets/js/retina-1.1.0.min.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/plugins.js') }}"></script>
 
 <!--[if lt IE 10]>
 <script src="{{ asset('assets/js/placeholder.js') }}"></script>
