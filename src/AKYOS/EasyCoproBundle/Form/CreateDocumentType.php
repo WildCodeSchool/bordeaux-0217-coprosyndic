@@ -8,10 +8,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
+//use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use AKYOS\EasyCoproBundle\Entity\Document;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 class CreateDocumentType extends AbstractType
@@ -21,11 +22,11 @@ class CreateDocumentType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class,array('attr' => array('placeholder' => 'Titre')))
-            ->add('docName', TextType::class,array('attr' => array('placeholder' => 'Nom du Document')))
+            ->add('image', TextType::class,array('attr' => array('placeholder' => 'Nom du Document')))
             ->add('description', TextType::class,array('attr' => array('placeholder' => 'Description')))
             ->add('confidentialite', IntegerType::class,array('attr' => array('placeholder' => 'Confidentialité')))
-            ->add('url', UrlType::class,array('attr' => array('placeholder' => 'URL')))
-            ->add('docFile', FileType::class, array('label' => 'File (PDF file)'))
+            //->add('categorie', TextType::class,array('attr' => array('placeholder' => 'Catégorie')))
+            ->add('imageFile', FileType::class, array('label' => 'File (PDF file)'))
             ->add('submit',SubmitType::class)
         ;
     }

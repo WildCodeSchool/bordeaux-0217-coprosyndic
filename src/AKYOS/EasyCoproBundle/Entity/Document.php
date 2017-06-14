@@ -1,9 +1,9 @@
 <?php
-
 namespace AKYOS\EasyCoproBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -11,6 +11,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Table(name="document")
  * @ORM\Entity(repositoryClass="AKYOS\EasyCoproBundle\Repository\DocumentRepository")
+ * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Document
 {
@@ -22,86 +24,66 @@ class Document
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
-     * @Vich\UploadableField(mapping="product_image", fileNameProperty="docName", size="docSize")
-     *
-     * @var File
-     */
-    private $docFile;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    private $docName;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     *
-     * @var integer
-     */
-    private $docSize;
-
     /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
-
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
-
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_ajout", type="date", nullable=true)
+     * @ORM\Column(name="date_ajout", type="date")
      */
     private $dateAjout;
-
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_modif", type="date", nullable=true)
      */
     private $dateModif;
-
     /**
      * @var int
      *
      * @ORM\Column(name="confidentialite", type="integer")
      */
     private $confidentialite;
-
     /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
     private $url;
-
     /**
      * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="documents")
      */
     private $syndic;
-
     /**
      * @ORM\ManyToMany(targetEntity="Lot", mappedBy="documents")
      */
     private $lots;
-
     /**
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="documents")
      */
     private $categorie;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="img_documents", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
 
 
     /**
@@ -113,79 +95,6 @@ class Document
     {
         return $this->id;
     }
-
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $doc
-     *
-     * @return Document
-     */
-    public function setDocFile(File $doc = null)
-    {
-        $this->docFile = $doc;
-
-        if ($doc) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->dateAjout = new \DateTimeImmutable();
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return File|null
-     */
-    public function getDocFile()
-    {
-        return $this->docFile;
-    }
-
-    /**
-     * @param string $docName
-     *
-     * @return Document
-     */
-    public function setDocName($docName)
-    {
-        $this->docName = $docName;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDocName()
-    {
-        return $this->docName;
-    }
-
-    /**
-     * @param integer $docSize
-     *
-     * @return Document
-     */
-    public function setdocSize($docSize)
-    {
-        $this->docSize = $docSize;
-
-        return $this;
-    }
-
-    /**
-     * @return integer|null
-     */
-    public function getImageSize()
-    {
-        return $this->docSize;
-    }
-
     /**
      * Set titre
      *
@@ -196,10 +105,8 @@ class Document
     public function setTitre($titre)
     {
         $this->titre = $titre;
-
         return $this;
     }
-
     /**
      * Get titre
      *
@@ -209,7 +116,6 @@ class Document
     {
         return $this->titre;
     }
-
     /**
      * Set description
      *
@@ -220,10 +126,8 @@ class Document
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
     }
-
     /**
      * Get description
      *
@@ -233,7 +137,6 @@ class Document
     {
         return $this->description;
     }
-
     /**
      * Set dateAjout
      *
@@ -244,10 +147,8 @@ class Document
     public function setDateAjout($dateAjout)
     {
         $this->dateAjout = $dateAjout;
-
         return $this;
     }
-
     /**
      * Get dateAjout
      *
@@ -257,7 +158,6 @@ class Document
     {
         return $this->dateAjout;
     }
-
     /**
      * Set dateModif
      *
@@ -268,10 +168,8 @@ class Document
     public function setDateModif($dateModif)
     {
         $this->dateModif = $dateModif;
-
         return $this;
     }
-
     /**
      * Get dateModif
      *
@@ -281,7 +179,6 @@ class Document
     {
         return $this->dateModif;
     }
-
     /**
      * Set confidentialite
      *
@@ -292,10 +189,8 @@ class Document
     public function setConfidentialite($confidentialite)
     {
         $this->confidentialite = $confidentialite;
-
         return $this;
     }
-
     /**
      * Get confidentialite
      *
@@ -305,7 +200,6 @@ class Document
     {
         return $this->confidentialite;
     }
-
     /**
      * Set url
      *
@@ -316,10 +210,8 @@ class Document
     public function setUrl($url)
     {
         $this->url = $url;
-
         return $this;
     }
-
     /**
      * Get url
      *
@@ -335,8 +227,8 @@ class Document
     public function __construct()
     {
         $this->lots = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
+    }
     /**
      * Set syndic
      *
@@ -347,10 +239,8 @@ class Document
     public function setSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic = null)
     {
         $this->syndic = $syndic;
-
         return $this;
     }
-
     /**
      * Get syndic
      *
@@ -360,7 +250,6 @@ class Document
     {
         return $this->syndic;
     }
-
     /**
      * Add lot
      *
@@ -371,10 +260,8 @@ class Document
     public function addLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
     {
         $this->lots[] = $lot;
-
         return $this;
     }
-
     /**
      * Remove lot
      *
@@ -384,7 +271,6 @@ class Document
     {
         $this->lots->removeElement($lot);
     }
-
     /**
      * Get lots
      *
@@ -394,7 +280,6 @@ class Document
     {
         return $this->lots;
     }
-
     /**
      * Set categorie
      *
@@ -405,10 +290,8 @@ class Document
     public function setCategorie(\AKYOS\EasyCoproBundle\Entity\Categorie $categorie = null)
     {
         $this->categorie = $categorie;
-
         return $this;
     }
-
     /**
      * Get categorie
      *
@@ -417,5 +300,46 @@ class Document
     public function getCategorie()
     {
         return $this->categorie;
+    }
+
+
+    /**
+     * @param File|null $image*
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->dateModif = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

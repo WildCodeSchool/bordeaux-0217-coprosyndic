@@ -457,19 +457,23 @@ class SyndicController extends Controller
 
     public function createDocumentAction(Request $request)
     {
+
         $document = new Document();
 
         $form = $this->createForm(CreateDocumentType::class, $document);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $document->getDocFile();
+            $file = $document->getImageFile();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
             $file->move(
                 $this->getParameter('documents_directory'),
                 $fileName
             );
-            $document->setDocFile($fileName);
+            $document->setImage($fileName);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($document);
+            $em->flush();
 
             //TODO : Modifier le message flash
             $this->addFlash('info', 'Le DOCUMENT a été créé avec succès.');
@@ -502,7 +506,7 @@ class SyndicController extends Controller
     public function showDocumentAction(Document $document)
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_document.html.twig', array(
-            'document' => $document,
+            'id' => $document->getId(),
         ));
     }
 
