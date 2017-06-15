@@ -117,7 +117,8 @@ class SyndicController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
+        $coproprietes = $em->getRepository(Copropriete::class)->find3LastCoproprietesBySyndic($syndic);
+
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/menu.html.twig', array(
             'coproprietes'=> $coproprietes,
