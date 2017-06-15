@@ -9,15 +9,20 @@
 
 {% block content %}
     <p>
-    {% for message in app.session.flashbag.get('infoDoc') %}
+    {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
     </p>
     <h4> Document Visionné:</h4>
     <h4>{{ document.titre }}</h4>
     <ul>
-        <li>{{ document.docName }}</li>
-        <li>{{ document.description }}</li>
+        <li>Intitulé : {{ document.nom }}</li>
+        <li>Description : {{ document.description }}</li>
+        <li>Confidentialité : {{ document.confidentialite }}</li>
+        <li>Apercu fichier : {{ document.fichier }}
+            <img src="{{ asset('assets/img/docs/' ~ document.nom) }}"><embed src="{{ asset('assets/img/docs/' ~ document.nom) }}" width="500" height="375" type='application/pdf'></li>
+        <li>Catégorie : {{ document.categorie }}</li>
+        <li><a href="{{ asset('assets/img/docs/' ~ document.nom) }}">Telecharger le fichier</a></li>
         <li>...</li>
     </ul>
 {% endblock %}

@@ -18,7 +18,7 @@ class DocumentController extends Controller
     public function showAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $document = $em->getRepository(Document::class)->findOneByDocument($this->getDocument());
+        $document = $em->getRepository(Document::class)->findOneById($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Document/show.html.twig', array(
             'document' => $document
         ));
