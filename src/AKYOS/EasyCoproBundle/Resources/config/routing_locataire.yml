@@ -9,3 +9,7 @@ locataire_edit:
 locataire_show:
     path:     /show
     defaults: {_controller: AKYOSEasyCoproBundle:Locataire:show }
+
+locataire_show_document:
+        path: /show/doc/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showDocument}

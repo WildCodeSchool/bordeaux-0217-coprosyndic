@@ -1,5 +1,16 @@
 <li class="non-active"><a href="{{ path('artisan_index') }}"><span class="glyphicon glyphicon-lock"></span> Accueil</a></li>
 <li class="non-active"><a href="{{ path('artisan_show') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
+<li class="non-active">
+        <a href="#" data-toggle="collapse" data-target="#toggleDocuments" data-parent="#sidenav01"
+           class="collapsed">
+                <i class="fa fa-file-text fa-fw" aria-hidden="true"></i> Mes Documents<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
+        </a>
+        <div class="collapse" id="toggleDocuments" style="height: 0;">
+                <ul class="nav nav-list">
+                        <li><a href="{{ path('artisan_show_document', {'id':5}) }}">Afficher un document</a></li>
+                </ul>
+        </div>
+</li>
 <li class="non-active"><a href=""><span class="glyphicon glyphicon-calendar"></span> Messagerie
         <span class="badge pull-right">3</span></a></li>
 <li class="non-active"><a href=""><span class="glyphicon glyphicon-cog"></span> Préférences</a></li>

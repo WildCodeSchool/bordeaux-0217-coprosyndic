@@ -1,4 +1,4 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Document/layout.html.twig' %}
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
 {% block title %}
     Affichage DOCUMENT
@@ -22,7 +22,7 @@
         <li>Apercu fichier : {{ document.fichier }}
             <img src="{{ asset('assets/img/docs/' ~ document.nom) }}"><embed src="{{ asset('assets/img/docs/' ~ document.nom) }}" width="500" height="375" type='application/pdf'></li>
         <li>Catégorie : {{ document.categorie }}</li>
-        <li><a href="{{ asset('assets/img/docs/' ~ document.nom) }}">Telecharger le fichier</a></li>
+            <li><a href="{{ asset('assets/img/docs/' ~ document.nom) }}">Telecharger le fichier</a></li>
         <li>...</li>
     </ul>
 {% endblock %}
