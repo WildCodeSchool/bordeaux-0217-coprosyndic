@@ -2,6 +2,9 @@
 
 namespace AKYOS\EasyCoproBundle\Service;
 
+use AKYOS\EasyCoproBundle\Entity\Categorie;
+use AKYOS\EasyCoproBundle\Entity\Document;
+use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -15,13 +18,19 @@ class GenerateDocument
         $this->container = $container;
     }
 
-    public function generateRegistrationDocument(User $expediteur, $destinataire, $password)
+    public function generateRegistrationDocument(User $expediteurUser, $destinataire, $password)
     {
-        $expediteurType = $expediteur->getType();
+        $em = $this->container->get('doctrine')->getManager();
+
+        $expediteurType = $expediteurUser->getType();
         if ($expediteurType == 'SYNDIC') {
-            $expediteur = $this->container->get('doctrine')->getManager()->getRepository(Syndic::class)
-                ->findOneByUser($expediteur);
+            $expediteur = $em->getRepository(Syndic::class)
+                ->findOneByUser($expediteurUser);
+        } else {
+            $expediteur = $expediteurUser;
         }
+
+        $url = 'documents/'.uniqid('doc').'.pdf';
 
         $this->container->get('knp_snappy.pdf')->generateFromHtml(
             $this->container->get('templating')->render(
@@ -36,5 +45,30 @@ class GenerateDocument
         );
 
         //TODO : sauvegarder le document en tant qu'objet Document et l'assigner au syndic et au nouveau compte
+        //pour les test
+        $mylot = $em->getRepository(Lot::class)
+            ->find(540);
+        $categorie = $em->getRepository(Categorie::class)
+            ->find(1);
+
+
+        $docTitre = 'Création compte ' . $destinataire->getUser()->getType() . ' pour l\'utilisateur' . $destinataire->getUser()->getUsername();
+        $newDoc = new Document();
+        $newDoc
+            ->setTitre($docTitre)
+            ->setDescription('Lettre de création de compte utilisateur.')
+            ->setDateAjout(new \DateTime())
+            ->setDateModif(new \DateTime())
+            ->setConfidentialite(2)
+            ->setUrl($url)
+            ->setSyndic($expediteur)
+            //TODO : modifier la liaison (faire ManyToMany Documents <-> User)
+            ->addLot($destinataire->getLot())
+            ->setCategorie($categorie)
+        ;
+
+        $em->persist($newDoc);
+        $em->flush();
+
     }
 }

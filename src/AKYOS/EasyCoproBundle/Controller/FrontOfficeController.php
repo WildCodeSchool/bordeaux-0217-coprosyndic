@@ -2,11 +2,8 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
-use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
-use AKYOS\EasyCoproBundle\Entity\Syndic;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class FrontOfficeController extends Controller
 {
