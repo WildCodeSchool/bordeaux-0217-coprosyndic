@@ -113,6 +113,16 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_list_coproprietes');
     }
 
+    public function menuAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/menu.html.twig', array(
+            'coproprietes'=> $coproprietes,
+        ));
+    }
 //Action pour les créations des Lots
 
     public function listLotsAction($id)

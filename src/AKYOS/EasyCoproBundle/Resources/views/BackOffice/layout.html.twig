@@ -70,7 +70,7 @@
                                 <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Résidence aux 5 palmiers</a></li>
                                 <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Appartement Leclerc</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#" data-toggle="modal"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
+                                <li><a href="" data-toggle="modal"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
                             </ul>
                         </li>
                     <!-- END Header Link -->
@@ -99,7 +99,7 @@
                                 <li>
                                     <a href="">
                                         <i class="fa fa-pencil-square fa-fw pull-right"></i>
-                                        Mon compte : {{ userType }}
+                                        Mon compte :
                                     </a>
                                 </li>
                                 <li class="divider"><li>
@@ -125,7 +125,7 @@
 
 
 
-            <div class="col-sm-9 col-md-10 affix-content">
+            <div class="bg-white">
                 <div class="row titre-page">
                     <h4 class="titre-page-text">
                         {% block titre_page %}{% endblock %}</h4>
@@ -136,7 +136,7 @@
                         {% block breadcrumb %}{% endblock %}
                     </ol>
                 </div>
-                <div class="row row-content">
+                <div class="row">
                     {% block content %}{% endblock %}
                 </div>
             </div>

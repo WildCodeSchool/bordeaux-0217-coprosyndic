@@ -74,6 +74,7 @@ syndic_delete_locataire:
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteLocataire }
 
 ##Copropriete##
+
 syndic_create_copropriete:
     path:     /create/copropriete
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createCopropriete }

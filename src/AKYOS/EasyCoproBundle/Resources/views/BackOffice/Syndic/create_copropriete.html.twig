@@ -1,15 +1,20 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
+
 {% block title %}
     Création COPROPRIETE
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/backoffice/syndic_dashboard.css') }}">
+
 {% endblock %}
 
 {% block content %}
     <h4>Créer une copropriété :</h4>
+
     {{ form(my_form) }}
+
 {% endblock %}
 
 {% block scripts %}

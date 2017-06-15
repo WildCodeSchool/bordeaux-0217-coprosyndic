@@ -15,10 +15,12 @@
                 <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
                     <i class="fa fa-building sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes copropriétés</span></a>
                 <ul>
-                    <li><a href="<?= WWW; ?>/coownerships">Toutes</a></li>
-                    <li><a href="<?= WWW; ?>/coownerships/residence-aux-5-palmiers">Résidence Aux 5 palmiers</a></li>
-                    <li><a href="<?= WWW; ?>/coownerships/residence-aux-5-palmiers">Appartement Leclerc</a></li>
-                    <li><a href="#modal-fade-add-coownership" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
+                    <li><a href="{{ path('syndic_list_coproprietes') }}">Toutes</a></li>
+                    {% for copropriete in coproprietes %}
+                    <li><a href="{{ path('syndic_show_copropriete', {'id':copropriete.id}) }}">{{ copropriete.nom }}</a></li>
+                    {% endfor %}
+
+                    <li><a href="{{ path('syndic_create_copropriete') }}" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
                 </ul>
             </li>
             <li>
