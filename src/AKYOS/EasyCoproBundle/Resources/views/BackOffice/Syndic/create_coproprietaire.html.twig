@@ -7,11 +7,151 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Création d'un copropriétaire
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Créer un copropriétaire</li>
+{% endblock %}
+
 {% block content %}
-    <h4>Créer un copropriétaire :</h4>
-    {{ form(form) }}
+    <p>Compléter le formulaire ci-dessous pour créer un nouveau compte Copropriétaire : </p>
+
+    {{ form_start(form) }}
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Informations du compte</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Mot de passe'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Répétez le mot de passe'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Informations personnelles</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail du contact'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Informations complémentaires</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.rib, { 'attr': {'class': 'form-control', 'placeholder':'RIB'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.nbEnfants, { 'attr': {'class': 'form-control', 'placeholder':'Nombre d\'enfants'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.dateArrivee, { 'attr': {'class': 'form-control', 'placeholder':'Date d\emménagement'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.dateDepart, { 'attr': {'class': 'form-control', 'placeholder':'Date de démménagement'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="checkbox">
+                <label>
+                    {{ form_widget(form.membreConseil) }} Membre du conseil syndical
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="checkbox">
+                <label>
+                    {{ form_widget(form.actuel) }} Actuellement copropriétaire
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.commentSyndic, { 'attr': {'class': 'form-control', 'placeholder':'Commentaire interne'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12 text-center">
+            <div class="form-group">
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'}}) }}
+            </div>
+        </div>
+    </div>
+
+    {{ form_errors(form) }}
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block scripts %}
 {% endblock %}
+
+
+
 

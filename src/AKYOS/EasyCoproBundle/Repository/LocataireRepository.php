@@ -10,4 +10,15 @@ namespace AKYOS\EasyCoproBundle\Repository;
  */
 class LocataireRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findLocataireBySyndic($syndic){
+
+        $qb = $this->createQueryBuilder('l')
+            ->select('COUNT(l)')
+            ->join('l.lot', 'll')
+            ->join('ll.copropriete', 'llc')
+            ->join('llc.syndic', 's')
+            ->where('s = :syndic')
+            ->setParameter('syndic', $syndic);
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

@@ -15,6 +15,7 @@ use AKYOS\EasyCoproBundle\Form\CreateCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
+use AKYOS\EasyCoproBundle\Repository\CoproprietaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,7 +28,20 @@ class SyndicController extends Controller
     ##########################################################################
     public function indexAction()
     {
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        //Requete Coproprietaire Repository
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findCoproprietairesBySyndic($syndic);
+        //Requete Locataire Repository
+        $nbre_locataires = $em->getRepository(Locataire::class)->findLocataireBySyndic($syndic);
+
+        $artisans = $syndic->getArtisans();
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig', array(
+            'nbre_coproprietaires' => $nbre_coproprietaires,
+            'nbre_locataires' => $nbre_locataires,
+            'artisans' => $artisans,
+        ));
     }
 
     public function listCoproprietesAction()
@@ -99,6 +113,17 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_list_coproprietes');
     }
 
+    public function menuAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $coproprietes = $em->getRepository(Copropriete::class)->find3LastCoproprietesBySyndic($syndic);
+
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/menu.html.twig', array(
+            'coproprietes'=> $coproprietes,
+        ));
+    }
 //Action pour les créations des Lots
 
     public function listLotsAction($id)
