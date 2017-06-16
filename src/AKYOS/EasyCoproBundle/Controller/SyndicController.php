@@ -129,10 +129,13 @@ class SyndicController extends Controller
     public function listLotsAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        //TODO : à modifier (sélection par liste déroulante ?)
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $copropriete = $em->getRepository(Copropriete::class)->find($id);
         $lots = $copropriete->getLots();
         $coproprietes = $em->getRepository(Copropriete::class)->findAll();
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_lots.html.twig',
             ['lots' => $lots, 'coproprietes' => $coproprietes]);
     }
@@ -256,6 +259,7 @@ class SyndicController extends Controller
     public function listArtisansAction()
     {
         $em = $this->getDoctrine()->getManager();
+        //TODO : à modifier (on veut récupérer la liste des artisans d'un syndic par de tous)
         $artisans = $em->getRepository(Artisan::class)->findAll();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_artisans.html.twig', array(
@@ -384,6 +388,7 @@ class SyndicController extends Controller
     public function listCoproprietairesAction()
     {
         $em = $this->getDoctrine()->getManager();
+        //TODO : à modifier (on veut récupérer la liste des copropriétaires d'un syndic par de tous)
         $coproprietaires = $em->getRepository(Coproprietaire::class)->findAll();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietaires.html.twig', array(
@@ -443,6 +448,7 @@ class SyndicController extends Controller
     public function listLocatairesAction()
     {
         $em = $this->getDoctrine()->getManager();
+        //TODO : à modifier (on veut récupérer la liste des locataires d'un syndic par de tous)
         $locataires = $em->getRepository(Locataire::class)->findAll();
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_locataires.html.twig', array(

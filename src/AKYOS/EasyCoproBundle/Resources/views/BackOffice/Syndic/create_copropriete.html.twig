@@ -10,7 +10,17 @@
 
 {% endblock %}
 
+{% block titre_page %}
+    Création d'une copropriété
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Créer une copropriété</li>
+{% endblock %}
+
 {% block content %}
+
 
     <div class="row">
         <div class="col-lg-offset-3 col-lg-6 ">
@@ -174,8 +184,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
 

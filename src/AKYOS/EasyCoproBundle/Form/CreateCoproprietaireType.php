@@ -24,7 +24,10 @@ class CreateCoproprietaireType extends AbstractType
     {
         $builder
             ->add('user', RegistrationType::class)
-            ->add('commentSyndic', TextType::class,array('attr' => array('placeholder' => 'Note du Syndic')))
+            ->add('commentSyndic', TextType::class,array(
+                'attr' => array('placeholder' => 'Note du Syndic'),
+                'required' => false,
+                ))
             ->add('email', EmailType::class,array('attr' => array('placeholder' => 'Email du copropriétaire')))
             ->add('nom', TextType::class,array('attr' => array('placeholder' => 'Nom du copropriétaire')))
             ->add('prenom', TextType::class,array('attr' => array('placeholder' => 'Prénom du copropriétaire')))
@@ -32,11 +35,16 @@ class CreateCoproprietaireType extends AbstractType
             ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB du copropriétaire')))
             ->add('nbEnfants', TextType::class,array('attr' => array('placeholder' => 'Nombre d\'enfants')))
             ->add('dateArrivee', DateType::class, array('widget' => 'single_text',))
-            ->add('dateDepart', DateType::class, array('widget' => 'single_text',))
-            ->add('actuel', CheckboxType::class, array('label'    => 'Locataire Actuel', 'required' => true,))
+            ->add('dateDepart', DateType::class, array(
+                'widget' => 'single_text',
+                'required' => false,
+                ))
+            ->add('actuel', CheckboxType::class, array(
+                'label'    => 'Locataire Actuel',
+                'required' => false,
+                ))
             ->add('membreConseil', CheckboxType::class, array(
                 'label'    => 'Membre du Conseil',
-                'required' => true,
             ))
             ->add('submit',SubmitType::class)
         ;

@@ -7,8 +7,16 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Edition du profil
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Editer votre profil</li>
+{% endblock %}
+
 {% block content %}
-    <h4>Modifier votre Profil :</h4>
     {{ form(form) }}
 {% endblock %}
 
