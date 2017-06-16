@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new AKYOS\EasyCoproBundle\AKYOSEasyCoproBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

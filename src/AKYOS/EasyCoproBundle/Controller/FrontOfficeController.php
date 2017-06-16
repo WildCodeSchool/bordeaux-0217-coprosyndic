@@ -12,6 +12,7 @@ class FrontOfficeController extends Controller
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
 
             $user = $this->get('security.token_storage')->getToken()->getUser();
+
             if($user->getType() == 'SYNDIC'){
                 return $this->redirectToRoute('syndic_index');
             }
@@ -28,7 +29,7 @@ class FrontOfficeController extends Controller
                 return $this->redirectToRoute('artisan_index');
             }
 
-            if($user->getType() == 'SUPERADMIN'){
+            if($user->getType() == 'ADMIN'){
                 return $this->redirectToRoute('admin_index');
             }
         }
@@ -56,10 +57,10 @@ class FrontOfficeController extends Controller
             )
         ;
 
-        //TODO : Afficher le FlashMessage sur la page d'accueil
         $this->get('mailer')->send($message);
-        $request->getSession()->getFlashBag()->add('notice', 'Votre message a bien été envoyée.');
+        $request->getSession()->getFlashBag()->add('info', 'Votre message a bien été envoyée.');
 
         return $this->redirectToRoute('homepage');
     }
+
 }

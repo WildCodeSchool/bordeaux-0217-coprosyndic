@@ -1,4 +1,3 @@
-{% block header %}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -14,8 +13,8 @@
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/media-queries.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{ asset('assets/ico/favicon.png') }}">
@@ -28,7 +27,18 @@
 
 <body>
 
-{#TODO : ajouter une div d'affichage des Flash Messages#}
+<!-- Flash Messages Box -->
+{% for message in app.session.flashbag.get('info') %}
+    <div class="flash-box">
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                ×</button>
+            <span class="glyphicon glyphicon-ok"></span> <strong>Bien reçu !</strong>
+            <hr class="message-inner-separator">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+{% endfor %}
 
 <!-- Top menu -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -53,8 +63,7 @@
         </div>
     </div>
 </nav>
-{% endblock %}
-{% block body %}
+
     <!-- Top content -->
 <div class="top-content">
     <div class="container">
@@ -84,19 +93,8 @@
                 </div>
                 <div class="r-form-1-bottom">
                     {{ render(controller("FOSUserBundle:Security:login")) }}
-                    {#<form role="form" action="" method="post">
-                        <div class="form-group">
-                            <label class="sr-only" for="r-form-1-first-name">Identifiant</label>
-                            <input type="text" name="r-form-1-first-name" placeholder="Identifiant..." class="r-form-1-first-name form-control" id="r-form-1-first-name">
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="r-form-1-last-name">Mot de passe</label>
-                            <input type="text" name="r-form-1-last-name" placeholder="Mot de passe..." class="r-form-1-last-name form-control" id="r-form-1-last-name">
-                        </div>
-                        <button type="submit" class="btn">Se Connecter</button>
-                    </form>#}
-                    <p><center><a href="">Demander un accès</a></center></p>
-
+                    <p class="text-center"><a href="">Demander un accès</a></p>
+                    <p class="text-center"><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a></p>
                 </div>
             </div>
         </div>
@@ -234,8 +232,6 @@
     </div>
 </div>
 
-{% endblock %}
-{% block contact %}
 <!-- Contact -->
 <div class="contact-container section-container">
     <div class="container">
@@ -297,8 +293,7 @@
         </div>
     </div>
 </div>
-{% endblock %}
-{% block footer %}
+
 <!-- Footer -->
 <footer>
     <div class="container">
@@ -342,8 +337,7 @@
         </div>
     </div>
 </footer>
-{% endblock %}
-{% block js %}
+
 <!-- Javascript -->
 <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -351,6 +345,7 @@
 <script src="{{ asset('assets/js/wow.min.js') }}"></script>
 <script src="{{ asset('assets/js/retina-1.1.0.min.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
+<script src="{{ asset('assets/js/frontoffice/flash_messages_box.js') }}"></script>
 
 <!--[if lt IE 10]>
 <script src="{{ asset('assets/js/placeholder.js') }}"></script>
@@ -358,4 +353,4 @@
 
 </body>
 
-</html>{% endblock %}
+</html>

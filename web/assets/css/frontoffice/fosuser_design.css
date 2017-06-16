@@ -1,0 +1,21 @@
+.form-gap {
+    padding-top: 70px;
+}
+
+body {
+    background-color: #555555;
+}
+
+.logo {
+    margin-bottom: 30px;
+}
+
+.form-errors-list ul {
+    list-style-type: none;
+    text-align: left;
+    color: #FF3333;
+}
+
+.fa-check {
+    color: #398439;
+}

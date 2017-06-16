@@ -231,11 +231,11 @@ class Document
     /**
      * Set syndic
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
+     * @param Syndic $syndic
      *
      * @return Document
      */
-    public function setSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic = null)
+    public function setSyndic(Syndic $syndic = null)
     {
         $this->syndic = $syndic;
         return $this;
@@ -243,7 +243,7 @@ class Document
     /**
      * Get syndic
      *
-     * @return \AKYOS\EasyCoproBundle\Entity\Syndic
+     * @return Syndic
      */
     public function getSyndic()
     {
@@ -252,19 +252,21 @@ class Document
     /**
      * Add lot
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Lot $lot
+     * @param Lot $lot
      *
      * @return Document
      */
-    public function addLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
+    public function addLot(Lot $lot)
     {
         $this->lots[] = $lot;
+        $lot->addDocument($this);
+
         return $this;
     }
     /**
      * Remove lot
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Lot $lot
+     * @param Lot $lot
      */
     public function removeLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
     {
@@ -282,7 +284,7 @@ class Document
     /**
      * Set categorie
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Categorie $categorie
+     * @param Categorie $categorie
      *
      * @return Document
      */
@@ -294,7 +296,7 @@ class Document
     /**
      * Get categorie
      *
-     * @return \AKYOS\EasyCoproBundle\Entity\Categorie
+     * @return Categorie
      */
     public function getCategorie()
     {

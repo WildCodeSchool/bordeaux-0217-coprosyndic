@@ -30,7 +30,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
             ->setUsername('akyos')
             ->setPassword($encoder->encodePassword($newUser, '1234'))
             ->setEmail('akyos@akyos.fr')
-            ->setType('SUPERADMIN')
+            ->setType('ADMIN')
             ->setEnabled(true)
             ->addRole('ROLE_ADMIN')
         ;

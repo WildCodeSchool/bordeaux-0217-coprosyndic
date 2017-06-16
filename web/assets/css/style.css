@@ -108,7 +108,7 @@ img { max-width: 100%; }
 
 /***** Top menu *****/
 
-.navbar {
+nav.navbar {
 	margin-bottom: 0;
     min-height: 62px;
 	background-color: rgba(68, 68, 68, 0.5);
@@ -435,3 +435,25 @@ footer a:hover, footer a:focus { border-bottom: 1px dotted #b2402c; outline: 0; 
 .footer-menu ul { margin: 0; padding: 0; list-style: none; }
 .footer-menu li { display: inline; margin-left: 20px; }
 .footer-menu a, .footer-menu a:hover, .footer-menu a:focus { color: #888; border-color: #888; }
+
+/***** Flash Messages Box *****/
+
+.flash-box {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    z-index: 10;
+    width: 300px;
+}
+
+hr.message-inner-separator {
+    clear: both;
+    margin-top: 10px;
+    margin-bottom: 13px;
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+    background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+    background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+    background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+}
