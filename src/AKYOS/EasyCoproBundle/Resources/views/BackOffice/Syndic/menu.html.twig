@@ -1,4 +1,93 @@
-<li class="non-active">
+<!-- Wrapper for scrolling functionality -->
+
+<div id="sidebar-scroll">
+    <!-- Sidebar Content -->
+    <div class="sidebar-content">
+        <!-- Sidebar Navigation -->
+        <ul class="sidebar-nav">
+            <li>
+                <a href="{{ path('syndic_index') }}" class=" active"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Tableau de Bord</span></a>
+            </li>
+            <li class="sidebar-separator">
+                <i class="fa fa-ellipsis-h"></i>
+            </li>
+            <li>
+                <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                    <i class="fa fa-building sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes copropriétés</span></a>
+                <ul>
+                    <li><a href="{{ path('syndic_list_coproprietes') }}">Toutes</a></li>
+                    {% for copropriete in coproprietes %}
+                    <li><a href="{{ path('syndic_show_copropriete', {'id':copropriete.id}) }}">{{ copropriete.nom }}</a></li>
+                    {% endfor %}
+
+                    <li><a href="{{ path('syndic_create_copropriete') }}" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="<?= WWW; ?>/coowners"><i class="fa fa-users sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gérer les copropriétaires</span></a>
+            </li>
+            <li>
+                <a href="<?= WWW; ?>/providers"><i class="fa fa-sitemap sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gérer les fournisseurs</span></a>
+            </li>
+            <li>
+                <a href="<?= WWW; ?>/planning"><i class="fa fa-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Planning / Événements</span></a>
+            </li>
+            <li class="sidebar-separator">
+                <i class="fa fa-ellipsis-h"></i>
+            </li>
+            <li>
+                <a href="<?= WWW; ?>/myfiles"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
+            </li>
+            <li>
+                <a href="<?= WWW; ?>/myemails"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">4</span>
+                    <span class="sidebar-nav-mini-hide">Mes Emails</span></a>
+            </li>
+
+            <li class="sidebar-separator">
+                <i class="fa fa-ellipsis-h"></i>
+            </li>
+            <li>
+                <a href="<?= WWW; ?>/feedbacks"><i class="fa fa-comment sidebar-nav-icon"></i>
+                    <span class="badge badge-menu-item label-info pull-right sidebar-nav-mini-hide">4</span><span class="sidebar-nav-mini-hide">Suggestions</span></a>
+            </li>
+            <li>
+                <a href="<?= WWW; ?>/surveys" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                    <i class="fa fa-eyedropper sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Sondages</span></a>
+                <ul>
+                    <li><a href="">En cours</a></li>
+                    <li><a href="">Réalisés</a></li>
+                    <li><a href="">Créer un nouveau &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- END Sidebar Navigation -->
+
+    </div>
+    <!-- END Sidebar Content -->
+</div>
+<!-- END Wrapper for scrolling functionality -->
+
+<!-- Sidebar Extra Info -->
+<div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
+    <div class="push-bit">
+         <span class="pull-right">
+             <a href="javascript:void(0)" class="text-muted"><i class="fa fa-plus"></i></a>
+         </span>
+        <small><strong>5.3 GB</strong> / 20 GB</small>
+    </div>
+    <div class="progress progress-mini push-bit">
+        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 28%"></div>
+    </div>
+    <div class="text-center">
+        <small><span id="year-copy"></span> &copy; <a href="" target="_blank">MaCopro 1.0</a></small>
+    </div>
+</div>
+
+<!-- END Main Sidebar -->
+
+
+
+<!-- <li class="non-active">
     <a href="{{ path('syndic_index') }}">
         <i class="fa fa-tachometer fa-fw" aria-hidden="true"></i> Dashboard
     </a>

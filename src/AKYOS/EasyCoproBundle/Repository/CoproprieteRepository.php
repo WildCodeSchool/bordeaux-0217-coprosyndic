@@ -10,4 +10,15 @@ namespace AKYOS\EasyCoproBundle\Repository;
  */
 class CoproprieteRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function find3LastCoproprietesBySyndic($syndic){
+
+        $query = $this->createQueryBuilder('c')
+            ->where('c.syndic = :syndic')
+            ->setParameter('syndic', $syndic)
+            ->orderBy('c.dateDebutGestion', 'desc')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+        return $query;
+    }
 }
