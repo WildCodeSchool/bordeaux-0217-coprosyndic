@@ -1152,6 +1152,8 @@ a.widget-content:active {
 
 .widget-content {
     padding: 15px;
+    box-shadow: 0px 1px 4px #5e5e5e;
+
 }
 
 .widget-content.widget-content-mini {

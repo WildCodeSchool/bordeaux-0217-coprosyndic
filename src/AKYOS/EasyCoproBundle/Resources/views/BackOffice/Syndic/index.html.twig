@@ -20,27 +20,29 @@
 {% endblock %}
 
 {% block content %}
-        <div class="col-sm-9">
-            <div class="row vignette">
-                <div class="col-sm-3 col-xs-12 stat-box">
-                    <h4 class="text-center">LOCATAIRES</h4>
-                    <h1 class="text-center">{{ nbre_locataires }}</h1>
+
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-1">
+        <div class="widget">
+            <div class="widget-image widget-image-xs">
+                <img src="{{ asset('assets/img/city01.jpg') }}">
+                <div class="widget-image-content">
+                    <h2 class="widget-heading text-light"><strong>COPROPRIETES</strong></h2>
                 </div>
-                <div class="col-sm-3 col-xs-12 stat-box">
-                    <h4 class="text-center">ARTISANS</h4>
-                    <h1 class="text-center">{{ artisans|length }}</h1>
-                </div>
-                <div class="col-sm-3 col-xs-12 stat-box">
-                    <h4 class="text-center">COPROPRIETAIRES</h4>
-                    <h1 class="text-center">{{ nbre_coproprietaires }}</h1>
+            </div>
+            <div class="widget-content">
+                <div class="row text-center">
+                    <div class="col-xs-5">
+                        <h4 class="widget-heading"><small>DOCUMENTS</small><br><a href="javascript:void(0)" class="themed-color-flat">16</a></h4>
+                    </div>
+                    <div class="col-xs-7">
+                        <h4 class="widget-heading"><small>COPROPRIÉTAIRES</small><br><a href="javascript:void(0)" class="themed-color-flat">7</a></h4>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 right-menu">
-                <div class="widget-box">
-                    <h4 class="text-center">ABONNEMENT</h4>
-                </div>
-        </div>
+    </div>
+</div>
 
 
     {% for message in app.session.flashbag.get('info') %}
