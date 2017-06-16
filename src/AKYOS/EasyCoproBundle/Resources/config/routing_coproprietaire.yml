@@ -9,3 +9,7 @@ coproprietaire_edit:
 coproprietaire_show:
     path:     /show
     defaults: {_controller: AKYOSEasyCoproBundle:Coproprietaire:show }
+
+coproprietaire_show_document:
+        path: /show/doc/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showDocument}

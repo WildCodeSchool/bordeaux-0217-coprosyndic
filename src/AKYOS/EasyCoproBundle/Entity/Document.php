@@ -1,14 +1,18 @@
 <?php
-
 namespace AKYOS\EasyCoproBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Document
  *
  * @ORM\Table(name="document")
  * @ORM\Entity(repositoryClass="AKYOS\EasyCoproBundle\Repository\DocumentRepository")
+ * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Document
 {
@@ -20,64 +24,66 @@ class Document
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
-
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
-
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_ajout", type="date")
      */
     private $dateAjout;
-
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_modif", type="date", nullable=true)
      */
     private $dateModif;
-
     /**
      * @var int
      *
      * @ORM\Column(name="confidentialite", type="integer")
      */
     private $confidentialite;
-
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255, unique=true)
+     * @ORM\Column(name="url", type="string", length=255, unique=true, nullable=true)
      */
     private $url;
-
     /**
      * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="documents")
      */
     private $syndic;
-
     /**
      * @ORM\ManyToMany(targetEntity="Lot", mappedBy="documents")
      */
     private $lots;
-
     /**
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="documents")
      */
     private $categorie;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $nom;
+
+    /**
+     * @Vich\UploadableField(mapping="img_documents", fileNameProperty="nom")
+     * @var File
+     */
+    private $fichier;
 
     /**
      * Get id
@@ -88,7 +94,6 @@ class Document
     {
         return $this->id;
     }
-
     /**
      * Set titre
      *
@@ -99,10 +104,8 @@ class Document
     public function setTitre($titre)
     {
         $this->titre = $titre;
-
         return $this;
     }
-
     /**
      * Get titre
      *
@@ -112,7 +115,6 @@ class Document
     {
         return $this->titre;
     }
-
     /**
      * Set description
      *
@@ -123,10 +125,8 @@ class Document
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
     }
-
     /**
      * Get description
      *
@@ -136,7 +136,6 @@ class Document
     {
         return $this->description;
     }
-
     /**
      * Set dateAjout
      *
@@ -147,10 +146,8 @@ class Document
     public function setDateAjout($dateAjout)
     {
         $this->dateAjout = $dateAjout;
-
         return $this;
     }
-
     /**
      * Get dateAjout
      *
@@ -160,7 +157,6 @@ class Document
     {
         return $this->dateAjout;
     }
-
     /**
      * Set dateModif
      *
@@ -171,10 +167,8 @@ class Document
     public function setDateModif($dateModif)
     {
         $this->dateModif = $dateModif;
-
         return $this;
     }
-
     /**
      * Get dateModif
      *
@@ -184,7 +178,6 @@ class Document
     {
         return $this->dateModif;
     }
-
     /**
      * Set confidentialite
      *
@@ -195,10 +188,8 @@ class Document
     public function setConfidentialite($confidentialite)
     {
         $this->confidentialite = $confidentialite;
-
         return $this;
     }
-
     /**
      * Get confidentialite
      *
@@ -208,7 +199,6 @@ class Document
     {
         return $this->confidentialite;
     }
-
     /**
      * Set url
      *
@@ -219,10 +209,8 @@ class Document
     public function setUrl($url)
     {
         $this->url = $url;
-
         return $this;
     }
-
     /**
      * Get url
      *
@@ -238,8 +226,8 @@ class Document
     public function __construct()
     {
         $this->lots = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
+    }
     /**
      * Set syndic
      *
@@ -250,10 +238,8 @@ class Document
     public function setSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic = null)
     {
         $this->syndic = $syndic;
-
         return $this;
     }
-
     /**
      * Get syndic
      *
@@ -263,7 +249,6 @@ class Document
     {
         return $this->syndic;
     }
-
     /**
      * Add lot
      *
@@ -274,10 +259,8 @@ class Document
     public function addLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
     {
         $this->lots[] = $lot;
-
         return $this;
     }
-
     /**
      * Remove lot
      *
@@ -287,7 +270,6 @@ class Document
     {
         $this->lots->removeElement($lot);
     }
-
     /**
      * Get lots
      *
@@ -297,7 +279,6 @@ class Document
     {
         return $this->lots;
     }
-
     /**
      * Set categorie
      *
@@ -308,10 +289,8 @@ class Document
     public function setCategorie(\AKYOS\EasyCoproBundle\Entity\Categorie $categorie = null)
     {
         $this->categorie = $categorie;
-
         return $this;
     }
-
     /**
      * Get categorie
      *
@@ -320,5 +299,58 @@ class Document
     public function getCategorie()
     {
         return $this->categorie;
+    }
+
+
+    /**
+     * @param File|null $nom*
+     */
+    public function setFichier(File $nom = null)
+    {
+        $this->fichier = $nom;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($nom) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->dateModif = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getFichier()
+    {
+        return $this->fichier;
+    }
+
+    /**
+     * @param $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     *
+     */
+    public function upload()
+    {
+        if (null === $this->fichier) {
+            return;
+        }
+
+        // $this->fichier = null;
     }
 }

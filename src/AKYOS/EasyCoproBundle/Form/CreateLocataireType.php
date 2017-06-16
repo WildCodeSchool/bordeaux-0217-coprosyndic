@@ -17,6 +17,7 @@ use AKYOS\EasyCoproBundle\Entity\Locataire;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\HttpFoundation\Request;
 
 class CreateLocataireType extends AbstractType
 {
@@ -36,7 +37,6 @@ class CreateLocataireType extends AbstractType
             ->add('submit',SubmitType::class)
         ;
 
-        $locataire = $builder->getForm();
     }
 
 

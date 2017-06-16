@@ -8,7 +8,7 @@ use AKYOS\EasyCoproBundle\Form\EditArtisanType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use AKYOS\EasyCoproBundle\Entity\Document;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ArtisanController extends Controller
@@ -47,6 +47,13 @@ class ArtisanController extends Controller
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show.html.twig', array(
             'artisan' => $artisan
+        ));
+    }
+
+    public function showDocumentAction(Document $document)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_document.html.twig', array(
+            'document' => $document
         ));
     }
 }

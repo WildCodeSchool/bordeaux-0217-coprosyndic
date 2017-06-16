@@ -99,7 +99,7 @@ syndic_delete_copropriete:
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteCopropriete }
 
 syndic_list_lots:
-    path:     /list/lots/{id}
+    path:     /list/lots
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listLots }
 
 syndic_create_lot:
@@ -117,3 +117,29 @@ syndic_show_lot:
 syndic_delete_lot:
     path:     /delete/lot/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:deleteLot }
+
+##Document##
+
+syndic_create_document:
+        path: /create/doc
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createDocument}
+
+syndic_edit_document:
+        path: /edit/doc/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:editDocument}
+
+syndic_show_document:
+        path: /show/doc/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showDocument}
+
+syndic_delete_document:
+        path: /delete/doc/{id}
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteDocument}
+
+syndic_list_documents:
+        path: /list/docs
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:listDocuments}
+
+
+
+

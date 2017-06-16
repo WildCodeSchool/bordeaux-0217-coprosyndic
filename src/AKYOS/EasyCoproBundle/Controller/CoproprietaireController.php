@@ -5,6 +5,8 @@ namespace AKYOS\EasyCoproBundle\Controller;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use AKYOS\EasyCoproBundle\Entity\Document;
 
 class CoproprietaireController extends Controller
 {
@@ -39,6 +41,13 @@ class CoproprietaireController extends Controller
         $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/show.html.twig', array(
             'coproprietaire' => $coproprietaire
+        ));
+    }
+
+    public function showDocumentAction(Document $document)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/show_document.html.twig', array(
+            'document' => $document
         ));
     }
 }

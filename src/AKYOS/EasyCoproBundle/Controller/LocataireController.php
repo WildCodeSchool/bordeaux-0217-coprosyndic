@@ -6,7 +6,7 @@ use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use AKYOS\EasyCoproBundle\Entity\Document;
 class LocataireController extends Controller
 {
 
@@ -41,6 +41,13 @@ class LocataireController extends Controller
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show.html.twig', array(
             'locataire' => $locataire
+        ));
+    }
+
+    public function showDocumentAction(Document $document)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_document.html.twig', array(
+            'document' => $document
         ));
     }
 }
