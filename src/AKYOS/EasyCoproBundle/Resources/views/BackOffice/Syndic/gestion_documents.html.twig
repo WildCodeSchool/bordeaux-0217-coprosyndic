@@ -13,7 +13,7 @@
 
 {% block breadcrumb %}
     <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li class="active">Gestion des documents</li>
+    <li class="active">Mes documents</li>
 {% endblock %}
 
 {% block content %}
@@ -52,36 +52,56 @@
                         <h4 class="inner-sidebar-header">Ajouter un fichier</h4>
                         <div class="block-section">
                             <div class="animation-fadeInQuick2">
-                                <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
+
+                                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
-                                            <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
+                                            {{ form_row(form.nom) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_row(form.description) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_widget(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                                            <div class="bootstrap-filestyle input-group">
+                                                <input type="text" id="filename-box" class="form-control" disabled="">
                                                 <span class="group-span-filestyle input-group-btn" tabindex="0">
-                                                <label for="fileInput" class="btn btn-info">
-                                                    <span class="glyphicon fa fa-file-o"></span> Importer
-                                                </label>
-                                            </span>
+                                                    <label for="create_document_fichier" class="btn btn-info">
+                                                        <span class="glyphicon fa fa-file-o"></span> Importer
+                                                    </label>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <select id="example-select2" name="example-select2" class="select-select2" style="width: 100%;" data-placeholder="Choississez un type..">
-                                                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                                                {% for categorie in categoriesCount %}
-                                                <option value="categorie-{{ loop.index }}">{{ categorie.nom }}</option>
-                                                {% endfor %}
-                                            </select>
+                                            {{ form_row(form.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez un type...'}}) }}
+                                            {#<select id="example-select2" name="example-select2" class="select-select2" style="width: 100%;" data-placeholder="Choississez un type..">#}
+                                                {#<option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->#}
+                                                {#{% for categorie in categoriesCount %}#}
+                                                {#<option value="categorie-{{ loop.index }}">{{ categorie.nom }}</option>#}
+                                                {#{% endfor %}#}
+                                            {#</select>#}
                                         </div>
                                     </div>
-
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_row(form.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez les destinataires...'}}) }}
+                                        </div>
+                                    </div>
                                     <div class="form-group form-actions">
                                         <div class="col-md-3">
-                                            <input type="submit" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;" value="Ajouter">
+                                            {{ form_row(form.submit, {'attr':{'class':'btn btn-effect-ripple btn-primary','style':'overflow: hidden; position: relative;'}}) }}
                                         </div>
                                     </div>
-                                </form>
+                                {{ form_rest(form) }}
+                                {{ form_end(form) }}
+
                             </div>
                         </div>
                     </div>
@@ -109,7 +129,7 @@
                                 {% for document in documents %}
                                 <tr>
                                     <td class="text-center" style="display:none">{{ document.id }}</td>
-                                    <td style="padding-left:17px; "><a href=""><strong>{{ document.nom }}</strong></a></td>
+                                    <td style="padding-left:17px;"><a href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.nom }}</strong></a></td>
                                     <td><span class="label label-{{ document.categorie }}" style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span></td>
                                     <td class="text-center">{{ document.dateAjout|date('d-m-Y') }}</td>
                                     <td class="text-center">
@@ -131,4 +151,5 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{ asset('assets/backoffice/js/custom.js') }}"
 {% endblock %}

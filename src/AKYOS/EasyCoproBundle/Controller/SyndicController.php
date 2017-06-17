@@ -565,19 +565,44 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_list_documents');
     }
 
-    public function gestionDocumentsAction()
+    public function gestionDocumentsAction(Request $request)
     {
+        $document = new Document();
         $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findByUser($this->getUser());
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $form = $this->createForm(CreateDocumentType::class, $document);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $document->getFichier();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $document
+                ->setDateAjout(new \DateTime())
+                ->setDateModif(new \DateTime())
+                ->setSyndic($syndic)
+                ->setUrl($fileName)
+            ;
+
+            $em->persist($document);
+            $em->flush();
+
+            //TODO : Modifier le message flash
+            $this->addFlash('info', 'Un nouveau document a été importé avec succès.');
+            return $this->redirectToRoute('syndic_show_document',
+                array('id' => $document->getId()));
+        }
+
+
 
         $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountBySyndic($syndic);
-
         $allDocuments = $em->getRepository(Document::class)->findDocumentsSortedByDate($syndic);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_documents.html.twig', array(
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,
+            'form' => $form->createView(),
         ));
     }
 

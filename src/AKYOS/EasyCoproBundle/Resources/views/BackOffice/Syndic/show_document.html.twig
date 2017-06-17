@@ -7,6 +7,16 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Affichage d'un document
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('syndic_gestion_documents') }}">Mes documents</a></li>
+    <li class="active">{{ document.nom }}</li>
+{% endblock %}
+
 {% block content %}
     <p>
     {% for message in app.session.flashbag.get('info') %}
@@ -14,15 +24,14 @@
     {% endfor %}
     </p>
     <h4> Document Visionné:</h4>
-    <h4>{{ document.titre }}</h4>
+    <h4>{{ document.nom }}</h4>
     <ul>
         <li>Intitulé : {{ document.nom }}</li>
         <li>Description : {{ document.description }}</li>
-        <li>Confidentialité : {{ document.confidentialite }}</li>
-        <li>Apercu fichier : {{ document.fichier }}
-            <img src="{{ asset('assets/img/docs/' ~ document.nom) }}"><embed src="{{ asset('assets/img/docs/' ~ document.nom) }}" width="500" height="375" type='application/pdf'></li>
+        <li>Apercu fichier :
+            <img src="{{ asset('documents/' ~ document.url) }}"><embed src="{{ asset('documents/' ~ document.url) }}" width="500" height="375" type='application/pdf'></li>
         <li>Catégorie : {{ document.categorie }}</li>
-            <li><a href="{{ asset('assets/img/docs/' ~ document.nom) }}">Telecharger le fichier</a></li>
+            <li><a href="{{ asset('documents/' ~ document.url) }}">Telecharger le fichier</a></li>
         <li>...</li>
     </ul>
     <p><a href="{{ path('syndic_edit_document', {'id' : document.id}) }}">Modifier le document</a></p>

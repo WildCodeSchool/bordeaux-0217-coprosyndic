@@ -24,9 +24,9 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="titre", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255)
      */
-    private $titre;
+    private $nom;
     /**
      * @var string
      *
@@ -36,21 +36,15 @@ class Document
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_ajout", type="date")
+     * @ORM\Column(name="date_ajout", type="datetime")
      */
     private $dateAjout;
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_modif", type="date", nullable=true)
+     * @ORM\Column(name="date_modif", type="datetime", nullable=true)
      */
     private $dateModif;
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="confidentialite", type="integer")
-     */
-    private $confidentialite;
     /**
      * @var string
      *
@@ -62,7 +56,7 @@ class Document
      */
     private $syndic;
     /**
-     * @ORM\ManyToMany(targetEntity="Lot", mappedBy="documents")
+     * @ORM\ManyToMany(targetEntity="Lot", inversedBy="documents", cascade={"persist"})
      */
     private $lots;
     /**
@@ -71,13 +65,7 @@ class Document
     private $categorie;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $nom;
-
-    /**
-     * @Vich\UploadableField(mapping="img_documents", fileNameProperty="nom")
+     * @Vich\UploadableField(mapping="img_documents", fileNameProperty="url")
      * @var File
      */
     private $fichier;
@@ -90,27 +78,6 @@ class Document
     public function getId()
     {
         return $this->id;
-    }
-    /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return Document
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-        return $this;
-    }
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
     }
     /**
      * Set description
@@ -174,27 +141,6 @@ class Document
     public function getDateModif()
     {
         return $this->dateModif;
-    }
-    /**
-     * Set confidentialite
-     *
-     * @param integer $confidentialite
-     *
-     * @return Document
-     */
-    public function setConfidentialite($confidentialite)
-    {
-        $this->confidentialite = $confidentialite;
-        return $this;
-    }
-    /**
-     * Get confidentialite
-     *
-     * @return int
-     */
-    public function getConfidentialite()
-    {
-        return $this->confidentialite;
     }
     /**
      * Set url
