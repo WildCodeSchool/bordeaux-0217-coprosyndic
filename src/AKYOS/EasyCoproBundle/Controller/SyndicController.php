@@ -563,4 +563,9 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_list_documents');
     }
 
+    public function gestionDocumentsAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_documents.html.twig');
+    }
+
 }

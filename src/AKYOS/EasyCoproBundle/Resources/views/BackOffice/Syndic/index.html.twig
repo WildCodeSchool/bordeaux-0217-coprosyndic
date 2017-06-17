@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/backoffice/syndic_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/syndic_dashboard.css') }}">
 
 {% endblock %}
 
@@ -25,7 +25,7 @@
     <div class="col-lg-3 col-lg-offset-1">
         <div class="widget">
             <div class="widget-image widget-image-xs">
-                <img src="{{ asset('assets/img/city01.jpg') }}">
+                <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
                 <div class="widget-image-content">
                     <h2 class="widget-heading text-light"><strong>COPROPRIETES</strong></h2>
                 </div>
@@ -48,7 +48,8 @@
     {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
-    {% endblock %}
+
+{% endblock %}
 
 {% block scripts %}
 {% endblock %}

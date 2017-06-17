@@ -1,0 +1,169 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Gestion des documents
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Gestion des documents
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Gestion des documents</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3" style="background:#FFF">
+            <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-options">Options</a>
+            <div id="todo-options" class="collapse navbar-collapse remove-padding">
+                <h4 class="inner-sidebar-header">Type</h4>
+                <div class="block-section">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a href="javascript:void(0)">
+                                <span class="badge pull-right">16</span>
+                                <strong>Compte rendu de réunion</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span class="badge pull-right">14</span>
+                                <strong>Communiqué</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span class="badge pull-right">19</span>
+                                <strong>Facture</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span class="badge pull-right">15</span>
+                                <strong>Autre</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="todo-options" class="collapse navbar-collapse remove-padding">
+                <h4 class="inner-sidebar-header">Ajouter un fichier</h4>
+                <div class="block-section">
+                    <div class="animation-fadeInQuick2">
+                        <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                    <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
+                                        <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                        <label for="fileInput" class="btn btn-info">
+                                            <span class="glyphicon fa fa-file-o"></span> Importer
+                                        </label>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select id="example-select2" name="example-select2" class="select-select2" style="width: 100%;" data-placeholder="Choississez un type..">
+                                        <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                        <option value="cmptreunion">Compte rendu de réunion</option>
+                                        <option value="facture">Facture</option>
+                                        <option value="communiqye">Communiqué</option>
+                                        <option value="communiqye">Autre</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-actions">
+                                <div class="col-md-3">
+                                    <input type="submit" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;" value="Ajouter">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-9" id="coownerships-files">
+            <div class="block-content-full animation-fadeInQuick2">
+                <!-- Enable drop file to upload ( AJAX ) -->
+                <form action="<? WWW; ?>/" class="dropzone dz-clickable">
+                    <div class="table-responsive">
+                        <table id="full-files-datatable" class="table table-striped table-borderless style-hover table-vcenter">
+                            <thead>
+                            <tr style="background:#EDEDED;">
+                                <th class="text-center" style="width: 25px; display:none">ID</th>
+                                <th>Nom du fichier</th>
+                                <th>Type</th>
+                                <th style="width: 80px;">Ajouté le</th>
+                                <th class="text-center" style="width: 42px;"><i class="fa fa-flash"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $files['0'] = 'Compte rendu de réunion AG';
+                            $files['1'] = 'Arrêt de préfecture, tabac dans les couloirs';
+                            $files['2'] = 'Facture EDF Mai 2014';
+                            $files['3'] = 'Test de nom de fichier';
+                            $files['4'] = 'Tableur des habitants de la Résidence Roserai';
+                            $files['5'] = 'Facture fournisseur Z';
+                            $files['6'] = 'Compte rendu AG Avril 2013';
+                            $files['7'] = 'Fiche d\'impôts sur la taxe foncière';
+                            $files['8'] = 'Décisions AG - poubelles communes';
+                            $files['9'] = 'Arrêtés municipaux : heures d\'extinction des feux';
+                            $files['10'] = "Journal \"Charlie Hebdo\" - Edition spéciale";
+                            ?>
+                            <?php
+                            $extension[0] = '.pdf';
+                            $extension[1] = '.doc';
+                            $extension[2] = '.excel';
+                            $extension[3] = '.indd';
+                            ?>
+                            <?php
+                            $labels['0']['class'] = "label-success";
+                            $labels['0']['text'] = "Compte rendu de réunion";
+                            $labels['1']['class'] = "label-info";
+                            $labels['1']['text'] = "Facture";
+                            $labels['2']['class'] = "label-danger";
+                            $labels['2']['text'] = "Autre";
+                            $labels['3']['class'] = "label-primary";
+                            $labels['3']['text'] = "Communiqué";
+                            ?>
+                            <?php for($i=1; $i<31; $i++) { ?>
+                            <tr>
+                                <td class="text-center" style="display:none"><?php echo $i; ?></td>
+                                <?php $rand3 = rand(0, 10); ?>
+                                <?php $rand = rand(0, 3); ?>
+                                <td style="padding-left:17px; "><a href"">
+                                    <strong><?php echo ($files[$rand3]) ? $files[$rand3].$extension[$rand] : ""; ?></strong>
+                                    </a></td>
+                                <td><span class="label<?php echo ($labels[$rand]['class']) ? " " . $labels[$rand]['class'] : ""; ?>">
+                                    <?php echo $labels[$rand]['text'] ?></span></td>
+                                <th class="text-center">25-01-2015</th>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
+                                        <i class="fa fa-download"></i></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">
+                                        <i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

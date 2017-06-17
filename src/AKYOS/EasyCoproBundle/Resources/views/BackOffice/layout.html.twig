@@ -1,21 +1,33 @@
 <!DOCTYPE html>
-<html>
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
+    <meta charset="utf-8">
 
-    <title>{% block title %}Easy Copro{% endblock %}</title>
-    <meta charset="UTF-8">
+    <title>Macopro - Espace de gestion</title>
+
     <meta name="description" content="Macopro outil de gestion des biens immobiliers">
     <meta name="robots" content="noindex, nofollow">
+
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/ico/favicon.png') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/backoffice/main.css') }}">
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}">
+    <!-- END Icons -->
 
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/plugins.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/themes/classy.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/themes/flat.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/custom.css') }}">
     {% block stylesheets %}{% endblock %}
+    <!-- END Stylesheets -->
 
+    <!-- Modernizr (browser feature detection library) -->
+    <script src="{{ asset('assets/vendor/modernizr/modernizr-2.8.3.min.js') }}"></script>
 </head>
 <body>
 
@@ -36,98 +48,114 @@
         <!-- Main Sidebar -->
         <div id="sidebar">
             <div id="sidebar-brand" class="themed-background">
-                <a href="<?= WWW; ?>/dashboard" class="sidebar-title">
+                <a href="/" class="sidebar-title">
                     <img src="{{ asset('assets/img/logo.png') }}"> <span class="sidebar-nav-mini-hide">Easy<strong>Copro</strong></span>
                 </a>
             </div>
+            <!-- END Sidebar Brand -->
 
-                        {% block menu %}{% endblock %}
+            {% block menu %}{% endblock %}
 
+            <!-- Sidebar Extra Info -->
+            <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
+                {#<div class="push-bit">
+                            <span class="pull-right">
+                                <a href="javascript:void(0)" class="text-muted"><i class="fa fa-plus"></i></a>
+                            </span>
+                    <small><strong>5.3 GB</strong> / 20 GB</small>
+                </div>
+                <div class="progress progress-mini push-bit">
+                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 28%"></div>
+                </div>#}
+                <div class="text-center">
+                    <small><span id="year-copy"></span> &copy; <a href="" target="_blank">EasyCopro 1.0</a></small>
+                </div>
+            </div>
             <!-- END Sidebar Extra Info -->
         </div>
+        <!-- END Main Sidebar -->
 
-            <!-- Main Container -->
-            <div id="main-container">
-                <header class="navbar navbar-inverse navbar-fixed-top">
-                    <!-- Left Header Navigation -->
-                    <ul class="nav navbar-nav-custom">
-                        <!-- Main Sidebar Toggle Button -->
-                        <li>
-                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');
+        <!-- Main Container -->
+        <div id="main-container">
+            <header class="navbar navbar-inverse navbar-fixed-top">
+                <!-- Left Header Navigation -->
+                <ul class="nav navbar-nav-custom">
+                    <!-- Main Sidebar Toggle Button -->
+                    <li>
+                        <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');
                                         this.blur();">
-                                <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
-                                <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
-                            </a>
-                        </li>
-                        <!-- END Main Sidebar Toggle Button -->
-                        <!-- Header Link -->
-                        <li class="hidden-xs animation-fadeInQuick" id="copro-selector">
-                            <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
-                                <span>Gestion de : &nbsp;</span>&nbsp;  Résidence aux 5 palmiers &nbsp;
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu text-left" id="all-coownerships-dropdown">
-                                <li class="dropdown-header"><i class="fa fa-building pull-right"></i> <strong>Mes copropriétés</strong></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Résidence aux 5 palmiers</a></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Appartement Leclerc</a></li>
-                                <li class="divider"></li>
-                                <li><a href="" data-toggle="modal"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
-                            </ul>
-                        </li>
+                            <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                            <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
+                        </a>
+                    </li>
+                    <!-- END Main Sidebar Toggle Button -->
+
+                    <!-- Header Link -->
+                    <li class="hidden-xs animation-fadeInQuick" id="copro-selector">
+                        <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
+                            <span>Gestion de : &nbsp;</span>&nbsp;  Résidence aux 5 palmiers &nbsp;
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu text-left" id="all-coownerships-dropdown">
+                            <li class="dropdown-header"><i class="fa fa-building pull-right"></i> <strong>Mes copropriétés</strong></li>
+                            <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Résidence aux 5 palmiers</a></li>
+                            <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Appartement Leclerc</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#modal-fade-add-coownership" data-toggle="modal"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
+                        </ul>
+                    </li>
                     <!-- END Header Link -->
-                    </ul>
-                    <!-- END Left Header Navigation -->
+                </ul>
+                <!-- END Left Header Navigation -->
 
-                    <!-- Right Header Navigation -->
-                    <ul class="nav navbar-nav-custom pull-right">
-                        <!-- Search Form -->
-                        <li>
-                            <form action="<?= WWW; ?>/search" method="post" class="navbar-form-custom" role="search">
-                                <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Rechercher..">
-                            </form>
-                        </li>
-                        <!-- END Search Form -->
+                <!-- Right Header Navigation -->
+                <ul class="nav navbar-nav-custom pull-right">
+                    <!-- Search Form -->
+                    <li>
+                        <form action="" method="post" class="navbar-form-custom" role="search">
+                            <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Rechercher..">
+                        </form>
+                    </li>
+                    <!-- END Search Form -->
 
-                        <!-- User Dropdown -->
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar9.jpg" alt="avatar">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-header">
-                                    <strong>{{ app.user.username }}</strong>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <i class="fa fa-pencil-square fa-fw pull-right"></i>
-                                        Mon compte :
-                                    </a>
-                                </li>
-                                <li class="divider"><li>
-                                <li>
-                                    <a href="">
-                                        <i class="gi gi-settings fa-fw pull-right"></i>
-                                        Paramètres
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('fos_user_security_logout') }}">
-                                        <i class="fa fa-power-off fa-fw pull-right"></i>
-                                        Se déconnecter
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- END User Dropdown -->
-                    </ul>
-                    <!-- END Right Header Navigation -->
+                    <!-- User Dropdown -->                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ asset('assets/backoffice/img/placeholders/avatars/avatar1.jpg') }}" alt="avatar">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-header">
+                                <strong>{{ app.user.username }}</strong>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    <i class="fa fa-pencil-square fa-fw pull-right"></i>
+                                    Mon compte
+                                </a>
+                            </li>
+                            <li class="divider"><li>
+                            <li>
+                                <a href="">
+                                    <i class="gi gi-settings fa-fw pull-right"></i>
+                                    Paramètres
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_security_logout') }}">
+                                    <i class="fa fa-power-off fa-fw pull-right"></i>
+                                    Se déconnecter
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END User Dropdown -->
+                </ul>
+                <!-- END Right Header Navigation -->
             </header>
             <!-- END Header -->
 
-
-
-            <div class="bg-white">
-                <div class="row titre-page">
-                    <h4 class="titre-page-text">
+            <!-- Titre page + Breadcrumb -->
+            <div class="container-fluid">
+                <div class="row titre-box">
+                    <h4 class="titre-text">
                         {% block titre_page %}{% endblock %}</h4>
                 </div>
                 <div class="row">
@@ -136,31 +164,125 @@
                         {% block breadcrumb %}{% endblock %}
                     </ol>
                 </div>
-                <div class="row">
+            </div>
+            <!-- END Titre page + Breadcrumb -->
+
+            <!-- Page content -->
+            <div id="page-content">
+                <div class="container-fluid">
                     {% block content %}{% endblock %}
+                </div>
+            </div>
+            <!-- END Page Content -->
+
+        </div>
+        <!-- END Main Container -->
+    </div>
+    <!-- END Page Container -->
+</div>
+<!-- END Page Wrapper -->
+
+
+{#<!-- Regular Modals -->
+<div id="modal-fade-add-coownership" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><strong>Ajouter une copropriété</strong></h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12"><small>Nombre de copropriétés restantes : <strong>5</strong></small></div>
+                </div><br>
+                <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-7" style="margin-right:30px">
+                                <div class="form-group">
+                                    <label for="val-coownership-name">Nom de la propriété *</label>
+                                    <input type="text" id="val-coownership-name" name="val-coownership-name" value="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="val-city">Ville *</label>
+                                    <input type="text" id="val-city" name="val-city" value="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-7" style="margin-right:30px">
+                                <div class="form-group">
+                                    <label for="val-address">Adresse *</label>
+                                    <input type="text" id="val-address" name="val-address" value="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="val-postal-code">Code postal *</label>
+                                    <input type="text" id="val-postal-code" name="val-postal-code" value="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Image</label>
+                            <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                            <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
+                                <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                            <label for="fileInput" class="btn btn-info">
+                                                <span class="glyphicon fa fa-file-image-o"></span> Importer une image
+                                            </label>
+                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <div class="form-group pull-right">
+                        <input type="submit" class="btn btn-effect-ripple btn-primary" value="Sauvegarder">
+                        <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- END Regular Fade -->#}
 
+<script src="{{ asset('assets/vendor/jquery/jquery-2.2.4.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
-<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.backstretch.min.js') }}"></script>
-<script src="{{ asset('assets/js/wow.min.js') }}"></script>
-<script src="{{ asset('assets/js/retina-1.1.0.min.js') }}"></script>
-<script src="{{ asset('assets/js/scripts.js') }}"></script>
-<script src="{{ asset('assets/js/app.js') }}"></script>
-<script src="{{ asset('assets/js/plugins.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/backoffice/js/plugins.js') }}"></script>
+<script src="{{ asset('assets/backoffice/js/app.js') }}"></script>
 
-<!--[if lt IE 10]>
-<script src="{{ asset('assets/js/placeholder.js') }}"></script>
-<![endif]-->
+<!-- Datatable code -->
+<script src="{{ asset('assets/backoffice/js/pages/uiTables.js') }}"></script>
+<script>$(function(){ UiTables.init(); });</script>
 
+<!-- Calendar code -->
+<script src="{{ asset('assets/backoffice/js/pages/compCalendar.js') }}"></script>
+<script src="{{ asset('assets/backoffice/js/pages/lang/fr.js') }}"></script>
+<script>$(function(){ CompCalendar.init(); });</script>
 
-{% block scripts %}
-{% endblock %}
+<!-- Form element and validation code -->
+<script src="{{ asset('assets/backoffice/js/pages/formsComponents.js') }}"></script>
+<script src="{{ asset('assets/backoffice/js/pages/formsValidation.js') }}"></script>
+<script>$(function() { FormsValidation.init(); });</script>
+<script>$(function(){ FormsComponents.init(); });</script>
+
+<!-- Emails code -->
+<script src="{{ asset('assets/backoffice/js/pages/appEmail.js') }}"></script>
+<script>$(function(){ AppEmail.init(); });</script>
+
+<!-- Custom element for Backend -->
+<script src="{{ asset('assets/backoffice/js/custom.js') }}"></script>
 
 </body>
 </html>
