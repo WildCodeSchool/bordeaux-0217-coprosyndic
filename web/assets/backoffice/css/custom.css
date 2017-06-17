@@ -94,7 +94,7 @@ table a:hover{
 /** STYLE PERSONNALISES POUR LA BARRE DE TITRE **/
 .titre-box {
     background-color: #1b6d85;
-    padding-top: 50px;
+    margin-top: 50px;
     color: #FFF;
 }
 .titre-text {
@@ -112,5 +112,5 @@ ol.breadcrumb {
 /** STYLE PERSONNALISES POUR LE CONTENT **/
 /** réduction du padding-top pris en compte dans la barre de titre */
 #page-content {
-    padding-top: 20px !important;
+    padding-top: 150px !important;
 }
