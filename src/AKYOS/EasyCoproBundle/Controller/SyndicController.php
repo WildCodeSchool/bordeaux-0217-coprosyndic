@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
+use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Copropriete;
 use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Entity\Document;
@@ -18,6 +19,7 @@ use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SyndicController extends Controller
 {
@@ -565,7 +567,18 @@ class SyndicController extends Controller
 
     public function gestionDocumentsAction()
     {
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_documents.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findByUser($this->getUser());
+
+        $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountBySyndic($syndic);
+
+        $allDocuments = $em->getRepository(Document::class)->findDocumentsSortedByDate($syndic);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_documents.html.twig', array(
+            'categoriesCount' => $categoriesCount,
+            'documentsCount' => count($allDocuments),
+            'documents' => $allDocuments,
+        ));
     }
 
 }

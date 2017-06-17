@@ -24,7 +24,7 @@ class Categorie
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, unique=true)
+     * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
 
@@ -36,10 +36,25 @@ class Categorie
     private $description;
 
     /**
+     * @ORM\Column(name="couleur", type="string", length=7)
+     */
+    private $couleur;
+
+    /**
      * @ORM\OneToMany(targetEntity="Document", mappedBy="categorie")
      */
     private $documents;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="categories")
+     */
+    private $syndic;
+
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
     /**
      * Get id
@@ -109,11 +124,11 @@ class Categorie
     /**
      * Add document
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     * @param Document $document
      *
      * @return Categorie
      */
-    public function addDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    public function addDocument(Document $document)
     {
         $this->documents[] = $document;
 
@@ -123,9 +138,9 @@ class Categorie
     /**
      * Remove document
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     * @param Document $document
      */
-    public function removeDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    public function removeDocument(Document $document)
     {
         $this->documents->removeElement($document);
     }
@@ -138,5 +153,53 @@ class Categorie
     public function getDocuments()
     {
         return $this->documents;
+    }
+
+    /**
+     * Set syndic
+     *
+     * @param Syndic $syndic
+     *
+     * @return Categorie
+     */
+    public function setSyndic(Syndic $syndic = null)
+    {
+        $this->syndic = $syndic;
+
+        return $this;
+    }
+
+    /**
+     * Get syndic
+     *
+     * @return Syndic
+     */
+    public function getSyndic()
+    {
+        return $this->syndic;
+    }
+
+    /**
+     * Set couleur
+     *
+     * @param string $couleur
+     *
+     * @return Categorie
+     */
+    public function setCouleur($couleur)
+    {
+        $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    /**
+     * Get couleur
+     *
+     * @return string
+     */
+    public function getCouleur()
+    {
+        return $this->couleur;
     }
 }

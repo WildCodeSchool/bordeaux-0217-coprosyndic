@@ -122,7 +122,6 @@ class Syndic
      */
     private $artisans;
 
-
     /**
      * @ORM\OneToMany(targetEntity="Document", mappedBy="syndic")
      */
@@ -132,6 +131,12 @@ class Syndic
      * @ORM\OneToMany(targetEntity="Copropriete", mappedBy="syndic")
      */
     private $coproprietes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Categorie", mappedBy="syndic")
+     */
+    private $categories;
+
 
     public function __toString()
     {
@@ -472,11 +477,11 @@ class Syndic
     /**
      * Set user
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\User $user
+     * @param User $user
      *
      * @return Syndic
      */
-    public function setUser(\AKYOS\EasyCoproBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -486,7 +491,7 @@ class Syndic
     /**
      * Get user
      *
-     * @return \AKYOS\EasyCoproBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -496,11 +501,11 @@ class Syndic
     /**
      * Add artisan
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Artisan $artisan
+     * @param Artisan $artisan
      *
      * @return Syndic
      */
-    public function addArtisan(\AKYOS\EasyCoproBundle\Entity\Artisan $artisan)
+    public function addArtisan(Artisan $artisan)
     {
         $this->artisans[] = $artisan;
 
@@ -510,9 +515,9 @@ class Syndic
     /**
      * Remove artisan
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Artisan $artisan
+     * @param Artisan $artisan
      */
-    public function removeArtisan(\AKYOS\EasyCoproBundle\Entity\Artisan $artisan)
+    public function removeArtisan(Artisan $artisan)
     {
         $this->artisans->removeElement($artisan);
     }
@@ -530,11 +535,11 @@ class Syndic
     /**
      * Add document
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     * @param Document $document
      *
      * @return Syndic
      */
-    public function addDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    public function addDocument(Document $document)
     {
         $this->documents[] = $document;
 
@@ -544,9 +549,9 @@ class Syndic
     /**
      * Remove document
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     * @param Document $document
      */
-    public function removeDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    public function removeDocument(Document $document)
     {
         $this->documents->removeElement($document);
     }
@@ -564,11 +569,11 @@ class Syndic
     /**
      * Add copropriete
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     * @param Copropriete $copropriete
      *
      * @return Syndic
      */
-    public function addCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete)
+    public function addCopropriete(Copropriete $copropriete)
     {
         $this->coproprietes[] = $copropriete;
 
@@ -578,9 +583,9 @@ class Syndic
     /**
      * Remove copropriete
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     * @param Copropriete $copropriete
      */
-    public function removeCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete)
+    public function removeCopropriete(Copropriete $copropriete)
     {
         $this->coproprietes->removeElement($copropriete);
     }
@@ -596,4 +601,38 @@ class Syndic
     }
 
 
+
+    /**
+     * Add category
+     *
+     * @param Categorie $category
+     *
+     * @return Syndic
+     */
+    public function addCategory(Categorie $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param Categorie $category
+     */
+    public function removeCategory(Categorie $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
 }
