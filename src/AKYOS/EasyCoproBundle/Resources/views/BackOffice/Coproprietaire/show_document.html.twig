@@ -19,10 +19,6 @@
 
 {% block content %}
 
-    {% for message in app.session.flashbag.get('info') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-
     <div class="row">
 
         <div class="col-md-3">

@@ -19,17 +19,13 @@
 
 {% block content %}
 
-    {% for message in app.session.flashbag.get('info') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-
     <div class="row">
 
         <div class="col-md-3">
             <div class="row" style="background:#FFF; margin-bottom: 20px">
                 <div class="col-md-12">
-                    <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-options">Options</a>
-                    <div id="todo-options" class="collapse navbar-collapse remove-padding">
+                    <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-informations">Informations</a>
+                    <div id="todo-informations" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Informations</h4>
                         <div class="block-section">
                             <h5>Titre :</h5><p>{{ document.nom }}</p>
@@ -44,7 +40,8 @@
 
             <div class="row" style="background:#FFF;  margin-bottom: 20px">
                 <div class="col-md-12">
-                    <div id="todo-options" class="collapse navbar-collapse remove-padding">
+                    <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-actions">Actions</a>
+                    <div id="todo-actions" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Actions</h4>
                         <div class="block-section">
                             <ul>

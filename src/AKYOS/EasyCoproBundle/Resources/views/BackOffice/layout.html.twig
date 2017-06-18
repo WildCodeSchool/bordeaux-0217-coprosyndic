@@ -154,7 +154,7 @@
                     <!-- END Right Header Navigation -->
                 </div>
 
-                <!-- Titre page + Breadcrumb -->
+                <!-- Titre page + Breadcrumb + FlashMessages -->
                 <div class="container-fluid">
                     <div class="row titre-box">
                         <h4 class="titre-text">
@@ -166,8 +166,20 @@
                             {% block breadcrumb %}{% endblock %}
                         </ol>
                     </div>
+
+                    {% for message in app.session.flashbag.get('info') %}
+                        <div class="flash-box">
+                            <div class="alert alert-warning">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                    ×</button>
+                                <span class="glyphicon glyphicon-ok"></span> <strong>Notification</strong>
+                                <hr class="message-inner-separator">
+                                <p>{{ message }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                <!-- END Titre page + Breadcrumb -->
+                <!-- END Titre page + Breadcrumb + FlashMessages -->
 
             </header>
             <!-- END Header -->
@@ -288,6 +300,7 @@
 
 <!-- Custom element for Backend -->
 <script src="{{ asset('assets/backoffice/js/custom.js') }}"></script>
+<script src="{{ asset('assets/frontoffice/js/flash_messages_box.js') }}"></script>
 
 </body>
 </html>

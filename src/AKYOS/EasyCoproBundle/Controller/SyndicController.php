@@ -588,13 +588,10 @@ class SyndicController extends Controller
             $em->persist($document);
             $em->flush();
 
-            //TODO : Modifier le message flash
             $this->addFlash('info', 'Un nouveau document a été importé avec succès.');
             return $this->redirectToRoute('syndic_show_document',
                 array('id' => $document->getId()));
         }
-
-
 
         $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountBySyndic($syndic);
         $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
