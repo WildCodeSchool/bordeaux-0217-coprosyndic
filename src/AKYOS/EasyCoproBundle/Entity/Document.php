@@ -30,7 +30,7 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
     /**
@@ -42,15 +42,21 @@ class Document
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_modif", type="datetime", nullable=true)
+     * @ORM\Column(name="date_modif", type="datetime")
      */
     private $dateModif;
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
     private $url;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="extension", type="string", length=10)
+     */
+    private $extension;
     /**
      * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="documents")
      */
@@ -297,5 +303,29 @@ class Document
         }
 
         // $this->fichier = null;
+    }
+
+    /**
+     * Set extension
+     *
+     * @param string $extension
+     *
+     * @return Document
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+
+        return $this;
+    }
+
+    /**
+     * Get extension
+     *
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
     }
 }

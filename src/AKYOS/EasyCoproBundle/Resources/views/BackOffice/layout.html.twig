@@ -95,14 +95,15 @@
                         <!-- Header Link -->
                         <li class="hidden-xs animation-fadeInQuick" id="copro-selector">
                             <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
-                                <span>Gestion de : &nbsp;</span>&nbsp;  Résidence aux 5 palmiers &nbsp;
+                                <span>Gestion de : &nbsp;</span>&nbsp;
+                                    {% if app.session.get('copro') is defined %}{{ app.session.get('copro') }}{% endif %} &nbsp;
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu text-left" id="all-coownerships-dropdown">
                                 <li class="dropdown-header"><i class="fa fa-building pull-right"></i> <strong>Mes copropriétés</strong></li>
                                 <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Résidence aux 5 palmiers</a></li>
                                 <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Appartement Leclerc</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#modal-fade-add-coownership" data-toggle="modal"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
+                                <li><a href="{{ path('syndic_create_copropriete') }}"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
                             </ul>
                         </li>
                         <!-- END Header Link -->

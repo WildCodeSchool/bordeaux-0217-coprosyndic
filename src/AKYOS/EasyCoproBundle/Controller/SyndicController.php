@@ -2,7 +2,6 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
-use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Copropriete;
 use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Entity\Document;
@@ -19,7 +18,6 @@ use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class SyndicController extends Controller
 {
@@ -398,8 +396,10 @@ class SyndicController extends Controller
             ['my_form' => $form->createView()]);
     }
 
-    public function showCoproprieteAction(Copropriete $copropriete)
+    public function showCoproprieteAction(Request $request, Copropriete $copropriete)
     {
+        $request->getSession()->set('copro', $copropriete);
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig',
             ['copropriete' => $copropriete]);
     }
@@ -582,6 +582,7 @@ class SyndicController extends Controller
                 ->setDateModif(new \DateTime())
                 ->setSyndic($syndic)
                 ->setUrl($fileName)
+                ->setExtension($file->guessExtension())
             ;
 
             $em->persist($document);
@@ -596,7 +597,7 @@ class SyndicController extends Controller
 
 
         $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountBySyndic($syndic);
-        $allDocuments = $em->getRepository(Document::class)->findDocumentsSortedByDate($syndic);
+        $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_documents.html.twig', array(
             'categoriesCount' => $categoriesCount,

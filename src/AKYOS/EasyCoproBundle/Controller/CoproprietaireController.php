@@ -50,5 +50,21 @@ class CoproprietaireController extends Controller
             'document' => $document
         ));
     }
+
+    public function gestionDocumentsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+        $lot = $coproprietaire->getLot();
+
+        $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountByLot($lot);
+        $allDocuments = $em->getRepository(Document::class)->findLotDocumentsSortedByDate($lot);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/gestion_documents.html.twig', array(
+            'categoriesCount' => $categoriesCount,
+            'documentsCount' => count($allDocuments),
+            'documents' => $allDocuments,
+        ));
+    }
 }
 
