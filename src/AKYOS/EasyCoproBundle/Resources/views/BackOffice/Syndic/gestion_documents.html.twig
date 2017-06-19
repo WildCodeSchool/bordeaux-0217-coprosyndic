@@ -28,14 +28,14 @@
                         <div class="block-section">
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="active">
-                                    <a href="javascript:void(0)">
+                                    <a href="" class="categorie-link">
                                         <span class="badge pull-right">{{ documentsCount }}</span>
                                         <strong>Toutes</strong>
                                     </a>
                                 </li>
                                 {% for categorie in categoriesCount %}
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="" class="categorie-link">
                                         <span class="badge pull-right">{{ categorie[1] }}</span>
                                         <strong>{{ categorie['nom'] }}</strong>
                                     </a>
@@ -56,18 +56,18 @@
                                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.nom) }}
+                                            {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.description) }}
+                                            {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_widget(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                                            {{ form_row(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
                                             <div class="bootstrap-filestyle input-group">
                                                 <input type="text" id="filename-box" class="form-control" disabled="">
                                                 <span class="group-span-filestyle input-group-btn" tabindex="0">
@@ -145,5 +145,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ asset('assets/backoffice/js/custom.js') }}"
+    <script src="{{ asset('assets/backoffice/js/gestion_documents.js') }}"></script>
 {% endblock %}
