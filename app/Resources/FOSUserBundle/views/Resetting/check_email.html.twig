@@ -2,8 +2,34 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block fos_user_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/frontoffice/css/fosuser_design.css') }}">
+{% endblock fos_user_stylesheets %}
+
 {% block fos_user_content %}
-<p>
-{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
-</p>
-{% endblock %}
+    <div class="form-gap"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="logo-div text-center">
+                    <img class="logo" src="{{ asset('assets/img/logo.png') }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                        <h3><i class="fa fa-lock fa-4x"></i></h3>
+                        <h2 class="text-center">Mot de passe oublié ?</h2>
+                        <div class="panel-body">
+                            <p>{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}</p>
+                            <p><a href="{{ path('homepage') }}">Retour à l'accueil du site</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}
+

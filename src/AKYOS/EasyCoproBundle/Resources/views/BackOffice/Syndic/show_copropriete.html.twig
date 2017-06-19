@@ -1,19 +1,56 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
-{% block content %}
-    <div class="table-bordered">
-    <ul>
-                <li>Nom : {{ copropriete.nom }}</li>
-                <li>Immatriculation : {{ copropriete.immatriculation }}</li>
-                <li>Date immatriculation : {{ copropriete.dateImmat|date('d/m/Y') }}</li>
-                <li>Date modif immat : {{ copropriete.dateModifImmat|date('d/m/Y') }}</li>
-                <li>Adresse principale : {{ copropriete.adressePrinc }}</li>
-                <li>Adresse secondaire : {{ copropriete.adresseSec }}</li>
-                <li>Code postal : {{ copropriete.codePostal }}</li>
-                <li>Ville : {{ copropriete.ville }}</li>
-                <li>Type de chauffage : {{ copropriete.typeChauffage }}</li>
-    </ul>
-        <a href="{{ path('syndic_edit_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn ">Modifier</button></a>
-        <a href="{{ path('syndic_delete_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn ">Supprimer</button></a>
 
+{% block title %}
+    COPROPRIETE {{ copropriete.nom }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/syndic_dashboard.css') }}">
+{% endblock %}
+
+{% block titre_page %}
+    Affichage d'une copropriété
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('syndic_list_coproprietes') }}">Mes copropriétés</a></li>
+    <li class="active">{{ copropriete.nom }}</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+            <div class="col-lg-offset-3 col-lg-6 ">
+                <div class="widget">
+                    <div class="widget-image widget-image-xs">
+                        <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
+                        <div class="widget-image-content">
+                            <h2 class="widget-heading text-light"><strong>{{ copropriete.nom }}</strong></h2>
+                            <h3 class="widget-heading text-light-op h4">{{ copropriete.adressePrinc }}</h3>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <div class="row">
+                            <div class="table">
+                                <ul>
+                                    <li class="list-unstyled"><h4>Immatriculation : {{ copropriete.immatriculation }}</h4></li>
+                                    <li class="list-unstyled"><h4>Date immatriculation : {{ copropriete.dateImmat|date('d/m/Y') }}</h4></li>
+                                    <li class="list-unstyled"><h4>Date modif immat : {{ copropriete.dateModifImmat|date('d/m/Y') }}</h4></li>
+                                    <li class="list-unstyled"><h4>Adresse principale : {{ copropriete.adressePrinc }}</h4></li>
+                                    <li class="list-unstyled"><h4>Adresse secondaire : {{ copropriete.adresseSec }}</h4></li>
+                                    <li class="list-unstyled"><h4>Code postal : {{ copropriete.codePostal }}</h4></li>
+                                    <li class="list-unstyled"><h4>Ville : {{ copropriete.ville }}</h4></li>
+                                    <li class="list-unstyled"><h4>Type de chauffage : {{ copropriete.typeChauffage }}</h4></li>
+                                </ul>
+                                <div class="row text-center">
+                                <a href="{{ path('syndic_edit_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn-info">Modifier</button></a>
+                                <a href="{{ path('syndic_delete_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn-info ">Supprimer</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
     </div>
 {% endblock %}

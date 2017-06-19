@@ -23,13 +23,20 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $syndic->getUser()->setEnabled(true)->setType('SYNDIC');
+            $syndic->getUser()->setType('SYNDIC');
             $syndic->getUser()->addRole('ROLE_SYNDIC');
             $em = $this->getDoctrine()->getManager();
             $em->persist($syndic);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Le compte SYNDIC a bien été crée.');
+            $confirmService = $this->get('akyos.confirm_registration');
+            $confirmService->confirm($syndic->getUser());
+
+            $password = $_POST['akyos_easycoprobundle_syndic']['user']['plainPassword']['first'];
+            $documentService = $this->get('akyos.generate_document');
+            $documentService->generateRegistrationDocument($this->getUser(), $syndic, $password);
+
+            $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été crée avec succès.');
 
             return $this->redirectToRoute('admin_list_syndics');
         }

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block menu %}
-    {% include '@AKYOSEasyCopro/BackOffice/Syndic/menu.html.twig' %}
+    {{ render(controller('AKYOSEasyCoproBundle:Syndic:menu')) }}
 {% endblock %}
 
 {% block content %}

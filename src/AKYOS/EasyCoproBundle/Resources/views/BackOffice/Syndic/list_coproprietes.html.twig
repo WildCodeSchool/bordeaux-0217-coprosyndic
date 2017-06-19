@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/syndic_dashboard.css') }}">
+
 {% endblock %}
 
 {% block content %}
@@ -12,43 +14,33 @@
     {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
-    <h4 class="title col-md-9">Liste des copropriétés</h4>
-<div class="col-md-9 col-sm-6 col-xs-12">
-    <div class="card-container">
-        <div class="card">
-            <div class="cover">
-                <img src="{{ asset('assets/img/backgrounds/immeuble.jpg') }}"/>
-            </div>
-            <div class="content">
-                <div class="main">
-                    <table class="table">
-                        <thead class="color-card">
-                        <tr>
-                        <th><h5>Nom</h5></th>
-                        <th><h5>Adresse principale</h5></th>
-                        <th><h5>Code postal</h5></th>
-                        <th><h5>Ville</h5></th>
-                        <th><h5>Début de Gestion</h5></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                    {% for copropriete in coproprietes %}
-                        <tr>
-                            <td><a href="{{ path('syndic_show_copropriete', {'id':copropriete.id }) }}">{{ copropriete.nom }}</a></td>
-                            <td>{{ copropriete.adressePrinc }}</td>
-                            <td>{{ copropriete.codePostal }}</td>
-                            <td>{{ copropriete.ville }}</td>
-                            <td>{{ copropriete.dateDebutGestion|date('d/m/Y') }}</td>
-                        </tr>
-                    {% endfor %}
-                        </tbody>
 
-                    </table>
+<div class="row">
+    {% for copropriete in coproprietes %}
+    <div class="col-lg-3">
+        <div class="widget">
+            <div class="widget-image widget-image-xs">
+                <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
+                <div class="widget-image-content">
+                    <a href="{{ path('syndic_show_copropriete', {'id':copropriete.id}) }}"><h2 class="widget-heading text-light"><strong>{{ copropriete.nom }}</strong></h2></a>
+                    <h3 class="widget-heading text-light-op h4">{{ copropriete.adressePrinc }}</h3>
+                </div>
+            </div>
+            <div class="widget-content">
+                <div class="row text-center">
+                    <div class="col-xs-5">
+                        <h4 class="widget-heading"><small>DOCUMENTS</small><br><a href="javascript:void(0)" class="themed-color-flat">16</a></h4>
+                    </div>
+                    <div class="col-xs-7">
+                        <h4 class="widget-heading"><small>COPROPRIÉTAIRES</small><br><a href="javascript:void(0)" class="themed-color-flat">7</a></h4>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
+
 {% endblock %}
 
 {% block scripts %}

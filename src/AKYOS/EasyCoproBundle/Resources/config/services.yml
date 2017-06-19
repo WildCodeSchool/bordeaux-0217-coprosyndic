@@ -1,4 +1,13 @@
 services:
-#    akyos_easy_copro.example:
-#        class: AKYOS\EasyCoproBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    akyos.password_resetting:
+        class: AKYOS\EasyCoproBundle\EventListener\PasswordResettingListener
+        arguments: ['@router', '@session']
+        tags:
+            - { name: kernel.event_subscriber }
+    akyos.confirm_registration:
+        class: AKYOS\EasyCoproBundle\Service\RegistrationConfirmation
+        arguments: ['@fos_user.mailer','@fos_user.util.token_generator','@router','@session', '@service_container']
+
+    akyos.generate_document:
+        class: AKYOS\EasyCoproBundle\Service\GenerateDocument
+        arguments: ['@service_container']

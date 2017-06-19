@@ -9,3 +9,7 @@ artisan_edit:
 artisan_show:
     path:     /show
     defaults: { _controller: AKYOSEasyCoproBundle:Artisan:show }
+
+artisan_show_document:
+        path: /show/doc/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:showDocument}

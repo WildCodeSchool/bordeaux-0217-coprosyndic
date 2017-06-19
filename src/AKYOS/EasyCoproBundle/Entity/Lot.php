@@ -55,7 +55,7 @@ class Lot
     private $copropriete;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Document", inversedBy="lots")
+     * @ORM\ManyToMany(targetEntity="Document", mappedBy="lots", cascade={"persist"})
      */
     private $documents;
 
@@ -188,11 +188,11 @@ class Lot
     /**
      * Set copropriete
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     * @param Copropriete $copropriete
      *
      * @return Lot
      */
-    public function setCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete = null)
+    public function setCopropriete(Copropriete $copropriete = null)
     {
         $this->copropriete = $copropriete;
 
@@ -202,7 +202,7 @@ class Lot
     /**
      * Get copropriete
      *
-     * @return \AKYOS\EasyCoproBundle\Entity\Copropriete
+     * @return Copropriete
      */
     public function getCopropriete()
     {
@@ -212,11 +212,11 @@ class Lot
     /**
      * Add document
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     * @param Document $document
      *
      * @return Lot
      */
-    public function addDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    public function addDocument(Document $document)
     {
         $this->documents[] = $document;
 
@@ -226,9 +226,9 @@ class Lot
     /**
      * Remove document
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     * @param Document $document
      */
-    public function removeDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    public function removeDocument(Document $document)
     {
         $this->documents->removeElement($document);
     }
@@ -246,11 +246,11 @@ class Lot
     /**
      * Add coproprietaire
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Coproprietaire $coproprietaire
+     * @param Coproprietaire $coproprietaire
      *
      * @return Lot
      */
-    public function addCoproprietaire(\AKYOS\EasyCoproBundle\Entity\Coproprietaire $coproprietaire)
+    public function addCoproprietaire(Coproprietaire $coproprietaire)
     {
         $this->coproprietaires[] = $coproprietaire;
 
@@ -260,9 +260,9 @@ class Lot
     /**
      * Remove coproprietaire
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Coproprietaire $coproprietaire
+     * @param Coproprietaire $coproprietaire
      */
-    public function removeCoproprietaire(\AKYOS\EasyCoproBundle\Entity\Coproprietaire $coproprietaire)
+    public function removeCoproprietaire(Coproprietaire $coproprietaire)
     {
         $this->coproprietaires->removeElement($coproprietaire);
     }
@@ -280,11 +280,11 @@ class Lot
     /**
      * Add locataire
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Locataire $locataire
+     * @param Locataire $locataire
      *
      * @return Lot
      */
-    public function addLocataire(\AKYOS\EasyCoproBundle\Entity\Locataire $locataire)
+    public function addLocataire(Locataire $locataire)
     {
         $this->locataires[] = $locataire;
 
@@ -294,9 +294,9 @@ class Lot
     /**
      * Remove locataire
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Locataire $locataire
+     * @param Locataire $locataire
      */
-    public function removeLocataire(\AKYOS\EasyCoproBundle\Entity\Locataire $locataire)
+    public function removeLocataire(Locataire $locataire)
     {
         $this->locataires->removeElement($locataire);
     }

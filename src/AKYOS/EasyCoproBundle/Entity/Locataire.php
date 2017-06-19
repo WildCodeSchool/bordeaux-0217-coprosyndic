@@ -108,12 +108,6 @@ class Locataire
      */
     private $user;
 
-    //TODO : à supprimer
-//    /**
-//     * @ORM\ManyToMany(targetEntity="Syndic", mappedBy="locataires")
-//     */
-//    private $syndics;
-
     /**
      * Get id
      *

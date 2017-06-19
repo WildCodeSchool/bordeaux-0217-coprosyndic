@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
+use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +14,7 @@ class CreateSyndicType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', RegistrationType::class)
+            ->add('user', RegistrationFormType::class)
             ->add('nom')
             ->add('statut')
             ->add('siret')
