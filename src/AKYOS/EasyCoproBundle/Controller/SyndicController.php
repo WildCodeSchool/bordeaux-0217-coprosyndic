@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
+use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Copropriete;
 use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Entity\Document;
@@ -17,7 +18,10 @@ use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SyndicController extends Controller
 {
@@ -602,6 +606,20 @@ class SyndicController extends Controller
             'documents' => $allDocuments,
             'form' => $form->createView(),
         ));
+    }
+
+    public function listCategorieDocumentsAction(Request $request, $categorieName) {
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $categorie = $em->getRepository(Categorie::class)->findOneByNom($categorieName);
+            $documents = $em->getRepository(Document::class)->findByCategorie($categorie);
+
+            return new JsonResponse(array(
+                'documents'=> json_encode($documents)
+            ));
+        }
+        return new HttpException('501', 'Ceci n\'est pas une requete Ajax.');
     }
 
 }

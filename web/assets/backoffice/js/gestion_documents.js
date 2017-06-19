@@ -17,11 +17,27 @@ $( document ).ready(function() {
 
     });
 
-    console.log('afzafa');
     $('.categorie-link').on('click', function (e) {
         e.preventDefault();
-        $activeCat = $(this).parent().siblings('.active');
-        console.log($activeCat);
 
+        $activeCat = $(this).parent().siblings('.active');
+        $activeCat.removeClass('active');
+        $(this).parent().addClass('active');
+
+        categorie = this.dataset.categorie;
+        console.log(categorie);
+
+        $.ajax({
+            url: "/syndic/list/docs/" + categorie,
+            method: "post",
+            data: categorie,
+            success: function(documents){
+                for (document in documents) {
+                    console.log(JSON.parse(document));
+                    $('.documents-rows').first().append('<tr></tr>');
+                    $('.documents-rows').children().last('<td></td>');
+                }
+            }
+        })
     });
 });

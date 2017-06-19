@@ -35,7 +35,7 @@
                                 </li>
                                 {% for categorie in categoriesCount %}
                                 <li>
-                                    <a href="" class="categorie-link">
+                                    <a href="" class="categorie-link" data-categorie="{{ categorie['nom'] }}">
                                         <span class="badge pull-right">{{ categorie[1] }}</span>
                                         <strong>{{ categorie['nom'] }}</strong>
                                     </a>
@@ -119,7 +119,7 @@
                                     <th class="text-center" style="width: 42px;"><i class="fa fa-flash"></i></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="documents-rows">
                                 {% for document in documents %}
                                 <tr>
                                     <td class="text-center" style="display:none">{{ document.id }}</td>
