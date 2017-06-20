@@ -613,10 +613,11 @@ class SyndicController extends Controller
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
             $categorie = $em->getRepository(Categorie::class)->findOneByNom($categorieName);
+            var_dump($categorie);
             $documents = $em->getRepository(Document::class)->findByCategorie($categorie);
-
+            var_dump($documents);
             return new JsonResponse(array(
-                'documents'=> json_encode($documents)
+                'data'=> json_encode($documents)
             ));
         }
         return new HttpException('501', 'Ceci n\'est pas une requete Ajax.');

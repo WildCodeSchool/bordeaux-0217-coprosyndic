@@ -24,20 +24,60 @@ $( document ).ready(function() {
         $activeCat.removeClass('active');
         $(this).parent().addClass('active');
 
-        categorie = this.dataset.categorie;
-        console.log(categorie);
+        var categorie = this.dataset.categorie;
 
         $.ajax({
             url: "/syndic/list/docs/" + categorie,
             method: "post",
-            data: categorie,
-            success: function(documents){
-                for (document in documents) {
-                    console.log(JSON.parse(document));
+            dataType: 'json',
+            success: function(response){
+                var documents = JSON.parse(response.data);
+                console.log(documents);
+                var html= '';
+                for (document in response) {
+                    for (i=0; i<documents.length; i++) {
+                        html += "<td>"+ documents[i].nom + "</td>";
+                    }
                     $('.documents-rows').first().append('<tr></tr>');
                     $('.documents-rows').children().last('<td></td>');
                 }
             }
         })
     });
+});
+
+$(document).ready(function () {
+
+    $("#appbundle_contact_town").on('keyup', function () {
+        var town = $(this).val();
+        if (town.length >= 2) {
+
+            $.ajax({
+                url: '/ajax/' + town,
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    var html= "";
+                    var towns = JSON.parse(response.data);
+                    for (i=0; i<towns.length; i++) {
+                        html += "<li>"+ towns[i].town + "</li>";
+                    }
+                    $("#autocompletion").html(html);
+                    $("#autocompletion li").on("click", function (e) {
+                        $("#appbundle_contact_town").val($(this).text());
+                        $("#autocompletion").html('');
+                    })
+
+                },
+                error: function () {
+                    $("#autocompletion").html('');
+                }
+
+
+
+            });
+
+        }
+    })
+
 });
