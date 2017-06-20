@@ -1,0 +1,33 @@
+
+.stat-box{
+    background-color: #ade5ff;
+    padding: 0;
+    box-shadow: 1px 1px 3px #aaa;
+}
+
+.right-menu{
+    border-left: 1px dotted #0e334c;
+}
+.widget-box{
+    margin: 0 auto;
+    background-color: #ebe9ea;
+    box-shadow: 1px 1px 3px #aaa;
+    height: 150px;
+}
+.vignette{
+    display: flex;
+    justify-content: space-around;
+}
+
+h4.text-center {
+    margin: 0;
+    padding-top: 10px;
+}
+
+@media screen and (max-width: 420px) {
+
+    .vignette{
+        display: block;
+        justify-content: center ;
+    }
+}

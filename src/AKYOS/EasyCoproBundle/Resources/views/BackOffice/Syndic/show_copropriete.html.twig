@@ -5,8 +5,17 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/backoffice/syndic_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/syndic_dashboard.css') }}">
+{% endblock %}
 
+{% block titre_page %}
+    Affichage d'une copropriété
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('syndic_list_coproprietes') }}">Mes copropriétés</a></li>
+    <li class="active">{{ copropriete.nom }}</li>
 {% endblock %}
 
 {% block content %}
@@ -15,7 +24,7 @@
             <div class="col-lg-offset-3 col-lg-6 ">
                 <div class="widget">
                     <div class="widget-image widget-image-xs">
-                        <img src="{{ asset('assets/img/city01.jpg') }}">
+                        <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
                         <div class="widget-image-content">
                             <h2 class="widget-heading text-light"><strong>{{ copropriete.nom }}</strong></h2>
                             <h3 class="widget-heading text-light-op h4">{{ copropriete.adressePrinc }}</h3>

@@ -11,5 +11,9 @@ coproprietaire_show:
     defaults: {_controller: AKYOSEasyCoproBundle:Coproprietaire:show }
 
 coproprietaire_show_document:
-        path: /show/doc/{id}/
-        defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showDocument}
+    path: /show/doc/{id}/
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showDocument}
+
+coproprietaire_gestion_documents:
+    path: /documents
+    defaults: { _controller: AKYOSEasyCoproBundle:Coproprietaire:gestionDocuments }

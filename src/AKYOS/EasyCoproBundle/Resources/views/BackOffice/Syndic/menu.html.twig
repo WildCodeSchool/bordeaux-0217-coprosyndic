@@ -6,7 +6,7 @@
         <!-- Sidebar Navigation -->
         <ul class="sidebar-nav">
             <li>
-                <a href="{{ path('syndic_index') }}" class=" active"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Tableau de Bord</span></a>
+                <a href="{{ path('syndic_index') }}" class=""><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Tableau de Bord</span></a>
             </li>
             <li class="sidebar-separator">
                 <i class="fa fa-ellipsis-h"></i>
@@ -19,27 +19,26 @@
                     {% for copropriete in coproprietes %}
                     <li><a href="{{ path('syndic_show_copropriete', {'id':copropriete.id}) }}">{{ copropriete.nom }}</a></li>
                     {% endfor %}
-
                     <li><a href="{{ path('syndic_create_copropriete') }}" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
                 </ul>
             </li>
             <li>
-                <a href="<?= WWW; ?>/coowners"><i class="fa fa-users sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gérer les copropriétaires</span></a>
+                <a href="{{ path('syndic_list_coproprietaires') }}"><i class="fa fa-users sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gérer les copropriétaires</span></a>
             </li>
             <li>
-                <a href="<?= WWW; ?>/providers"><i class="fa fa-sitemap sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gérer les fournisseurs</span></a>
+                <a href="{{ path('syndic_list_artisans') }}"><i class="fa fa-sitemap sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gérer les fournisseurs</span></a>
             </li>
             <li>
-                <a href="<?= WWW; ?>/planning"><i class="fa fa-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Planning / Événements</span></a>
+                <a href=""><i class="fa fa-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Planning / Événements</span></a>
             </li>
             <li class="sidebar-separator">
                 <i class="fa fa-ellipsis-h"></i>
             </li>
             <li>
-                <a href="<?= WWW; ?>/myfiles"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
+                <a href="{{ path('syndic_gestion_documents') }}"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
             </li>
             <li>
-                <a href="<?= WWW; ?>/myemails"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">4</span>
+                <a href=""><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">4</span>
                     <span class="sidebar-nav-mini-hide">Mes Emails</span></a>
             </li>
 
@@ -47,11 +46,11 @@
                 <i class="fa fa-ellipsis-h"></i>
             </li>
             <li>
-                <a href="<?= WWW; ?>/feedbacks"><i class="fa fa-comment sidebar-nav-icon"></i>
+                <a href=""><i class="fa fa-comment sidebar-nav-icon"></i>
                     <span class="badge badge-menu-item label-info pull-right sidebar-nav-mini-hide">4</span><span class="sidebar-nav-mini-hide">Suggestions</span></a>
             </li>
             <li>
-                <a href="<?= WWW; ?>/surveys" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                <a href="" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
                     <i class="fa fa-eyedropper sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Sondages</span></a>
                 <ul>
                     <li><a href="">En cours</a></li>
@@ -66,104 +65,3 @@
     <!-- END Sidebar Content -->
 </div>
 <!-- END Wrapper for scrolling functionality -->
-
-<!-- Sidebar Extra Info -->
-<div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
-    <div class="push-bit">
-         <span class="pull-right">
-             <a href="javascript:void(0)" class="text-muted"><i class="fa fa-plus"></i></a>
-         </span>
-        <small><strong>5.3 GB</strong> / 20 GB</small>
-    </div>
-    <div class="progress progress-mini push-bit">
-        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 28%"></div>
-    </div>
-    <div class="text-center">
-        <small><span id="year-copy"></span> &copy; <a href="" target="_blank">MaCopro 1.0</a></small>
-    </div>
-</div>
-
-<!-- END Main Sidebar -->
-
-
-
-<!-- <li class="non-active">
-    <a href="{{ path('syndic_index') }}">
-        <i class="fa fa-tachometer fa-fw" aria-hidden="true"></i> Dashboard
-    </a>
-</li>
-<li class="non-active">
-    <a href="#" data-toggle="collapse" data-target="#toggleDocuments" data-parent="#sidenav01"
-       class="collapsed">
-        <i class="fa fa-file-text fa-fw" aria-hidden="true"></i> Mes Documents<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
-    </a>
-    <div class="collapse" id="toggleDocuments" style="height: 0;">
-        <ul class="nav nav-list">
-            <li><a href="{{ path('syndic_create_document', {'id':1}) }}">Diffuser un document</a></li>
-            <li><a href="{{ path('syndic_list_documents') }}">Documents archivés</a></li>
-        </ul>
-    </div>
-</li>
-<li class="non-active">
-    <a href="#" data-toggle="collapse" data-target="#toggleCoproprietes" data-parent="#sidenav01"
-       class="collapsed">
-        <i class="fa fa-building" aria-hidden="true"></i> Mes Copropriétés<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
-    </a>
-    <div class="collapse" id="toggleCoproprietes" style="height: 0;">
-        <ul class="nav nav-list">
-            <li><a href="{{ path('syndic_list_coproprietes') }}">Liste des copropriétés</a></li>
-            <li><a href="{{ path('syndic_create_copropriete') }}">Créer une copropriété</a></li>
-            <li><a href="{{ path('syndic_list_lots', {'id':203}) }}">Liste des lots</a></li>
-            <li><a href="{{ path('syndic_create_lot') }}">Créer un lot</a></li>
-        </ul>
-    </div>
-</li>
-<li class="non-active">
-    <a href="#" data-toggle="collapse" data-target="#toggleArtisans" data-parent="#sidenav01"
-       class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Mes Artisans<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
-    </a>
-    <div class="collapse" id="toggleArtisans" style="height: 0;">
-        <ul class="nav nav-list">
-            <li><a href="{{ path('syndic_list_artisans') }}">Liste des artisans</a></li>
-            <li><a href="{{ path('syndic_create_artisan') }}">Créer un artisan</a></li>
-        </ul>
-    </div>
-</li>
-<li class="non-active">
-    <a href="#" data-toggle="collapse" data-target="#toggleCoproprietaires" data-parent="#sidenav01"
-       class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Mes Copropriétaires<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
-    </a>
-    <div class="collapse" id="toggleCoproprietaires" style="height: 0;">
-        <ul class="nav nav-list">
-            <li><a href="{{ path('syndic_list_coproprietaires') }}">Liste des copropriétaires</a></li>
-            <li><a href="{{ path('syndic_create_coproprietaire') }}">Créer un copropriétaire</a></li>
-        </ul>
-    </div>
-</li>
-<li class="non-active">
-    <a href="#" data-toggle="collapse" data-target="#toggleLocataires" data-parent="#sidenav01"
-       class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Mes Locataires<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
-    </a>
-    <div class="collapse" id="toggleLocataires" style="height: 0;">
-        <ul class="nav nav-list">
-            <li><a href="{{ path('syndic_list_locataires') }}">Liste des locataires</a></li>
-            <li><a href="{{ path('syndic_create_locataire') }}">Créer un locataire</a></li>
-        </ul>
-    </div>
-</li>
-<li class="non-active">
-    <a href="#" data-toggle="collapse" data-target="#toggleMessagerie" data-parent="#sidenav01"
-       class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Messagerie<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
-    </a>
-    <div class="collapse" id="toggleMessagerie" style="height: 0;">
-        <ul class="nav nav-list">
-            <li><a href="">Boite de réception</a></li>
-            <li><a href="">Annuaire</a></li>
-            <li><a href="">Envoyer un message</a></li>
-        </ul>
-    </div>
-</li>

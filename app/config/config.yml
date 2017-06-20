@@ -96,7 +96,7 @@ vich_uploader:
     mappings:
         img_documents:
             uri_prefix:         '%app.path.img_documents%'
-            upload_destination: '%kernel.root_dir%/../web/assets/img/docs'
+            upload_destination: '%kernel.root_dir%/../web/documents'
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
@@ -106,4 +106,4 @@ vich_uploader:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     %kernel.root_dir%/../vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64
+        binary:     '%kernel.root_dir%/../vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64'

@@ -55,7 +55,7 @@ class Lot
     private $copropriete;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Document", inversedBy="lots")
+     * @ORM\ManyToMany(targetEntity="Document", mappedBy="lots", cascade={"persist"})
      */
     private $documents;
 
