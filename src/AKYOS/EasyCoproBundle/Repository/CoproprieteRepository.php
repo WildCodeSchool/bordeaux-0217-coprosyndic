@@ -21,4 +21,28 @@ class CoproprieteRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $query;
     }
+
+    public function findCoproprieteDocuments($copropriete) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->leftJoin('d.lots', 'l')
+            ->where('l.copropriete = :copropriete')
+            ->setParameter('copropriete', $copropriete)
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
+
+    /*public function findNbrDocumentsByCopropriete($copropriete){
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('COUNT(d)')
+            ->innerJoin('d.lots','l')
+            ->join('l.copropriete', 'c')
+            ->where('c = :copropriete')
+            ->setParameter('copropriete', $copropriete)
+            ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }*/
+
 }

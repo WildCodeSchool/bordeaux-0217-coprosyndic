@@ -48,11 +48,9 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('d.lots', 'l')
             ->where('l = :lot')
             ->setParameter('lot', $lot)
-            ->orderBy('d.dateModif', 'desc')
-        ;
+            ->orderBy('d.dateModif', 'desc');
 
         return $qb->getQuery()->getResult();
     }
-
 
 }

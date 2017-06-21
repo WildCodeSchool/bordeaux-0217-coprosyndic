@@ -24,7 +24,33 @@
 <div class="row">
     <div class="col-sm-9">
         <div class="row">
-            <div class="col-sm-3">
+            <!-- for copropriete in copropriete.syndic %}-->
+            <div class="col-sm-4">
+                <div class="widget">
+                    <div class="widget-image widget-image-xs">
+                        <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
+                        <div class="widget-image-content">
+                            <h2 class="widget-heading text-light"><strong><!-- copropriete.nom }}--></strong></h2>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <div class="row text-center">
+                            <div class="col-xs-5">
+                                <h4 class="widget-heading">
+                                    <small>DOCUMENTS</small>
+                                    <br><a href="javascript:void(0)" class="themed-color-flat"><!-- copropriete.documents|length }}--></a></h4>
+                            </div>
+                            <div class="col-xs-7">
+                                <h4 class="widget-heading">
+                                    <small>COPROPRIÉTAIRES</small>
+                                    <br><a href="javascript:void(0)" class="themed-color-flat">{{ nbre_coproprietaires }}</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  endfor %}-->
+            <div class="col-sm-4">
                 <div class="widget">
                     <div class="widget-image widget-image-xs">
                         <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
@@ -48,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="widget">
                     <div class="widget-image widget-image-xs">
                         <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
@@ -72,56 +98,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="widget">
-                    <div class="widget-image widget-image-xs">
-                        <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
-                        <div class="widget-image-content">
-                            <h2 class="widget-heading text-light"><strong>COPROPRIETES</strong></h2>
-                        </div>
-                    </div>
-                    <div class="widget-content">
-                        <div class="row text-center">
-                            <div class="col-xs-5">
-                                <h4 class="widget-heading">
-                                    <small>DOCUMENTS</small>
-                                    <br><a href="javascript:void(0)" class="themed-color-flat">16</a></h4>
-                            </div>
-                            <div class="col-xs-7">
-                                <h4 class="widget-heading">
-                                    <small>COPROPRIÉTAIRES</small>
-                                    <br><a href="javascript:void(0)" class="themed-color-flat">7</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="widget">
-                    <div class="widget-image widget-image-xs">
-                        <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
-                        <div class="widget-image-content">
-                            <h2 class="widget-heading text-light"><strong>COPROPRIETES</strong></h2>
-                        </div>
-                    </div>
-                    <div class="widget-content">
-                        <div class="row text-center">
-                            <div class="col-xs-5">
-                                <h4 class="widget-heading">
-                                    <small>DOCUMENTS</small>
-                                    <br><a href="javascript:void(0)" class="themed-color-flat">16</a></h4>
-                            </div>
-                            <div class="col-xs-7">
-                                <h4 class="widget-heading">
-                                    <small>COPROPRIÉTAIRES</small>
-                                    <br><a href="javascript:void(0)" class="themed-color-flat">7</a></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
+
     <div class="col-sm-3">
         {# A SUPPRIMER ! UNIQUEMENT POUR TESTER #}
         <p>Partie Widget</p>
