@@ -107,7 +107,7 @@
         <div class="col-md-9" id="coownerships-files">
             <div class="block-content-full animation-fadeInQuick2">
                 <!-- Enable drop file to upload ( AJAX ) -->
-                <form action="<? WWW; ?>/" class="dropzone dz-clickable">
+                <form id="form-search" action="" class="dropzone dz-clickable">
                     <div class="table-responsive">
                         <table id="full-files-datatable" class="table table-striped table-borderless style-hover table-vcenter">
                             <thead>
@@ -142,70 +142,25 @@
         </div>
     </div>
 
-{#    <!-- Regular Modals -->
+    <!-- Regular Modals -->
     <div id="modal-fade-add-coownership" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Ajouter une copropriété</strong></h3>
+                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12"><small>Nombre de copropriétés restantes : <strong>5</strong></small></div>
-                    </div><br>
-                    <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-7" style="margin-right:30px">
-                                    <div class="form-group">
-                                        <label for="val-coownership-name">Nom de la propriété *</label>
-                                        <input type="text" id="val-coownership-name" name="val-coownership-name" value="" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="val-city">Ville *</label>
-                                        <input type="text" id="val-city" name="val-city" value="" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-md-12">
+                            <p>Voulez-vous vraiment supprimer ce document ?</p>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-7" style="margin-right:30px">
-                                    <div class="form-group">
-                                        <label for="val-address">Adresse *</label>
-                                        <input type="text" id="val-address" name="val-address" value="" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="val-postal-code">Code postal *</label>
-                                        <input type="text" id="val-postal-code" name="val-postal-code" value="" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="control-label">Image</label>
-                                <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
-                                <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
-                                    <span class="group-span-filestyle input-group-btn" tabindex="0">
-                                            <label for="fileInput" class="btn btn-info">
-                                                <span class="glyphicon fa fa-file-image-o"></span> Importer une image
-                                            </label>
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="form-group pull-right">
-                            <input type="submit" class="btn btn-effect-ripple btn-primary" value="Sauvegarder">
+                            <button id="delete-doc" type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button>
                             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
                         </div>
                     </div>
@@ -213,7 +168,7 @@
             </div>
         </div>
     </div>
-    <!-- END Regular Fade -->#}
+    <!-- END Regular Fade -->
 {% endblock %}
 
 {% block scripts %}

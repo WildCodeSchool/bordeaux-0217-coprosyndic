@@ -17,6 +17,7 @@ $( document ).ready(function() {
 
     });
 
+    // Fonction de formattage des dates des fichiers
     function getFormattedDate(timestamp) {
         var date = new Date(timestamp * 1000);
 
@@ -29,6 +30,7 @@ $( document ).ready(function() {
         return day + "/" + month + "/" + year;
     }
 
+    // Fonction pour récupérer les documents en fonction de la catégorie
     $('.categorie-link').on('click', function (e) {
         e.preventDefault();
 
@@ -63,4 +65,19 @@ $( document ).ready(function() {
             }
         })
     });
+
+    // Fonction pour supprimer un document
+    $('#delete-doc').on('click', function (e) {
+        e.preventDefault();
+        var xmlHttp = new XMLHttpRequest();
+        url = '/delete/doc/' + 'id';
+        xmlHttp.open( "GET", url, false );
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+
+
+
+
+    })
+
 });
