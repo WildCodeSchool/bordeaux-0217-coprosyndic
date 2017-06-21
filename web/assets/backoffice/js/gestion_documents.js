@@ -67,17 +67,9 @@ $( document ).ready(function() {
     });
 
     // Fonction pour supprimer un document
-    $('#delete-doc').on('click', function (e) {
-        e.preventDefault();
-        var xmlHttp = new XMLHttpRequest();
-        url = '/delete/doc/' + 'id';
-        xmlHttp.open( "GET", url, false );
-        xmlHttp.send( null );
-        return xmlHttp.responseText;
-
-
-
-
-    })
-
+    $('.btn-delete').on('click', function (e) {
+        var documentId = $(this).data('document');
+        var url = "../delete/doc/" + documentId;
+        $('#delete-doc').attr('href',url);
+    });
 });

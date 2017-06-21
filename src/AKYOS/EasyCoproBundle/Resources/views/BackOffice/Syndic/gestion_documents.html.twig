@@ -129,7 +129,7 @@
                                     <td class="text-center">
                                         <a href="{{ asset('documents/' ~ document.url) }}" download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
                                             <i class="fa fa-download"></i></a>
-                                        <a href="#modal-fade-add-coownership" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">
+                                        <a href="#modal-fade-add-coownership" data-document="{{ document.id }}" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger btn-delete">
                                             <i class="fa fa-times"></i></a>
                                     </td>
                                 </tr>
@@ -160,7 +160,7 @@
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="form-group pull-right">
-                            <button id="delete-doc" type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button>
+                            <a href=""  id="delete-doc"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
                             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
                         </div>
                     </div>

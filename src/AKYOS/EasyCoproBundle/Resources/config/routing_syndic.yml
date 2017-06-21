@@ -152,14 +152,14 @@ syndic_delete_document:
     path: /delete/doc/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteDocument}
 
-syndic_list_documents:
-    path: /list/docs
-    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:listDocuments}
-
 syndic_gestion_documents:
-    path: /documents
+    path: /list/docs
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionDocuments }
 
 syndic_list_categorie_documents:
     path: /list/docs/{categorieName}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCategorieDocuments }
+
+test:
+    path: /test
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:test }

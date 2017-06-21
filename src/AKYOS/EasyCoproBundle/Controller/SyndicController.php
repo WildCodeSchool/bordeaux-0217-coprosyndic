@@ -23,7 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -516,8 +515,8 @@ class SyndicController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
-            //TODO : Modifier le message flash
-            $this->addFlash('info', 'Le DOCUMENT a été créé avec succès.');
+
+            $request->getSession()->getFlashBag()->add('info', 'Le document a été crée avec succès.');
             return $this->redirectToRoute('syndic_show_document',
                 array('id' => $document->getId()));
         }
@@ -533,7 +532,7 @@ class SyndicController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $this->addFlash('info', 'Le DOCUMENT a bien été modifié.');
+            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur le document ont bien été enregistrées.');
             return $this->redirectToRoute('syndic_show_document', array(
                 'id' => $document->getId(),
             ));
@@ -566,11 +565,13 @@ class SyndicController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($document);
             $em->flush();
-            $this->addFlash('info', 'Le DOCUMENT a bien été supprimé.');
-            return $this->redirectToRoute('syndic_list_documents');
+
+            $request->getSession()->getFlashBag()->add('info', 'Le document a bien été supprimé.');
+            return $this->redirectToRoute('syndic_gestion_documents');
         }
-        $this->addFlash('info', "Ce DOCUMENT n'existe pas !");
-        return $this->redirectToRoute('syndic_list_documents');
+        $request->getSession()->getFlashBag()->add('info', 'Le document n\'existe pas.');
+
+        return $this->redirectToRoute('syndic_gestion_documents');
     }
 
     public function gestionDocumentsAction(Request $request)
