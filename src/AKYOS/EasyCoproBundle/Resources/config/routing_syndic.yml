@@ -137,25 +137,29 @@ syndic_delete_lot:
 #--------------------------
 
 syndic_create_document:
-        path: /create/doc
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createDocument}
+    path: /create/doc
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createDocument}
 
 syndic_edit_document:
-        path: /edit/doc/{id}/
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:editDocument}
+    path: /edit/doc/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:editDocument}
 
 syndic_show_document:
-        path: /show/doc/{id}/
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showDocument}
+    path: /show/doc/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showDocument}
 
 syndic_delete_document:
-        path: /delete/doc/{id}
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteDocument}
+    path: /delete/doc/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteDocument}
 
 syndic_list_documents:
-        path: /list/docs
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:listDocuments}
+    path: /list/docs
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:listDocuments}
 
 syndic_gestion_documents:
     path: /documents
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionDocuments }
+
+syndic_list_categorie_documents:
+    path: /list/docs/{categorieName}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCategorieDocuments }

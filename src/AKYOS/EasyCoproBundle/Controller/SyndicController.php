@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
+use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Copropriete;
 use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Entity\Document;
@@ -17,7 +18,14 @@ use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class SyndicController extends Controller
 {
@@ -602,6 +610,37 @@ class SyndicController extends Controller
             'documents' => $allDocuments,
             'form' => $form->createView(),
         ));
+    }
+
+    public function listCategorieDocumentsAction(Request $request, $categorieName) {
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+            if ($categorieName == 'all') {
+                $documents = $syndic->getDocuments();
+            } else {
+                $categorie = $em->getRepository(Categorie::class)->findCategorieByNomAndSyndic($categorieName, $syndic);
+                $documents = $em->getRepository(Document::class)->findByCategorie($categorie);
+            }
+
+            $encoder = new JsonEncoder();
+            $normalizer = new ObjectNormalizer();
+
+            $normalizer->setCircularReferenceHandler(function ($object) {
+                return $object->getId();
+            });
+
+            $serializer = new Serializer(array($normalizer), array($encoder));
+
+            $jsonDocuments = $serializer->serialize($documents, 'json');
+
+            return new JsonResponse(array(
+                'data'=> $jsonDocuments
+            ));
+        }
+        throw new HttpException('501', 'Invalid Call');
     }
 
 }

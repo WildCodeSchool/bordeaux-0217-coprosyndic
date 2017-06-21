@@ -19,13 +19,15 @@ class CreateDocumentType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class,array(
-                'attr' => array('placeholder' => 'Nom du Document')
+                'attr' => array('placeholder' => 'Saisissez le nom ...'),
+                'label' => 'Nom du document'
             ))
             ->add('description', TextareaType::class, array(
-                'attr' => array('placeholder' => 'Description')
+                'attr' => array('placeholder' => 'Saisissez la description ...'),
+                'label' => 'Description'
             ))
             ->add('fichier', FileType::class, array(
-                'label' => 'Fichier (PDF file)'
+                'label' => 'Fichier'
                 ))
             ->add('categorie', EntityType::class, array(
                 'class' => 'AKYOS\EasyCoproBundle\Entity\Categorie',
@@ -33,11 +35,13 @@ class CreateDocumentType extends AbstractType
 //                    return $er->findBySyndic($this->session->getUser());
 //                },
                 'choice_label' => 'nom',
+                'label' => 'Catégorie'
             ))
             ->add('lots', EntityType::class, array(
                 'class' => 'AKYOS\EasyCoproBundle\Entity\Lot',
                 'choice_label' => 'identifiant',
                 'multiple' => true,
+                'label' => 'Destinataire(s)'
             ))
             ->add('submit',SubmitType::class, array(
                 'label' => 'Ajouter',
