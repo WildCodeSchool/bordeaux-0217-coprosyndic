@@ -17,6 +17,18 @@ $( document ).ready(function() {
 
     });
 
+    function getFormattedDate(timestamp) {
+        var date = new Date(timestamp * 1000);
+
+        var day = date.getDate();
+        day = day < 10 ? "0"+day : day;
+        var month = date.getMonth() + 1;
+        month = month < 10 ? "0"+month : month;
+        var year = date.getFullYear();
+
+        return day + "/" + month + "/" + year;
+    }
+
     $('.categorie-link').on('click', function (e) {
         e.preventDefault();
 
@@ -28,56 +40,27 @@ $( document ).ready(function() {
 
         $.ajax({
             url: "/syndic/list/docs/" + categorie,
-            method: "post",
+            method: 'POST',
             dataType: 'json',
-            success: function(response){
+            success: function (response) {
                 var documents = JSON.parse(response.data);
-                console.log(documents);
-                var html= '';
-                for (document in response) {
-                    for (i=0; i<documents.length; i++) {
-                        html += "<td>"+ documents[i].nom + "</td>";
-                    }
-                    $('.documents-rows').first().append('<tr></tr>');
-                    $('.documents-rows').children().last('<td></td>');
+                var html = '';
+                for (i = 0; i < documents.length; i++) {
+                    html += '<tr>' +
+                        '<td class="text-center" style="display:none">' + documents[i].id + '</td>' +
+                        '<td style="padding-left:17px;"><a href="/show/doc/' + documents[i].id + '"><strong style="cursor: pointer !important;">' + documents[i].nom + '</strong></a></td>' +
+                        '<td><span class="label label-' + documents[i].categorie + '" style="background-color:' + documents[i].categorie.couleur + '">' + documents[i].categorie.nom + '</span></td>' +
+                        '<td class="text-center">' + getFormattedDate(documents[i].dateAjout.timestamp) + '</td>' +
+                        '<td class="text-center">' +
+                        '<a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">' +
+                        '<i class="fa fa-download"></i></a>' +
+                        '<a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">' +
+                        '<i class="fa fa-times"></i></a>' +
+                        '</td>' +
+                        '</tr>'
                 }
+                $('.documents-rows').first().html(html);
             }
         })
     });
-});
-
-$(document).ready(function () {
-
-    $("#appbundle_contact_town").on('keyup', function () {
-        var town = $(this).val();
-        if (town.length >= 2) {
-
-            $.ajax({
-                url: '/ajax/' + town,
-                type: 'POST',
-                dataType: 'json',
-                success: function (response) {
-                    var html= "";
-                    var towns = JSON.parse(response.data);
-                    for (i=0; i<towns.length; i++) {
-                        html += "<li>"+ towns[i].town + "</li>";
-                    }
-                    $("#autocompletion").html(html);
-                    $("#autocompletion li").on("click", function (e) {
-                        $("#appbundle_contact_town").val($(this).text());
-                        $("#autocompletion").html('');
-                    })
-
-                },
-                error: function () {
-                    $("#autocompletion").html('');
-                }
-
-
-
-            });
-
-        }
-    })
-
 });

@@ -22,6 +22,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class SyndicController extends Controller
 {
@@ -612,15 +616,31 @@ class SyndicController extends Controller
 
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
-            $categorie = $em->getRepository(Categorie::class)->findOneByNom($categorieName);
-            var_dump($categorie);
-            $documents = $em->getRepository(Document::class)->findByCategorie($categorie);
-            var_dump($documents);
+            $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+            if ($categorieName == 'all') {
+                $documents = $syndic->getDocuments();
+            } else {
+                $categorie = $em->getRepository(Categorie::class)->findCategorieByNomAndSyndic($categorieName, $syndic);
+                $documents = $em->getRepository(Document::class)->findByCategorie($categorie);
+            }
+
+            $encoder = new JsonEncoder();
+            $normalizer = new ObjectNormalizer();
+
+            $normalizer->setCircularReferenceHandler(function ($object) {
+                return $object->getId();
+            });
+
+            $serializer = new Serializer(array($normalizer), array($encoder));
+
+            $jsonDocuments = $serializer->serialize($documents, 'json');
+
             return new JsonResponse(array(
-                'data'=> json_encode($documents)
+                'data'=> $jsonDocuments
             ));
         }
-        return new HttpException('501', 'Ceci n\'est pas une requete Ajax.');
+        throw new HttpException('501', 'Invalid Call');
     }
 
 }

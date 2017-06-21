@@ -141,11 +141,11 @@ syndic_create_document:
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createDocument}
 
 syndic_edit_document:
-    path: /edit/doc/{id}/
+    path: /edit/doc/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:editDocument}
 
 syndic_show_document:
-    path: /show/doc/{id}/
+    path: /show/doc/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showDocument}
 
 syndic_delete_document:
@@ -163,4 +163,3 @@ syndic_gestion_documents:
 syndic_list_categorie_documents:
     path: /list/docs/{categorieName}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCategorieDocuments }
-    methods: [ POST ]
