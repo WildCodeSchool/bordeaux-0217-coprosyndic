@@ -28,14 +28,14 @@
                         <div class="block-section">
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="active">
-                                    <a href="javascript:void(0)">
+                                    <a href="" class="categorie-link" data-categorie="all">
                                         <span class="badge pull-right">{{ documentsCount }}</span>
                                         <strong>Toutes</strong>
                                     </a>
                                 </li>
                                 {% for categorie in categoriesCount %}
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="" class="categorie-link" data-categorie="{{ categorie['nom'] }}">
                                         <span class="badge pull-right">{{ categorie[1] }}</span>
                                         <strong>{{ categorie['nom'] }}</strong>
                                     </a>
@@ -56,18 +56,18 @@
                                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.nom) }}
+                                            {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.description) }}
+                                            {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_widget(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                                            {{ form_row(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
                                             <div class="bootstrap-filestyle input-group">
                                                 <input type="text" id="filename-box" class="form-control" disabled="">
                                                 <span class="group-span-filestyle input-group-btn" tabindex="0">
@@ -119,17 +119,17 @@
                                     <th class="text-center" style="width: 42px;"><i class="fa fa-flash"></i></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="documents-rows">
                                 {% for document in documents %}
                                 <tr>
                                     <td class="text-center" style="display:none">{{ document.id }}</td>
                                     <td style="padding-left:17px;"><a href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.nom }}</strong></a></td>
                                     <td><span class="label label-{{ document.categorie }}" style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span></td>
-                                    <td class="text-center">{{ document.dateAjout|date('d-m-Y') }}</td>
+                                    <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                     <td class="text-center">
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
+                                        <a href="{{ asset('documents/' ~ document.url) }}" download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
                                             <i class="fa fa-download"></i></a>
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">
+                                        <a href="#modal-fade-add-coownership" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">
                                             <i class="fa fa-times"></i></a>
                                     </td>
                                 </tr>
@@ -140,10 +140,82 @@
                 </form>
             </div>
         </div>
-
     </div>
+
+{#    <!-- Regular Modals -->
+    <div id="modal-fade-add-coownership" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Ajouter une copropriété</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12"><small>Nombre de copropriétés restantes : <strong>5</strong></small></div>
+                    </div><br>
+                    <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-7" style="margin-right:30px">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Nom de la propriété *</label>
+                                        <input type="text" id="val-coownership-name" name="val-coownership-name" value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="val-city">Ville *</label>
+                                        <input type="text" id="val-city" name="val-city" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-7" style="margin-right:30px">
+                                    <div class="form-group">
+                                        <label for="val-address">Adresse *</label>
+                                        <input type="text" id="val-address" name="val-address" value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="val-postal-code">Code postal *</label>
+                                        <input type="text" id="val-postal-code" name="val-postal-code" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label">Image</label>
+                                <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
+                                    <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                            <label for="fileInput" class="btn btn-info">
+                                                <span class="glyphicon fa fa-file-image-o"></span> Importer une image
+                                            </label>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right">
+                            <input type="submit" class="btn btn-effect-ripple btn-primary" value="Sauvegarder">
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Regular Fade -->#}
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ asset('assets/backoffice/js/custom.js') }}"
+    <script src="{{ asset('assets/backoffice/js/gestion_documents.js') }}"></script>
 {% endblock %}
