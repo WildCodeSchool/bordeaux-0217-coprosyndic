@@ -14,7 +14,7 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
             ->join('lc.syndic', 'lcs')
             ->where('lcs = :syndic')
             ->setParameter('syndic', $syndic);
-            return $qb->getQuery()->getSingleScalarResult();
+            return $qb->getQuery()->getResult();
     }
 
     public function findCoproprietairesBySyndic($syndic) {

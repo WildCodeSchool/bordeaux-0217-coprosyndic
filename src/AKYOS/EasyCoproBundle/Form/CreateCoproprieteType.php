@@ -3,9 +3,12 @@
 namespace AKYOS\EasyCoproBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\Range;
 
 class CreateCoproprieteType extends AbstractType
 {
@@ -26,11 +29,14 @@ class CreateCoproprieteType extends AbstractType
             ->add('dateCreation')
             ->add('dateDebutGestion')
             ->add('parcelleCadastrale')
-            ->add('nbBatiments')
+            ->add('nbBatiments', IntegerType::class, array(
+                'constraints' => new Range(array('min'=> 0))))
             ->add('periodeConstruction')
-            ->add('nbLots')
+            ->add('nbLots', IntegerType::class, array(
+                'constraints' => new Range(array('min'=> 0))))
             ->add('dateReglement')
-            ->add('nbAscenseurs')
+            ->add('nbAscenseurs', IntegerType::class, array(
+                'constraints' => new Range(array('min'=> 0))))
             ->add('typeChauffage')
             ->add('syndic')
             ->add('Enregistrer', SubmitType::class)

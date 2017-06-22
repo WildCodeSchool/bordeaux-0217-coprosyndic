@@ -37,7 +37,7 @@
 
                             </div>
                             <div class="col-xs-6 push-inner-top-bottom">
-                                <h3 class="widget-heading"><i class="fa fa-folder themed-color-social push"></i> <br><small><strong>151</strong> Documents</small></h3>
+                                <h3 class="widget-heading"><i class="fa fa-folder themed-color-social push"></i> <br><small><strong>{{ documents|length }}</strong> Documents</small></h3>
                             </div>
 
                         </div>
@@ -163,7 +163,7 @@
                                 <tbody>
                                 {% for document in documents %}
                                 <tr>
-                                    <td class="text-center" style="display:none">rrrrrrrrr{{ document.nom }}</td>
+                                    <td class="text-center" style="display:none">{{ document.id }}</td>
 
                                     <td style="padding-left:17px; "><a href="">
                                         <strong>{{ document.nom }}</strong>
@@ -201,11 +201,17 @@
                             <tr class="animation-fadeInQuick2">
                                 <td class="text-center" style="width: 100px;"><img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar1.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar"></td>
                                 <td>
-                                    <h4><strong>{{ coproprietaire.nom }}</strong> {{ coproprietaire.prenom }}</h4>
+                                    <h4><strong>{{ coproprietaire.nom }}</strong> {{ coproprietaire.prenom }}
+                                        <span>{% if coproprietaire.membreConseil  %}
+                                            <i class="fa fa-fw fa-bookmark"></i> Membre du Conseil
+                                        {% endif %}
+                                        </span>
+                                    </h4>
+
                                     <i class="fa fa-fw fa-envelope"></i> {{ coproprietaire.email }}  &nbsp; &nbsp;
                                     <i class="fa fa-fw fa-phone"></i> {{ coproprietaire.telephone }}  &nbsp; &nbsp;
-                                    <i class="fa fa-fw fa-map-marker text-info"></i>Lot N° {{ coproprietaire.lot|length }} &nbsp; &nbsp;
-                                    <i class="fa fa-fw fa-bookmark"></i> Conseil N° : {{ coproprietaire.membreConseil }}
+                                    <i class="fa fa-fw fa-map-marker text-info"></i>Lot N° {{ coproprietaire.lot.identifiant }} &nbsp; &nbsp;
+
                                 </td>
                                 <td class="text-center" style="width: 100px;">
                                     <a href="javascript:void(0)" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
