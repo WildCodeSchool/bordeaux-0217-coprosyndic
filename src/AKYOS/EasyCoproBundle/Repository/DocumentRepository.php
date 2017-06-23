@@ -7,11 +7,11 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
     public function findCategoriesCountBySyndic($syndic) {
 
         $qb = $this->createQueryBuilder('d')
-            ->select('c.nom', 'COUNT(d.nom)')
+            ->select('c.nom', 'c.id', 'COUNT(d.nom)')
             ->leftJoin('d.categorie', 'c')
             ->where('d.syndic = :syndic')
             ->setParameter('syndic', $syndic)
-            ->groupBy('c.nom')
+            ->groupBy('c.nom', 'c.id')
         ;
 
         return $qb->getQuery()->getArrayResult();
@@ -26,6 +26,31 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
         ;
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findDocumentsByCategorie($categorie) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.id as doc_id', 'd.nom as doc_nom', 'd.dateModif', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->join('d.categorie', 'c')
+            ->where('c = :categorie')
+            ->setParameter('categorie', $categorie)
+            ->orderBy('d.dateModif', 'desc')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+    public function findAllDocumentsBySyndic($syndic) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.id as doc_id', 'd.nom as doc_nom', 'd.dateModif', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->join('d.categorie', 'c')
+            ->where('c.syndic = :syndic')
+            ->setParameter('syndic', $syndic)
+            ->orderBy('d.dateModif', 'desc')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
     }
 
     public function findCategoriesCountByLot($lot) {

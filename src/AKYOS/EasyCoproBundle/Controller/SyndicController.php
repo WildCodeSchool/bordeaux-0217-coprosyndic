@@ -631,25 +631,19 @@ class SyndicController extends Controller
         ));
     }
 
-    public function listCategorieDocumentsAction(Request $request, $categorieName) {
+    public function listCategorieDocumentsAction(Request $request, $categorieId) {
 
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
             $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-            if ($categorieName == 'all') {
-                $documents = $syndic->getDocuments();
+            if ($categorieId == 'all') {
+                $documents = $em->getRepository(Document::class)->findAllDocumentsBySyndic($syndic);
             } else {
-                $categorie = $em->getRepository(Categorie::class)->findCategorieByNomAndSyndic($categorieName, $syndic);
-                $documents = $em->getRepository(Document::class)->findByCategorie($categorie);
+                $categorie = $em->getRepository(Categorie::class)->find($categorieId);
+                $documents = $em->getRepository(Document::class)->findDocumentsByCategorie($categorie);
             }
-
             $encoder = new JsonEncoder();
             $normalizer = new ObjectNormalizer();
-
-            $normalizer->setCircularReferenceHandler(function ($object) {
-                return $object->getId();
-            });
 
             $serializer = new Serializer(array($normalizer), array($encoder));
 
@@ -662,4 +656,30 @@ class SyndicController extends Controller
         throw new HttpException('501', 'Invalid Call');
     }
 
+    public function testAction() {
+
+        $categorieId = "1";
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        //var_dump($syndic);
+        if ($categorieId == 'all') {
+            var_dump('allo');
+            $documents = $syndic->getDocuments();
+        } else {
+            $categorie = $em->getRepository(Categorie::class)->find($categorieId);
+            //var_dump($categorie);
+            $documents = $em->getRepository(Document::class)->findDocumentsByCategorie($categorie);
+        }
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
+
+        $jsonDocuments = $serializer->serialize($documents, 'json');
+
+        var_dump($documents);
+        var_dump($jsonDocuments);
+        return new Response();
+
+    }
 }

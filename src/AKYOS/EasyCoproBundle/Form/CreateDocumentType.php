@@ -34,11 +34,7 @@ class CreateDocumentType extends AbstractType
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
         $categories = $em->getRepository(Categorie::class)->findCategorieBySyndic($syndic);
-//        foreach($categoriesTable as $category) {
-//            $categories[$category['nom']]=$category['nom'];
-//        }
-//        var_dump($categoriesTable);
-//        var_dump($categories);
+
         $builder
             ->add('nom', TextType::class,array(
                 'attr' => array('placeholder' => 'Saisissez le nom ...'),

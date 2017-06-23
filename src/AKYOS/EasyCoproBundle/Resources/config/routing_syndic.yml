@@ -157,12 +157,9 @@ syndic_gestion_documents:
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionDocuments }
 
 syndic_list_categorie_documents:
-    path: /list/docs/{categorieName}
+    path: /list/docs/{categorieId}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCategorieDocuments }
 
-# ROUTE LIEES AUX CATEGORIES
-#--------------------------
-
-syndic_create_categorie:
-    path: /create/categorie
-    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createCategorie}
+test:
+    path: /test
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:test }
