@@ -73,11 +73,32 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('d.lots', 'l')
             ->where('l = :lot')
             ->setParameter('lot', $lot)
-            ->orderBy('d.dateModif', 'desc')
-        ;
+            ->orderBy('d.dateModif', 'desc');
 
         return $qb->getQuery()->getResult();
     }
 
+    public function findDocumentsByCopropriete($copropriete) {
 
+        $qb = $this->createQueryBuilder('d')
+            ->leftJoin('d.lots', 'l')
+            ->where('l.copropriete = :copropriete')
+            ->setParameter('copropriete', $copropriete)
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findNbreDocumentByCoproprieteBySyndic($syndic)
+    {
+     $qb = $this->createQueryBuilder('d')
+         ->select('c.nom', 'count(d.nom)')
+         ->join('d.syndic', 's')
+         ->join('s.coproprietes', 'c')
+         ->groupBy('c.nom')
+         ->where('s = :syndic')
+         ->setParameter('syndic', $syndic)
+         ;
+        return $qb->getQuery()->getResult();
+
+    }
 }
