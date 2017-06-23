@@ -35,7 +35,7 @@
                                 </li>
                                 {% for categorie in categoriesCount %}
                                 <li>
-                                    <a href="" class="categorie-link" data-categorie="{{ categorie['nom'] }}">
+                                    <a href="" class="categorie-link" data-categorie="{{ categorie['id'] }}">
                                         <span class="badge pull-right">{{ categorie[1] }}</span>
                                         <strong>{{ categorie['nom'] }}</strong>
                                     </a>
@@ -53,21 +53,21 @@
                         <div class="block-section">
                             <div class="animation-fadeInQuick2">
 
-                                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_start(form_document, {'attr': {'class': 'form-horizontal'}}) }}
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_row(form_document.nom, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_row(form_document.description, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                                            {{ form_row(form_document.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
                                             <div class="bootstrap-filestyle input-group">
                                                 <input type="text" id="filename-box" class="form-control" disabled="">
                                                 <span class="group-span-filestyle input-group-btn" tabindex="0">
@@ -80,21 +80,24 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez un type...'}}) }}
+                                            {{ form_label(form_document.categorie) }}
+                                            <a href="#modal-fade-add-categorie" class="pull-right small" data-toggle="modal">Ajouter une catégorie</a>
+                                            {{ form_widget(form_document.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez un type...'}}) }}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez les destinataires...'}}) }}
+                                            {{ form_row(form_document.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez les destinataires...'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group form-actions">
                                         <div class="col-md-3">
-                                            {{ form_row(form.submit, {'attr':{'class':'btn btn-effect-ripple btn-primary','style':'overflow: hidden; position: relative;'}}) }}
+                                            {{ form_row(form_document.submit, {'attr':{'class':'btn btn-effect-ripple btn-primary','style':'overflow: hidden; position: relative;'}}) }}
                                         </div>
                                     </div>
-                                {{ form_rest(form) }}
-                                {{ form_end(form) }}
+
+                                {{ form_rest(form_document) }}
+                                {{ form_end(form_document) }}
 
                             </div>
                         </div>
@@ -107,7 +110,7 @@
         <div class="col-md-9" id="coownerships-files">
             <div class="block-content-full animation-fadeInQuick2">
                 <!-- Enable drop file to upload ( AJAX ) -->
-                <form action="<? WWW; ?>/" class="dropzone dz-clickable">
+                <form id="form-search" action="" class="dropzone dz-clickable">
                     <div class="table-responsive">
                         <table id="full-files-datatable" class="table table-striped table-borderless style-hover table-vcenter">
                             <thead>
@@ -129,7 +132,7 @@
                                     <td class="text-center">
                                         <a href="{{ asset('documents/' ~ document.url) }}" download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
                                             <i class="fa fa-download"></i></a>
-                                        <a href="#modal-fade-add-coownership" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">
+                                        <a href="#modal-fade-del-document" data-document="{{ document.id }}" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger btn-delete">
                                             <i class="fa fa-times"></i></a>
                                     </td>
                                 </tr>
@@ -142,70 +145,25 @@
         </div>
     </div>
 
-{#    <!-- Regular Modals -->
-    <div id="modal-fade-add-coownership" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Regular Modals -->
+    <div id="modal-fade-del-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Ajouter une copropriété</strong></h3>
+                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12"><small>Nombre de copropriétés restantes : <strong>5</strong></small></div>
-                    </div><br>
-                    <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-7" style="margin-right:30px">
-                                    <div class="form-group">
-                                        <label for="val-coownership-name">Nom de la propriété *</label>
-                                        <input type="text" id="val-coownership-name" name="val-coownership-name" value="" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="val-city">Ville *</label>
-                                        <input type="text" id="val-city" name="val-city" value="" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-md-12">
+                            <p>Voulez-vous vraiment supprimer ce document ?</p>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-7" style="margin-right:30px">
-                                    <div class="form-group">
-                                        <label for="val-address">Adresse *</label>
-                                        <input type="text" id="val-address" name="val-address" value="" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="val-postal-code">Code postal *</label>
-                                        <input type="text" id="val-postal-code" name="val-postal-code" value="" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="control-label">Image</label>
-                                <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
-                                <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
-                                    <span class="group-span-filestyle input-group-btn" tabindex="0">
-                                            <label for="fileInput" class="btn btn-info">
-                                                <span class="glyphicon fa fa-file-image-o"></span> Importer une image
-                                            </label>
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="form-group pull-right">
-                            <input type="submit" class="btn btn-effect-ripple btn-primary" value="Sauvegarder">
+                            <a href=""  id="delete-doc"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
                             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
                         </div>
                     </div>
@@ -213,7 +171,55 @@
             </div>
         </div>
     </div>
-    <!-- END Regular Fade -->#}
+
+    <div id="modal-fade-add-categorie" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Ajouter une catégorie</strong></h3>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form_categorie, {'attr':{'class':'form-horizontal'}}) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-7" style="margin-right:30px">
+                                    <div class="form-group">
+                                        {{ form_row(form_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'Saisissez le nom ...'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_row(form_categorie.couleur, {'attr':{'class': 'form-control', 'placeholder': 'Choisissez une couleur au format (#XXXXXX)'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12" style="margin-right:30px">
+                                    <div class="form-group">
+                                        {{ form_row(form_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'Entrez une description ...'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right">
+                            {{ form_widget(form_categorie.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+                {{ form_rest(form_categorie) }}
+                {{ form_end(form_categorie) }}
+            </div>
+        </div>
+    </div>
+    <!-- END Regular Fade -->
 {% endblock %}
 
 {% block scripts %}

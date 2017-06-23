@@ -11,6 +11,7 @@ use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\CreateArtisanType;
+use AKYOS\EasyCoproBundle\Form\CreateCategorieType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\CreateDocumentType;
@@ -23,7 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -516,8 +516,8 @@ class SyndicController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($document);
             $em->flush();
-            //TODO : Modifier le message flash
-            $this->addFlash('info', 'Le DOCUMENT a été créé avec succès.');
+
+            $request->getSession()->getFlashBag()->add('info', 'Le document a été crée avec succès.');
             return $this->redirectToRoute('syndic_show_document',
                 array('id' => $document->getId()));
         }
@@ -533,7 +533,7 @@ class SyndicController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $this->addFlash('info', 'Le DOCUMENT a bien été modifié.');
+            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur le document ont bien été enregistrées.');
             return $this->redirectToRoute('syndic_show_document', array(
                 'id' => $document->getId(),
             ));
@@ -566,23 +566,27 @@ class SyndicController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($document);
             $em->flush();
-            $this->addFlash('info', 'Le DOCUMENT a bien été supprimé.');
-            return $this->redirectToRoute('syndic_list_documents');
+
+            $request->getSession()->getFlashBag()->add('info', 'Le document a bien été supprimé.');
+            return $this->redirectToRoute('syndic_gestion_documents');
         }
-        $this->addFlash('info', "Ce DOCUMENT n'existe pas !");
-        return $this->redirectToRoute('syndic_list_documents');
+        $request->getSession()->getFlashBag()->add('info', 'Le document n\'existe pas.');
+
+        return $this->redirectToRoute('syndic_gestion_documents');
     }
 
     public function gestionDocumentsAction(Request $request)
     {
-        $document = new Document();
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
-        $form = $this->createForm(CreateDocumentType::class, $document);
-        $form->handleRequest($request);
+        $document = new Document();
+        $form_document = $this->createForm(CreateDocumentType::class, $document);
+        $form_document->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form_document->isSubmitted() && $form_document->isValid()) {
+            $data = $form_document->getData();
+            var_dump($data);
             $file = $document->getFichier();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
             $document
@@ -601,6 +605,20 @@ class SyndicController extends Controller
                 array('id' => $document->getId()));
         }
 
+        $categorie = new Categorie();
+        $form_categorie = $this->createForm(CreateCategorieType::class, $categorie);
+        $form_categorie->handleRequest($request);
+
+        if ($form_categorie->isSubmitted() && $form_categorie->isValid()) {
+            $categorie->setSyndic($syndic);
+
+            $em->persist($categorie);
+            $em->flush();
+
+            $this->addFlash('info', 'Une nouvelle catégorie a été créée avec succès.');
+            return $this->redirectToRoute('syndic_gestion_documents');
+        }
+
         $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountBySyndic($syndic);
         $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
 
@@ -608,29 +626,24 @@ class SyndicController extends Controller
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,
-            'form' => $form->createView(),
+            'form_document' => $form_document->createView(),
+            'form_categorie' => $form_categorie->createView(),
         ));
     }
 
-    public function listCategorieDocumentsAction(Request $request, $categorieName) {
+    public function listCategorieDocumentsAction(Request $request, $categorieId) {
 
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
             $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-            if ($categorieName == 'all') {
-                $documents = $syndic->getDocuments();
+            if ($categorieId == 'all') {
+                $documents = $em->getRepository(Document::class)->findAllDocumentsBySyndic($syndic);
             } else {
-                $categorie = $em->getRepository(Categorie::class)->findCategorieByNomAndSyndic($categorieName, $syndic);
-                $documents = $em->getRepository(Document::class)->findByCategorie($categorie);
+                $categorie = $em->getRepository(Categorie::class)->find($categorieId);
+                $documents = $em->getRepository(Document::class)->findDocumentsByCategorie($categorie);
             }
-
             $encoder = new JsonEncoder();
             $normalizer = new ObjectNormalizer();
-
-            $normalizer->setCircularReferenceHandler(function ($object) {
-                return $object->getId();
-            });
 
             $serializer = new Serializer(array($normalizer), array($encoder));
 
@@ -643,4 +656,30 @@ class SyndicController extends Controller
         throw new HttpException('501', 'Invalid Call');
     }
 
+    public function testAction() {
+
+        $categorieId = "1";
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        //var_dump($syndic);
+        if ($categorieId == 'all') {
+            var_dump('allo');
+            $documents = $syndic->getDocuments();
+        } else {
+            $categorie = $em->getRepository(Categorie::class)->find($categorieId);
+            //var_dump($categorie);
+            $documents = $em->getRepository(Document::class)->findDocumentsByCategorie($categorie);
+        }
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
+
+        $jsonDocuments = $serializer->serialize($documents, 'json');
+
+        var_dump($documents);
+        var_dump($jsonDocuments);
+        return new Response();
+
+    }
 }
