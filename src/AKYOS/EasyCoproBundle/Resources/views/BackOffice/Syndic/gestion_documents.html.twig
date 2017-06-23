@@ -53,21 +53,21 @@
                         <div class="block-section">
                             <div class="animation-fadeInQuick2">
 
-                                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_start(form_document, {'attr': {'class': 'form-horizontal'}}) }}
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_row(form_document.nom, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+                                            {{ form_row(form_document.description, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                                            {{ form_row(form_document.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
                                             <div class="bootstrap-filestyle input-group">
                                                 <input type="text" id="filename-box" class="form-control" disabled="">
                                                 <span class="group-span-filestyle input-group-btn" tabindex="0">
@@ -80,21 +80,24 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez un type...'}}) }}
+                                            {{ form_label(form_document.categorie) }}
+                                            <a href="#modal-fade-add-categorie" class="pull-right small" data-toggle="modal">Ajouter une catégorie</a>
+                                            {{ form_widget(form_document.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez un type...'}}) }}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_row(form.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez les destinataires...'}}) }}
+                                            {{ form_row(form_document.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez les destinataires...'}}) }}
                                         </div>
                                     </div>
                                     <div class="form-group form-actions">
                                         <div class="col-md-3">
-                                            {{ form_row(form.submit, {'attr':{'class':'btn btn-effect-ripple btn-primary','style':'overflow: hidden; position: relative;'}}) }}
+                                            {{ form_row(form_document.submit, {'attr':{'class':'btn btn-effect-ripple btn-primary','style':'overflow: hidden; position: relative;'}}) }}
                                         </div>
                                     </div>
-                                {{ form_rest(form) }}
-                                {{ form_end(form) }}
+
+                                {{ form_rest(form_document) }}
+                                {{ form_end(form_document) }}
 
                             </div>
                         </div>
@@ -129,7 +132,7 @@
                                     <td class="text-center">
                                         <a href="{{ asset('documents/' ~ document.url) }}" download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
                                             <i class="fa fa-download"></i></a>
-                                        <a href="#modal-fade-add-coownership" data-document="{{ document.id }}" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger btn-delete">
+                                        <a href="#modal-fade-del-document" data-document="{{ document.id }}" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger btn-delete">
                                             <i class="fa fa-times"></i></a>
                                     </td>
                                 </tr>
@@ -143,7 +146,7 @@
     </div>
 
     <!-- Regular Modals -->
-    <div id="modal-fade-add-coownership" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="modal-fade-del-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -165,6 +168,54 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-fade-add-categorie" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Ajouter une catégorie</strong></h3>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form_categorie, {'attr':{'class':'form-horizontal'}}) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-7" style="margin-right:30px">
+                                    <div class="form-group">
+                                        {{ form_row(form_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'Saisissez le nom ...'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_row(form_categorie.couleur, {'attr':{'class': 'form-control', 'placeholder': 'Choisissez une couleur au format (#XXXXXX)'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12" style="margin-right:30px">
+                                    <div class="form-group">
+                                        {{ form_row(form_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'Entrez une description ...'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right">
+                            {{ form_widget(form_categorie.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+                {{ form_rest(form_categorie) }}
+                {{ form_end(form_categorie) }}
             </div>
         </div>
     </div>

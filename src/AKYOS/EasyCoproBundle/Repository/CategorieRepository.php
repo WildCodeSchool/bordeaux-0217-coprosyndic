@@ -14,4 +14,12 @@ class CategorieRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findCategorieBySyndic($syndic) {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.syndic = :syndic')
+            ->setParameter('syndic', $syndic);
+
+        return $qb->getQuery()->getResult();
+    }
 }

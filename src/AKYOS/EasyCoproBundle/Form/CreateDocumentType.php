@@ -2,11 +2,16 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
+use AKYOS\EasyCoproBundle\Entity\Categorie;
+use AKYOS\EasyCoproBundle\Entity\Syndic;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -14,9 +19,26 @@ use AKYOS\EasyCoproBundle\Entity\Document;
 
 class CreateDocumentType extends AbstractType
 {
+    private $container;
+    private $session;
+
+    public function __construct(ContainerInterface $container, SessionInterface $session)
+    {
+        $this->container = $container;
+        $this->session = $session;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $em = $this->container->get('doctrine')->getManager();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
+        $categories = $em->getRepository(Categorie::class)->findCategorieBySyndic($syndic);
+//        foreach($categoriesTable as $category) {
+//            $categories[$category['nom']]=$category['nom'];
+//        }
+//        var_dump($categoriesTable);
+//        var_dump($categories);
         $builder
             ->add('nom', TextType::class,array(
                 'attr' => array('placeholder' => 'Saisissez le nom ...'),
@@ -29,13 +51,12 @@ class CreateDocumentType extends AbstractType
             ->add('fichier', FileType::class, array(
                 'label' => 'Fichier'
                 ))
-            ->add('categorie', EntityType::class, array(
-                'class' => 'AKYOS\EasyCoproBundle\Entity\Categorie',
-//                'query_builder' => function (EntityRepository $er) {
-//                    return $er->findBySyndic($this->session->getUser());
-//                },
-                'choice_label' => 'nom',
-                'label' => 'Catégorie'
+            ->add('categorie', ChoiceType::class, array(
+                'choices' => $categories,
+                'choice_label' => function ($categorie, $key, $index) {
+                    return $categorie->getNom();
+                },
+                'label' => 'Catégorie',
             ))
             ->add('lots', EntityType::class, array(
                 'class' => 'AKYOS\EasyCoproBundle\Entity\Lot',
@@ -45,8 +66,7 @@ class CreateDocumentType extends AbstractType
             ))
             ->add('submit',SubmitType::class, array(
                 'label' => 'Ajouter',
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -55,6 +75,5 @@ class CreateDocumentType extends AbstractType
             'data_class' => Document::class,
         ));
     }
-
 
 }

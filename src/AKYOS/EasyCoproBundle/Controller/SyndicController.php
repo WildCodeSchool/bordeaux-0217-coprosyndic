@@ -11,6 +11,7 @@ use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\CreateArtisanType;
+use AKYOS\EasyCoproBundle\Form\CreateCategorieType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\CreateDocumentType;
@@ -576,14 +577,16 @@ class SyndicController extends Controller
 
     public function gestionDocumentsAction(Request $request)
     {
-        $document = new Document();
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
-        $form = $this->createForm(CreateDocumentType::class, $document);
-        $form->handleRequest($request);
+        $document = new Document();
+        $form_document = $this->createForm(CreateDocumentType::class, $document);
+        $form_document->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form_document->isSubmitted() && $form_document->isValid()) {
+            $data = $form_document->getData();
+            var_dump($data);
             $file = $document->getFichier();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
             $document
@@ -602,6 +605,20 @@ class SyndicController extends Controller
                 array('id' => $document->getId()));
         }
 
+        $categorie = new Categorie();
+        $form_categorie = $this->createForm(CreateCategorieType::class, $categorie);
+        $form_categorie->handleRequest($request);
+
+        if ($form_categorie->isSubmitted() && $form_categorie->isValid()) {
+            $categorie->setSyndic($syndic);
+
+            $em->persist($categorie);
+            $em->flush();
+
+            $this->addFlash('info', 'Une nouvelle catégorie a été créée avec succès.');
+            return $this->redirectToRoute('syndic_gestion_documents');
+        }
+
         $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountBySyndic($syndic);
         $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
 
@@ -609,7 +626,8 @@ class SyndicController extends Controller
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,
-            'form' => $form->createView(),
+            'form_document' => $form_document->createView(),
+            'form_categorie' => $form_categorie->createView(),
         ));
     }
 
