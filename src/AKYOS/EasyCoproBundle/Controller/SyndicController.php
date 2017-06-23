@@ -421,13 +421,12 @@ class SyndicController extends Controller
         $coproprietaires = $em->getRepository(Coproprietaire::class)->findCoproprietairesByCopropriete($copropriete);
         //Requete Coproprietaire Repository
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndic($syndic);
+        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
 
         $artisans = $syndic->getArtisans();
 
         //Requete Document Repository
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
-
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig',
             ['copropriete' => $copropriete,
              'nbre_coproprietaires' =>$nbre_coproprietaires,
