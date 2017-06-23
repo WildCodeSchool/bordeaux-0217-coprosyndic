@@ -3,8 +3,10 @@
 namespace AKYOS\EasyCoproBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
@@ -23,21 +25,29 @@ class CreateCoproprieteType extends AbstractType
             ->add('dateImmat')
             ->add('dateModifImmat')
             ->add('adressePrinc')
-            ->add('adresseSec')
+            ->add('adresseSec', TextType::class, array(
+                'required' => false,
+            ))
             ->add('codePostal')
             ->add('ville')
             ->add('dateCreation')
             ->add('dateDebutGestion')
-            ->add('parcelleCadastrale')
+            ->add('parcelleCadastrale',TextType::class, array(
+                'required' => false
+            ))
             ->add('nbBatiments', IntegerType::class, array(
                 'constraints' => new Range(array('min'=> 0))))
-            ->add('periodeConstruction')
+            ->add('periodeConstruction', DateType::class, array(
+                'required' => false
+            ))
             ->add('nbLots', IntegerType::class, array(
                 'constraints' => new Range(array('min'=> 0))))
             ->add('dateReglement')
             ->add('nbAscenseurs', IntegerType::class, array(
                 'constraints' => new Range(array('min'=> 0))))
-            ->add('typeChauffage')
+            ->add('typeChauffage',TextType::class, array(
+                'required' => false
+            ))
             ->add('syndic')
             ->add('Enregistrer', SubmitType::class)
         ;

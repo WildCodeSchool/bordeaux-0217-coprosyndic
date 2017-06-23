@@ -21,7 +21,7 @@
 
 {% block content %}
 
-<!--
+
     <div class="row">
         <div class="col-lg-offset-2 col-lg-8 ">
             <div class="widget">
@@ -35,18 +35,16 @@
                         {{ form_start(my_form) }}
                         <div class="row">
                             <div class="col-md-11">
-                                <label class="col-md-3 control-label">Nom</label>
-                                <div class="input-group">
-
-                                    {{ form_widget(my_form.nom, { 'attr': {'class': '', 'placeholder':'Nom'}}) }}
+                                <label class="col-md-4 control-label">Nom de la copropriété</label>
+                                <div class="col-md-8 input-group">
+                                    {{ form_widget(my_form.nom, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
                                 </div>
                             </div>
                         </div>
                             <div class="row">
                             <div class="col-md-11">
-                                <label class="col-md-3 control-label">Immatriculation</label>
-                                <div class="input-group">
-                                   <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                                <label class="col-md-4 control-label">Immatriculation</label>
+                                <div class="col-md-8 input-group">
                                    {{ form_widget(my_form.immatriculation, { 'attr': {'class': 'form-control', 'placeholder':'Immatriculation'}}) }}
                                 </div>
                             </div>
@@ -55,8 +53,7 @@
                     <div class="row">
                         <div class="col-md-11">
                             <label class="col-md-5 control-label">Date d'Immatriculation</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
+                            <div class="col-md-7 input-group">
                                 {{ form_widget(my_form.dateImmat, { 'attr': {'class': 'form-control', 'placeholder':'Date Immatriculation'}}) }}
                             </div>
                         </div>
@@ -64,62 +61,55 @@
                     <div class="row">
                         <div class="col-sm-11">
                             <label class="col-md-5 control-label">Modification d'Immatriculation</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i></span>
+                            <div class="col-md-7 input-group">
                                 {{ form_widget(my_form.dateModifImmat, { 'attr': {'class': 'form-control', 'placeholder':'Date Modification Immatriculation'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Adresse</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Adresse</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse Principale'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                     <div class="col-sm-11">
-                        <label class="col-md-3 control-label">Adresse</label>
-                        <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                        <label class="col-md-4 control-label">Adresse</label>
+                        <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Adresse Secondaire'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Code Postal</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Code Postal</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code Postal'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Ville</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Ville</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Date de création</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-globe fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Date de création</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.dateCreation, { 'attr': {'class': 'form-control', 'placeholder':'Date Création'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                     <div class="col-sm-11">
-                        <label class="col-md-3 control-label">Début de Gestion</label>
-                        <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
+                        <label class="col-md-4 control-label">Début de Gestion</label>
+                        <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.dateDebutGestion, { 'attr': {'class': 'form-control', 'placeholder':'Date Début Gestion'}}) }}
                             </div>
                         </div>
@@ -127,9 +117,8 @@
 
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Parcelle Cadastrale</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-square fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Parcelle Cadastrale</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.parcelleCadastrale, { 'attr': {'class': 'form-control', 'placeholder':'Parcelle Cadastrale'}}) }}
                             </div>
                         </div>
@@ -137,35 +126,31 @@
                     <div class="row">
                         <div class="col-sm-11">
                             <label class="col-md-4 control-label">Nombre de Bâtiments</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.nbBatiments, { 'attr': {'class': 'form-control', 'placeholder':'Nombre Bâtiments'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Construit en</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Construit en</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.periodeConstruction, { 'attr': {'class': 'form-control', 'placeholder':'Période Construction'}}) }}
                             </div>
                         </div>
                     </div>
                         <div class="row">
                             <div class="col-sm-11">
-                                <label class="col-md-3 control-label">Nombre de Lots</label>
-                                <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                                <label class="col-md-4 control-label">Nombre de Lots</label>
+                                <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.nbLots, { 'attr': {'class': 'form-control', 'placeholder':'Nombre de Lots'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Type de chauffage</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-thermometer-2 fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Type de chauffage</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.typeChauffage, { 'attr': {'class': 'form-control', 'placeholder':'Type de Chauffage'}}) }}
                             </div>
                         </div>
@@ -173,26 +158,23 @@
                     <div class="row">
                         <div class="col-sm-11">
                             <label class="col-md-4 control-label">Nombre d'Ascenceurs</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.nbAscenseurs, { 'attr': {'class': 'form-control', 'placeholder':'Nombre d\'Ascenseurs'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Date de Réglement</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-money fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Date de Réglement</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.dateReglement, { 'attr': {'class': 'form-control', 'placeholder':'Date de Réglement'}}) }}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-11">
-                            <label class="col-md-3 control-label">Syndic</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-home fa-fw" aria-hidden="true"></i></span>
+                            <label class="col-md-4 control-label">Syndic</label>
+                            <div class="col-md-8 input-group">
                                 {{ form_widget(my_form.syndic, { 'attr': {'class': 'form-control', 'placeholder':'Syndic'}}) }}
                             </div>
                         </div>
@@ -211,10 +193,10 @@
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
 
 
-<div class="row">
+<!--<div class="row">
     <div class="col-lg-offset-1 col-lg-10 ">
         <div class="widget">
             {{ form_start(my_form) }}
@@ -226,11 +208,13 @@
             </div>
     <section class="content bgcolor-9">
         <span class="input--form input--chisato">
-			<input class="input__field input__field--chisato" type="text" id="input-13" />
-				<label class="input__label input__label--chisato" for="input-13">
-					<span class="input__label-content input__label-content--chisato" data-content="Nom">Nom</span>
-                        {{ form_widget(my_form.nom, { 'attr': {'class': '', 'placeholder':'Nom'}}) }}
-				</label>
+
+            <input class="input__field input__field--chisato" {{ form_widget(my_form.nom, { 'attr': {'class': 'input__field input__field--chisato','type':"text", 'id':'input-13'}}) }} />
+
+            <input class="input__field input__field--chisato" type="text" id="input-13" />
+            <label class="input__label input__label--chisato" for="input-13">
+				<span class="input__label-content input__label-content--chisato" data-content="Nom">Nom</span>
+            </label>
         </span>
         <span class="input--form input--chisato">
             <input class="input__field input__field--chisato" type="text" id="input-14" />
@@ -243,102 +227,104 @@
             <input class="input__field input__field--chisato" type="text" id="input-15" />
                 <label class="input__label input__label--chisato" for="input-15">
                     <span class="input__label-content input__label-content--chisato" data-content="Date d'Immatriculation">Date d'Immatriculation</span>
+                    {{ form_widget(my_form.dateImmat, { 'attr': {'class': 'form-control', 'placeholder':'Date Immatriculation'}}) }}
+
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-16" />
+                <label class="input__label input__label--chisato" for="input-16">
                     <span class="input__label-content input__label-content--chisato" data-content="Date de Modification d'Immatriculation">Date de Modification d'Immatriculation</span>
                         {{ form_widget(my_form.dateModifImmat, { 'attr': {'class': 'form-control', 'placeholder':'Date Modification Immatriculation'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-17" />
+                <label class="input__label input__label--chisato" for="input-17">
                     <span class="input__label-content input__label-content--chisato" data-content="Adresse">Adresse</span>
                     {{ form_widget(my_form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse Principale'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-18" />
+                <label class="input__label input__label--chisato" for="input-18">
                     <span class="input__label-content input__label-content--chisato" data-content="Code Postal">Code Postal</span>
                     {{ form_widget(my_form.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code Postal'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-19" />
+                <label class="input__label input__label--chisato" for="input-19">
                     <span class="input__label-content input__label-content--chisato" data-content="Ville">Ville</span>
                     {{ form_widget(my_form.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-20" />
+                <label class="input__label input__label--chisato" for="input-20">
                     <span class="input__label-content input__label-content--chisato" data-content="Date de Création">Date de Création</span>
                     {{ form_widget(my_form.dateCreation, { 'attr': {'class': 'form-control', 'placeholder':'Date Création'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-21" />
+                <label class="input__label input__label--chisato" for="input-21">
                     <span class="input__label-content input__label-content--chisato" data-content="Date de Gestion">Date de Gestion</span>
                     {{ form_widget(my_form.dateDebutGestion, { 'attr': {'class': 'form-control', 'placeholder':'Date de Gestion'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-22" />
+                <label class="input__label input__label--chisato" for="input-22">
                     <span class="input__label-content input__label-content--chisato" data-content="Parcelle Cadastrale">Parcelle Cadastrale</span>
                     {{ form_widget(my_form.parcelleCadastrale, { 'attr': {'class': 'form-control', 'placeholder':'Parcelle Cadastrale'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-23" />
+                <label class="input__label input__label--chisato" for="input-23">
                     <span class="input__label-content input__label-content--chisato" data-content="Nombre Bâtiments">Nombre Bâtiments</span>
                     {{ form_widget(my_form.nbBatiments, { 'attr': {'class': 'form-control', 'placeholder':'Nombre Bâtiments'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-24" />
+                <label class="input__label input__label--chisato" for="input-24">
                     <span class="input__label-content input__label-content--chisato" data-content="Période de Construction">Construit en</span>
                     {{ form_widget(my_form.periodeConstruction, { 'attr': {'class': 'form-control', 'placeholder':'Période Construction'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-25" />
+                <label class="input__label input__label--chisato" for="input-25">
                     <span class="input__label-content input__label-content--chisato" data-content="Nombre de Lots">Nombre de Lots</span>
                     {{ form_widget(my_form.nbLots, { 'attr': {'class': 'form-control', 'placeholder':'Nombre de Lots'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-26" />
+                <label class="input__label input__label--chisato" for="input-26">
                     <span class="input__label-content input__label-content--chisato" data-content="Type de Chauffage">Type de Chauffage</span>
                     {{ form_widget(my_form.typeChauffage, { 'attr': {'class': 'form-control', 'placeholder':'Type de Chauffage'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-27" />
+                <label class="input__label input__label--chisato" for="input-27">
                     <span class="input__label-content input__label-content--chisato" data-content="Nombre d'Ascenceurs">Nombre d'Ascenceurs</span>
                     {{ form_widget(my_form.nbAscenseurs, { 'attr': {'class': 'form-control', 'placeholder':'Nombre d\'Ascenseurs'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-28" />
+                <label class="input__label input__label--chisato" for="input-28">
                     <span class="input__label-content input__label-content--chisato" data-content="Date de Réglement">Date de Réglement</span>
                     {{ form_widget(my_form.dateReglement, { 'attr': {'class': 'form-control', 'placeholder':'Date de Réglement'}}) }}
                 </label>
         </span>
         <span class="input--form input--chisato">
-            <input class="input__field input__field--chisato" type="text" id="input-15" />
-                <label class="input__label input__label--chisato" for="input-15">
+            <input class="input__field input__field--chisato" type="text" id="input-29" />
+                <label class="input__label input__label--chisato" for="input-29">
                     <span class="input__label-content input__label-content--chisato" data-content="Syndic">Syndic</span>
                     {{ form_widget(my_form.syndic, { 'attr': {'class': 'form-control', 'placeholder':'Syndic'}}) }}
                 </label>
@@ -352,7 +338,7 @@
     </section>
         </div>
     </div>
-</div>
+</div>-->
 
 {% endblock %}
 
