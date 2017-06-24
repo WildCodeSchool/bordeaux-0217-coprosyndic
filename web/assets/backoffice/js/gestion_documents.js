@@ -73,26 +73,30 @@ $( document ).ready(function() {
         $('#delete-doc').attr('href',url);
     });
 
-    // Fonction pour ajouter les lots correspondants à la catégorie choisie
-     $select = $('#create_document_copropriete');
-    // $select.prepend('<option></option>');
-    //console.log($select.text());
-    $select.on('change', function (e) {
-        var coproprieteName = this.options[this.selectedIndex].text;
-        console.log(coproprieteName);
+    // Fonction de mise à jour des copropriétaires en fonction de la copropriété choisie
+    var $copropriete = $('#create_document_copropriete');
+    // When sport gets selected ...
+    $copropriete.change(function() {
+        // ... retrieve the corresponding form.
+        var $form = $(this).closest('form');
+        // Simulate form data, but only include the selected sport value.
+        var data = {};
+        data[$copropriete.attr('name')] = $copropriete.val();
+        // Submit data via AJAX to the form's action path.
         $.ajax({
-            url: "../ajax/copropriete_choice/" + coproprieteName,
-            method: 'POST',
-            dataType: 'json',
-            success: function (response) {
-                var documents = JSON.parse(response.data);
-                console.log(documents);
-                var html ='';
-                for (i=0; i<documents.length; i++) {
-                    html += '<option value="'+'">'+ documents[i].prenom+' '+documents[i].nom+'</option>';
-                }
-                $('#create_document_lots').html(html);
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data,
+            success: function(html) {
+                console.log(html);
+                console.log($(html).find('#create_document_lots'));
+                // Replace current position field ...
+                $('#create_document_lots').html(
+                    // ... with the returned one from the AJAX response.
+                    $(html).find('#create_document_lots').html()
+                );
+                // Position field now displays the appropriate positions.
             }
-        })
-    })
+        });
+    });
 });

@@ -19,7 +19,6 @@
 {% block content %}
 
     <div class="row">
-        {% dump(categoriesCount) %}
         <div class="col-md-3">
             <div class="row" style="background:#FFF; margin-bottom: 20px">
                 <div class="col-md-12">
@@ -179,19 +178,26 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">
+                            <div class="col-md-5" style="margin-right:30px">
                                 <div class="form-group">
-                                    {{ form_row(form_document.copropriete, {'attr': {'class':'select-select2 choix-copropriete', 'style':'width: 100%;', 'data-placeholder':'Choississez les destinataires...'}}) }}
-                                    <script>
-                                        select = document.getElementById('create_document_copropriete');
-                                        option = document.createElement('option');
-                                        select.insertBefore(option, select.childNodes[0]);
-                                    </script>
+                                    {{ form_row(form_document.copropriete, {'attr': {'class':'select-select2 choix-copropriete', 'style':'width: 100%;'}}) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ form_row(form_document.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez les destinataires...'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(form_document.toLocataires) }}
+                                    <label class="switch switch-warning">
+                                    {{ form_widget(form_document.toLocataires) }}<span></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>

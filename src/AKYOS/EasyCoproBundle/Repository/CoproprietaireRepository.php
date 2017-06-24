@@ -29,4 +29,14 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findActuelCoproprietaire($lot) {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.lot = :lot')
+            ->andWhere('c.actuel = :actuel')
+            ->setParameters(array('lot' => $lot, 'actuel' => true))
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

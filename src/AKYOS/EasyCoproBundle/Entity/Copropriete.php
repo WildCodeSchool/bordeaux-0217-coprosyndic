@@ -146,6 +146,11 @@ class Copropriete
     private $syndic;
 
     /**
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="copropriete")
+     */
+    private $documents;
+
+    /**
      * @ORM\OneToMany(targetEntity="Lot", mappedBy="copropriete")
      */
     private $lots;
@@ -636,5 +641,39 @@ class Copropriete
     public function getLots()
     {
         return $this->lots;
+    }
+
+    /**
+     * Add document
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     *
+     * @return Copropriete
+     */
+    public function addDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    {
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     */
+    public function removeDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    {
+        $this->documents->removeElement($document);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 }

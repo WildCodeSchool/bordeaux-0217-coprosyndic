@@ -585,8 +585,6 @@ class SyndicController extends Controller
         $form_document->handleRequest($request);
 
         if ($form_document->isSubmitted() && $form_document->isValid()) {
-            $data = $form_document->getData();
-            var_dump($data);
             $file = $document->getFichier();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
             $document

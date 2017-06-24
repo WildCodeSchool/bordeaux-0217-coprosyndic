@@ -62,6 +62,10 @@ class Document
      */
     private $syndic;
     /**
+     * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="documents")
+     */
+    private $copropriete;
+    /**
      * @ORM\ManyToMany(targetEntity="Lot", inversedBy="documents", cascade={"persist"})
      */
     private $lots;
@@ -69,7 +73,6 @@ class Document
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="documents")
      */
     private $categorie;
-
     /**
      * @Vich\UploadableField(mapping="img_documents", fileNameProperty="url")
      * @var File
@@ -327,5 +330,29 @@ class Document
     public function getExtension()
     {
         return $this->extension;
+    }
+
+    /**
+     * Set copropriete
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     *
+     * @return Document
+     */
+    public function setCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete = null)
+    {
+        $this->copropriete = $copropriete;
+
+        return $this;
+    }
+
+    /**
+     * Get copropriete
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Copropriete
+     */
+    public function getCopropriete()
+    {
+        return $this->copropriete;
     }
 }
