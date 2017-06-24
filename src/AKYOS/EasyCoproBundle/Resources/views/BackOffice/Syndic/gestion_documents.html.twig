@@ -85,7 +85,7 @@
                                     <td><span class="label label-{{ document.categorie }}" style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span></td>
                                     <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                     <td class="text-center">
-                                        <a href="{{ asset('documents/' ~ document.url) }}" download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
+                                        <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
                                             <i class="fa fa-download"></i></a>
                                         <a href="#modal-fade-del-document" data-document="{{ document.id }}" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger btn-delete">
                                             <i class="fa fa-times"></i></a>
@@ -140,7 +140,7 @@
                         <div class="col-md-12">
                             <div class="col-md-7" style="margin-right:30px">
                                 <div class="form-group">
-                                {{ form_row(form_document.nom, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(form_document.titre, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="col-md-4">

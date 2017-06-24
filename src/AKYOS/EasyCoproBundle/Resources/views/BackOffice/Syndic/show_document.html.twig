@@ -14,7 +14,7 @@
 {% block breadcrumb %}
     <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
     <li><a href="{{ path('syndic_gestion_documents') }}">Mes documents</a></li>
-    <li class="active">{{ document.nom }}</li>
+    <li class="active">{{ document.titre }}</li>
 {% endblock %}
 
 {% block content %}
@@ -28,7 +28,7 @@
                     <div id="todo-informations" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Informations</h4>
                         <div class="block-section">
-                            <h5>Titre :</h5><p>{{ document.nom }}</p>
+                            <h5>Titre :</h5><p>{{ document.titre }}</p>
                             <h5>Description :</h5><p>{{ document.description }}</p>
                             <h5>Date d'ajout :</h5><p>{{ document.dateAjout|date('d/m/Y') }}</p>
                             <h5>Date de modification :</h5><p>{{ document.dateModif|date('d/m/Y') }}</p>
@@ -45,7 +45,7 @@
                         <h4 class="inner-sidebar-header">Actions</h4>
                         <div class="block-section">
                             <ul>
-                                <li><a href="{{ asset('documents/' ~ document.url) }}" download="{{ document.nom~'.'~document.extension }}">Télécharger le fichier</a></li>
+                                <li><a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}">Télécharger le fichier</a></li>
                                 <li><a href="{{ path('syndic_edit_document', {'id' : document.id}) }}">Modifier le document</a></li>
                                 <li><a href="{{ path('syndic_delete_document', {'id' : document.id}) }}">Supprimer le document</a></li>
                             </ul>
@@ -74,11 +74,9 @@
         <div class="col-md-9">
             <div class="block-content-full">
                 {% if document.extension in ['bmp','jpg', 'jpeg', 'png', 'gif', 'tiff'] %}
-                    <img src="{{ asset('documents/' ~ document.url) }}">
-                {% elseif document.extension == 'pdf' %}
-                    <embed src="{{ asset('documents/' ~ document.url) }}" width="100%" height="600px" type='application/pdf'></embed>
+                    <img src="{{ vich_uploader_asset(document, 'fichier') }}">
                 {% else %}
-                    <p>L'aperçu du document n'est pas disponible pour ce type de fichier.</p>
+                    <embed src="{{ vich_uploader_asset(document, 'fichier') }}" width="100%" height="600px"></embed>
                 {% endif %}
             </div>
         </div>

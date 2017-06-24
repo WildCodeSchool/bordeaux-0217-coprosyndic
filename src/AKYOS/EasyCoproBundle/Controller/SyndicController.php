@@ -579,22 +579,14 @@ class SyndicController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        //var_dump($syndic);
 
         $document = new Document();
         $form_document = $this->createForm(CreateDocumentType::class, $document);
         $form_document->handleRequest($request);
 
         if ($form_document->isSubmitted() && $form_document->isValid()) {
-            $file = $document->getFichier();
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            $document
-                ->setDateAjout(new \DateTime())
-                ->setDateModif(new \DateTime())
-                ->setSyndic($syndic)
-                ->setUrl($fileName)
-                ->setExtension($file->guessExtension())
-            ;
-
+            $document->setSyndic($syndic);
             $em->persist($document);
             $em->flush();
 
@@ -657,43 +649,4 @@ class SyndicController extends Controller
         throw new HttpException('501', 'Invalid Call');
     }
 
-    public function coproprieteChoiceAction(Request $request, $coproprieteName) {
-
-        if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-            $copropriete = $em->getRepository(Copropriete::class)->findOneByNom($coproprieteName);
-            $lots = $em->getRepository(Lot::class)->findAllByCopropriete($copropriete);
-
-            $encoder = new JsonEncoder();
-            $normalizer = new ObjectNormalizer();
-            $serializer = new Serializer(array($normalizer), array($encoder));
-
-            $jsonLots = $serializer->serialize($lots, 'json');
-
-            return new JsonResponse(array(
-                'data'=> $jsonLots,
-            ));
-        }
-        throw new HttpException('501', 'Invalid Call');
-    }
-
-    public function testAction() {
-
-        $coproprieteName = "Boulanger";
-
-        $em = $this->getDoctrine()->getManager();
-        $copropriete = $em->getRepository(Copropriete::class)->findOneByNom($coproprieteName);
-        $lots = $em->getRepository(Lot::class)->findAllByCopropriete($copropriete);
-
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $serializer = new Serializer(array($normalizer), array($encoder));
-
-        $jsonLots = $serializer->serialize($lots, 'json');
-
-        var_dump($lots);
-        var_dump($jsonLots);
-        return new Response();
-
-    }
 }

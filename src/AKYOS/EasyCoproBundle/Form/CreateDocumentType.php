@@ -45,9 +45,9 @@ class CreateDocumentType extends AbstractType
         $coproprietes = $syndic->getCoproprietes();
 
         $builder
-            ->add('nom', TextType::class,array(
-                'attr' => array('placeholder' => 'Saisissez le nom ...'),
-                'label' => 'Nom du document'
+            ->add('titre', TextType::class,array(
+                'attr' => array('placeholder' => 'Saisissez le titre ...'),
+                'label' => 'Titre du document'
             ))
             ->add('description', TextareaType::class, array(
                 'attr' => array('placeholder' => 'Saisissez la description ...'),
