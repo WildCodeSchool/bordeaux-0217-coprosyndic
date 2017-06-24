@@ -619,7 +619,7 @@ class SyndicController extends Controller
             return $this->redirectToRoute('syndic_gestion_documents');
         }
 
-        $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountBySyndic($syndic);
+        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountBySyndic($syndic);
         $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_documents.html.twig', array(
@@ -630,6 +630,9 @@ class SyndicController extends Controller
             'form_categorie' => $form_categorie->createView(),
         ));
     }
+
+    // ACTIONS REQUETES AJAX
+    //----------------------
 
     public function listCategorieDocumentsAction(Request $request, $categorieId) {
 
@@ -656,29 +659,42 @@ class SyndicController extends Controller
         throw new HttpException('501', 'Invalid Call');
     }
 
+    public function coproprieteChoiceAction(Request $request, $coproprieteName) {
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $copropriete = $em->getRepository(Copropriete::class)->findOneByNom($coproprieteName);
+            $lots = $em->getRepository(Lot::class)->findAllByCopropriete($copropriete);
+
+            $encoder = new JsonEncoder();
+            $normalizer = new ObjectNormalizer();
+            $serializer = new Serializer(array($normalizer), array($encoder));
+
+            $jsonLots = $serializer->serialize($lots, 'json');
+
+            return new JsonResponse(array(
+                'data'=> $jsonLots,
+            ));
+        }
+        throw new HttpException('501', 'Invalid Call');
+    }
+
     public function testAction() {
 
-        $categorieId = "1";
+        $coproprieteName = "Boulanger";
+
         $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        //var_dump($syndic);
-        if ($categorieId == 'all') {
-            var_dump('allo');
-            $documents = $syndic->getDocuments();
-        } else {
-            $categorie = $em->getRepository(Categorie::class)->find($categorieId);
-            //var_dump($categorie);
-            $documents = $em->getRepository(Document::class)->findDocumentsByCategorie($categorie);
-        }
+        $copropriete = $em->getRepository(Copropriete::class)->findOneByNom($coproprieteName);
+        $lots = $em->getRepository(Lot::class)->findAllByCopropriete($copropriete);
+
         $encoder = new JsonEncoder();
         $normalizer = new ObjectNormalizer();
-
         $serializer = new Serializer(array($normalizer), array($encoder));
 
-        $jsonDocuments = $serializer->serialize($documents, 'json');
+        $jsonLots = $serializer->serialize($lots, 'json');
 
-        var_dump($documents);
-        var_dump($jsonDocuments);
+        var_dump($lots);
+        var_dump($jsonLots);
         return new Response();
 
     }

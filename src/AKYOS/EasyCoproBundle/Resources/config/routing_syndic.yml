@@ -160,6 +160,10 @@ syndic_list_categorie_documents:
     path: /list/docs/{categorieId}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCategorieDocuments }
 
+syndic_list_copropriete_choices:
+    path: /ajax/copropriete_choice/{coproprieteName}
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:coproprieteChoice }
+
 test:
     path: /test
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:test }

@@ -3,6 +3,7 @@
 namespace AKYOS\EasyCoproBundle\Form;
 
 use AKYOS\EasyCoproBundle\Entity\Categorie;
+use AKYOS\EasyCoproBundle\Entity\Copropriete;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -34,6 +35,7 @@ class CreateDocumentType extends AbstractType
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
         $categories = $em->getRepository(Categorie::class)->findCategorieBySyndic($syndic);
+        $coproprietes = $syndic->getCoproprietes();
 
         $builder
             ->add('nom', TextType::class,array(
@@ -49,16 +51,24 @@ class CreateDocumentType extends AbstractType
                 ))
             ->add('categorie', ChoiceType::class, array(
                 'choices' => $categories,
-                'choice_label' => function ($categorie, $key, $index) {
+                'choice_label' => function ($categorie) {
                     return $categorie->getNom();
                 },
                 'label' => 'Catégorie',
+            ))
+            ->add('copropriete', ChoiceType::class, array(
+                'choices' => $coproprietes,
+                'choice_label' => function ($copropriete) {
+                    return $copropriete->getNom();
+                },
+                'label' => 'Destinataire(s)',
+                'mapped' => false,
             ))
             ->add('lots', EntityType::class, array(
                 'class' => 'AKYOS\EasyCoproBundle\Entity\Lot',
                 'choice_label' => 'identifiant',
                 'multiple' => true,
-                'label' => 'Destinataire(s)'
+                'label' => 'Destinataire(s)',
             ))
             ->add('submit',SubmitType::class, array(
                 'label' => 'Ajouter',

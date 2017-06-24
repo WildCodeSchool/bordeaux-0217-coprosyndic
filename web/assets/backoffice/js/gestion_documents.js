@@ -72,4 +72,27 @@ $( document ).ready(function() {
         var url = "../delete/doc/" + documentId;
         $('#delete-doc').attr('href',url);
     });
+
+    // Fonction pour ajouter les lots correspondants à la catégorie choisie
+     $select = $('#create_document_copropriete');
+    // $select.prepend('<option></option>');
+    //console.log($select.text());
+    $select.on('change', function (e) {
+        var coproprieteName = this.options[this.selectedIndex].text;
+        console.log(coproprieteName);
+        $.ajax({
+            url: "../ajax/copropriete_choice/" + coproprieteName,
+            method: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                var documents = JSON.parse(response.data);
+                console.log(documents);
+                var html ='';
+                for (i=0; i<documents.length; i++) {
+                    html += '<option value="'+'">'+ documents[i].prenom+' '+documents[i].nom+'</option>';
+                }
+                $('#create_document_lots').html(html);
+            }
+        })
+    })
 });

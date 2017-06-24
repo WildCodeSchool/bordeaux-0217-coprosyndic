@@ -9,7 +9,7 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('d')
             ->select('c.nom', 'c.id', 'COUNT(d.nom)')
             ->leftJoin('d.categorie', 'c')
-            ->where('d.syndic = :syndic')
+            ->where('c.syndic = :syndic')
             ->setParameter('syndic', $syndic)
             ->groupBy('c.nom', 'c.id')
         ;

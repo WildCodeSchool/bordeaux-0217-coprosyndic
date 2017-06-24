@@ -10,4 +10,13 @@ namespace AKYOS\EasyCoproBundle\Repository;
  */
 class LotRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllByCopropriete($copropriete) {
+        $qb = $this->createQueryBuilder('l')
+            ->select('c.nom, c.prenom')
+            ->join('l.coproprietaires', 'c')
+            ->where('l.copropriete = :copropriete')
+            ->setParameter('copropriete', $copropriete);
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
