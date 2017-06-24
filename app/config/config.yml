@@ -9,6 +9,7 @@ parameters:
     img_documents: '%kernel.root_dir%/web/assets/img/docs'
     locale: fr
     app.path.img_documents: /assets/img/docs
+    app.path.avatar_images: /assets/img/avatar
 
 framework:
     #esi: ~
@@ -101,7 +102,9 @@ vich_uploader:
             delete_on_update:   true
             delete_on_remove:   true
             namer:              vich_uploader.namer_uniqid
-
+        avatar_images:
+            uri_prefix:         '%app.path.avatar_images%'
+            upload_destination: '%kernel.root_dir%/../web/assets/img/avatar'
 # KNP Snappy Configuration
 knp_snappy:
     pdf:

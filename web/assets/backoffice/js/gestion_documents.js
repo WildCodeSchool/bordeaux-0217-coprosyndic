@@ -72,4 +72,19 @@ $( document ).ready(function() {
         var url = "../delete/doc/" + documentId;
         $('#delete-doc').attr('href',url);
     });
+
+    // Fonction pour supprimer un coproprietaire
+    $('.btn-delete-coproprietaire').on('click', function (e) {
+        var coproprietaireId = $(this).data('coproprietaire');
+        var url = "../../delete/coproprietaire/" + coproprietaireId;
+        $('#delete-coproprietaire').attr('href',url);
+    });
+
+    // Fonction pour ajouter un coproprietaire
+    $('.btn-create-coproprietaire').on('click', function (e) {
+        //var coproprietaireId = $(this).data('createcoproprietaire');
+        var url = "../../create/coproprietaire/";
+        $('#create-coproprietaire').attr('href',url);
+    });
+
 });

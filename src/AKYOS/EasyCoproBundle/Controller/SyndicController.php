@@ -128,7 +128,7 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
-            return $this->redirectToRoute('syndic_show_coproprietaire', array(
+            return $this->redirectToRoute('syndic_index', array(
                 'id' => $coproprietaire->getId(),
             ));
         }
@@ -153,7 +153,7 @@ class SyndicController extends Controller
                 'id' => $coproprietaire->getId(),
             ));
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_artisan.html.twig', array(
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_coproprietaire.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -187,7 +187,7 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le compte a bien été supprimé.');
 
-            return $this->redirectToRoute('syndic_list_coproprietaires');
+            return $this->redirectToRoute('syndic_index');
         }
         $request->getSession()->getFlashBag()->add('info', 'Le compte que vous souhaitez supprimer n\'existe pas !');
 
