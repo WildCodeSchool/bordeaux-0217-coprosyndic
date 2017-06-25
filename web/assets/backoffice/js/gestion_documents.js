@@ -39,7 +39,7 @@ $( document ).ready(function() {
         $(this).parent().addClass('active');
 
         var categorie = this.dataset.categorie;
-
+        var loader = startLoader($('#page-content'));
         $.ajax({
             url: "/syndic/list/docs/" + categorie,
             method: 'POST',
@@ -47,15 +47,16 @@ $( document ).ready(function() {
             success: function (response) {
                 var documents = JSON.parse(response.data);
                 var html = '';
+                stopLoader(loader);
                 for (i = 0; i < documents.length; i++) {
                     html += '<tr>' +
                         '<td class="text-center" style="display:none">' + documents[i].doc_id + '</td>' +
-                        '<td style="padding-left:17px;"><a href="/show/doc/' + documents[i].doc_id + '"><strong style="cursor: pointer !important;">' + documents[i].doc_nom + '</strong></a></td>' +
+                        '<td style="padding-left:17px;"><a href="/syndic/show/doc/' + documents[i].doc_id + '"><strong style="cursor: pointer !important;">' + documents[i].doc_nom + '</strong></a></td>' +
                         '<td><span class="label label-' + documents[i].cat_nom + '" style="background-color:' + documents[i].couleur + '">' + documents[i].cat_nom + '</span></td>' +
                         '<td class="text-center">' + getFormattedDate(documents[i].dateModif.timestamp) + '</td>' +
                         '<td class="text-center">' +
                         '<a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">' +
-                        '<i class="fa fa-download"></i></a>' +
+                        '<i class="fa fa-download"></i></a>' + ' ' +
                         '<a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">' +
                         '<i class="fa fa-times"></i></a>' +
                         '</td>' +
@@ -67,36 +68,54 @@ $( document ).ready(function() {
     });
 
     // Fonction pour supprimer un document
-    $('.btn-delete').on('click', function (e) {
+    $('.btn-delete-doc').on('click', function (e) {
         var documentId = $(this).data('document');
-        var url = "../delete/doc/" + documentId;
+        var url = "/syndic/delete/doc/" + documentId;
         $('#delete-doc').attr('href',url);
+    });
+
+    // Fonction pour supprimer une categorie
+    $('.btn-delete-categorie').on('click', function (e) {
+        var categorieId = $(this).data('categorie');
+        var url = "/syndic/delete/categorie/" + categorieId;
+        $('#delete-categorie').attr('href',url);
+    });
+
+    // Fonction pour éditer une categorie
+    $('.btn-edit-categorie').on('click', function (e) {
+        var categorieId = $(this).data('categorie');
+        var loader = startLoader($('#page-content'));
+        $.ajax({
+            url : "/syndic/edit/categorie/" + categorieId,
+            method: 'post',
+            success: function(html) {
+                stopLoader(loader);
+                $('#modal-edit-form').html(html);
+                $('.colorpicker-component').colorpicker();
+                $('#modal-fade-edit-categorie').modal();
+
+            }
+        });
     });
 
     // Fonction de mise à jour des copropriétaires en fonction de la copropriété choisie
     var $copropriete = $('#create_document_copropriete');
-    // When sport gets selected ...
     $copropriete.change(function() {
-        // ... retrieve the corresponding form.
         var $form = $(this).closest('form');
-        // Simulate form data, but only include the selected sport value.
         var data = {};
         data[$copropriete.attr('name')] = $copropriete.val();
-        // Submit data via AJAX to the form's action path.
+        var loader = startLoader($('.modal-content'));
         $.ajax({
-            url : $form.attr('action'),
+            url : "../create/doc",
             type: $form.attr('method'),
             data : data,
             success: function(html) {
-                console.log(html);
-                console.log($(html).find('#create_document_lots'));
-                // Replace current position field ...
+                stopLoader(loader);
                 $('#create_document_lots').html(
-                    // ... with the returned one from the AJAX response.
                     $(html).find('#create_document_lots').html()
                 );
-                // Position field now displays the appropriate positions.
             }
         });
     });
+
 });

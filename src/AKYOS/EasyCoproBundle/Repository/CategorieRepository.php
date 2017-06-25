@@ -9,11 +9,11 @@ class CategorieRepository extends EntityRepository
     public function findCategoriesCountBySyndic($syndic) {
 
         $qb = $this->createQueryBuilder('c')
-            ->select('c.nom', 'c.id', 'COUNT(d.nom)')
+            ->select('c', 'COUNT(d.nom)')
             ->leftJoin('c.documents', 'd')
             ->where('c.syndic = :syndic')
             ->setParameter('syndic', $syndic)
-            ->groupBy('c.nom', 'c.id')
+            ->groupBy('c')
         ;
 
         return $qb->getQuery()->getArrayResult();

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('assets/backoffice/css/themes/classy.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/backoffice/css/themes/flat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/backoffice/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/loading.css') }}">
     {% block stylesheets %}{% endblock %}
     <!-- END Stylesheets -->
 
@@ -60,7 +61,7 @@
             <!-- Sidebar Extra Info -->
             <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
                 <div class="text-center">
-                    <small><span id="year-copy"></span> &copy; <a href="" target="_blank">EasyCopro 1.0</a></small>
+                    <small><span id="year-copy"></span> &copy; <a href="/">EasyCopro 1.0</a></small>
                 </div>
             </div>
             <!-- END Sidebar Extra Info -->
@@ -292,7 +293,8 @@
 <!-- Custom element for Backend -->
 <script src="{{ asset('assets/backoffice/js/custom.js') }}"></script>
 <script src="{{ asset('assets/frontoffice/js/flash_messages_box.js') }}"></script>
-
+<script src="{{ asset('assets/backoffice/js/spin.js') }}"></script>
+<script src="{{ asset('assets/backoffice/js/loading.js') }}"></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

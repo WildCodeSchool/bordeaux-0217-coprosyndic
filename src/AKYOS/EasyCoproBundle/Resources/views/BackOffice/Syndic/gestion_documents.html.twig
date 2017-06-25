@@ -20,11 +20,26 @@
 
     <div class="row">
         <div class="col-md-3">
-            <div class="row" style="background:#FFF; margin-bottom: 20px">
+
+            <div class="row" style="background:#FFF;  margin-bottom: 20px;">
                 <div class="col-md-12">
-                    <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-options">Options</a>
-                    <div id="todo-options" class="collapse navbar-collapse remove-padding">
-                        <h4 class="inner-sidebar-header">Rechercher par catégorie</h4>
+                    <a href="" class="btn btn-block btn-default visible-xs" data-toggle="collapse"
+                       data-target="#add-document">Ajouter un document</a>
+                    <div id="add-document" class="collapse navbar-collapse remove-padding">
+                        <a href="#modal-fade-add-document" class="pull-left" data-toggle="modal"><h4><strong>Ajouter un document</strong>   </h4></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="background:#FFF; margin-bottom: 20px;">
+                <div class="col-md-12">
+                    <a href="" class="btn btn-block btn-default visible-xs" data-toggle="collapse"
+                       data-target="#recherche">Recherche par catégorie</a>
+                    <div id="recherche" class="collapse navbar-collapse remove-padding">
+                        <h4 class="inner-sidebar-header">Rechercher par catégorie
+                            <a href="{{ path('syndic_gestion_categories') }}" class="pull-right" data-toggle="tooltip" title="Gérer les catégories">
+                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+                        </h4>
                         <div class="block-section">
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="active">
@@ -34,31 +49,19 @@
                                     </a>
                                 </li>
                                 {% for categorie in categoriesCount %}
-                                <li>
-                                    <a href="" class="categorie-link" data-categorie="{{ categorie['id'] }}">
-                                        <span class="badge pull-right">{{ categorie[1] }}</span>
-                                        <strong>{{ categorie['nom'] }}</strong>
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="" class="categorie-link" data-categorie="{{ categorie[0]['id'] }}">
+                                            <span class="badge pull-right">{{ categorie[1] }}</span>
+                                            <strong>{{ categorie[0]['nom'] }}</strong>
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" style="background:#FFF">
-                <div class="col-md-12">
-                    <div id="todo-options" class="collapse navbar-collapse remove-padding">
-                        <h4 class="inner-sidebar-header">Ajouter un fichier</h4>
-                        <div class="block-section">
-                            <div class="animation-fadeInQuick2">
-                                <a href="#modal-fade-add-document" class="pull-right small" data-toggle="modal">Ajouter un document</a>
-                                <a href="#modal-fade-add-categorie" class="pull-right small" data-toggle="modal">Ajouter une catégorie</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
 
@@ -67,31 +70,42 @@
                 <!-- Enable drop file to upload ( AJAX ) -->
                 <form id="form-search" action="" class="dropzone dz-clickable">
                     <div class="table-responsive">
-                        <table id="full-files-datatable" class="table table-striped table-borderless style-hover table-vcenter">
+                        <table id="full-files-datatable"
+                               class="table table-striped table-borderless style-hover table-vcenter">
                             <thead>
-                                <tr style="background:#EDEDED;">
-                                    <th class="text-center" style="width: 25px; display:none">ID</th>
-                                    <th>Nom du fichier</th>
-                                    <th>Catégorie</th>
-                                    <th style="width: 80px;">Ajouté le</th>
-                                    <th class="text-center" style="width: 42px;"><i class="fa fa-flash"></i></th>
-                                </tr>
+                            <tr style="background:#EDEDED;">
+                                <th class="text-center" style="width: 25px; display:none">ID</th>
+                                <th>Nom du fichier</th>
+                                <th>Catégorie</th>
+                                <th style="width: 80px;">Ajouté le</th>
+                                <th class="text-center" style="width: 42px;"><i class="fa fa-flash"></i></th>
+                            </tr>
                             </thead>
                             <tbody class="documents-rows">
-                                {% for document in documents %}
+                            {% for document in documents %}
                                 <tr>
                                     <td class="text-center" style="display:none">{{ document.id }}</td>
-                                    <td style="padding-left:17px;"><a href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.nom }}</strong></a></td>
-                                    <td><span class="label label-{{ document.categorie }}" style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span></td>
+                                    <td style="padding-left:17px;"><a
+                                                href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong
+                                                    style="cursor: pointer !important;">{{ document.nom }}</strong></a>
+                                    </td>
+                                    <td><span class="label label-{{ document.categorie }}"
+                                              style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span>
+                                    </td>
                                     <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                     <td class="text-center">
-                                        <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
+                                        <a href="{{ vich_uploader_asset(document, 'fichier') }}"
+                                           download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip"
+                                           title="Télécharger le fichier"
+                                           class="btn btn-effect-ripple btn-xs btn-primary">
                                             <i class="fa fa-download"></i></a>
-                                        <a href="#modal-fade-del-document" data-document="{{ document.id }}" data-toggle="modal" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger btn-delete">
+                                        <a href="#modal-fade-del-document" data-document="{{ document.id }}"
+                                           data-toggle="modal" title="Supprimer le fichier"
+                                           class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc">
                                             <i class="fa fa-times"></i></a>
                                     </td>
                                 </tr>
-                                {% endfor %}
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -101,6 +115,14 @@
     </div>
 
     <!-- Regular Modals -->
+    <div id="modal-fade-add-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{ render(controller('AKYOSEasyCoproBundle:Syndic:createDocument')) }}
+            </div>
+        </div>
+    </div>
+
     <div id="modal-fade-del-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -118,151 +140,11 @@
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="form-group pull-right">
-                            <a href=""  id="delete-doc"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
+                            <a href="" id="delete-doc" style="margin-right: 20px;"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
                             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-fade-add-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Ajouter un document</strong></h3>
-                </div>
-                <div class="modal-body">
-                    {{ form_start(form_document, {'attr': {'class': 'form-horizontal'}}) }}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-7" style="margin-right:30px">
-                                <div class="form-group">
-                                {{ form_row(form_document.titre, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                {{ form_row(form_document.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez un type...'}}) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    {{ form_row(form_document.description, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    {{ form_row(form_document.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
-                                    <div class="bootstrap-filestyle input-group">
-                                        <input type="text" id="filename-box" class="form-control" disabled="">
-                                        <span class="group-span-filestyle input-group-btn" tabindex="0">
-                                                            <label for="create_document_fichier" class="btn btn-info">
-                                                                <span class="glyphicon fa fa-file-o"></span> Importer
-                                                            </label>
-                                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-5" style="margin-right:30px">
-                                <div class="form-group">
-                                    {{ form_row(form_document.copropriete, {'attr': {'class':'select-select2 choix-copropriete', 'style':'width: 100%;'}}) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ form_row(form_document.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;', 'data-placeholder':'Choississez les destinataires...'}}) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    {{ form_label(form_document.toLocataires) }}
-                                    <label class="switch switch-warning">
-                                    {{ form_widget(form_document.toLocataires) }}<span></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <div class="form-group pull-right">
-                            {{ form_widget(form_document.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
-                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
-                        </div>
-                    </div>
-                </div>
-                {{ form_rest(form_document) }}
-                {{ form_end(form_document) }}
-            </div>
-        </div>
-    </div>
-
-
-    <div id="modal-fade-add-categorie" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Ajouter une catégorie</strong></h3>
-                </div>
-                <div class="modal-body">
-                    {{ form_start(form_categorie, {'attr':{'class':'form-horizontal'}}) }}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-7" style="margin-right:30px">
-                                <div class="form-group">
-                                    {{ form_row(form_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'Saisissez le nom ...'}}) }}
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    {{ form_row(form_categorie.couleur, {'attr':{'class': 'form-control', 'placeholder': 'Choisissez une couleur au format (#XXXXXX)'}}) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-12" style="margin-right:30px">
-                                <div class="form-group">
-                                    {{ form_row(form_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'Entrez une description ...'}}) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <div class="form-group pull-right">
-                            {{ form_widget(form_categorie.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
-                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
-                        </div>
-                    </div>
-                </div>
-                {{ form_rest(form_categorie) }}
-                {{ form_end(form_categorie) }}
             </div>
         </div>
     </div>

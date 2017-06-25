@@ -136,6 +136,10 @@ syndic_delete_lot:
 # ROUTE LIEES AUX DOCUMENTS
 #--------------------------
 
+syndic_gestion_documents:
+    path: /list/docs
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionDocuments }
+
 syndic_create_document:
     path: /create/doc
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createDocument}
@@ -152,18 +156,25 @@ syndic_delete_document:
     path: /delete/doc/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteDocument}
 
-syndic_gestion_documents:
-    path: /list/docs
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionDocuments }
-
 syndic_list_categorie_documents:
     path: /list/docs/{categorieId}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCategorieDocuments }
 
-syndic_list_copropriete_choices:
-    path: /ajax/copropriete_choice/{coproprieteName}
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:coproprieteChoice }
+# ROUTE LIEES AUX CATEGORIES
+#--------------------------
 
-test:
-    path: /test
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:test }
+syndic_gestion_categories:
+    path: /list/categories
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionCategories }
+
+syndic_create_categorie:
+    path: /create/categorie
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createCategorie }
+
+syndic_edit_categorie:
+    path: /edit/categorie/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:editCategorie }
+
+syndic_delete_categorie:
+    path: /delete/categorie/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteCategorie }

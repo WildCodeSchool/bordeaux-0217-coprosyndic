@@ -2,15 +2,15 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
-use Faker\Provider\Text;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateCategorieType extends AbstractType
+class EditCategorieType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -25,10 +25,10 @@ class CreateCategorieType extends AbstractType
                 'label' => 'Description',
             ))
             ->add('couleur', TextType::class, array(
-                'label' => 'Vignette',
+                'label' => 'Couleur de la vignette',
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Ajouter',
+                'label' => 'Modifier',
             ))
             ;
     }
@@ -48,7 +48,7 @@ class CreateCategorieType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'akyos_easycoprobundle_categorie';
+        return 'akyos_easycoprobundle_categorie_edit';
     }
 
 
