@@ -43,7 +43,7 @@ class Document
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_modif", type="datetime")
+     * @ORM\Column(name="date_modif", type="datetime", nullable=true)
      */
     private $dateModif;
     /**
@@ -149,9 +149,10 @@ class Document
      * @return Document
      * @ORM\PreUpdate
      */
-    public function setDateModif()
+    public function setDateModif($dateModif = null)
     {
-        $this->dateModif = new \DateTime();
+        $this->dateModif = $dateModif === null ? new \DateTime() : $dateModif;
+
         return $this;
     }
     /**

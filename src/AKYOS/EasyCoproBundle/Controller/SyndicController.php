@@ -18,6 +18,7 @@ use AKYOS\EasyCoproBundle\Form\CreateDocumentType;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
+use AKYOS\EasyCoproBundle\Form\EditArtisanType;
 use AKYOS\EasyCoproBundle\Form\EditCategorieType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -312,9 +313,9 @@ class SyndicController extends Controller
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($artisan->getUser());
 
-            $password = $_POST['akyos_easycoprobundle_artisan']['user']['plainPassword']['first'];
-            $documentService = $this->get('akyos.generate_document');
-            $documentService->generateRegistrationDocument($this->getUser(), $artisan, $password);
+//            $password = $_POST['akyos_easycoprobundle_artisan']['user']['plainPassword']['first'];
+//            $documentService = $this->get('akyos.generate_document');
+//            $documentService->generateRegistrationDocument($this->getUser(), $artisan, $password);
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
@@ -323,13 +324,13 @@ class SyndicController extends Controller
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_artisan.html.twig', array(
-            'form' => $form->createView(),
+            'form_add_artisan' => $form->createView(),
         ));
     }
 
     public function editArtisanAction(Request $request, Artisan $artisan)
     {
-        $form = $this->createForm(CreateArtisanType::class, $artisan);
+        $form = $this->createForm(EditArtisanType::class, $artisan);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -342,8 +343,10 @@ class SyndicController extends Controller
                 'id' => $artisan->getId(),
             ));
         }
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_artisan.html.twig', array(
-            'form' => $form->createView(),
+            'form_edit_artisan' => $form->createView(),
+            'artisanId' => $artisan->getId(),
         ));
     }
 

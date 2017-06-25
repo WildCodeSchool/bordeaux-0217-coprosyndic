@@ -28,9 +28,9 @@
                     <div id="todo-informations" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Informations
 
-                            <span data-toggle="modal" data-target="#modal-fade-del-document" data-document="{{ document.id }}">
+                            <span data-toggle="modal" data-target="#modal-fade-del-document">
                             <a data-toggle="tooltip" data-placement="top" title="Supprimer le document"
-                               class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc pull-right">
+                               class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc pull-right" data-document="{{ document.id }}">
                                 <i class="fa fa-times"></i></a></span>
 
                             <a href="{{ vich_uploader_asset(document, 'fichier') }}"
@@ -41,7 +41,7 @@
 
                             <span data-toggle="modal" data-target="#modal-fade-edit-document">
                             <a data-toggle="tooltip" data-placement="top" title="Modifier le document"
-                               class="btn btn-effect-ripple btn-xs btn-primary pull-right" style="margin-right: 4px">
+                               class="btn btn-effect-ripple btn-xs btn-success pull-right" style="margin-right: 4px">
                                 <i class="fa fa-edit"></i></a></span>
                         </h4>
                         <div class="block-section">

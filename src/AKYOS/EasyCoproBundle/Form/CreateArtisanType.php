@@ -28,13 +28,9 @@ class CreateArtisanType extends AbstractType
             ->add('contactPrenom', TextType::class,array('attr' => array('placeholder' => 'Prenom Contact')))
             ->add('contactTelephone', TextType::class,array('attr' => array('placeholder' => 'Contact Téléphone')))
             ->add('contactEmail', TextType::class,array('attr' => array('placeholder' => 'Contact Email')))
-            ->add('submit',SubmitType::class)
+            ->add('submit',SubmitType::class,array('label' => 'Créer le compte'))
         ;
-
-        $copro = $builder->getForm();
-
     }
-
 
     public function getBlockPrefix()
     {

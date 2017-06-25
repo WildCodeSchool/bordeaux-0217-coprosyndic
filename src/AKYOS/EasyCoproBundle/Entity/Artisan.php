@@ -118,9 +118,9 @@ class Artisan
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Syndic", mappedBy="artisans")
+     * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="artisans")
      */
-    private $syndics;
+    private $syndic;
 
 
     /**
@@ -476,37 +476,28 @@ class Artisan
         return $this->user;
     }
 
+
     /**
-     * Add syndic
+     * Set syndic
      *
      * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
      *
      * @return Artisan
      */
-    public function addSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic)
+    public function setSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic = null)
     {
-        $this->syndics[] = $syndic;
+        $this->syndic = $syndic;
 
         return $this;
     }
 
     /**
-     * Remove syndic
+     * Get syndic
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
+     * @return \AKYOS\EasyCoproBundle\Entity\Syndic
      */
-    public function removeSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic)
+    public function getSyndic()
     {
-        $this->syndics->removeElement($syndic);
-    }
-
-    /**
-     * Get syndics
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSyndics()
-    {
-        return $this->syndics;
+        return $this->syndic;
     }
 }

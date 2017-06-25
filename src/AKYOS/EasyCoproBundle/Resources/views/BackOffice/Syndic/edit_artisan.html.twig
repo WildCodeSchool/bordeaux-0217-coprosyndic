@@ -1,24 +1,149 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{{ form_start(form_edit_artisan, {'attr': {'class': 'form-horizontal', 'action': path('syndic_edit_artisan', {'id': artisanId}) }}) }}
 
-{% block title %}
-    Modification ARTISAN
-{% endblock %}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title"><strong>Créer un fournisseur</strong></h3>
+</div>
 
-{% block stylesheets %}
-{% endblock %}
+<div class="modal-body">
 
-{% block titre_page %}
-    Edition d'un compte Artisan
-{% endblock %}
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Informations du compte</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
 
-{% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li class="active">Editer un compte Artisan</li>
-{% endblock %}
 
-{% block content %}
-    {{ form(form) }}
-{% endblock %}
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Société</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-building fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.raisonSociale, { 'attr': {'class': 'form-control', 'placeholder':'Raison sociale'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.siret, { 'attr': {'class': 'form-control', 'placeholder':'SIRET'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-briefcase fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.activite, { 'attr': {'class': 'form-control', 'placeholder':'Activité'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.emailBureau, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-phone fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.telephoneBureau, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse postale'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-plus-circle fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adresse'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-pin fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code postal'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-signs fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Utilisateur du compte</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.contactPrenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom du contact'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-bookmark fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.contactNom, { 'attr': {'class': 'form-control', 'placeholder':'Nom du contact'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.contactEmail, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail du contact'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form_edit_artisan.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
+            </div>
+        </div>
+    </div>
+</div>
 
-{% block scripts %}
-{% endblock %}
+<div class="modal-footer">
+    <div class="col-md-8" style="padding-left: 0">
+        <div class="col-md-5 text-left" style="padding-left: 0">
+            <em>Veuillez saisir le mot de passe pour valider :</em>
+        </div>
+        <div class="col-md-7">
+            {{ form_widget(form_edit_artisan.user.current_password, { 'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group pull-right">
+            {{ form_widget(form_edit_artisan.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
+        </div>
+    </div>
+</div>
+
+{{ form_rest(form_edit_artisan) }}
+{{ form_end(form_edit_artisan) }}

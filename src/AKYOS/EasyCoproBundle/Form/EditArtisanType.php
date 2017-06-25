@@ -2,7 +2,6 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
-
 use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -30,7 +29,7 @@ class EditArtisanType extends AbstractType
             ->add('contactPrenom')
             ->add('contactTelephone')
             ->add('contactEmail')
-            ->add('submit',SubmitType::class)
+            ->add('submit',SubmitType::class, array('label' => 'Modifier'))
         ;
     }
 
