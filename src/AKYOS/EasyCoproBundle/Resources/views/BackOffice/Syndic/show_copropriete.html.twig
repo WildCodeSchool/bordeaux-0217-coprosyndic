@@ -21,7 +21,7 @@
 {% block content %}
 
     <div class="row">
-            <div class="col-lg-offset-3 col-lg-6 ">
+            <div class="col-lg-4 ">
                 <div class="widget">
                     <div class="widget-image widget-image-xs">
                         <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
@@ -30,27 +30,446 @@
                             <h3 class="widget-heading text-light-op h4">{{ copropriete.adressePrinc }}</h3>
                         </div>
                     </div>
-                    <div class="widget-content">
-                        <div class="row">
-                            <div class="table">
-                                <ul>
-                                    <li class="list-unstyled"><h4>Immatriculation : {{ copropriete.immatriculation }}</h4></li>
-                                    <li class="list-unstyled"><h4>Date immatriculation : {{ copropriete.dateImmat|date('d/m/Y') }}</h4></li>
-                                    <li class="list-unstyled"><h4>Date modif immat : {{ copropriete.dateModifImmat|date('d/m/Y') }}</h4></li>
-                                    <li class="list-unstyled"><h4>Adresse principale : {{ copropriete.adressePrinc }}</h4></li>
-                                    <li class="list-unstyled"><h4>Adresse secondaire : {{ copropriete.adresseSec }}</h4></li>
-                                    <li class="list-unstyled"><h4>Code postal : {{ copropriete.codePostal }}</h4></li>
-                                    <li class="list-unstyled"><h4>Ville : {{ copropriete.ville }}</h4></li>
-                                    <li class="list-unstyled"><h4>Type de chauffage : {{ copropriete.typeChauffage }}</h4></li>
-                                </ul>
-                                <div class="row text-center">
-                                <a href="{{ path('syndic_edit_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn-info">Modifier</button></a>
-                                <a href="{{ path('syndic_delete_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn-info ">Supprimer</button></a>
-                                </div>
+                    <div class="widget-content widget-content-full border-bottom">
+                        <div class="row text-center">
+                            <div class="col-xs-6 push-inner-top-bottom border-right">
+                                <h3 class="widget-heading"><i class="fa fa-users push"></i> <br><small><strong>5</strong> Copropriétaires</small></h3>
+
                             </div>
+                            <div class="col-xs-6 push-inner-top-bottom">
+                                <h3 class="widget-heading"><i class="fa fa-folder themed-color-social push"></i> <br><small><strong>{{ documents|length }}</strong> Documents</small></h3>
+                            </div>
+
                         </div>
                     </div>
                 </div>
         </div>
+        <div class="col-lg-8">
+            <!-- Block Tabs Title -->
+            <div class="block-title">
+                    <ul class="nav nav-tabs" data-toggle="tabs">
+                        <li><a href="#coownerships-inforrmations">Informations</a></li>
+                        <li class="active"><a href="#coownerships-files">Documents</a></li>
+                        <li><a href="#coownerships-residents">Copropriétaires</a></li>
+                        <li><a href="#coownerships-providers">Fournisseurs</a></li>
+                        <li id="coownerships-agenda-link"><a href="#coownerships-agenda">Événements</a></li>
+                    </ul>
+            </div>
+            <!-- END Block Tabs Title -->
+
+            <!-- Tabs Content -->
+            <div class="tab-content">
+                <!-- Informations -->
+                <div class="tab-pane" id="coownerships-inforrmations">
+                    <div class="animation-fadeInQuick2">
+                        <form action="" method="post" class="form-horizontal" onsubmit="return false;">
+                            <div class="col-md-7" style="margin-right:30px">
+                                <div class="form-group">
+                                    <label for="val-coownership-name">Nom de la propriété</label>
+                                    <input type="text" id="val-coownership-name" name="val-coownership-name" value="{{ copropriete.nom }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="val-city">Ville</label>
+                                    <input type="text" id="val-city" name="val-city" value="{{ copropriete.ville }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-7" style="margin-right:30px">
+                                <div class="form-group">
+                                    <label for="val-address">Adresse</label>
+                                    <input type="text" id="val-address" name="val-address" value="{{ copropriete.adressePrinc }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="val-postal-code">Code postal</label>
+                                    <input type="text" id="val-postal-code" name="val-postal-code" value="{{ copropriete.codePostal }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-7" style="margin-right:30px">
+                                <div class="form-group">
+                                    <label for="val-address">Date de Création</label>
+                                    <input type="text" id="val-create-date" name="val-create-date" value="{{ copropriete.dateCreation|date('d/m/Y') }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="val-postal-code">Date de début de Gestion</label>
+                                    <input type="text" id="val-" name="val-gestion-date" value="{{ copropriete.dateDebutGestion|date('d/m/Y') }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-right:45px">
+                                <div class="form-group">
+                                    <label for="val-parcelle">Parcelle Cadastrale</label>
+                                    <input type="text" id="val-parcelle" name="val-parcelle" value="{{ copropriete.parcelleCadastrale }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3" style="margin-right:45px">
+                                <div class="form-group">
+                                    <label for="val-batiment-number">Nombre de Batiments</label>
+                                    <input type="text" id="val-" name="val-batiment-number" value="{{ copropriete.nbBatiments|length }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="val-ascenceur-number">Nombre d'ascenceur</label>
+                                    <input type="text" id="val-ascenceur-number" name="val-ascenceur-number" value="{{ copropriete.nbAscenseurs|length }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-right:45px">
+                                <div class="form-group">
+                                    <label for="val-construction-period">Période de Construction</label>
+                                    <input type="text" id="val-construction-period" name="val-construction-period" value="{{ copropriete.periodeConstruction|date('Y') }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3" style="margin-right:45px">
+                                <div class="form-group">
+                                    <label for="val-lot-number">Nombre de Lots</label>
+                                    <input type="text" id="val-lot-number" name="val-lot-number" value="{{ copropriete.nbLots|length }}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="val-lot-number">Date de Réglements</label>
+                                    <input type="text" id="val-reg-lots" name="val-reg-lots" value="{{ copropriete.dateReglement|length }}" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group form-actions">
+                                <div class="col-md-3">
+                                    <a href="{{ path('syndic_edit_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;" value="Mettre à jour">Mettre à jour
+                                        </button></a></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- END Informations -->
+                <!-- Documents -->
+                <div class="tab-pane active" id="coownerships-files">
+                    <div class="block-content-full animation-fadeInQuick2">
+                        <div class="table-responsive">
+                            <table id="files-datatable" class="table table-striped table-borderless style-hover table-vcenter">
+                                <thead>
+                                <tr style="background:#EDEDED;">
+                                    <th class="text-center" style="width: 25px; display:none">ID</th>
+                                    <th>Nom du fichier</th>
+                                    <th>Type</th>
+                                    <th>Auteur</th>
+                                    <th style="width: 80px;">Ajouté le</th>
+                                    <th class="text-center" style="width: 42px;"><i class="fa fa-flash"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for document in documents %}
+                                <tr>
+                                    <td class="text-center" style="display:none">{{ document.id }}</td>
+
+                                    <td style="padding-left:17px; "><a href="">
+                                        <strong>{{ document.nom }}</strong>
+                                        </a></td>
+                                    <td><span class="label<?php echo ($labels[$rand]['class']) ? " " . $labels[$rand]['class'] : ""; ?>">
+                                        <?php echo $labels[$rand]['text'] ?></span></td>
+                                    <?php $rand2 = rand(0, 5); ?>
+                                    <td><?php echo ($identity[$rand2]) ? $identity[$rand2] : ""; ?></td>
+                                    <th class="text-center">25-01-2015</th>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
+                                            <i class="fa fa-download"></i></a>
+                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">
+                                            <i class="fa fa-times"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coproprietaires -->
+                <div class="tab-pane" id="coownerships-residents">
+                    <div class="block-content-full">
+                        <table class="table table-striped table-borderless table-vcenter remove-margin-bottom">
+                            <thead class="themed-background-muted-off">
+                            <td colspan="10" style="padding:10px;">
+                                <a href="#modal-addcoowner" class="btn btn-effect-ripple btn-primary pull-right animation-fadeInQuick2" data-toggle="modal">Ajouter un copropriétaire</a>
+                            </td>
+                            </thead>
+                            <tbody>
+                            {% for coproprietaire in coproprietaires %}
+                            <tr class="animation-fadeInQuick2">
+                                <td class="text-center" style="width: 100px;"><img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar1.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar"></td>
+                                <td>
+                                    <h4><strong>{{ coproprietaire.nom }}</strong> {{ coproprietaire.prenom }}
+                                        <span>{% if coproprietaire.membreConseil  %}
+                                            <i class="fa fa-fw fa-bookmark"></i> Membre du Conseil
+                                        {% endif %}
+                                        </span>
+                                    </h4>
+
+                                    <i class="fa fa-fw fa-envelope"></i> {{ coproprietaire.email }}  &nbsp; &nbsp;
+                                    <i class="fa fa-fw fa-phone"></i> {{ coproprietaire.telephone }}  &nbsp; &nbsp;
+                                    <i class="fa fa-fw fa-map-marker text-info"></i>Lot N° {{ coproprietaire.lot.identifiant }} &nbsp; &nbsp;
+
+                                </td>
+                                <td class="text-center" style="width: 100px;">
+                                    <a href="javascript:void(0)" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                        <i class="fa fa-envelope"></i></a> &nbsp;
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Supprimer"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END Coproprietaires -->
+
+                <!-- Artisans -->
+                <div class="tab-pane" id="coownerships-providers">
+                    <div class="block-content-full">
+                        <table class="table table-striped table-borderless table-hover table-vcenter" style="margin-bottom:0">
+                            <thead class="themed-background-muted-off">
+                            <td colspan="10" style="padding:10px;">
+                                <a href="#modal-addprovider" class="btn btn-effect-ripple btn-primary pull-right animation-fadeInQuick2" data-toggle="modal">Ajouter un fournisseur</a>
+                            </td>
+                            </thead>
+                            {% for artisan in artisans %}
+                            <tbody>
+                            <tr class="animation-fadeInQuick">
+                                <td><strong>{{ artisan.contactPrenom }}</strong> {{ artisan.contactNom }}</td>
+                                <td>{{ artisan.adressePrinc }} - {{ artisan.codePostal }} {{ artisan.ville }}</td>
+                                <td><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-primary" style="overflow: hidden; position: relative;" data-original-title="{{ artisan.telephoneBureau }}"><span class="badge"><i class="gi gi-earphone"></i></span></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-primary" style="overflow: hidden; position: relative;" data-original-title="{{ artisan.contactTelephone }}"><span class="badge"><i class="gi gi-iphone"></i></span></a>
+                                </td>
+                                <td class="text-center" style="width: 100px;">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END Providers -->
+
+                <div class="tab-pane" id="coownerships-agenda">
+                    <!-- START FullCalendar Block -->
+                    <div id="calendar" class="animation-fadeInQuick2"></div>
+                    <!-- END FullCalendar Block -->
+                </div>
+            </div>
+            <!-- END Tabs Content -->
+        </div>
     </div>
+    </div>
+    <!-- END User Profile Row -->
+
+    <!-- Add file Modal -->
+    <div id="modal-addfile" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Ajouter un nouveau document</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Renommer le fichier :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="( Facultatif )" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Associer à un type* :</label>
+                                            <select id="example-select2" name="example-select2" class="select-select2" style="width: 100%;" data-placeholder="Choississez un type..">
+                                                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                                <option value="cmptreunion">Compte rendu de réunion</option>
+                                                <option value="facture">Facture</option>
+                                                <option value="communiqye">Communiqué</option>
+                                                <option value="communiqye">Autre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Document :</label>
+                                            <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                            <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
+                                                <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                            <label for="fileInput" class="btn btn-info">
+                                                <span class="glyphicon fa fa-file-o"></span> &nbsp; Importer un fichier
+                                            </label>
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-actions">
+                                            <input type="submit" class="btn btn-effect-ripple btn-primary" value="Envoyer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Add File Modal -->
+
+
+    <!-- Add coowner Modal -->
+    <div id="modal-addcoowner" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Ajouter un copropriétaire</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Nom :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Prénom :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Adresse email :</label>
+                                            <input type="email" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Est-ce un conseiller syndical ? &nbsp; &nbsp; </label>
+                                            <label class="switch switch-info" for="validation-terms">
+                                                <input type="checkbox" id="validation-terms" name="validation-terms" value="1">
+                                                <span data-toggle="tooltip" title="Augmente les privilèges"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-actions">
+                                            <input type="submit" class="btn btn-effect-ripple btn-primary" value="Envoyer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END coowner Modal -->
+
+
+    <!-- Add artisans Modal -->
+    <div id="modal-addprovider" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Ajouter un fournisseur</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Nom :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Adresse :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Ville :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Code postal :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Tél portable :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="form-group">
+                                            <label for="val-coownership-name">Tél fixe :</label>
+                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-actions">
+                                            <input type="submit" class="btn btn-effect-ripple btn-primary" value="Envoyer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END provider Modal -->
+
 {% endblock %}

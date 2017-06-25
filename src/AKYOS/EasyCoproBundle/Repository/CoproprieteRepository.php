@@ -21,4 +21,9 @@ class CoproprieteRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $query;
     }
+
+
+
+
+
 }
