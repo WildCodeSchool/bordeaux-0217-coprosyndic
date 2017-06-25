@@ -64,6 +64,10 @@ syndic_delete_locataire:
 # ROUTE LIEES AUX ARTISANS
 #-------------------------
 
+syndic_gestion_artisans:
+    path:     /list/artisans
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionArtisans }
+
 syndic_create_artisan:
     path:     /create/artisan
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:createArtisan }
@@ -75,10 +79,6 @@ syndic_edit_artisan:
 syndic_show_artisan:
     path:     /show/artisan/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showArtisan }
-
-syndic_list_artisans:
-    path:     /list/artisans
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listArtisans }
 
 syndic_delete_artisan:
     path:     /delete/artisan/{id}

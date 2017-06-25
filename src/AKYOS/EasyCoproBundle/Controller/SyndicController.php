@@ -283,6 +283,18 @@ class SyndicController extends Controller
     // ACTIONS LIEES AUX ARTISANS
     //---------------------------
 
+    public function gestionArtisansAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $artisans = $syndic->getArtisans();
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_artisans.html.twig', array(
+            'artisans' => $artisans,
+        ));
+    }
+
     public function createArtisanAction(Request $request)
     {
         $artisan = new Artisan();
@@ -339,18 +351,6 @@ class SyndicController extends Controller
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_artisan.html.twig', array(
             'artisan' => $artisan,
-        ));
-    }
-
-    public function listArtisansAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        $artisans = $syndic->getArtisans();
-
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_artisans.html.twig', array(
-            'artisans' => $artisans,
         ));
     }
 
