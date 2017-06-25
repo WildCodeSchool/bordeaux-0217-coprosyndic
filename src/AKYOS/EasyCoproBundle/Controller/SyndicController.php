@@ -508,18 +508,18 @@ class SyndicController extends Controller
             ['lot' => $lot]);
     }
 
-    public function listLotsAction($id)
+    public function listLotsAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        //TODO : à modifier (sélection par liste déroulante ?)
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        $copropriete = $em->getRepository(Copropriete::class)->find($id);
-        $lots = $copropriete->getLots();
-        $coproprietes = $em->getRepository(Copropriete::class)->findAll();
-
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_lots.html.twig',
-            ['lots' => $lots, 'coproprietes' => $coproprietes]);
+//        $em = $this->getDoctrine()->getManager();
+//
+//        //TODO : à modifier (sélection par liste déroulante ?)
+//        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+//        $copropriete = $em->getRepository(Copropriete::class)->find($id);
+//        $lots = $copropriete->getLots();
+//        $coproprietes = $em->getRepository(Copropriete::class)->findAll();
+//
+//        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_lots.html.twig',
+//            ['lots' => $lots, 'coproprietes' => $coproprietes]);
     }
 
     public function deleteLotAction(Request $request, Lot $lot)

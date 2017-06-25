@@ -1,18 +1,24 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
 {% block title %}
-    Affichage LOCATAIRE
+    Affichage d'un locataire
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Affichage d'un locataire
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('syndic_list_locataires') }}">Mes locataires</a></li>
+    <li class="active">{{ locataire.prenom ~ ' ' ~ locataire.nom }}</li>
+{% endblock %}
+
 {% block content %}
-    <p>
-    {% for message in app.session.flashbag.get('info') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-    </p>
+
     <h4>Afficher un locataire :</h4>
     <h4>{{ locataire.nom }}</h4>
     <ul>

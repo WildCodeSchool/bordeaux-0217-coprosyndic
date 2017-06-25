@@ -1,4 +1,23 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Affichage d'un lot
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/syndic_dashboard.css') }}">
+{% endblock %}
+
+{% block titre_page %}
+    Affichage d'un lot
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('syndic_list_lots') }}">Mes lots</a></li>
+    <li class="active">{{ lot.id }}</li>
+{% endblock %}
+
 {% block content %}
     <div class="table-bordered">
         <ul>

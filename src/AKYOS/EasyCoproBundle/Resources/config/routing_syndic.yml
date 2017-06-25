@@ -125,7 +125,7 @@ syndic_show_lot:
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showLot }
 
 syndic_list_lots:
-    path:     /list/lots/{id}
+    path:     /list/lots
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listLots }
 
 syndic_delete_lot:

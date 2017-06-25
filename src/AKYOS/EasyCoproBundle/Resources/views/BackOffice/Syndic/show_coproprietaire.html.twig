@@ -1,18 +1,24 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
 {% block title %}
-    Affichage COPROPRIETAIRE
+    Affichage d'un copropriétaire
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Affichage d'un copropriétaire
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('syndic_list_coproprietaires') }}">Mes copropriétaires</a></li>
+    <li class="active">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</li>
+{% endblock %}
+
 {% block content %}
-    <p>
-    {% for message in app.session.flashbag.get('info') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-    </p>
+
     <h4>Afficher un copropriétaire :</h4>
     <h4>{{ coproprietaire.nom }}</h4>
     <ul>
