@@ -160,6 +160,7 @@ syndic_list_categorie_documents:
     path: /list/docs/{categorieId}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCategorieDocuments }
 
+
 # ROUTE LIEES AUX CATEGORIES
 #--------------------------
 

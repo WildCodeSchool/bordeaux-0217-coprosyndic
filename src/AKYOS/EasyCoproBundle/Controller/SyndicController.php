@@ -19,6 +19,7 @@ use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use AKYOS\EasyCoproBundle\Form\EditCategorieType;
+use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -546,7 +547,7 @@ class SyndicController extends Controller
 
     public function editDocumentAction(Request $request, Document $document)
     {
-        $form = $this->createForm(CreateDocumentType::class, $document);
+        $form = $this->createForm(EditDocumentType::class, $document);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -560,7 +561,8 @@ class SyndicController extends Controller
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_document.html.twig', array(
-            'form' => $form->createView(),
+            'form_edit_document' => $form->createView(),
+            'documentId' => $document->getId(),
         ));
     }
 
@@ -642,7 +644,6 @@ class SyndicController extends Controller
             'categorieId' => $categorie->getId(),
         ));
     }
-
 
     public function deleteCategorieAction(Request $request, Categorie $categorie)
     {

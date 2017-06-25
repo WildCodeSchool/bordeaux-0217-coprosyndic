@@ -20,17 +20,11 @@
 
     <div class="row">
         <div class="col-md-3">
-
             <div class="row" style="background:#FFF;  margin-bottom: 20px;">
                 <div class="col-md-12">
-                    <a href="" class="btn btn-block btn-default visible-xs" data-toggle="collapse"
-                       data-target="#add-document">Ajouter un document</a>
-                    <div id="add-document" class="collapse navbar-collapse remove-padding">
-                        <a href="#modal-fade-add-document" class="pull-left" data-toggle="modal"><h4><strong>Ajouter un document</strong>   </h4></a>
-                    </div>
+                    <a href="#modal-fade-add-document" class="pull-left" data-toggle="modal"><h4><strong>Ajouter un document</strong></h4></a>
                 </div>
             </div>
-
             <div class="row" style="background:#FFF; margin-bottom: 20px;">
                 <div class="col-md-12">
                     <a href="" class="btn btn-block btn-default visible-xs" data-toggle="collapse"
@@ -61,10 +55,7 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
         <div class="col-md-9" id="coownerships-files">
             <div class="block-content-full animation-fadeInQuick2">
                 <!-- Enable drop file to upload ( AJAX ) -->
@@ -85,24 +76,23 @@
                             {% for document in documents %}
                                 <tr>
                                     <td class="text-center" style="display:none">{{ document.id }}</td>
-                                    <td style="padding-left:17px;"><a
-                                                href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong
-                                                    style="cursor: pointer !important;">{{ document.nom }}</strong></a>
+                                    <td style="padding-left:17px;">
+                                        <a href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.titre }}</strong></a>
                                     </td>
                                     <td><span class="label label-{{ document.categorie }}"
                                               style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span>
                                     </td>
                                     <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                     <td class="text-center">
-                                        <a href="{{ vich_uploader_asset(document, 'fichier') }}"
-                                           download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip"
-                                           title="Télécharger le fichier"
+                                        <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}"
+                                           data-toggle="tooltip" title="Télécharger le document"
                                            class="btn btn-effect-ripple btn-xs btn-primary">
                                             <i class="fa fa-download"></i></a>
-                                        <a href="#modal-fade-del-document" data-document="{{ document.id }}"
-                                           data-toggle="modal" title="Supprimer le fichier"
+
+                                        <span data-toggle="modal" data-target="#modal-fade-del-document">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer le document" data-document="{{ document.id }}"
                                            class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc">
-                                            <i class="fa fa-times"></i></a>
+                                            <i class="fa fa-times"></i></a></span>
                                     </td>
                                 </tr>
                             {% endfor %}

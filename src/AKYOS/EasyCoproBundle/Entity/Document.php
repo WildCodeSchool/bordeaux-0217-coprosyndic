@@ -293,7 +293,7 @@ class Document
      * @param string $extension
      *
      * @return Document
-     * @ORM\PreFlush
+     * @ORM\PrePersist
      */
     public function setExtension()
     {

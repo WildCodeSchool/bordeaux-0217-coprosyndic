@@ -67,6 +67,27 @@ $( document ).ready(function() {
         })
     });
 
+    // Fonction de mise à jour des copropriétaires en fonction de la copropriété choisie
+    var $copropriete = $('#create_document_copropriete');
+    $copropriete.change(function() {
+        var $form = $(this).closest('form');
+        var data = {};
+        data[$copropriete.attr('name')] = $copropriete.val();
+        var loader = startLoader($('.modal-content'));
+        $.ajax({
+            url : "../create/doc",
+            type: $form.attr('method'),
+            data : data,
+            success: function(html) {
+                $('#s2id_create_document_lots .select2-search-choice').remove();
+                stopLoader(loader);
+                $('#create_document_lots').html(
+                    $(html).find('#create_document_lots').html()
+                );
+            }
+        });
+    });
+
     // Fonction pour supprimer un document
     $('.btn-delete-doc').on('click', function (e) {
         var documentId = $(this).data('document');
@@ -98,24 +119,6 @@ $( document ).ready(function() {
         });
     });
 
-    // Fonction de mise à jour des copropriétaires en fonction de la copropriété choisie
-    var $copropriete = $('#create_document_copropriete');
-    $copropriete.change(function() {
-        var $form = $(this).closest('form');
-        var data = {};
-        data[$copropriete.attr('name')] = $copropriete.val();
-        var loader = startLoader($('.modal-content'));
-        $.ajax({
-            url : "../create/doc",
-            type: $form.attr('method'),
-            data : data,
-            success: function(html) {
-                stopLoader(loader);
-                $('#create_document_lots').html(
-                    $(html).find('#create_document_lots').html()
-                );
-            }
-        });
-    });
+
 
 });

@@ -26,29 +26,30 @@
                 <div class="col-md-12">
                     <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-informations">Informations</a>
                     <div id="todo-informations" class="collapse navbar-collapse remove-padding">
-                        <h4 class="inner-sidebar-header">Informations</h4>
-                        <div class="block-section">
-                            <h5>Titre :</h5><p>{{ document.titre }}</p>
-                            <h5>Description :</h5><p>{{ document.description }}</p>
-                            <h5>Date d'ajout :</h5><p>{{ document.dateAjout|date('d/m/Y') }}</p>
-                            <h5>Date de modification :</h5><p>{{ document.dateModif|date('d/m/Y') }}</p>
-                            <h5>Catégorie :</h5><p>{{ document.categorie }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <h4 class="inner-sidebar-header">Informations
 
-            <div class="row" style="background:#FFF;  margin-bottom: 20px">
-                <div class="col-md-12">
-                    <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-actions">Actions</a>
-                    <div id="todo-actions" class="collapse navbar-collapse remove-padding">
-                        <h4 class="inner-sidebar-header">Actions</h4>
+                            <span data-toggle="modal" data-target="#modal-fade-del-document" data-document="{{ document.id }}">
+                            <a data-toggle="tooltip" data-placement="top" title="Supprimer le document"
+                               class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc pull-right">
+                                <i class="fa fa-times"></i></a></span>
+
+                            <a href="{{ vich_uploader_asset(document, 'fichier') }}"
+                               download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip"
+                               title="Télécharger le document"
+                               class="btn btn-effect-ripple btn-xs btn-primary pull-right" style="margin-right: 4px">
+                                <i class="fa fa-download"></i></a>
+
+                            <span data-toggle="modal" data-target="#modal-fade-edit-document">
+                            <a data-toggle="tooltip" data-placement="top" title="Modifier le document"
+                               class="btn btn-effect-ripple btn-xs btn-primary pull-right" style="margin-right: 4px">
+                                <i class="fa fa-edit"></i></a></span>
+                        </h4>
                         <div class="block-section">
-                            <ul>
-                                <li><a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}">Télécharger le fichier</a></li>
-                                <li><a href="{{ path('syndic_edit_document', {'id' : document.id}) }}">Modifier le document</a></li>
-                                <li><a href="{{ path('syndic_delete_document', {'id' : document.id}) }}">Supprimer le document</a></li>
-                            </ul>
+                            <h4 style="margin-top: 15px"><strong>{{ document.titre }} </strong>
+                                <span class="label pull-right" style="background-color: {{ document.categorie.couleur }}; font-size: small">{{ document.categorie }}</span></h4>
+                            <p>{{ document.description }}
+                            <small  class="pull-right text-right"><br><em>ajouté le {{ document.dateAjout|date('d/m/Y') }}</em>
+                                {% if document.dateModif is not null %}<br><em>modifié le {{ document.dateModif|date('d/m/Y') }}</em>{% endif %}</small></p>
                         </div>
                     </div>
                 </div>
@@ -59,11 +60,15 @@
                     <div id="todo-options" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Liste de diffusion</h4>
                         <div class="block-section">
-                            <ul>
+
+                            <h5><strong style="margin-right: 20px">Copropriété :</strong> {{ document.copropriete }}</h5>
+                            <h5><strong>Copropriétaires :</strong></h5>
+
                             {% for lot in document.lots %}
-                                <li>{{ lot.identifiant }}</li>
+                                {% set coproprietaire = lot|actuelCoproprietaire %}
+                                <span class="label label-primary">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</span>
                             {% endfor %}
-                            </ul>
+
                         </div>
                     </div>
                 </div>
@@ -82,7 +87,42 @@
         </div>
 
     </div>
+
+    <div id="modal-fade-edit-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{ render(controller('AKYOSEasyCoproBundle:Syndic:editDocument', {'id': document.id})) }}
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-fade-del-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Voulez-vous vraiment supprimer ce document ?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right">
+                            <a href="" id="delete-doc" style="margin-right: 20px;"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{ asset('assets/backoffice/js/gestion_documents.js') }}"></script>
 {% endblock %}

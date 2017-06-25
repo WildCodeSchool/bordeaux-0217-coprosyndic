@@ -17,3 +17,15 @@ services:
         arguments: ['@service_container', '@session']
         tags:
             - { name: form.type }
+
+    form.type.edit_document:
+        class: AKYOS\EasyCoproBundle\Form\EditDocumentType
+        arguments: ['@service_container', '@session']
+        tags:
+            - { name: form.type }
+
+    app.twig_extension:
+        class: AKYOS\EasyCoproBundle\Service\ActuelCoproprietaireFilter
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
