@@ -31,11 +31,11 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
     public function findDocumentsByCategorie($categorie) {
 
         $qb = $this->createQueryBuilder('d')
-            ->select('d.id as doc_id', 'd.nom as doc_nom', 'd.dateModif', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->select('d.id as doc_id', 'd.titre as doc_titre', 'd.dateAjout', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
             ->join('d.categorie', 'c')
             ->where('c = :categorie')
             ->setParameter('categorie', $categorie)
-            ->orderBy('d.dateModif', 'desc')
+            ->orderBy('d.dateAjout', 'desc')
         ;
 
         return $qb->getQuery()->getArrayResult();
@@ -43,11 +43,11 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
     public function findAllDocumentsBySyndic($syndic) {
 
         $qb = $this->createQueryBuilder('d')
-            ->select('d.id as doc_id', 'd.nom as doc_nom', 'd.dateModif', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->select('d.id as doc_id', 'd.titre as doc_titre', 'd.dateAjout', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
             ->join('d.categorie', 'c')
             ->where('c.syndic = :syndic')
             ->setParameter('syndic', $syndic)
-            ->orderBy('d.dateModif', 'desc')
+            ->orderBy('d.dateAjout', 'desc')
         ;
 
         return $qb->getQuery()->getArrayResult();
