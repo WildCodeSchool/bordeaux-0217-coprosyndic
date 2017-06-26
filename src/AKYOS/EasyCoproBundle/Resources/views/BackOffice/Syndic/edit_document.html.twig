@@ -1,24 +1,45 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{{ form_start(form_edit_document, {'attr': {'class': 'form-horizontal', 'action': path('syndic_edit_document', {'id': documentId}) }}) }}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title"><strong>Modifier un document</strong></h3>
+</div>
 
-{% block title %}
-    Modification DOCUMENT
-{% endblock %}
+<div class="modal-body">
 
-{% block stylesheets %}
-{% endblock %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-7" style="margin-right:30px">
+                <div class="form-group">
+                    {{ form_row(form_edit_document.titre, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form_row(form_edit_document.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form_row(form_edit_document.description, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
 
-{% block titre_page %}
-    Edition d'un Document
-{% endblock %}
+</div>
 
-{% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li class="active">Editer un Document</li>
-{% endblock %}
+<div class="modal-footer">
+    <div class="col-md-12">
+        <div class="form-group pull-right">
+            {{ form_widget(form_edit_document.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
+        </div>
+    </div>
+</div>
 
-{% block content %}
-    {{ form(form) }}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+{{ form_rest(form_edit_document) }}
+{{ form_end(form_edit_document) }}

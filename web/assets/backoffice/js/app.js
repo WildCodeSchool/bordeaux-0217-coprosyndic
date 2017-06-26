@@ -54,7 +54,7 @@ var App = function () {
 
         // Add the correct copyright year
         var yearCopy = $('#year-copy'), d = new Date();
-        if (d.getFullYear() === 2014) { yearCopy.html('2014'); } else { yearCopy.html('2014-' + d.getFullYear().toString().substr(2,2)); }
+        yearCopy.html(d.getFullYear().toString());
 
         // Intialize ripple effect on buttons
         rippleEffect($('.btn-effect-ripple'), 'btn-ripple');

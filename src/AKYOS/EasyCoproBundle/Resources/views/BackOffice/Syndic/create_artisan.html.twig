@@ -1,25 +1,12 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{{ form_start(form_add_artisan, {'attr': {'class': 'form-horizontal', 'action': path('syndic_create_artisan') }}) }}
 
-{% block title %}
-    Création ARTISAN
-{% endblock %}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title"><strong>Créer un fournisseur</strong></h3>
+</div>
 
-{% block stylesheets %}
-{% endblock %}
+<div class="modal-body">
 
-{% block titre_page %}
-    Création d'un artisan
-{% endblock %}
-
-{% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li class="active">Créer un artisan</li>
-{% endblock %}
-
-{% block content %}
-    <p>Compléter le formulaire ci-dessous pour créer un nouveau compte Artisan : </p>
-
-    {{ form_start(form) }}
     <div class="row" style="margin-bottom: 10px">
         <div class="col-sm-12">
             <h3>Informations du compte</h3>
@@ -27,13 +14,13 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+                {{ form_widget(form_add_artisan.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+                {{ form_widget(form_add_artisan.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
             </div>
         </div>
     </div>
@@ -41,13 +28,13 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.user.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Mot de passe'}}) }}
+                {{ form_widget(form_add_artisan.user.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Mot de passe'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.user.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Répétez le mot de passe'}}) }}
+                {{ form_widget(form_add_artisan.user.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Répétez le mot de passe'}}) }}
             </div>
         </div>
     </div>
@@ -58,13 +45,13 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-building fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.raisonSociale, { 'attr': {'class': 'form-control', 'placeholder':'Raison sociale'}}) }}
+                {{ form_widget(form_add_artisan.raisonSociale, { 'attr': {'class': 'form-control', 'placeholder':'Raison sociale'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.siret, { 'attr': {'class': 'form-control', 'placeholder':'SIRET'}}) }}
+                {{ form_widget(form_add_artisan.siret, { 'attr': {'class': 'form-control', 'placeholder':'SIRET'}}) }}
             </div>
         </div>
     </div>
@@ -72,7 +59,7 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-briefcase fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.activite, { 'attr': {'class': 'form-control', 'placeholder':'Activité'}}) }}
+                {{ form_widget(form_add_artisan.activite, { 'attr': {'class': 'form-control', 'placeholder':'Activité'}}) }}
             </div>
         </div>
     </div>
@@ -80,13 +67,13 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.emailBureau, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+                {{ form_widget(form_add_artisan.emailBureau, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-phone fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.telephoneBureau, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
+                {{ form_widget(form_add_artisan.telephoneBureau, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
             </div>
         </div>
     </div>
@@ -94,13 +81,13 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse postale'}}) }}
+                {{ form_widget(form_add_artisan.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse postale'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-plus-circle fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adresse'}}) }}
+                {{ form_widget(form_add_artisan.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adresse'}}) }}
             </div>
         </div>
     </div>
@@ -108,13 +95,13 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-map-pin fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code postal'}}) }}
+                {{ form_widget(form_add_artisan.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code postal'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-map-signs fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
+                {{ form_widget(form_add_artisan.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
             </div>
         </div>
     </div>
@@ -125,13 +112,13 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.contactPrenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom du contact'}}) }}
+                {{ form_widget(form_add_artisan.contactPrenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom du contact'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-bookmark fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.contactNom, { 'attr': {'class': 'form-control', 'placeholder':'Nom du contact'}}) }}
+                {{ form_widget(form_add_artisan.contactNom, { 'attr': {'class': 'form-control', 'placeholder':'Nom du contact'}}) }}
             </div>
         </div>
     </div>
@@ -139,27 +126,26 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.contactEmail, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail du contact'}}) }}
+                {{ form_widget(form_add_artisan.contactEmail, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail du contact'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
+                {{ form_widget(form_add_artisan.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
             </div>
         </div>
     </div>
-    <div class="row" style="margin-bottom: 10px">
-        <div class="col-sm-12 text-center">
-            <div class="form-group">
-                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'}}) }}
-            </div>
+</div>
+
+<div class="modal-footer">
+    <div class="col-md-12">
+        <div class="form-group pull-right">
+            {{ form_widget(form_add_artisan.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
         </div>
     </div>
+</div>
 
-    {{ form_rest(form) }}
-    {{ form_end(form) }}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+{{ form_rest(form_add_artisan) }}
+{{ form_end(form_add_artisan) }}

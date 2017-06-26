@@ -4,7 +4,3 @@ parameters:
     #parameter_name: value
 
 services:
-    app.form.registration:
-        class: AKYOS\EasyCoproBundle\Form\RegistrationType
-        tags:
-            - { name: form.type, alias: app_user_registration }

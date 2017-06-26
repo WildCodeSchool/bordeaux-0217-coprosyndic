@@ -118,7 +118,7 @@ class Syndic
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Artisan", inversedBy="syndics")
+     * @ORM\OneToMany(targetEntity="Artisan", mappedBy="syndic")
      */
     private $artisans;
 
@@ -499,40 +499,6 @@ class Syndic
     }
 
     /**
-     * Add artisan
-     *
-     * @param Artisan $artisan
-     *
-     * @return Syndic
-     */
-    public function addArtisan(Artisan $artisan)
-    {
-        $this->artisans[] = $artisan;
-
-        return $this;
-    }
-
-    /**
-     * Remove artisan
-     *
-     * @param Artisan $artisan
-     */
-    public function removeArtisan(Artisan $artisan)
-    {
-        $this->artisans->removeElement($artisan);
-    }
-
-    /**
-     * Get artisans
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArtisans()
-    {
-        return $this->artisans;
-    }
-
-    /**
      * Add document
      *
      * @param Document $document
@@ -600,8 +566,6 @@ class Syndic
         return $this->coproprietes;
     }
 
-
-
     /**
      * Add category
      *
@@ -634,5 +598,39 @@ class Syndic
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add artisan
+     *
+     * @param Artisan $artisan
+     *
+     * @return Syndic
+     */
+    public function addArtisan(Artisan $artisan)
+    {
+        $this->artisans[] = $artisan;
+
+        return $this;
+    }
+
+    /**
+     * Remove artisan
+     *
+     * @param Artisan $artisan
+     */
+    public function removeArtisan(Artisan $artisan)
+    {
+        $this->artisans->removeElement($artisan);
+    }
+
+    /**
+     * Get artisans
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArtisans()
+    {
+        return $this->artisans;
     }
 }

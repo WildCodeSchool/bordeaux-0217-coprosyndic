@@ -26,7 +26,7 @@ var UiTables = function() {
                 pageLength: 10,
                 lengthMenu: [[5, 10, 20], [5, 10, 20]],
                 "oLanguage": {
-                    "sSearch": "<div class=\"input-group\">_INPUT_<span class=\"input-group-addon\"><i class=\"fa fa-search\"></i></span></div><div class=\"input-group\"><a href=\"\" class=\"btn btn-effect-ripple btn-primary\" style=\"margin-left:15px;\">Ajouter un fournisseur</a></div>",
+                    "sSearch": "<div class=\"input-group\">_INPUT_<span class=\"input-group-addon\"><i class=\"fa fa-search\"></i></span></div><div class=\"input-group\"><a href=\"\" id=\"btn-add-artisan\" class=\"btn btn-effect-ripple btn-primary\" style=\"margin-left:15px;\">Ajouter un fournisseur</a></div>",
 
                 }
             });

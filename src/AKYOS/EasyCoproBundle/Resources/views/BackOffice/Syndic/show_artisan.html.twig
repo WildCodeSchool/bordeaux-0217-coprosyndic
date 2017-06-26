@@ -1,10 +1,20 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
 {% block title %}
-    Affichage ARTISAN
+    Affichage d'un fournisseur
 {% endblock %}
 
 {% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Affichage d'un fournisseur
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('syndic_gestion_artisans') }}">Mes fournisseurs</a></li>
+    <li class="active">{{ artisan.raisonSociale }}</li>
 {% endblock %}
 
 {% block content %}

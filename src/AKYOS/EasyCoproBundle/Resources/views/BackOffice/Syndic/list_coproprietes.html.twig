@@ -1,19 +1,23 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
 {% block title %}
-    Liste des COPROPRIETES
+    Gestion des copropriétés
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/backoffice/css/syndic_dashboard.css') }}">
+{% endblock %}
 
+{% block titre_page %}
+    Gestion des copropriétés
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Mes copropriétés</li>
 {% endblock %}
 
 {% block content %}
-
-    {% for message in app.session.flashbag.get('info') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
 
 <div class="row">
     {% for copropriete in coproprietes %}
