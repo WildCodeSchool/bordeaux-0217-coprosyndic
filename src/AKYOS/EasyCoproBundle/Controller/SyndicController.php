@@ -187,7 +187,7 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le compte a bien été supprimé.');
 
-            return $this->redirectToRoute('syndic_index');
+            return $this->redirectToRoute('syndic_list_coproprietaires');
         }
         $request->getSession()->getFlashBag()->add('info', 'Le compte que vous souhaitez supprimer n\'existe pas !');
 

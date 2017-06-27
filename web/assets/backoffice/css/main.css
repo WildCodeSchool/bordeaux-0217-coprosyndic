@@ -3354,6 +3354,69 @@ code {
     opacity: .75;
 }
 
+
+/*Card Coproprietaire*/
+
+.lib-panel {
+    margin-bottom: 20Px;
+}
+.lib-panel img {
+    width: 100%;
+    background-color: transparent;
+}
+
+.lib-panel{
+    padding: 0;
+    background-color: #FFFFFF;
+}
+
+.lib-panel .lib-row{
+    padding: 0 0px 0 0px;
+}
+
+.lib-panel .lib-row.lib-header {
+    background-color: #FFFFFF;
+    font-size: 20px;
+    padding: 0px 0px 0 0px;
+}
+
+.lib-panel .lib-row.lib-header .lib-header-seperator {
+    height: 1px;
+    width: 170px;
+    background-color: #d9d9d9;
+    margin: 7px 0 10px 0;
+}
+
+.lib-panel .lib-row.lib-desc {
+    position: relative;
+    height: 100%;
+    display: block;
+    font-size: 13px;
+}
+.lib-panel .lib-row.lib-desc a{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 20px;
+}
+.row-margin-bottom {
+    margin-bottom: 20px;
+}
+.box-shadow {
+    margin-right: 0px;
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+}
+.no-padding {
+    padding: 0;
+}
+.icon-fa{
+    padding-left: 0px;
+}
+.row.box-shadow {
+    margin-left: 0;
+    margin-right: 0;
+}
 /* Carousel */
 .carousel-control {
     max-width: 50px;
@@ -3794,6 +3857,7 @@ p, .table, .alert, .carousel {
     .timeline-content {
         padding-left: 166px;
     }
+
 }
 
 /* Medium devices, Desktops (>991px) */
