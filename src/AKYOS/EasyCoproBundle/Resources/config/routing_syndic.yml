@@ -170,3 +170,7 @@ syndic_send_message:
 syndic_show_message:
         path: /show/message/{id}/
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessage}
+
+syndic_list_messages:
+        path: /inbox
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:inbox}

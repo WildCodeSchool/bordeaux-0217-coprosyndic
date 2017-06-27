@@ -1,0 +1,40 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Boite de Reception
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Boite de reception :</h4>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Expéditeur</th>
+            <th>Date d'Envoi</th>
+            <th>Contenu</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for message in messages %}
+            <tr>
+                <td><a href="{{ path('syndic_show_message', {'id': message.id}) }}">{{ message.id }}</a></td>
+                <td>{{ message.expediteur }}</td>
+                <td>{{ message.dateEnvoi|date('Y-m-d') }}</td>
+                <td>{{ message.contenu }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

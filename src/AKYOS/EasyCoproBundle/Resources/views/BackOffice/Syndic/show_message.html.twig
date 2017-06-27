@@ -16,7 +16,7 @@
     <h4>Afficher un message :</h4>
     <h4>{{ message.titre }}</h4>
     <ul>
-        {{ message.dateEnvoi|date('Y-m-d') }}
+        <li>{{ message.dateEnvoi|date('Y-m-d') }}</li>
         <li>{{ message.expediteur }}</li>
         <li>{{ message.contenu }}</li>
         <li>...</li>
