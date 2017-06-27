@@ -166,3 +166,7 @@ syndic_gestion_documents:
 syndic_send_message:
         path: /send/message
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:sendMessage}
+
+syndic_show_message:
+        path: /show/message/{id}/
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessage}

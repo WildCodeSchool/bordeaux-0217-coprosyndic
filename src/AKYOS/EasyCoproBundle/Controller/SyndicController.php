@@ -21,6 +21,7 @@ use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SyndicController extends Controller
 {
@@ -628,6 +629,18 @@ class SyndicController extends Controller
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/send_message.html.twig',
             ['form' => $form->createView()]);
+    }
+
+    public function showMessageAction(Message $message)
+    {
+        if($this->getUser() == $message->getDestinataire()){
+            return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message.html.twig', array(
+                'message' => $message
+            ));
+        }
+        else{
+            return new Response("Vous n'êtes pas autorisé a lire ce message");
+        }
     }
 
 }

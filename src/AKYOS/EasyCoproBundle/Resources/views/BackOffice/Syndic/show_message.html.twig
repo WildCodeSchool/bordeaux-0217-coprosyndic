@@ -1,0 +1,29 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Affichage MESSAGE
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+    <p>
+    {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+    </p>
+    <h4>Afficher un message :</h4>
+    <h4>{{ message.titre }}</h4>
+    <ul>
+        {{ message.dateEnvoi|date('Y-m-d') }}
+        <li>{{ message.expediteur }}</li>
+        <li>{{ message.contenu }}</li>
+        <li>...</li>
+    </ul>
+    <p><a href="#">Répondre au message</a></p>
+    <p><a href="#">Supprimer le message</a></p>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
