@@ -618,6 +618,7 @@ class SyndicController extends Controller
             ->setDateEnvoi(new \DateTime());
         $sender=$this->getUser();
         $message->setExpediteur($sender);
+        $message->setSuprime(false);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -643,6 +644,20 @@ class SyndicController extends Controller
         }
     }
 
+    public function deleteMessageAction(Request $request, Message $message)
+    {
+        if ($message !== null && $message->getSuprime()==false) {
+            $em = $this->getDoctrine()->getManager();
+            $em->setSuprime(true);
+            $em->update($message);
+            $em->flush();
+            $this->addFlash('info', 'Le Message a été mis dans la corbeille.');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        $this->addFlash('info', "Ce Message n'existe pas !");
+        return $this->redirectToRoute('syndic_inbox');
+    }
+
     public function inboxAction()
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig');
@@ -651,6 +666,24 @@ class SyndicController extends Controller
     public function messagesEnvoyesAction()
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/messages_envoyes.html.twig');
+    }
+
+    public function corbeilleAction(Request $request, Message $message)
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig');
+    }
+
+    public function deleteMessageCorbeilleAction(Request $request, Message $message)
+    {
+        if ($message !== null) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($message);
+            $em->flush();
+            $this->addFlash('info', 'Le Message a été définitivement supprimé.');
+            return $this->redirectToRoute('syndic_corbeille');
+        }
+        $this->addFlash('info', "Ce Message n'existe pas !");
+        return $this->redirectToRoute('syndic_corbeille');
     }
 
 }

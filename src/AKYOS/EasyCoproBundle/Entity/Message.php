@@ -52,6 +52,11 @@ class Message
      */
     private $destinataire;
 
+    /** @var boolean
+     *
+     * @ORM\Column(name="supprime", type="boolean")
+     */
+    private $suprime;
 
     /**
      * Get id
@@ -181,5 +186,29 @@ class Message
     public function getDestinataire()
     {
         return $this->destinataire;
+    }
+
+    /**
+     * Set suprime
+     *
+     * @param boolean $suprime
+     *
+     * @return Message
+     */
+    public function setSuprime($suprime)
+    {
+        $this->suprime = $suprime;
+
+        return $this;
+    }
+
+    /**
+     * Get suprime
+     *
+     * @return boolean
+     */
+    public function getSuprime()
+    {
+        return $this->suprime;
     }
 }
