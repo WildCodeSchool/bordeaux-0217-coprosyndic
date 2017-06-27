@@ -648,4 +648,9 @@ class SyndicController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig');
     }
 
+    public function messagesEnvoyesAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/messages_envoyes.html.twig');
+    }
+
 }

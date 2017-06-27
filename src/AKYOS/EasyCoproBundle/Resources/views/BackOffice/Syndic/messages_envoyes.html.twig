@@ -18,16 +18,16 @@
         <thead>
         <tr>
             <th>Id</th>
-            <th>Expéditeur</th>
+            <th>Destinataire</th>
             <th>Date d'Envoi</th>
             <th>Contenu</th>
         </tr>
         </thead>
         <tbody>
-        {% for message in app.user.messagesrecus %}
+        {% for message in app.user.messagesenvoyes %}
             <tr>
                 <td><a href="{{ path('syndic_show_message', {'id': message.id}) }}">{{ message.id }}</a></td>
-                <td>{{ message.expediteur }}</td>
+                <td>{{ message.destinataire }}</td>
                 <td>{{ message.dateEnvoi|date('Y-m-d') }}</td>
                 <td>{{ message.contenu }}</td>
             </tr>
@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{path('syndic_messages_envoyes')}}">
+                        <a href="javascript:void(0)">
                             <i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong>
                         </a>
                     </li>
