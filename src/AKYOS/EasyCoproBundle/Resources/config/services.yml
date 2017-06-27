@@ -17,3 +17,8 @@ services:
         arguments: ['@service_container', '@session']
         tags:
             - { name: form.type }
+
+    app.form.registration:
+        class: AKYOS\EasyCoproBundle\Form\CreateUserType
+        tags:
+            - { name: form.type, alias: app_user_registration }

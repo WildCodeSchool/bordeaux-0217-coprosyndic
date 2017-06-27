@@ -4,6 +4,7 @@ namespace AKYOS\EasyCoproBundle\Form;
 
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -16,8 +17,9 @@ class CreateCoproprietaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $lots = $copropriete->getLots();
         $builder
-            ->add('user', RegistrationFormType::class)
+            ->add('user', CreateUserType::class)
             ->add('commentSyndic', TextType::class,array(
                 'attr' => array('placeholder' => 'Note du Syndic'),
                 'required' => false,
@@ -30,9 +32,13 @@ class CreateCoproprietaireType extends AbstractType
             ->add('nbEnfants', IntegerType::class,array(
                 'attr' => array('placeholder' => 'Nombre d\'enfants'),
             ))
-            ->add('dateArrivee', DateType::class, array('widget' => 'single_text',))
+            ->add('dateArrivee', DateType::class, array(
+                'widget' => 'single_text',
+                'label' => 'Date d\'emménagement',
+                ))
             ->add('dateDepart', DateType::class, array(
                 'widget' => 'single_text',
+                'label' => 'Date de départ',
                 'required' => false,
                 ))
             ->add('actuel', CheckboxType::class, array(
@@ -42,10 +48,15 @@ class CreateCoproprietaireType extends AbstractType
             ->add('membreConseil', CheckboxType::class, array(
                 'label'    => 'Membre du Conseil',
             ))
-            ->add('submit',SubmitType::class)
+            /*->add('lot', ChoiceType::class, array(
+                'choices' => $lots,
+            ) )*/
+            ->add('submit',SubmitType::class, array(
+                'label' => 'Créer le compte',
+            ))
         ;
 
-        $copro = $builder->getForm();
+
 
     }
 

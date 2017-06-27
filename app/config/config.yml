@@ -84,7 +84,7 @@ fos_user:
         sender_name: EasyCopro
     registration:
         form:
-            type: AKYOS\EasyCoproBundle\Form\RegistrationType
+            type: AKYOS\EasyCoproBundle\Form\CreateUserType
         confirmation:
             enabled: true
             template: 'FOSUserBundle:Registration:email.txt.twig'
