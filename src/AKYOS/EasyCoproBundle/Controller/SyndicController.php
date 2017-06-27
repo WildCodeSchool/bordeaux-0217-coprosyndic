@@ -8,7 +8,9 @@ use AKYOS\EasyCoproBundle\Entity\Document;
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
+use AKYOS\EasyCoproBundle\Entity\Message;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
+use AKYOS\EasyCoproBundle\Entity\User;
 use AKYOS\EasyCoproBundle\Form\CreateArtisanType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprieteType;
@@ -16,6 +18,7 @@ use AKYOS\EasyCoproBundle\Form\CreateDocumentType;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
+use AKYOS\EasyCoproBundle\Form\MessageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -602,6 +605,29 @@ class SyndicController extends Controller
             'documents' => $allDocuments,
             'form' => $form->createView(),
         ));
+    }
+    // ACTIONS LIEES AUX MSGS
+    //-----------------------
+
+    public function sendMessageAction(Request $request)
+    {
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message
+            ->setDateEnvoi(new \DateTime());
+        $sender=$this->getUser();
+        $message->setExpediteur($sender);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_send_message');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/send_message.html.twig',
+            ['form' => $form->createView()]);
     }
 
 }

@@ -159,3 +159,10 @@ syndic_list_documents:
 syndic_gestion_documents:
     path: /documents
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionDocuments }
+
+# ROUTE LIEES AUX MESSAGES
+#--------------------------
+
+syndic_send_message:
+        path: /send/message
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:sendMessage}

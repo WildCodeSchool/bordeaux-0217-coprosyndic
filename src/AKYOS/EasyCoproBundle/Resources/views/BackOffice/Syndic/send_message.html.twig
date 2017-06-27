@@ -1,0 +1,24 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Envoi de MESSAGE
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Envoi d'un message
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Envoyer un message</li>
+{% endblock %}
+
+{% block content %}
+    {{ form(form) }}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
