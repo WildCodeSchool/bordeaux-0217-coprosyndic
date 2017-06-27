@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -35,6 +36,12 @@ class User extends BaseUser
      */
     private $messages_recus;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_inscription", type="datetime")
+     */
+    private $dateInscription;
 
 
     public function __construct()
@@ -133,5 +140,30 @@ class User extends BaseUser
     public function getMessagesRecus()
     {
         return $this->messages_recus;
+    }
+
+    /**
+     * Set dateInscription
+     *
+     * @param \DateTime $dateInscription
+     *
+     * @return User
+     * @ORM\PrePersist
+     */
+    public function setDateInscription()
+    {
+        $this->dateInscription = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * Get dateInscription
+     *
+     * @return \DateTime
+     */
+    public function getDateInscription()
+    {
+        return $this->dateInscription;
     }
 }

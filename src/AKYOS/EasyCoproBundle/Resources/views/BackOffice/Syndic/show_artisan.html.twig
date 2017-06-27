@@ -23,92 +23,30 @@
     <div class="col-md-5 col-lg-4">
         <div class="widget">
             <div class="widget-content themed-background-info clearfix">
-                <img src="{{ vich_uploader_asset(artisan.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
+                {#TODO : rajouter lien vers l'avatar#}
+                <img src="" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
                 <h2 class="widget-heading h3 text-light"><strong>{{ artisan.raisonSociale }}</strong></h2>
                 <span class="text-light-op">{{ artisan.activite }}</span>
             </div>
             <div class="widget-content widget-content-mini themed-background-dark border-bottom">
-                <span class="pull-right text-light-op">Depuis le {{ artisan.user.lastLogin|date('j/m/Y') }}</span>
-                <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp; Résidence aux 5 palmiers</strong>
+                <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp; <a style="text-decoration: none; color: #FFF" href="{{ path('syndic_show_copropriete', {'id': artisan.copropriete.id}) }}">{{ artisan.copropriete }}</a></strong>
             </div>
 
-
-            <div class="widget-content widget-content-full border-bottom">
-                <div class="row text-center">
-                    <div class="col-xs-6 push-inner-top-bottom border-right">
-                        <h3 class="widget-heading"><i class="fa fa-file-o push"></i> <br><small><strong>15</strong> Fichiers uploadés</small></h3>
-                    </div>
-                    <div class="col-xs-6 push-inner-top-bottom">
-                        <h3 class="widget-heading"><i class="fa fa-envelope-o themed-color-social push"></i> <br><small><strong>4</strong> Emails</small></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="widget-content border-bottom">
-                <h4>About</h4>
-                <p>Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti.</p>
+            <div class="widget-content widget-content-full border-bottom" style="padding: 15px 10px;">
+                <p style="margin-bottom: 0">Inscrit depuis le <strong style="color: #5CAFDE;">{{ artisan.user.dateInscription|date('j/m/Y') }}</strong><br>
+                    Dernière connexion le <strong style="color: #5CAFDE;">{{ artisan.user.lastLogin|date('j/m/Y') }}</strong></p>
+                <hr>
+                <h4 style="margin-top: 0;">Contact</h4>
+                <address style="margin-bottom: 0">
+                    <strong style="padding-left: 5px">{{ artisan.contactPrenom ~ ' ' ~ artisan.contactNom }}</strong><br>
+                    <i class="fa fa-mobile fa-fw" aria-hidden="true"></i> {{ artisan.contactTelephone }}<br>
+                    <i class="fa fa-at fa-fw" aria-hidden="true"></i> {{ artisan.contactEmail }}<br>
+                </address>
             </div>
         </div>
     </div>
     <div class="col-md-7 col-lg-8">
-        <div class="block">
-            <div class="block-title">
-                <h2>Mes informations personnelles</h2>
-            </div>
-            <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
-                <div class="form-group">
-                    <div class="col-xs-6">
-                        <label class="control-label">Nom :</label>
-                        <input type="text" id="article-firstname" name="article-firstname" class="form-control" placeholder="Nom">
-                    </div>
-                    <div class="col-xs-6">
-                        <label class="control-label">Prénom :</label>
-                        <input type="text" id="article-lastname" name="article-lastname" class="form-control" placeholder="Prénom">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-8">
-                        <label class="control-label">Adresse :</label>
-                        <input type="text" id="article-lastname" name="article-lastname" class="form-control" placeholder="">
-                    </div>
-                    <div class="col-xs-4">
-                        <label class="control-label">Ville :</label>
-                        <input type="text" id="article-lastname" name="article-lastname" class="form-control" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-2">
-                        <label class="control-label">Code postal :</label>
-                        <input type="text" id="article-lastname" name="article-lastname" class="form-control" placeholder="21000">
-                    </div>
-                    <div class="col-xs-5">
-                        <label class="control-label">Tél fixe :</label>
-                        <input type="text" id="article-lastname" name="article-lastname" class="form-control" placeholder="">
-                    </div>
-                    <div class="col-xs-5">
-                        <label class="control-label">Tél portable :</label>
-                        <input type="text" id="article-lastname" name="article-lastname" class="form-control" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <label class="control-label">Choississez un avatar :</label>
-                        <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
-                        <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
-                            <span class="group-span-filestyle input-group-btn" tabindex="0">
-                                <label for="fileInput" class="btn btn-info">
-                                    <span class="glyphicon fa fa-file-o"></span> &nbsp; Importer une photo
-                                </label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <button type="submit" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;"><i class="fa fa-pencil"></i> &nbsp; Mettre à jour</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+        {{ render(controller('AKYOSEasyCoproBundle:Syndic:editArtisan', {'id': artisan.id })) }}
     </div>
 </div>
 

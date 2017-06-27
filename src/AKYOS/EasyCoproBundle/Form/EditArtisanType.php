@@ -2,8 +2,10 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
+use AKYOS\EasyCoproBundle\Entity\Artisan;
 use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,6 +18,14 @@ class EditArtisanType extends AbstractType
 
         $builder
             ->add('user', ProfileFormType::class)
+            ->add('copropriete', ChoiceType::class,array(
+                'choices' => $options['coproprietes'],
+                'choice_label' => function ($copropriete) {
+                    return $copropriete->getNom();
+                },
+                'placeholder' => 'Choisissez une copropriété',
+                'label' => 'Copropriété',
+            ))
             ->add('raisonSociale')
             ->add('activite')
             ->add('siret')
@@ -36,7 +46,8 @@ class EditArtisanType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AKYOS\EasyCoproBundle\Entity\Artisan'
+            'data_class' => Artisan::class,
+            'coproprietes' => null,
         ));
     }
 
