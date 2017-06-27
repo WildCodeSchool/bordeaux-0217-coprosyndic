@@ -645,11 +645,7 @@ class SyndicController extends Controller
 
     public function inboxAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $messages = $em->getRepository(Message::class)->findAll();
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig', array(
-            'messages' => $messages,
-        ));
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig');
     }
 
 }

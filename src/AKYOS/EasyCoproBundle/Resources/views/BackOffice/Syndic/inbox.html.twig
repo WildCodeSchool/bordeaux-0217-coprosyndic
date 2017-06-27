@@ -24,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for message in messages %}
+        {% for message in app.user.messagesrecus %}
             <tr>
                 <td><a href="{{ path('syndic_show_message', {'id': message.id}) }}">{{ message.id }}</a></td>
                 <td>{{ message.expediteur }}</td>
