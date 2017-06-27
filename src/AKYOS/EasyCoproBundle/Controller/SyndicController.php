@@ -110,10 +110,7 @@ class SyndicController extends Controller
     public function createCoproprietaireAction(Request $request)
     {
         $coproprietaire = new Coproprietaire();
-        $copropriete = $request->getSession()->get('copro');
-        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire, array(
-            'copropriete' => $copropriete,
-        ));
+        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -132,7 +129,7 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
-            return $this->redirectToRoute('syndic_index', array(
+            return $this->redirectToRoute('syndic_show_coproprietaire', array(
                 'id' => $coproprietaire->getId(),
             ));
         }
