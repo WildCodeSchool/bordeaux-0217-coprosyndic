@@ -95,6 +95,7 @@ $( document ).ready(function() {
         $('#delete-doc').attr('href',url);
     });
 
+
     // Fonction pour supprimer une categorie
     $('.btn-delete-categorie').on('click', function (e) {
         var categorieId = $(this).data('categorie');
@@ -118,5 +119,6 @@ $( document ).ready(function() {
             }
         });
     });
+
 
 });

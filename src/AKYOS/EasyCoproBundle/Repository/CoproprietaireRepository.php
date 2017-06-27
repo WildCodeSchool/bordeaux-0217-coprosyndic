@@ -14,8 +14,22 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
             ->join('lc.syndic', 'lcs')
             ->where('lcs = :syndic')
             ->setParameter('syndic', $syndic);
-            return $qb->getQuery()->getResult();
+            return $qb->getQuery()->getScalarResult();
     }
+
+    public function findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete){
+
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c)')
+            ->join('c.lot', 'l')
+            ->join('l.copropriete', 'lc')
+            ->join('lc.syndic', 'lcs')
+            ->where('lcs = :syndic')
+            ->andWhere('lc = :copropriete')
+            ->setParameters(array('syndic' => $syndic, 'copropriete' => $copropriete));
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
 
     public function findCoproprietairesBySyndic($syndic) {
 

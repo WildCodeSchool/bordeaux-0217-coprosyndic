@@ -18,6 +18,7 @@ services:
         tags:
             - { name: form.type }
 
+
     form.type.edit_document:
         class: AKYOS\EasyCoproBundle\Form\EditDocumentType
         arguments: ['@service_container', '@session']
@@ -29,3 +30,9 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: twig.extension }
+
+    app.form.registration:
+        class: AKYOS\EasyCoproBundle\Form\CreateUserType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+

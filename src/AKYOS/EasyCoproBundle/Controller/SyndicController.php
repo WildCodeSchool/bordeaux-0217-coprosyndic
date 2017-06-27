@@ -110,8 +110,10 @@ class SyndicController extends Controller
     public function createCoproprietaireAction(Request $request)
     {
         $coproprietaire = new Coproprietaire();
-
-        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
+        $copropriete = $request->getSession()->get('copro');
+        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire, array(
+            'copropriete' => $copropriete,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -124,14 +126,14 @@ class SyndicController extends Controller
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($coproprietaire->getUser());
 
-            $password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
-            $documentService = $this->get('akyos.generate_document');
-            $documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
+            //$password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
+            //$documentService = $this->get('akyos.generate_document');
+            //$documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
 
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
-            return $this->redirectToRoute('syndic_show_coproprietaire', array(
+            return $this->redirectToRoute('syndic_index', array(
                 'id' => $coproprietaire->getId(),
             ));
         }
@@ -156,7 +158,7 @@ class SyndicController extends Controller
                 'id' => $coproprietaire->getId(),
             ));
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_artisan.html.twig', array(
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_coproprietaire.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -426,13 +428,12 @@ class SyndicController extends Controller
         $coproprietaires = $em->getRepository(Coproprietaire::class)->findCoproprietairesByCopropriete($copropriete);
         //Requete Coproprietaire Repository
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndic($syndic);
+        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
 
         $artisans = $syndic->getArtisans();
 
         //Requete Document Repository
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
-
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig',
             ['copropriete' => $copropriete,
              'nbre_coproprietaires' =>$nbre_coproprietaires,

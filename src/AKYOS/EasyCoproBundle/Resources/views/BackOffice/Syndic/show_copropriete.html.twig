@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-
+{% dump(nbre_coproprietaires) %}
     <div class="row">
             <div class="col-lg-4 ">
                 <div class="widget">
@@ -33,7 +33,7 @@
                     <div class="widget-content widget-content-full border-bottom">
                         <div class="row text-center">
                             <div class="col-xs-6 push-inner-top-bottom border-right">
-                                <h3 class="widget-heading"><i class="fa fa-users push"></i> <br><small><strong>5</strong> Copropriétaires</small></h3>
+                                <h3 class="widget-heading"><i class="fa fa-users push"></i> <br><small><strong>{{ nbre_coproprietaires }}</strong> Copropriétaires</small></h3>
 
                             </div>
                             <div class="col-xs-6 push-inner-top-bottom">
@@ -145,6 +145,7 @@
                     </div>
                 </div>
                 <!-- END Informations -->
+
                 <!-- Documents -->
                 <div class="tab-pane active" id="coownerships-files">
                     <div class="block-content-full animation-fadeInQuick2">
@@ -193,13 +194,13 @@
                         <table class="table table-striped table-borderless table-vcenter remove-margin-bottom">
                             <thead class="themed-background-muted-off">
                             <td colspan="10" style="padding:10px;">
-                                <a href="#modal-addcoowner" class="btn btn-effect-ripple btn-primary pull-right animation-fadeInQuick2" data-toggle="modal">Ajouter un copropriétaire</a>
+                                <a href="#modal-create-coproprietaire" class="btn btn-create-coproprietaire btn-effect-ripple btn-primary pull-right animation-fadeInQuick2" data-createcoproprietaire="" data-toggle="modal">Ajouter un copropriétaire</a>
                             </td>
                             </thead>
                             <tbody>
                             {% for coproprietaire in coproprietaires %}
                             <tr class="animation-fadeInQuick2">
-                                <td class="text-center" style="width: 100px;"><img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar1.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar"></td>
+                                <td class="text-center" style="width: 100px;"><img src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar"></td>
                                 <td>
                                     <h4><strong>{{ coproprietaire.nom }}</strong> {{ coproprietaire.prenom }}
                                         <span>{% if coproprietaire.membreConseil  %}
@@ -216,7 +217,7 @@
                                 <td class="text-center" style="width: 100px;">
                                     <a href="javascript:void(0)" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
                                         <i class="fa fa-envelope"></i></a> &nbsp;
-                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Supprimer"><i class="fa fa-times"></i></a>
+                                    <a href="#modal-fade-del-coproprietaire" data-coproprietaire="{{ coproprietaire.id }}" data-toggle="modal" title="Supprimer le copropriétaire"  class="btn btn-delete-coproprietaire btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Supprimer"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                                 {% endfor %}
@@ -336,8 +337,8 @@
     <!-- END Add File Modal -->
 
 
-    <!-- Add coowner Modal -->
-    <div id="modal-addcoowner" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Add coproprietaire Modal -->
+    <div id="modal-create-coproprietaire" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -345,32 +346,134 @@
                     <h3 class="modal-title"><strong>Ajouter un copropriétaire</strong></h3>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                {{ render(controller('AKYOSEasyCoproBundle:Syndic:createCoproprietaire')) }}
+                    {#<div class="row">
                         <div class="col-md-10 col-md-offset-1">
-                            <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
+                            <!--<form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">-->
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="val-coownership-name">Nom :</label>
-                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5 col-md-offset-1">
-                                        <div class="form-group">
-                                            <label for="val-coownership-name">Prénom :</label>
-                                            <input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                            <label for="val-coownership-name">Nom d'utilisateur:</label>
+                                            {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+                                            <!--<input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="val-coownership-name">Adresse email :</label>
-                                            <input type="email" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">
+                                            <!--<input type="email" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                            {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Mot de passe :</label>
+                                        <!--<input type="email" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.user.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Mot de passe'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Mot de passe :</label>
+                                        <!--<input type="email" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.user.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Répéter le mot de passe'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <h3>Informations personnelles</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Prénom :</label>
+                                        <!--<input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder':'Prenom'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Nom :</label>
+                                        <!--<input type="email" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Téléphone :</label>
+                                        <!--<input type="email" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">RIB :</label>
+                                        <!--<input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.rib, { 'attr': {'class': 'form-control', 'placeholder':'RIB'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Date d'arrivée :</label>
+                                        <!--<input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.dateArrivee, { 'attr': {'class': 'form-control', 'placeholder':'Date d\emménagement'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Date de départ :</label>
+                                        <!--<input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.dateDepart, { 'attr': {'class': 'form-control', 'placeholder':'Date de départ'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="form-group">
+                                        <label for="val-coownership-name">Nombre d'enfants :</label>
+                                        <!--<input type="text" id="val-coownership-name" name="val-coownership-name" placeholder="" class="form-control">-->
+                                        {{ form_widget(form.nbEnfants, { 'attr': {'class': 'form-control', 'placeholder':'Nombre d\'enfants'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                     <div class="checkbox">
+                                        <label>
+                                            {{ form_widget(form.membreConseil) }} Membre du conseil syndical
+
+                                        </label>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-md-offset-1">
+                                    <div class="checkbox">
+                                        <label>
+                                            {{ form_widget(form.actuel) }} Actuellement copropriétaire
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <!--<div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="val-coownership-name">Est-ce un conseiller syndical ? &nbsp; &nbsp; </label>
@@ -385,17 +488,17 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group form-actions">
-                                            <input type="submit" class="btn btn-effect-ripple btn-primary" value="Envoyer">
+                                            <a href=""  id="create-coproprietaire"><input type="submit" class="btn btn-create-coproprietaire btn-effect-ripple btn-primary" value="Envoyer"></a>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            <!--</form>-->
+                            {{ form_errors(form) }}
+                            {{ form_end(form) }}#}
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
     <!-- END coowner Modal -->
 
 
@@ -470,6 +573,38 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Modals -->
+    <div id="modal-fade-del-coproprietaire" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Voulez-vous vraiment supprimer ce copropriétaire ?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right">
+                            <a href=""  id="delete-coproprietaire"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- END provider Modal -->
 
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{{ asset('assets/backoffice/js/gestion_coproprietaires.js') }}"></script>
 {% endblock %}

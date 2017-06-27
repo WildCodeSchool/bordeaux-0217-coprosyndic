@@ -38,6 +38,27 @@ class Coproprietaire
     /**
      * @var string
      *
+     * @ORM\Column(name="adresse_princ", type="string", length=255)
+     */
+    private $adressePrinc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code_postal", type="string", length=5)
+     */
+    private $codePostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=255)
+     */
+    private $ville;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="telephone", type="string", length=10, nullable=true)
      */
     private $telephone;
@@ -430,4 +451,76 @@ class Coproprietaire
         return $this->user;
     }
 
+
+    /**
+     * Set adressePrinc
+     *
+     * @param string $adressePrinc
+     *
+     * @return Coproprietaire
+     */
+    public function setAdressePrinc($adressePrinc)
+    {
+        $this->adressePrinc = $adressePrinc;
+
+        return $this;
+    }
+
+    /**
+     * Get adressePrinc
+     *
+     * @return string
+     */
+    public function getAdressePrinc()
+    {
+        return $this->adressePrinc;
+    }
+
+    /**
+     * Set codePostal
+     *
+     * @param string $codePostal
+     *
+     * @return Coproprietaire
+     */
+    public function setCodePostal($codePostal)
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    /**
+     * Get codePostal
+     *
+     * @return string
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     *
+     * @return Coproprietaire
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
 }
