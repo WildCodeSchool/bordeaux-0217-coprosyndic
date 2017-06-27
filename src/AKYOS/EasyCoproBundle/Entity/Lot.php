@@ -310,4 +310,8 @@ class Lot
     {
         return $this->locataires;
     }
+    public function __toString()
+    {
+        return $this->identifiant;
+    }
 }

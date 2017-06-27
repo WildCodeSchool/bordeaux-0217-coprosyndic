@@ -38,6 +38,14 @@
         </div>
     </div>
  </div>
+ <div class="row" style="margin-bottom: 10px">
+     <div class="col-sm-12">
+         <div class="input-group">
+             <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+             {{ form_widget(form.lot, { 'attr': {'class': 'form-control', 'placeholder':'Photo du copropriétaire'}}) }}
+         </div>
+     </div>
+ </div>
     <div class="row" style="margin-bottom: 10px">
         <div class="col-sm-12">
             <h3>Informations personnelles</h3>
@@ -69,6 +77,28 @@
             </div>
         </div>
     </div>
+ <div class="row" style="margin-bottom: 10px">
+     <div class="col-sm-12">
+         <div class="input-group">
+             <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+             {{ form_widget(form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse'}}) }}
+         </div>
+     </div>
+ </div>
+ <div class="row" style="margin-bottom: 10px">
+     <div class="col-sm-6">
+         <div class="input-group">
+             <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
+             {{ form_widget(form.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code Postal'}}) }}
+         </div>
+     </div>
+     <div class="col-sm-6">
+         <div class="input-group">
+             <span class="input-group-addon"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i></span>
+             {{ form_widget(form.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
+         </div>
+     </div>
+ </div>
     <div class="row" style="margin-bottom: 10px">
         <div class="col-sm-12">
             <h3>Informations complémentaires</h3>

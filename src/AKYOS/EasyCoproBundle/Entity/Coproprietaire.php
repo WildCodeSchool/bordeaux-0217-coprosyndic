@@ -45,13 +45,6 @@ class Coproprietaire
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse_sec", type="string", length=255)
-     */
-    private $adresseSec;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="code_postal", type="string", length=5)
      */
     private $codePostal;
@@ -481,30 +474,6 @@ class Coproprietaire
     public function getAdressePrinc()
     {
         return $this->adressePrinc;
-    }
-
-    /**
-     * Set adresseSec
-     *
-     * @param string $adresseSec
-     *
-     * @return Coproprietaire
-     */
-    public function setAdresseSec($adresseSec)
-    {
-        $this->adresseSec = $adresseSec;
-
-        return $this;
-    }
-
-    /**
-     * Get adresseSec
-     *
-     * @return string
-     */
-    public function getAdresseSec()
-    {
-        return $this->adresseSec;
     }
 
     /**

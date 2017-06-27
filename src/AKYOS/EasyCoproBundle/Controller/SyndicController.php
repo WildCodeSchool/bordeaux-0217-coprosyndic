@@ -107,8 +107,10 @@ class SyndicController extends Controller
     public function createCoproprietaireAction(Request $request)
     {
         $coproprietaire = new Coproprietaire();
-
-        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
+        $copropriete = $request->getSession()->get('copro');
+        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire, array(
+            'copropriete' => $copropriete,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -121,9 +123,9 @@ class SyndicController extends Controller
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($coproprietaire->getUser());
 
-            $password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
-            $documentService = $this->get('akyos.generate_document');
-            $documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
+            //$password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
+            //$documentService = $this->get('akyos.generate_document');
+            //$documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
 
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
