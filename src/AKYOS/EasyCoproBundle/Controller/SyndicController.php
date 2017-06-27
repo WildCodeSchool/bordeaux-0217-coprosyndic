@@ -130,7 +130,6 @@ class SyndicController extends Controller
             //$documentService = $this->get('akyos.generate_document');
             //$documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
 
-
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
             return $this->redirectToRoute('syndic_index', array(
@@ -311,7 +310,13 @@ class SyndicController extends Controller
     {
         $artisan = new Artisan();
 
-        $form = $this->createForm(CreateArtisanType::class, $artisan);
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
+
+        $form = $this->createForm(CreateArtisanType::class, $artisan, array(
+            'coproprietes' => $coproprietes,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -341,7 +346,13 @@ class SyndicController extends Controller
 
     public function editArtisanAction(Request $request, Artisan $artisan)
     {
-        $form = $this->createForm(EditArtisanType::class, $artisan);
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
+
+        $form = $this->createForm(EditArtisanType::class, $artisan, array(
+            'coproprietes' => $coproprietes,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

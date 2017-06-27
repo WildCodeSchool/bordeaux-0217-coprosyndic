@@ -155,6 +155,11 @@ class Copropriete
      */
     private $lots;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Artisan", mappedBy="copropriete")
+     */
+    private $artisans;
+
     public function __toString()
     {
         return $this->nom;
@@ -675,5 +680,39 @@ class Copropriete
     public function getDocuments()
     {
         return $this->documents;
+    }
+
+    /**
+     * Add artisan
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Artisan $artisan
+     *
+     * @return Copropriete
+     */
+    public function addArtisan(\AKYOS\EasyCoproBundle\Entity\Artisan $artisan)
+    {
+        $this->artisans[] = $artisan;
+
+        return $this;
+    }
+
+    /**
+     * Remove artisan
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Artisan $artisan
+     */
+    public function removeArtisan(\AKYOS\EasyCoproBundle\Entity\Artisan $artisan)
+    {
+        $this->artisans->removeElement($artisan);
+    }
+
+    /**
+     * Get artisans
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArtisans()
+    {
+        return $this->artisans;
     }
 }
