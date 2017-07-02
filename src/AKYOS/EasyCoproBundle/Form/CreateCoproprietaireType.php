@@ -23,19 +23,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CreateCoproprietaireType extends AbstractType
 {
     private $container;
-    private $categorie;
+    private $copropriete;
 
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->categorie = $this->container->get('session')->get('copro');
+        $this->copropriete = $this->container->get('session')->get('copro');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        //TODO : rajouter un champ 'occupé' (ou 'libre) dans la table 'Lot' pour savoir s'il y a déjà un copropriétaire
-        //TODO : à l'enregistrement d'un copropriétaire, modifier la valeur du champ 'occupé'.
         $builder
             ->add('user', CreateUserType::class)
             ->add('commentSyndic', TextType::class,array(
@@ -48,10 +45,16 @@ class CreateCoproprietaireType extends AbstractType
             ->add('adressePrinc', TextType::class)
             ->add('codePostal',TextType::class)
             ->add('ville',TextType::class)
-            ->add('telephone', TextType::class,array('attr' => array('placeholder' => 'Télephone du copropriétaire')))
-            ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB du copropriétaire')))
+            ->add('telephone', TextType::class,array(
+                'attr' => array('placeholder' => 'Télephone du copropriétaire')
+            ))
+            ->add('rib', TextType::class,array(
+                'attr' => array('placeholder' => 'RIB du copropriétaire'),
+                'required' => false,
+            ))
             ->add('nbEnfants', IntegerType::class,array(
                 'attr' => array('placeholder' => 'Nombre d\'enfants'),
+                'required' => false,
             ))
             ->add('dateArrivee', DateType::class, array(
                 'widget' => 'single_text',
@@ -63,18 +66,27 @@ class CreateCoproprietaireType extends AbstractType
                 'required' => false,
                 ))
             ->add('actuel', CheckboxType::class, array(
-                'label'    => 'Locataire Actuel',
+                'label'    => 'Actuellement copropriétaire',
                 'required' => false,
+                'data' => true,
                 ))
             ->add('membreConseil', CheckboxType::class, array(
-                'label'    => 'Membre du Conseil',
+                'label'    => 'Membre du Conseil Syndical',
+                'required' => false,
+            ))
+            ->add('copropriete', TextType::class, array(
+                'label' => 'Copropriété',
+                'disabled' => true,
+                'data' => $this->copropriete,
+                'mapped' => false,
             ))
             ->add('lot', EntityType::class, array(
                 'class'=> Lot::class,
                 'query_builder' => function (EntityRepository $er) {
                    return $er->createQueryBuilder('l')
                        ->where('l.copropriete = :copropriete')
-                       ->setParameter('copropriete', $this->categorie);
+                       ->andWhere('l.occupeAct = false')
+                       ->setParameter('copropriete', $this->copropriete);
                    },
                 'choice_label'=>function($lot){
                     return $lot->getIdentifiant();

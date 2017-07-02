@@ -30,6 +30,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.format.telnumber:
+        class: AKYOS\EasyCoproBundle\Service\TelNumberTwigFilter
+        tags:
+            - { name: twig.extension }
+
     app.form.registration:
         class: AKYOS\EasyCoproBundle\Form\CreateUserType
         tags:

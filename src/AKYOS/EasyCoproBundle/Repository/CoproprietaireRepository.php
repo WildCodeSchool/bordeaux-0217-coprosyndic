@@ -58,8 +58,8 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->createQueryBuilder('c')
             ->join('c.lot', 'l')
-            ->join('l.copropriete', 'cop')
-            ->where('cop = :copropriete')
+            ->where('l.copropriete = :copropriete')
+            ->andWhere('c.actuel = true')
             ->setParameter('copropriete', $copropriete)
         ;
 

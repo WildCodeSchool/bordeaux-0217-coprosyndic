@@ -45,6 +45,13 @@ class Lot
     /**
      * @var bool
      *
+     * @ORM\Column(name="occupe_act", type="boolean")
+     */
+    private $occupeAct;
+
+    /**
+     * @var bool
+     *
      * @ORM\Column(name="loue_act", type="boolean")
      */
     private $loueAct;
@@ -68,7 +75,6 @@ class Lot
      * @ORM\OneToMany(targetEntity="Locataire", mappedBy="lot")
      */
     private $locataires;
-
 
     /**
      * Get id
@@ -175,6 +181,7 @@ class Lot
     {
         return $this->loueAct;
     }
+
     /**
      * Constructor
      */
@@ -310,8 +317,33 @@ class Lot
     {
         return $this->locataires;
     }
+
     public function __toString()
     {
         return $this->identifiant;
+    }
+
+    /**
+     * Set occupeAct
+     *
+     * @param boolean $occupeAct
+     *
+     * @return Lot
+     */
+    public function setOccupeAct($occupeAct)
+    {
+        $this->occupeAct = $occupeAct;
+
+        return $this;
+    }
+
+    /**
+     * Get occupeAct
+     *
+     * @return boolean
+     */
+    public function getOccupeAct()
+    {
+        return $this->occupeAct;
     }
 }

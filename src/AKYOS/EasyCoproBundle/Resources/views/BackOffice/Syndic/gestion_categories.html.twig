@@ -62,13 +62,17 @@
                                 <td><span class="label" style="background-color: {{ categorie.couleur }}">Vignette</span>
                                 </td>
                                 <td class="text-center">
-                                    <a data-categorie="{{ categorie.id }}" data-toggle="modal" title="Modifier la catégorie"
+
+                                    <a data-categorie="{{ categorie.id }}" data-toggle="tooltip" data-placement="top" title="Modifier"
                                        class="btn btn-effect-ripple btn-xs btn-success btn-edit-categorie">
                                         <i class="fa fa-edit"></i></a>
-                                    <a href="#modal-fade-del-categorie" data-categorie="{{ categorie.id }}"
-                                       data-toggle="modal" title="Supprimer la catégorie"
+
+                                    <span data-toggle="modal" data-target="#modal-fade-del-categorie">
+                                    <a data-toggle="tooltip" data-placement="top"
+                                       data-categorie="{{ categorie.id }}" title="Supprimer"
                                        class="btn btn-effect-ripple btn-xs btn-danger btn-delete-categorie">
-                                        <i class="fa fa-times"></i></a>
+                                        <i class="fa fa-times"></i></a></span>
+
                                 </td>
                             </tr>
                         {% endfor %}

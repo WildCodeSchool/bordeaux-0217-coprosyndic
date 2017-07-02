@@ -18,7 +18,7 @@ class CreateArtisanType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', RegistrationFormType::class)
+            ->add('user', CreateUserType::class)
             ->add('copropriete', ChoiceType::class,array(
                 'choices' => $options['coproprietes'],
                 'choice_label' => function ($copropriete) {
