@@ -444,22 +444,20 @@ class SyndicController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $coproprietaires = $em->getRepository(Coproprietaire::class)->findCoproprietairesByCopropriete($copropriete);
-        //Requete Coproprietaire Repository
+
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
 
-        $artisans = $syndic->getArtisans();
-
-        //Requete Document Repository
+        $artisans = $copropriete->getArtisans();
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig',
-            ['copropriete' => $copropriete,
-             'nbre_coproprietaires' =>$nbre_coproprietaires,
-             'coproprietaires' =>$coproprietaires,
-             'artisans' =>$artisans,
-             'documents'=>$documents,
 
-            ]);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig', array(
+            'copropriete' => $copropriete,
+            'nbre_coproprietaires' =>$nbre_coproprietaires,
+            'coproprietaires' =>$coproprietaires,
+            'artisans' =>$artisans,
+            'documents'=>$documents,
+            ));
     }
 
     public function listCoproprietesAction()
@@ -706,6 +704,14 @@ class SyndicController extends Controller
         $request->getSession()->getFlashBag()->add('info', 'La catégorie n\'existe pas.');
 
         return $this->redirectToRoute('syndic_gestion_categories');
+    }
+
+    // ACTIONS LIEES AUX MESSAGES
+    //-----------------------------
+
+    public function gestionMessagesAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_messages.html.twig');
     }
 
     // ACTIONS REQUETES AJAX

@@ -81,10 +81,10 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
     public function findDocumentsByCopropriete($copropriete) {
 
         $qb = $this->createQueryBuilder('d')
-            ->leftJoin('d.lots', 'l')
-            ->where('l.copropriete = :copropriete')
+            ->where('d.copropriete = :copropriete')
             ->setParameter('copropriete', $copropriete)
         ;
+
         return $qb->getQuery()->getResult();
     }
 

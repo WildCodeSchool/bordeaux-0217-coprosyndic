@@ -1,0 +1,222 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Messagerie
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Messagerie
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li class="active">Ma messagerie</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-2">
+            <!-- Inner Sidebar -->
+            <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
+            <div class="block-section">
+                <a href="#modal-compose" class="btn btn-effect-ripple btn-block btn-success" data-toggle="modal"><i class="fa fa-pencil"></i> Nouveau message</a>
+            </div>
+            <!-- END Compose Message -->
+
+            <!-- Collapsible Navigation -->
+            <a href="javascript:void(0)" class="btn btn-block btn-effect-ripple btn-default visible-xs" data-toggle="collapse" data-target="#email-nav">Navigation</a>
+            <div id="email-nav" class="collapse navbar-collapse remove-padding">
+                <!-- Menu -->
+                <div class="block-section">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a href="<?= WWW; ?>/myemails">
+                                <i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-fw text-warning fa-star icon-push"></i> <strong>Favoris</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-fw text-info fa-exclamation-circle icon-push"></i> <strong>Important</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-fw fa-exclamation-triangle text-danger icon-push"></i> <strong>Spams</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END Menu -->
+            </div>
+        </div>
+        <!-- END Inner Sidebar -->
+
+        <div class="col-md-10">
+            <!-- Email Center Content -->
+            <div class="block overflow-hidden">
+                <!-- Message List -->
+                <div id="message-list">
+                    <!-- Title -->
+                    <div class="block-title clearfix">
+                        <div class="block-options pull-right">
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default"><i class="fa fa-arrow-left"></i> Préc.</a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default">Suivant <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                        <div class="block-options pull-left" style="padding-left:18px;">
+                            <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Mettre en favoris"><i class="fa fa-star"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme important"><i class="fa fa-exclamation-circle"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Marquer comme SPAM"><i class="fa fa-exclamation-triangle"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="Supprimer"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- END Title -->
+
+                    <!-- Messages -->
+                    <div class="block-content-full">
+                        <table class="table table-borderless table-striped table-vcenter remove-margin">
+                            <tbody>
+                            <!-- Use the first row as a prototype for your column widths -->
+                            <tr>
+                                <td class="td-label td-label-muted text-center" style="width: 5%;">
+                                    <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                                </td>
+                                <td class="text-center" style="width: 7%;">
+                                    <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
+                                </td>
+                                <td>
+                                    <h4>
+                                        <a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Nouveaux produits</strong></a>
+                                    </h4>
+                                    <span class="text-muted">Ceci est un extrait du message..</span>
+                                </td>
+                                <td class="hidden-xs text-center" style="width: 30px;">
+                                    <i class="fa fa-paperclip fa-2x text-muted"></i>
+                                </td>
+                                <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>il y a 2 minutes</em></td>
+                            </tr>
+                            <tr>
+                                <td class="td-label td-label-danger text-center">
+                                    <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                                </td>
+                                <td class="text-center">
+                                    <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
+                                </td>
+                                <td>
+                                    <h4><a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Requête : Appels de fonds</strong></a></h4>
+                                    <span class="text-muted">Ceci est un extrait du message..</span>
+                                </td>
+                                <td class="hidden-xs">
+                                    <i class="fa fa-paperclip fa-2x text-muted"></i>
+                                </td>
+                                <td class="hidden-xs text-right text-muted"><em>il y a 15 minutes</em></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END Messages -->
+                </div>
+                <!-- END Message List -->
+            </div>
+            <!-- END Email Center Content -->
+        </div>
+    </div>
+
+    <!-- Compose Modal -->
+    <div id="modal-compose" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Écrire un nouveau message</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <form action="<?= WWW; ?>/" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="À .." style="width: 250px;" multiple="">
+                                    <option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                                    <option value="john.doe">John Taylor</option>
+                                    <option value="sara.castillo">Sara Castillo</option>
+                                    <option value="rachel.fox">Rachel Fox</option>
+                                    <option value="vincent.johnson">Vincent Johnson</option>
+                                    <option value="russell.perkins">Russell Perkins</option>
+                                    <option value="denise.hill">Denise Hill</option>
+                                    <option value="helen.gomez">Helen Gomez</option>
+                                    <option value="marie.herrera">Marie Herrera</option>
+                                    <option value="charles.morris">Charles Morris</option>
+                                    <option value="janice.contreras">Janice Contreras</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <textarea id="fcompose-message" name="fcompose-message" rows="7" class="form-control" placeholder="Votre message.."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="control-label">Importer depuis mes documents :</label>
+                                <select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="Rechercher.." style="width: 250px;" multiple="">
+                                    <option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                                    <option value="john.doe">Tableur des habitants de la Résidence Roserai.indd</option>
+                                    <option value="sara.castillo">Journal "Charlie Hebdo" - Edition spéciale.pdf</option>
+                                    <option value="rachel.fox">Arrêt de préfecture, tabac dans les couloirs.doc</option>
+                                    <option value="vincent.johnson">Fiche d'impôts sur la taxe foncière.doc</option>
+                                    <option value="russell.perkins">Compte rendu AG Avril 2013.indd</option>
+                                    <option value="denise.hill">Décisions AG - poubelles communes.indd</option>
+                                    <option value="helen.gomez">Facture EDF Mai 2014.indd</option>
+                                    <option value="marie.herrera">Facture fournisseur Z.pdfa</option>
+                                    <option value="charles.morris">Test de nom de fichier.excel</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="control-label">Importer depuis mon ordinateur :</label>
+                                <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
+                                <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
+                                    <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                    <label for="fileInput" class="btn btn-info">
+                                        <span class="glyphicon fa fa-file-o"></span> &nbsp; Sélectionnez un fichier
+                                    </label>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 text-right">
+                                <button type="submit" class="btn btn-effect-ripple btn-primary">Envoyer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Compose Modal -->
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
