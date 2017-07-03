@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
+use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Copropriete;
 use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Entity\Document;
@@ -12,6 +13,7 @@ use AKYOS\EasyCoproBundle\Entity\Message;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Entity\User;
 use AKYOS\EasyCoproBundle\Form\CreateArtisanType;
+use AKYOS\EasyCoproBundle\Form\CreateCategorieType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\CreateDocumentType;
@@ -19,9 +21,19 @@ use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
+use AKYOS\EasyCoproBundle\Form\EditArtisanType;
+use AKYOS\EasyCoproBundle\Form\EditCategorieType;
+use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
+use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 
 class SyndicController extends Controller
 {
@@ -37,13 +49,20 @@ class SyndicController extends Controller
         $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndic($syndic);
         //Requete Locataire Repository
         $nbre_locataires = $em->getRepository(Locataire::class)->findNbrLocatairesBySyndic($syndic);
-
         $artisans = $syndic->getArtisans();
+        //Requete Document
+        $documents = $syndic->getDocuments();
+        $coproprietes = $syndic->getCoproprietes();
+        //Requete Document Repository
+        $nbre_documents = $em->getRepository(Document::class)->findNbreDocumentByCoproprieteBySyndic($syndic);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig', array(
             'nbre_coproprietaires' => $nbre_coproprietaires,
+            'documents' => $documents,
             'nbre_locataires' => $nbre_locataires,
             'artisans' => $artisans,
+            'coproprietes' => $coproprietes,
+            'nbre_documents' => $nbre_documents,
         ));
     }
 
@@ -71,8 +90,10 @@ class SyndicController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show.html.twig', array(
-            'syndic' => $syndic
+            'syndic' => $syndic,
+
         ));
     }
 
@@ -94,24 +115,26 @@ class SyndicController extends Controller
     public function createCoproprietaireAction(Request $request)
     {
         $coproprietaire = new Coproprietaire();
-
         $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $coproprietaire->getUser()->setType('COPRO');
             $coproprietaire->getUser()->addRole('ROLE_COPRO');
+            if ($coproprietaire->getActuel()) {
+                $lot = $coproprietaire->getLot();
+                $lot->setOccupeAct(true);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($coproprietaire);
             $em->flush();
 
-            $confirmService = $this->get('akyos.confirm_registration');
-            $confirmService->confirm($coproprietaire->getUser());
+//            $confirmService = $this->get('akyos.confirm_registration');
+//            $confirmService->confirm($coproprietaire->getUser());
 
-            $password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
-            $documentService = $this->get('akyos.generate_document');
-            $documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
-
+//            $password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
+//            $documentService = $this->get('akyos.generate_document');
+//            $documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
@@ -127,7 +150,7 @@ class SyndicController extends Controller
 
     public function editCoproprietaireAction(Request $request, Coproprietaire $coproprietaire)
     {
-        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
+        $form = $this->createForm(EditCoproprietaireType::class, $coproprietaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -140,7 +163,7 @@ class SyndicController extends Controller
                 'id' => $coproprietaire->getId(),
             ));
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_artisan.html.twig', array(
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_coproprietaire.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -168,6 +191,10 @@ class SyndicController extends Controller
     public function deleteCoproprietaireAction(Request $request, Coproprietaire $coproprietaire)
     {
         if ($coproprietaire !== null) {
+            if ($coproprietaire->getActuel()) {
+                $lot = $coproprietaire->getLot();
+                $lot->setOccupeAct(false);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->remove($coproprietaire);
             $em->flush();
@@ -277,16 +304,35 @@ class SyndicController extends Controller
     // ACTIONS LIEES AUX ARTISANS
     //---------------------------
 
+    public function gestionArtisansAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $artisans = $syndic->getArtisans();
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_artisans.html.twig', array(
+            'artisans' => $artisans,
+        ));
+    }
+
     public function createArtisanAction(Request $request)
     {
         $artisan = new Artisan();
 
-        $form = $this->createForm(CreateArtisanType::class, $artisan);
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
+
+        $form = $this->createForm(CreateArtisanType::class, $artisan, array(
+            'coproprietes' => $coproprietes,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $artisan->getUser()->setType('ARTISAN');
             $artisan->getUser()->addRole('ROLE_ARTISAN');
+            $artisan->setSyndic($syndic);
             $em = $this->getDoctrine()->getManager();
             $em->persist($artisan);
             $em->flush();
@@ -294,9 +340,9 @@ class SyndicController extends Controller
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($artisan->getUser());
 
-            $password = $_POST['akyos_easycoprobundle_artisan']['user']['plainPassword']['first'];
-            $documentService = $this->get('akyos.generate_document');
-            $documentService->generateRegistrationDocument($this->getUser(), $artisan, $password);
+//            $password = $_POST['akyos_easycoprobundle_artisan']['user']['plainPassword']['first'];
+//            $documentService = $this->get('akyos.generate_document');
+//            $documentService->generateRegistrationDocument($this->getUser(), $artisan, $password);
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
@@ -305,13 +351,19 @@ class SyndicController extends Controller
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_artisan.html.twig', array(
-            'form' => $form->createView(),
+            'form_add_artisan' => $form->createView(),
         ));
     }
 
     public function editArtisanAction(Request $request, Artisan $artisan)
     {
-        $form = $this->createForm(CreateArtisanType::class, $artisan);
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
+
+        $form = $this->createForm(EditArtisanType::class, $artisan, array(
+            'coproprietes' => $coproprietes,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -324,8 +376,10 @@ class SyndicController extends Controller
                 'id' => $artisan->getId(),
             ));
         }
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_artisan.html.twig', array(
-            'form' => $form->createView(),
+            'form_edit_artisan' => $form->createView(),
+            'artisanId' => $artisan->getId(),
         ));
     }
 
@@ -333,18 +387,6 @@ class SyndicController extends Controller
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_artisan.html.twig', array(
             'artisan' => $artisan,
-        ));
-    }
-
-    public function listArtisansAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        $artisans = $syndic->getArtisans();
-
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_artisans.html.twig', array(
-            'artisans' => $artisans,
         ));
     }
 
@@ -357,11 +399,11 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le compte a bien été supprimé.');
 
-            return $this->redirectToRoute('syndic_list_artisans');
+            return $this->redirectToRoute('syndic_gestion_artisans');
         }
         $request->getSession()->getFlashBag()->add('info', 'Le compte que vous souhaitez supprimer n\'existe pas !');
 
-        return $this->redirectToRoute('syndic_list_artisans');
+        return $this->redirectToRoute('syndic_gestion_artisans');
     }
 
 
@@ -404,8 +446,22 @@ class SyndicController extends Controller
     {
         $request->getSession()->set('copro', $copropriete);
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig',
-            ['copropriete' => $copropriete]);
+        $em = $this->getDoctrine()->getManager();
+        $coproprietaires = $em->getRepository(Coproprietaire::class)->findCoproprietairesByCopropriete($copropriete);
+
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
+
+        $artisans = $copropriete->getArtisans();
+        $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig', array(
+            'copropriete' => $copropriete,
+            'nbre_coproprietaires' =>$nbre_coproprietaires,
+            'coproprietaires' =>$coproprietaires,
+            'artisans' =>$artisans,
+            'documents'=>$documents,
+            ));
     }
 
     public function listCoproprietesAction()
@@ -473,18 +529,18 @@ class SyndicController extends Controller
             ['lot' => $lot]);
     }
 
-    public function listLotsAction($id)
+    public function listLotsAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        //TODO : à modifier (sélection par liste déroulante ?)
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        $copropriete = $em->getRepository(Copropriete::class)->find($id);
-        $lots = $copropriete->getLots();
-        $coproprietes = $em->getRepository(Copropriete::class)->findAll();
-
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_lots.html.twig',
-            ['lots' => $lots, 'coproprietes' => $coproprietes]);
+//        $em = $this->getDoctrine()->getManager();
+//
+//        //TODO : à modifier (sélection par liste déroulante ?)
+//        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+//        $copropriete = $em->getRepository(Copropriete::class)->find($id);
+//        $lots = $copropriete->getLots();
+//        $coproprietes = $em->getRepository(Copropriete::class)->findAll();
+//
+//        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_lots.html.twig',
+//            ['lots' => $lots, 'coproprietes' => $coproprietes]);
     }
 
     public function deleteLotAction(Request $request, Lot $lot)
@@ -500,42 +556,63 @@ class SyndicController extends Controller
     // ACTIONS LIEES AUX DOCUMENTS
     //----------------------------
 
+    public function gestionDocumentsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountBySyndic($syndic);
+        $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_documents.html.twig', array(
+            'categoriesCount' => $categoriesCount,
+            'documentsCount' => count($allDocuments),
+            'documents' => $allDocuments,
+        ));
+    }
+
     public function createDocumentAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
         $document = new Document();
-        $form = $this->createForm(CreateDocumentType::class, $document);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $document->getFichier();
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            $document->setNom($fileName);
-            $em = $this->getDoctrine()->getManager();
+        $form_document = $this->createForm(CreateDocumentType::class, $document);
+        $form_document->handleRequest($request);
+
+        if ($form_document->isSubmitted() && $form_document->isValid()) {
+            $document->setSyndic($syndic);
             $em->persist($document);
             $em->flush();
-            //TODO : Modifier le message flash
-            $this->addFlash('info', 'Le DOCUMENT a été créé avec succès.');
+
+            $this->addFlash('info', 'Un nouveau document a été importé avec succès.');
             return $this->redirectToRoute('syndic_show_document',
                 array('id' => $document->getId()));
         }
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_document.html.twig', array(
-            'form' => $form->createView(),
+            'form_document' => $form_document->createView(),
         ));
     }
 
     public function editDocumentAction(Request $request, Document $document)
     {
-        $form = $this->createForm(CreateDocumentType::class, $document);
+        $form = $this->createForm(EditDocumentType::class, $document);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $this->addFlash('info', 'Le DOCUMENT a bien été modifié.');
+            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur le document ont bien été enregistrées.');
+
             return $this->redirectToRoute('syndic_show_document', array(
                 'id' => $document->getId(),
             ));
         }
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_document.html.twig', array(
-            'form' => $form->createView(),
+            'form_edit_document' => $form->createView(),
+            'documentId' => $document->getId(),
         ));
     }
 
@@ -546,65 +623,75 @@ class SyndicController extends Controller
         ));
     }
 
-    public function listDocumentsAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        //TODO : à modifier (on veut récupérer la liste des documents d'un syndic par de tous )
-        $documents = $em->getRepository(Document::class)->findAll();
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_documents.html.twig', array(
-            'documents' => $documents,
-        ));
-    }
-
     public function deleteDocumentAction(Request $request, Document $document)
     {
         if ($document !== null) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($document);
             $em->flush();
-            $this->addFlash('info', 'Le DOCUMENT a bien été supprimé.');
-            return $this->redirectToRoute('syndic_list_documents');
+
+            $request->getSession()->getFlashBag()->add('info', 'Le document a bien été supprimé.');
+            return $this->redirectToRoute('syndic_gestion_documents');
         }
-        $this->addFlash('info', "Ce DOCUMENT n'existe pas !");
-        return $this->redirectToRoute('syndic_list_documents');
+        $request->getSession()->getFlashBag()->add('info', 'Le document n\'existe pas.');
+
+        return $this->redirectToRoute('syndic_gestion_documents');
     }
 
-    public function gestionDocumentsAction(Request $request)
+    // ACTIONS LIEES AUX CATEGORIES
+    //-----------------------------
+
+    public function gestionCategoriesAction()
     {
-        $document = new Document();
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
-        $form = $this->createForm(CreateDocumentType::class, $document);
+        $categories = $em->getRepository(Categorie::class)->findBySyndic($syndic);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_categories.html.twig', array(
+            'categories' => $categories,
+        ));
+    }
+
+    public function createCategorieAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $categorie = new Categorie();
+        $form = $this->createForm(CreateCategorieType::class, $categorie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $document->getFichier();
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            $document
-                ->setDateAjout(new \DateTime())
-                ->setDateModif(new \DateTime())
-                ->setSyndic($syndic)
-                ->setUrl($fileName)
-                ->setExtension($file->guessExtension())
-            ;
-
-            $em->persist($document);
+            $categorie->setSyndic($syndic);
+            $em->persist($categorie);
             $em->flush();
 
-            $this->addFlash('info', 'Un nouveau document a été importé avec succès.');
-            return $this->redirectToRoute('syndic_show_document',
-                array('id' => $document->getId()));
+            $this->addFlash('info', 'Une nouvelle catégorie a été créée avec succès.');
+            return $this->redirectToRoute('syndic_gestion_categories');
         }
 
-        $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountBySyndic($syndic);
-        $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
+        return $this->render('AKYOSEasyCoproBundle:BackOffice/Syndic:create_categorie.html.twig', array(
+            'form_add_categorie' => $form->createView(),
+        ));
+    }
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_documents.html.twig', array(
-            'categoriesCount' => $categoriesCount,
-            'documentsCount' => count($allDocuments),
-            'documents' => $allDocuments,
-            'form' => $form->createView(),
+    public function editCategorieAction(Request $request, Categorie $categorie)
+    {
+        $form = $this->createForm(EditCategorieType::class, $categorie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur la catégorie ont bien été enregistrées.');
+
+            return $this->redirectToRoute('syndic_gestion_categories');
+        }
+
+        return $this->render('AKYOSEasyCoproBundle:BackOffice/Syndic:edit_categorie.html.twig', array(
+            'form_edit_categorie' => $form->createView(),
+            'categorieId' => $categorie->getId(),
         ));
     }
     // ACTIONS LIEES AUX MSGS
@@ -684,6 +771,57 @@ class SyndicController extends Controller
         }
         $this->addFlash('info', "Ce Message n'existe pas !");
         return $this->redirectToRoute('syndic_corbeille');
+    }
+
+    public function deleteCategorieAction(Request $request, Categorie $categorie)
+    {
+        if ($categorie !== null) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($categorie);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'La catégorie a bien été supprimé.');
+            return $this->redirectToRoute('syndic_gestion_categories');
+        }
+        $request->getSession()->getFlashBag()->add('info', 'La catégorie n\'existe pas.');
+
+        return $this->redirectToRoute('syndic_gestion_categories');
+    }
+
+    // ACTIONS LIEES AUX MESSAGES
+    //-----------------------------
+
+    public function gestionMessagesAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_messages.html.twig');
+    }
+
+    // ACTIONS REQUETES AJAX
+    //----------------------
+
+    public function listCategorieDocumentsAction(Request $request, $categorieId) {
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+            if ($categorieId == 'all') {
+                $documents = $em->getRepository(Document::class)->findAllDocumentsBySyndic($syndic);
+            } else {
+                $categorie = $em->getRepository(Categorie::class)->find($categorieId);
+                $documents = $em->getRepository(Document::class)->findDocumentsByCategorie($categorie);
+            }
+            $encoder = new JsonEncoder();
+            $normalizer = new ObjectNormalizer();
+
+            $serializer = new Serializer(array($normalizer), array($encoder));
+
+            $jsonDocuments = $serializer->serialize($documents, 'json');
+
+            return new JsonResponse(array(
+                'data'=> $jsonDocuments
+            ));
+        }
+        throw new HttpException('501', 'Invalid Call');
     }
 
 }

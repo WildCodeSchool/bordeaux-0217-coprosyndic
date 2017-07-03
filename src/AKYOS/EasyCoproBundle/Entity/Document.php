@@ -10,6 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Table(name="document")
  * @ORM\Entity(repositoryClass="AKYOS\EasyCoproBundle\Repository\DocumentRepository")
  * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks()
  */
 class Document
 {
@@ -24,9 +25,9 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="titre", type="string", length=255)
      */
-    private $nom;
+    private $titre;
     /**
      * @var string
      *
@@ -42,15 +43,9 @@ class Document
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_modif", type="datetime")
+     * @ORM\Column(name="date_modif", type="datetime", nullable=true)
      */
     private $dateModif;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", length=255, unique=true)
-     */
-    private $url;
     /**
      * @var string
      *
@@ -62,6 +57,10 @@ class Document
      */
     private $syndic;
     /**
+     * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="documents")
+     */
+    private $copropriete;
+    /**
      * @ORM\ManyToMany(targetEntity="Lot", inversedBy="documents", cascade={"persist"})
      */
     private $lots;
@@ -69,12 +68,26 @@ class Document
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="documents")
      */
     private $categorie;
-
     /**
-     * @Vich\UploadableField(mapping="img_documents", fileNameProperty="url")
+     * @Vich\UploadableField(mapping="documents", fileNameProperty="nom")
      * @var File
      */
     private $fichier;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lots = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
 
     /**
      * Get id
@@ -112,10 +125,11 @@ class Document
      * @param \DateTime $dateAjout
      *
      * @return Document
+     * @ORM\PrePersist
      */
-    public function setDateAjout($dateAjout)
+    public function setDateAjout()
     {
-        $this->dateAjout = $dateAjout;
+        $this->dateAjout = new \DateTime();
         return $this;
     }
     /**
@@ -133,10 +147,12 @@ class Document
      * @param \DateTime $dateModif
      *
      * @return Document
+     * @ORM\PreUpdate
      */
-    public function setDateModif($dateModif)
+    public function setDateModif($dateModif = null)
     {
-        $this->dateModif = $dateModif;
+        $this->dateModif = $dateModif === null ? new \DateTime() : $dateModif;
+
         return $this;
     }
     /**
@@ -147,35 +163,6 @@ class Document
     public function getDateModif()
     {
         return $this->dateModif;
-    }
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Document
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-        return $this;
-    }
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->lots = new \Doctrine\Common\Collections\ArrayCollection();
-
     }
     /**
      * Set syndic
@@ -217,7 +204,7 @@ class Document
      *
      * @param Lot $lot
      */
-    public function removeLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot)
+    public function removeLot(Lot $lot)
     {
         $this->lots->removeElement($lot);
     }
@@ -237,7 +224,7 @@ class Document
      *
      * @return Document
      */
-    public function setCategorie(\AKYOS\EasyCoproBundle\Entity\Categorie $categorie = null)
+    public function setCategorie(Categorie $categorie = null)
     {
         $this->categorie = $categorie;
         return $this;
@@ -251,24 +238,19 @@ class Document
     {
         return $this->categorie;
     }
-
-
     /**
-     * @param File|null $nom*
+     * @param File|null $fichier
      */
-    public function setFichier(File $nom = null)
+    public function setFichier(File $fichier = null)
     {
-        $this->fichier = $nom;
+        $this->fichier = $fichier;
 
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($nom) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->dateModif = new \DateTime('now');
+        if ($fichier) {
+            $this->dateModif = new \DateTimeImmutable();
         }
-    }
 
+        return $this;
+    }
     /**
      * @return File
      */
@@ -276,15 +258,14 @@ class Document
     {
         return $this->fichier;
     }
-
     /**
      * @param $nom
      */
     public function setNom($nom)
     {
         $this->nom = $nom;
+        return $this;
     }
-
     /**
      * @return string
      */
@@ -292,33 +273,34 @@ class Document
     {
         return $this->nom;
     }
-
     /**
-     *
+     * @param $titre
      */
-    public function upload()
+    public function setTitre($titre)
     {
-        if (null === $this->fichier) {
-            return;
-        }
-
-        // $this->fichier = null;
+        $this->titre = $titre;
+        return $this;
     }
-
+    /**
+     * @return string
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
     /**
      * Set extension
      *
      * @param string $extension
      *
      * @return Document
+     * @ORM\PrePersist
      */
-    public function setExtension($extension)
+    public function setExtension()
     {
-        $this->extension = $extension;
-
+        $this->extension = $this->fichier->guessExtension();
         return $this;
     }
-
     /**
      * Get extension
      *
@@ -327,5 +309,27 @@ class Document
     public function getExtension()
     {
         return $this->extension;
+    }
+    /**
+     * Set copropriete
+     *
+     * @param Copropriete $copropriete
+     *
+     * @return Document
+     */
+    public function setCopropriete(Copropriete $copropriete = null)
+    {
+        $this->copropriete = $copropriete;
+
+        return $this;
+    }
+    /**
+     * Get copropriete
+     *
+     * @return Copropriete
+     */
+    public function getCopropriete()
+    {
+        return $this->copropriete;
     }
 }

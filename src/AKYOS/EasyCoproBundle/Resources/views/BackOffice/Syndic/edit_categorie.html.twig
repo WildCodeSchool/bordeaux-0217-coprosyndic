@@ -1,0 +1,52 @@
+{{ form_start(form_edit_categorie, {'attr':{'class':'form-horizontal', 'action': path('syndic_edit_categorie', {'id': categorieId})  }}) }}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title"><strong>Modifier une catégorie</strong></h3>
+</div>
+
+<div class="modal-body">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-7" style="margin-right:30px">
+                <div class="form-group">
+                    {{ form_row(form_edit_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'Saisissez le nom ...'}}) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form_label(form_edit_categorie.couleur) }}
+                    <div class="input-group colorpicker-component">
+                        {{ form_widget(form_edit_categorie.couleur, {'attr':{'class': 'form-control', 'placeholder': 'Choisissez une couleur ...'}}) }}
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                    {{ form_errors(form_edit_categorie.couleur) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form_row(form_edit_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'Entrez une description ...'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="col-md-12">
+        <div class="form-group pull-right">
+            {{ form_widget(form_edit_categorie.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
+        </div>
+    </div>
+</div>
+
+
+{{ form_rest(form_edit_categorie) }}
+{{ form_end(form_edit_categorie) }}

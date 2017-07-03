@@ -59,7 +59,7 @@ class Copropriete
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse_sec", type="string", length=255)
+     * @ORM\Column(name="adresse_sec", type="string", length=255, nullable=true)
      */
     private $adresseSec;
 
@@ -146,9 +146,19 @@ class Copropriete
     private $syndic;
 
     /**
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="copropriete")
+     */
+    private $documents;
+
+    /**
      * @ORM\OneToMany(targetEntity="Lot", mappedBy="copropriete")
      */
     private $lots;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Artisan", mappedBy="copropriete")
+     */
+    private $artisans;
 
     public function __toString()
     {
@@ -636,5 +646,73 @@ class Copropriete
     public function getLots()
     {
         return $this->lots;
+    }
+
+    /**
+     * Add document
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     *
+     * @return Copropriete
+     */
+    public function addDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    {
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
+     */
+    public function removeDocument(\AKYOS\EasyCoproBundle\Entity\Document $document)
+    {
+        $this->documents->removeElement($document);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
+    }
+
+    /**
+     * Add artisan
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Artisan $artisan
+     *
+     * @return Copropriete
+     */
+    public function addArtisan(\AKYOS\EasyCoproBundle\Entity\Artisan $artisan)
+    {
+        $this->artisans[] = $artisan;
+
+        return $this;
+    }
+
+    /**
+     * Remove artisan
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Artisan $artisan
+     */
+    public function removeArtisan(\AKYOS\EasyCoproBundle\Entity\Artisan $artisan)
+    {
+        $this->artisans->removeElement($artisan);
+    }
+
+    /**
+     * Get artisans
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArtisans()
+    {
+        return $this->artisans;
     }
 }

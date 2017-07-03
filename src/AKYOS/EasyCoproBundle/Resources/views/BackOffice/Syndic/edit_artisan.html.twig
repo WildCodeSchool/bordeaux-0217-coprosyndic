@@ -1,24 +1,132 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{{ form_start(form_edit_artisan, {'attr': {'class': 'form-horizontal', 'action': path('syndic_edit_artisan', {'id': artisanId}) }}) }}
 
-{% block title %}
-    Modification ARTISAN
-{% endblock %}
+<div class="block">
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Informations de connexion</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            {{ form_label(form_edit_artisan.user.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.user.username) }}
+            {{ form_widget(form_edit_artisan.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form_edit_artisan.user.email,'Email de connexion', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.user.email) }}
+            {{ form_widget(form_edit_artisan.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form_edit_artisan.copropriete,'Copropriété', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.copropriete) }}
+            {{ form_widget(form_edit_artisan.copropriete, { 'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+</div>
+<div class="block" >
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Informations sur la société</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form_edit_artisan.raisonSociale,'Raison sociale', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.raisonSociale) }}
+            {{ form_widget(form_edit_artisan.raisonSociale, { 'attr': {'class': 'form-control', 'placeholder':'Raison sociale'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form_edit_artisan.siret,'SIRET', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.siret) }}
+            {{ form_widget(form_edit_artisan.siret, { 'attr': {'class': 'form-control', 'placeholder':'SIRET'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            {{ form_label(form_edit_artisan.activite,'Activité', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.activite) }}
+            {{ form_widget(form_edit_artisan.activite, { 'attr': {'class': 'form-control', 'placeholder':'Activité'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form_edit_artisan.emailBureau,'Email société', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.emailBureau) }}
+            {{ form_widget(form_edit_artisan.emailBureau, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form_edit_artisan.telephoneBureau,'Téléphone société', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.telephoneBureau) }}
+            {{ form_widget(form_edit_artisan.telephoneBureau, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form_edit_artisan.adressePrinc,'Adresse postale', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.adressePrinc) }}
+            {{ form_widget(form_edit_artisan.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse postale'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form_edit_artisan.adresseSec,'Complément d\'adresse', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.adresseSec) }}
+            {{ form_widget(form_edit_artisan.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adresse'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            {{ form_label(form_edit_artisan.codePostal,'Code postal', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.codePostal) }}
+            {{ form_widget(form_edit_artisan.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code postal'}}) }}
+        </div>
+        <div class="col-md-8">
+            {{ form_label(form_edit_artisan.ville,'Ville', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.ville) }}
+            {{ form_widget(form_edit_artisan.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
+        </div>
+    </div>
+</div>
+<div class="block">
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Utilisateur du compte</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            {{ form_label(form_edit_artisan.contactPrenom,'Prénom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.contactPrenom) }}
+            {{ form_widget(form_edit_artisan.contactPrenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom du contact'}}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form_edit_artisan.contactNom,'Nom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.contactNom) }}
+            {{ form_widget(form_edit_artisan.contactNom, { 'attr': {'class': 'form-control', 'placeholder':'Nom du contact'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form_edit_artisan.contactEmail,'Email', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.contactEmail) }}
+            {{ form_widget(form_edit_artisan.contactEmail, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail du contact'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form_edit_artisan.contactTelephone,'Téléphone portable', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.contactTelephone) }}
+            {{ form_widget(form_edit_artisan.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
+        </div>
+    </div>
+</div>
 
-{% block stylesheets %}
-{% endblock %}
-
-{% block titre_page %}
-    Edition d'un compte Artisan
-{% endblock %}
-
-{% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li class="active">Editer un compte Artisan</li>
-{% endblock %}
-
-{% block content %}
-    {{ form(form) }}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+<div class="block">
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="col-md-8">
+            {{ form_label(form_edit_artisan.user.current_password, 'Veuillez saisir le mot de passe pour valider', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form_edit_artisan.user.current_password) }}
+            </div>
+            <div class="col-md-4">
+            {{ form_widget(form_edit_artisan.user.current_password, { 'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            {{ form_widget(form_edit_artisan.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+        </div>
+    </div>
+</div>
+{{ form_rest(form_edit_artisan) }}
+{{ form_end(form_edit_artisan) }}

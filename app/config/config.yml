@@ -9,6 +9,8 @@ parameters:
     img_documents: '%kernel.root_dir%/web/assets/img/docs'
     locale: fr
     app.path.img_documents: /assets/img/docs
+    app.path.avatar_images: /assets/img/avatar
+
 
 framework:
     #esi: ~
@@ -83,7 +85,7 @@ fos_user:
         sender_name: EasyCopro
     registration:
         form:
-            type: AKYOS\EasyCoproBundle\Form\RegistrationType
+            type: AKYOS\EasyCoproBundle\Form\CreateUserType
         confirmation:
             enabled: true
             template: 'FOSUserBundle:Registration:email.txt.twig'
@@ -94,14 +96,16 @@ fos_user:
 vich_uploader:
     db_driver: orm
     mappings:
-        img_documents:
-            uri_prefix:         '%app.path.img_documents%'
+        documents:
+            uri_prefix:         /documents
             upload_destination: '%kernel.root_dir%/../web/documents'
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
             namer:              vich_uploader.namer_uniqid
-
+        avatar_images:
+            uri_prefix:         '%app.path.avatar_images%'
+            upload_destination: '%kernel.root_dir%/../web/assets/img/avatar'
 # KNP Snappy Configuration
 knp_snappy:
     pdf:

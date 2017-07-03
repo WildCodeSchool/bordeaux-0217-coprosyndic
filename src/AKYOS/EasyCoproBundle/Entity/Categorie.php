@@ -41,7 +41,7 @@ class Categorie
     private $couleur;
 
     /**
-     * @ORM\OneToMany(targetEntity="Document", mappedBy="categorie")
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="categorie", cascade={"remove"})
      */
     private $documents;
 

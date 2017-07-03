@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{ asset('assets/backoffice/css/themes/classy.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/backoffice/css/themes/flat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/backoffice/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/loading.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/normalize.css') }}">
     {% block stylesheets %}{% endblock %}
     <!-- END Stylesheets -->
 
@@ -59,17 +61,8 @@
 
             <!-- Sidebar Extra Info -->
             <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
-                {#<div class="push-bit">
-                            <span class="pull-right">
-                                <a href="javascript:void(0)" class="text-muted"><i class="fa fa-plus"></i></a>
-                            </span>
-                    <small><strong>5.3 GB</strong> / 20 GB</small>
-                </div>
-                <div class="progress progress-mini push-bit">
-                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 28%"></div>
-                </div>#}
                 <div class="text-center">
-                    <small><span id="year-copy"></span> &copy; <a href="" target="_blank">EasyCopro 1.0</a></small>
+                    <small><span id="year-copy"></span> &copy; <a href="/">EasyCopro 1.0</a></small>
                 </div>
             </div>
             <!-- END Sidebar Extra Info -->
@@ -100,8 +93,9 @@
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu text-left" id="all-coownerships-dropdown">
                                 <li class="dropdown-header"><i class="fa fa-building pull-right"></i> <strong>Mes copropriétés</strong></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Résidence aux 5 palmiers</a></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Appartement Leclerc</a></li>
+                                {#TODO : adapter la liste déroulante au syndic actuel#}
+                                {#<li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Résidence aux 5 palmiers</a></li>#}
+                                {#<li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Appartement Leclerc</a></li>#}
                                 <li class="divider"></li>
                                 <li><a href="{{ path('syndic_create_copropriete') }}"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
                             </ul>
@@ -303,6 +297,8 @@
 <!-- Custom element for Backend -->
 <script src="{{ asset('assets/backoffice/js/custom.js') }}"></script>
 <script src="{{ asset('assets/frontoffice/js/flash_messages_box.js') }}"></script>
-
+<script src="{{ asset('assets/backoffice/js/spin.js') }}"></script>
+<script src="{{ asset('assets/backoffice/js/loading.js') }}"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

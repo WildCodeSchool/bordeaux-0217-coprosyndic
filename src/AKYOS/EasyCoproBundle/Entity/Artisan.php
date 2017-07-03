@@ -118,9 +118,14 @@ class Artisan
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Syndic", mappedBy="artisans")
+     * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="artisans")
      */
-    private $syndics;
+    private $syndic;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="artisans")
+     */
+    private $copropriete;
 
 
     /**
@@ -476,37 +481,52 @@ class Artisan
         return $this->user;
     }
 
+
     /**
-     * Add syndic
+     * Set syndic
      *
      * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
      *
      * @return Artisan
      */
-    public function addSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic)
+    public function setSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic = null)
     {
-        $this->syndics[] = $syndic;
+        $this->syndic = $syndic;
 
         return $this;
     }
 
     /**
-     * Remove syndic
+     * Get syndic
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
+     * @return \AKYOS\EasyCoproBundle\Entity\Syndic
      */
-    public function removeSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic)
+    public function getSyndic()
     {
-        $this->syndics->removeElement($syndic);
+        return $this->syndic;
     }
 
     /**
-     * Get syndics
+     * Set copropriete
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     *
+     * @return Artisan
      */
-    public function getSyndics()
+    public function setCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete = null)
     {
-        return $this->syndics;
+        $this->copropriete = $copropriete;
+
+        return $this;
+    }
+
+    /**
+     * Get copropriete
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Copropriete
+     */
+    public function getCopropriete()
+    {
+        return $this->copropriete;
     }
 }
