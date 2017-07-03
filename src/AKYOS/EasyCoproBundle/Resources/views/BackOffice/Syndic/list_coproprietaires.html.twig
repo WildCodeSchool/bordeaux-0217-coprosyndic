@@ -71,14 +71,14 @@ Gestion des copropriétaires
     <!-- Users Results -->
     <div class="row">
         {% for coproprietaire in coproprietaires %}
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <div class="no-padding">
                 <div class="lib-panel">
                     <div class="row box-shadow">
                         <div class="col-md-5 no-padding">
-                            <img class="lib-img-show" src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}" alt="avatar">
+                            <img class="img-circle img-thumbnail img-thumbnail-avatar-2x" src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar"/>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="lib-row lib-header">
                                 <a href="{{ path('syndic_show_coproprietaire', {'id': coproprietaire.id }) }}">{{ coproprietaire.nom ~ ' ' ~ coproprietaire.prenom  }}</a>
                                 <div class="lib-header-seperator"></div>
@@ -88,7 +88,7 @@ Gestion des copropriétaires
                                 <h5>{% if coproprietaire.membreConseil %} Membre du Conseil <i class="fa fa-fw fa-bookmark"></i> {% endif %}</h5>
                             </div>
                         </div>
-                        <div class="col-md-1 icon-fa text-right">
+                        <div class="col-sm-1 icon-fa text-right">
                             <a href="javascript:void(0)" data-toggle="tooltip" title="Envoyer un message" style="width: 31px" class="btn btn-effect-ripple btn-sm btn-info">
                                 <i class="fa fa-envelope"></i></a>
 

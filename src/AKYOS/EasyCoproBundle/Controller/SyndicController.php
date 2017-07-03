@@ -682,7 +682,7 @@ class SyndicController extends Controller
             $em->remove($categorie);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'La catégorie a bien été supprimé.');
+            $request->getSession()->getFlashBag()->add('info', 'La catégorie a bien été supprimée.');
             return $this->redirectToRoute('syndic_gestion_categories');
         }
         $request->getSession()->getFlashBag()->add('info', 'La catégorie n\'existe pas.');
