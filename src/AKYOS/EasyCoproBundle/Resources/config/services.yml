@@ -29,3 +29,19 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: twig.extension }
+
+    twig.format.telnumber:
+        class: AKYOS\EasyCoproBundle\Service\TelNumberTwigFilter
+        tags:
+            - { name: twig.extension }
+
+    app.form.registration:
+        class: AKYOS\EasyCoproBundle\Form\CreateUserType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    form.type.create_coproprietaire:
+        class: AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }

@@ -28,9 +28,9 @@
             <li>
                 <a href="{{ path('syndic_gestion_artisans') }}"><i class="fa fa-sitemap sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gérer les fournisseurs</span></a>
             </li>
-            <li>
-                <a href=""><i class="fa fa-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Planning / Événements</span></a>
-            </li>
+            {#<li>#}
+                {#<a href=""><i class="fa fa-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Planning / Événements</span></a>#}
+            {#</li>#}
             <li class="sidebar-separator">
                 <i class="fa fa-ellipsis-h"></i>
             </li>
@@ -38,7 +38,7 @@
                 <a href="{{ path('syndic_gestion_documents') }}"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
             </li>
             <li>
-                <a href="/"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">4</span>
+                <a href="{{ path('syndic_gestion_messages') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">4</span>
                     <span class="sidebar-nav-mini-hide">Mes Messages</span></a>
             </li>
 

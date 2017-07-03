@@ -20,6 +20,7 @@ use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
 use AKYOS\EasyCoproBundle\Form\EditCategorieType;
+use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -110,24 +111,26 @@ class SyndicController extends Controller
     public function createCoproprietaireAction(Request $request)
     {
         $coproprietaire = new Coproprietaire();
-
         $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $coproprietaire->getUser()->setType('COPRO');
             $coproprietaire->getUser()->addRole('ROLE_COPRO');
+            if ($coproprietaire->getActuel()) {
+                $lot = $coproprietaire->getLot();
+                $lot->setOccupeAct(true);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($coproprietaire);
             $em->flush();
 
-            $confirmService = $this->get('akyos.confirm_registration');
-            $confirmService->confirm($coproprietaire->getUser());
+//            $confirmService = $this->get('akyos.confirm_registration');
+//            $confirmService->confirm($coproprietaire->getUser());
 
-            $password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
-            $documentService = $this->get('akyos.generate_document');
-            $documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
-
+//            $password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
+//            $documentService = $this->get('akyos.generate_document');
+//            $documentService->generateRegistrationDocument($this->getUser(), $coproprietaire, $password);
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
@@ -143,7 +146,7 @@ class SyndicController extends Controller
 
     public function editCoproprietaireAction(Request $request, Coproprietaire $coproprietaire)
     {
-        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
+        $form = $this->createForm(EditCoproprietaireType::class, $coproprietaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -156,7 +159,7 @@ class SyndicController extends Controller
                 'id' => $coproprietaire->getId(),
             ));
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_artisan.html.twig', array(
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_coproprietaire.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -184,6 +187,10 @@ class SyndicController extends Controller
     public function deleteCoproprietaireAction(Request $request, Coproprietaire $coproprietaire)
     {
         if ($coproprietaire !== null) {
+            if ($coproprietaire->getActuel()) {
+                $lot = $coproprietaire->getLot();
+                $lot->setOccupeAct(false);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->remove($coproprietaire);
             $em->flush();
@@ -309,12 +316,19 @@ class SyndicController extends Controller
     {
         $artisan = new Artisan();
 
-        $form = $this->createForm(CreateArtisanType::class, $artisan);
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
+
+        $form = $this->createForm(CreateArtisanType::class, $artisan, array(
+            'coproprietes' => $coproprietes,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $artisan->getUser()->setType('ARTISAN');
             $artisan->getUser()->addRole('ROLE_ARTISAN');
+            $artisan->setSyndic($syndic);
             $em = $this->getDoctrine()->getManager();
             $em->persist($artisan);
             $em->flush();
@@ -339,7 +353,13 @@ class SyndicController extends Controller
 
     public function editArtisanAction(Request $request, Artisan $artisan)
     {
-        $form = $this->createForm(EditArtisanType::class, $artisan);
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
+
+        $form = $this->createForm(EditArtisanType::class, $artisan, array(
+            'coproprietes' => $coproprietes,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -375,11 +395,11 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le compte a bien été supprimé.');
 
-            return $this->redirectToRoute('syndic_list_artisans');
+            return $this->redirectToRoute('syndic_gestion_artisans');
         }
         $request->getSession()->getFlashBag()->add('info', 'Le compte que vous souhaitez supprimer n\'existe pas !');
 
-        return $this->redirectToRoute('syndic_list_artisans');
+        return $this->redirectToRoute('syndic_gestion_artisans');
     }
 
 
@@ -424,23 +444,20 @@ class SyndicController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $coproprietaires = $em->getRepository(Coproprietaire::class)->findCoproprietairesByCopropriete($copropriete);
-        //Requete Coproprietaire Repository
+
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndic($syndic);
+        $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
 
-        $artisans = $syndic->getArtisans();
-
-        //Requete Document Repository
+        $artisans = $copropriete->getArtisans();
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig',
-            ['copropriete' => $copropriete,
-             'nbre_coproprietaires' =>$nbre_coproprietaires,
-             'coproprietaires' =>$coproprietaires,
-             'artisans' =>$artisans,
-             'documents'=>$documents,
-
-            ]);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig', array(
+            'copropriete' => $copropriete,
+            'nbre_coproprietaires' =>$nbre_coproprietaires,
+            'coproprietaires' =>$coproprietaires,
+            'artisans' =>$artisans,
+            'documents'=>$documents,
+            ));
     }
 
     public function listCoproprietesAction()
@@ -687,6 +704,14 @@ class SyndicController extends Controller
         $request->getSession()->getFlashBag()->add('info', 'La catégorie n\'existe pas.');
 
         return $this->redirectToRoute('syndic_gestion_categories');
+    }
+
+    // ACTIONS LIEES AUX MESSAGES
+    //-----------------------------
+
+    public function gestionMessagesAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_messages.html.twig');
     }
 
     // ACTIONS REQUETES AJAX

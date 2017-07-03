@@ -100,6 +100,7 @@ syndic_show_copropriete:
     path:     /show/copropriete/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showCopropriete }
 
+
 syndic_list_coproprietes:
     path:     /list/coproprietes
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCoproprietes }
@@ -179,3 +180,11 @@ syndic_edit_categorie:
 syndic_delete_categorie:
     path: /delete/categorie/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteCategorie }
+
+
+# ROUTE LIEES AUX MESSAGES
+#--------------------------
+
+syndic_gestion_messages:
+    path: /list/messages
+    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionMessages }

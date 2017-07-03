@@ -122,6 +122,11 @@ class Artisan
      */
     private $syndic;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="artisans")
+     */
+    private $copropriete;
+
 
     /**
      * Get id
@@ -499,5 +504,29 @@ class Artisan
     public function getSyndic()
     {
         return $this->syndic;
+    }
+
+    /**
+     * Set copropriete
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     *
+     * @return Artisan
+     */
+    public function setCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete = null)
+    {
+        $this->copropriete = $copropriete;
+
+        return $this;
+    }
+
+    /**
+     * Get copropriete
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Copropriete
+     */
+    public function getCopropriete()
+    {
+        return $this->copropriete;
     }
 }
