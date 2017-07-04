@@ -466,9 +466,22 @@ class SyndicController extends Controller
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
         $coproprietes = $syndic->getCoproprietes();
+        $counts = [];
+
+        foreach ($coproprietes as $copropriete) {
+            $nb_documents = count($copropriete->getDocuments());
+            $nb_coproprietaires = $em->getRepository(Coproprietaire::class)
+                ->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
+
+            $counts[] = [
+                'nbDocuments' => $nb_documents,
+                'nbCoproprietaires' => $nb_coproprietaires,
+            ];
+        }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietes.html.twig', array(
             'coproprietes' => $coproprietes,
+            'counts' => $counts,
         ));
     }
 
