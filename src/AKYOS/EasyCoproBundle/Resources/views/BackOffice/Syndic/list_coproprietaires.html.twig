@@ -75,10 +75,10 @@ Gestion des copropriétaires
             <div class="no-padding">
                 <div class="lib-panel">
                     <div class="row box-shadow">
-                        <div class="col-md-5 no-padding">
+                        <div class="col-md-3 no-padding">
                             <img class="img-circle img-thumbnail img-thumbnail-avatar-2x" src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar"/>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-8">
                             <div class="lib-row lib-header">
                                 <a href="{{ path('syndic_show_coproprietaire', {'id': coproprietaire.id }) }}">{{ coproprietaire.nom ~ ' ' ~ coproprietaire.prenom  }}</a>
                                 <div class="lib-header-seperator"></div>
