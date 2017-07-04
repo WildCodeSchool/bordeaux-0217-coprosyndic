@@ -7,9 +7,7 @@
             <!-- Title -->
             <div class="block-title clearfix" style="margin:0px -15px">
                 <div class="block-options pull-right">
-                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme important"><i class="fa fa-exclamation-circle"></i></a>
-                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Marquer en favori"><i class="fa fa-star"></i></a>
-                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Marquer comme SPAM"><i class="fa fa-exclamation-triangle"></i></a>
+                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme lu"><i class="fa fa-exclamation-circle"></i></a>
                     <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="Supprimer"><i class="fa fa-times"></i></a>
                 </div>
                 <div class="block-options pull-left">
@@ -19,8 +17,9 @@
             <!-- END Title -->
 
             <!-- Header -->
-            <h3><strong>{{ message.titre }}</strong> <small><em>{{ message.dateEnvoi|date('Y-m-d') }}</em></small></h3>
-            <p><a href="<?= WWW; ?>/coowners/eric-stone"><strong>{{ message.expediteur }}</strong></a> <strong>&lt;expediteur@example.com&gt;</strong> to <a href="<?= WWW; ?>/coowners/eric-stone"><strong>{{ message.destinataire }}</strong></a> <strong>&lt;destinataire@example.com&gt;</strong></p>
+
+            <h3><strong>{{ message.titre }}</strong> <small><em>Reçu le {{ message.dateEnvoi|date('Y-m-d') }}</em></small></h3>
+            <p>Expéditeur:<a href="#"> <strong>{{ message.expediteur }}</strong></a> Destinataire: <a href="#"><strong>{{ message.destinataire }}</strong></a></p>
             <!-- END Header -->
 
             <!-- Message Body -->
@@ -29,7 +28,7 @@
             <hr>
             <!-- END Message Body -->
 
-            <!-- Attachments Row -->
+            <!-- Attachments Row --> <!--
             <div class="row block-section">
                 <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
                     <a href="<?= ressources('back'); ?>/img/placeholders/photos/photo2.jpg" data-toggle="lightbox-image">
@@ -55,12 +54,12 @@
                     </a>
                     <span class="text-muted">IMG0004.JPG</span>
                 </div>
-            </div>
+            </div> -->
             <!-- END Attachments Row -->
 
             <!-- Quick Reply Form -->
-            <form action="{{ path('syndic_send_message') }}" method="post" onsubmit="return false;">
-                <textarea id="message-quick-reply" name="message-quick-reply" rows="5" class="form-control push-bit" placeholder="Votre message.."></textarea>
+            <form action="{{ path('syndic_reply_message') }}" method="post" onsubmit="return false;">
+                <textarea id="message-quick-reply" name="message-quick-reply" rows="5" class="form-control push-bit" placeholder="Votre réponse.."></textarea>
                 <button class="btn btn-effect-ripple btn-primary"><i class="fa fa-share"></i> Répondre</button>
             </form>
             <!-- END Quick Reply Form -->

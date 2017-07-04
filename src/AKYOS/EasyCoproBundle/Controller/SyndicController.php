@@ -697,28 +697,6 @@ class SyndicController extends Controller
     // ACTIONS LIEES AUX MSGS
     //-----------------------
 
-    public function sendMessageAction(Request $request)
-    {
-        $message = new Message();
-        $form = $this->createForm(MessageType::class, $message);
-        $message
-            ->setDateEnvoi(new \DateTime());
-        $sender=$this->getUser();
-        $message->setExpediteur($sender);
-        $message->setSuprime(false);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($message);
-            $em->flush();
-            $this->addFlash('info', 'Le message a été envoyé !');
-            return $this->redirectToRoute('syndic_send_message');
-        }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/send_message.html.twig',
-            ['form' => $form->createView()]);
-    }
-
     public function showMessageAction(Message $message)
     {
         if($this->getUser() == $message->getDestinataire()){
@@ -733,9 +711,9 @@ class SyndicController extends Controller
 
     public function deleteMessageAction(Request $request, Message $message)
     {
-        if ($message !== null && $message->getSuprime()==false) {
+        if ($message !== null && $message->getIsSupprime()==false) {
             $em = $this->getDoctrine()->getManager();
-            $em->setSuprime(true);
+            $em->setisSupprime(true);
             $em->update($message);
             $em->flush();
             $this->addFlash('info', 'Le Message a été mis dans la corbeille.');
@@ -745,19 +723,93 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_inbox');
     }
 
-    public function inboxAction()
+    public function inboxAction(Request $request)
     {
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig');
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message
+            ->setDateEnvoi(new \DateTime());
+        $sender=$this->getUser();
+        $message->setExpediteur($sender);
+        $message->setisSupprime(false);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
+            ['formSend' => $form->createView()]);
     }
 
-    public function messagesEnvoyesAction()
+    public function replyMessageAction(Request $request)
     {
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/messages_envoyes.html.twig');
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message
+            ->setDateEnvoi(new \DateTime());
+        $sender=$this->getUser();
+        $message->setExpediteur($sender);
+        $message->setIsSupprime(false);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
+            ['formReply' => $form->createView()]);
     }
 
-    public function corbeilleAction(Request $request, Message $message)
+
+    public function messagesEnvoyesAction(Request $request)
     {
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig');
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message
+            ->setDateEnvoi(new \DateTime());
+        $sender=$this->getUser();
+        $message->setExpediteur($sender);
+        $message->setIsSupprime(false);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/messages_envoyes.html.twig',
+            ['formSend' => $form->createView()]);
+    }
+
+    public function corbeilleAction(Request $request)
+    {
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message
+            ->setDateEnvoi(new \DateTime());
+        $sender=$this->getUser();
+        $message->setExpediteur($sender);
+        $message->setIsSupprime(false);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig',
+            ['formSend' => $form->createView()]);
     }
 
     public function deleteMessageCorbeilleAction(Request $request, Message $message)
@@ -788,13 +840,6 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_gestion_categories');
     }
 
-    // ACTIONS LIEES AUX MESSAGES
-    //-----------------------------
-
-    public function gestionMessagesAction()
-    {
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/gestion_messages.html.twig');
-    }
 
     // ACTIONS REQUETES AJAX
     //----------------------

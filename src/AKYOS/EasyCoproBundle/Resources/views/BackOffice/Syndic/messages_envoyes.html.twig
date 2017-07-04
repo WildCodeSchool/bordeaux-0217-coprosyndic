@@ -8,44 +8,18 @@
 {% endblock %}
 
 {% block content %}
-    <p>
-    {% for message in app.session.flashbag.get('info') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-    </p>
-    <h4>Boite de reception :</h4>
-    <table class="table table-striped table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Destinataire</th>
-            <th>Date d'Envoi</th>
-            <th>Contenu</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for message in app.user.messagesenvoyes %}
-            <tr>
-                <td><a href="{{ path('syndic_show_message', {'id': message.id}) }}">{{ message.id }}</a></td>
-                <td>{{ message.destinataire }}</td>
-                <td>{{ message.dateEnvoi|date('Y-m-d') }}</td>
-                <td>{{ message.contenu }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}
 
 {% block scripts %}
 {% endblock %}
 
 {% block boo %}
-<div class="row">
+    <div class="row">
     <div class="col-md-2">
         <!-- Inner Sidebar -->
         <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
         <div class="block-section">
-            <a href="{{path('syndic_send_message')}}" class="btn btn-effect-ripple btn-block btn-success" data-toggle="modal"><i class="fa fa-pencil"></i> Nouveau message</a>
+            <a href="#modal-compose" class="btn btn-effect-ripple btn-block btn-success" data-toggle="modal"><i class="fa fa-pencil"></i> Nouveau message</a>
         </div>
         <!-- END Compose Message -->
 
@@ -55,33 +29,18 @@
             <!-- Menu -->
             <div class="block-section">
                 <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
+                    <li>
                         <a href="{{path('syndic_inbox')}}">
                             <i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong>
                         </a>
                     </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-fw text-warning fa-star icon-push"></i> <strong>Favoris</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-fw text-info fa-exclamation-circle icon-push"></i> <strong>Important</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
+                    <li class="active">
+                        <a href="{{path('syndic_messages_envoyes')}}">
                             <i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-fw fa-exclamation-triangle text-danger icon-push"></i> <strong>Spams</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
+                        <a href="{{path('syndic_corbeille')}}">
                             <i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong>
                         </a>
                     </li>
@@ -106,9 +65,7 @@
                     </div>
                     <div class="block-options pull-left" style="padding-left:18px;">
                         <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>
-                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Mettre en favoris"><i class="fa fa-star"></i></a>
-                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme important"><i class="fa fa-exclamation-circle"></i></a>
-                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Marquer comme SPAM"><i class="fa fa-exclamation-triangle"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme lu"><i class="fa fa-exclamation-circle"></i></a>
                         <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="Supprimer"><i class="fa fa-times"></i></a>
                     </div>
                 </div>
@@ -119,158 +76,27 @@
                     <table class="table table-borderless table-striped table-vcenter remove-margin">
                         <tbody>
                         <!-- Use the first row as a prototype for your column widths -->
-                        <tr>
-                            <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center" style="width: 7%;">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4>
-                                    <a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Nouveaux produits</strong></a>
-                                </h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs text-center" style="width: 30px;">
-                                <i class="fa fa-paperclip fa-2x text-muted"></i>
-                            </td>
-                            <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>il y a 2 minutes</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-danger text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4><a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Requête : Appels de fonds</strong></a></h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs">
-                                <i class="fa fa-paperclip fa-2x text-muted"></i>
-                            </td>
-                            <td class="hidden-xs text-right text-muted"><em>il y a 15 minutes</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-success text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4>
-                                    <a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Détails du nouveau projet</strong></a>
-                                </h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs"></td>
-                            <td class="hidden-xs text-right text-muted"><em>Il y a 40 minutes</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-success text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4><a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Bonjour Syndic</strong></a></h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs"></td>
-                            <td class="hidden-xs text-right text-muted"><em>Il y a 1 heure</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-warning text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4><a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Changement de copropriétaire</strong></a></h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs"></td>
-                            <td class="hidden-xs text-right text-muted"><em>Il y a 2 heures</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-info text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4><a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Juste pour dire Bonjour !</strong></a></h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs"></td>
-                            <td class="hidden-xs text-right text-muted"><em>Il y a 5 heures</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-info text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4><a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Construction d'un nouveau site</strong></a></h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs"></td>
-                            <td class="hidden-xs text-right text-muted"><em>Il y a 10 heures</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-danger text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4>
-                                    <a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Votre offre à été mise à jour</strong></a>
-                                </h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs">
-                                <i class="fa fa-paperclip fa-2x text-muted"></i>
-                            </td>
-                            <td class="hidden-xs text-right text-muted"><em>Il y a 2 jours</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-danger text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4><a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>Une super opportunité</strong></a></h4>
-                                <span class="text-muted">Ceci est un extrait du message..</span>
-                            </td>
-                            <td class="hidden-xs"></td>
-                            <td class="hidden-xs text-right text-muted"><em>Il y a 1 semaine</em></td>
-                        </tr>
-                        <tr>
-                            <td class="td-label td-label-success text-center">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center">
-                                <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4><a href="<?= WWW; ?>/myemails/view" class="text-dark"><strong>MaCopro - Activation de votre compte</strong></a></h4>
-                                <span class="text-muted">Ceci est un extrait du messagee..</span>
-                            </td>
-                            <td class="hidden-xs"></td>
-                            <td class="hidden-xs text-right text-muted"><em>Il y a 2 semaines</em></td>
-                        </tr>
+
+                        {% for message in app.user.messagesenvoyes %}
+                            <tr>
+                                <td class="td-label td-label-muted text-center" style="width: 5%;">
+                                    <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                                </td>
+                                <td class="text-center" style="width: 7%;">
+                                    <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
+                                </td>
+                                <td>
+                                    <h4>
+                                        <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                    </h4>
+                                    <span class="text-muted">{{ message.contenu }}</span>
+                                </td>
+                                <td class="hidden-xs text-center" style="width: 30px;">
+                                    <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
+                                </td>
+                                <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>Envoyé le : {{ message.dateEnvoi|date('Y-m-d') }}</em></td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -280,38 +106,35 @@
         </div>
         <!-- END Email Center Content -->
     </div>
-</div>
+    </div>
+    <!-- Compose Modal -->
 
-<!-- Compose Modal -->
-<div id="modal-compose" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title"><strong>Écrire un nouveau message</strong></h3>
-            </div>
-            <div class="modal-body">
-                <form action="<?= WWW; ?>/" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+    <div id="modal-compose" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Écrire un nouveau message</strong></h3>
+                </div>
+
+                <div class="modal-body">
+                    {{ form_start(formSend) }}
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="À .." style="width: 250px;" multiple="">
-                                <option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->
-                                <option value="john.doe">John Taylor</option>
-                                <option value="sara.castillo">Sara Castillo</option>
-                                <option value="rachel.fox">Rachel Fox</option>
-                                <option value="vincent.johnson">Vincent Johnson</option>
-                                <option value="russell.perkins">Russell Perkins</option>
-                                <option value="denise.hill">Denise Hill</option>
-                                <option value="helen.gomez">Helen Gomez</option>
-                                <option value="marie.herrera">Marie Herrera</option>
-                                <option value="charles.morris">Charles Morris</option>
-                                <option value="janice.contreras">Janice Contreras</option>
-                            </select>
+                            {{ form_row(formSend.destinataire) }}
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <textarea id="fcompose-message" name="fcompose-message" rows="7" class="form-control" placeholder="Votre message.."></textarea>
+                            <!--<textarea id="fcompose-message" name="fcompose-message" rows="7" class="form-control" placeholder="Votre message.."></textarea>-->
+                            {{ form_row(formSend.titre) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <!--<textarea id="fcompose-message" name="fcompose-message" rows="7" class="form-control" placeholder="Votre message.."></textarea>-->
+                            {{ form_row(formSend.contenu) }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -321,13 +144,6 @@
                                 <option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->
                                 <option value="john.doe">Tableur des habitants de la Résidence Roserai.indd</option>
                                 <option value="sara.castillo">Journal "Charlie Hebdo" - Edition spéciale.pdf</option>
-                                <option value="rachel.fox">Arrêt de préfecture, tabac dans les couloirs.doc</option>
-                                <option value="vincent.johnson">Fiche d'impôts sur la taxe foncière.doc</option>
-                                <option value="russell.perkins">Compte rendu AG Avril 2013.indd</option>
-                                <option value="denise.hill">Décisions AG - poubelles communes.indd</option>
-                                <option value="helen.gomez">Facture EDF Mai 2014.indd</option>
-                                <option value="marie.herrera">Facture fournisseur Z.pdfa</option>
-                                <option value="charles.morris">Test de nom de fichier.excel</option>
                             </select>
                         </div>
                     </div>
@@ -347,13 +163,12 @@
 
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-primary">Envoyer</button>
+                            {{ form_row(formSend.send) }}
                         </div>
                     </div>
-                </form>
+                    {{ form_end(formSend) }}
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- END Compose Modal -->
 {% endblock %}

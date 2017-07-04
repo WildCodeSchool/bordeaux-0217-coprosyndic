@@ -185,16 +185,12 @@ syndic_delete_categorie:
 # ROUTE LIEES AUX MESSAGES
 #--------------------------
 
-syndic_gestion_messages:
-    path: /list/messages
-    defaults: { _controller: AKYOSEasyCoproBundle:Syndic:gestionMessages }
-
-syndic_send_message:
-        path: /send/message
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:sendMessage}
+syndic_reply_message:
+        path: /reply/message
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:replyMessage}
 
 syndic_show_message:
-        path: /show/message/{id}/
+        path: /show/message/{id}
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessage}
 
 syndic_delete_message:

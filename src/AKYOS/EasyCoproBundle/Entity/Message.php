@@ -54,9 +54,9 @@ class Message
 
     /** @var boolean
      *
-     * @ORM\Column(name="supprime", type="boolean")
+     * @ORM\Column(name="isSupprime", type="boolean")
      */
-    private $suprime;
+    private $isSupprime;
 
     /**
      * Get id
@@ -195,9 +195,9 @@ class Message
      *
      * @return Message
      */
-    public function setSuprime($suprime)
+    public function setIsSupprime($isSupprime)
     {
-        $this->suprime = $suprime;
+        $this->isSupprime = $isSupprime;
 
         return $this;
     }
@@ -207,8 +207,8 @@ class Message
      *
      * @return boolean
      */
-    public function getSuprime()
+    public function getIsSupprime()
     {
-        return $this->suprime;
+        return $this->isSupprime;
     }
 }
