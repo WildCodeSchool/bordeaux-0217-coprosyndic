@@ -185,6 +185,10 @@ syndic_delete_categorie:
 # ROUTE LIEES AUX MESSAGES
 #--------------------------
 
+syndic_new_message:
+        path: /reply/message
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:replyMessage}
+
 syndic_reply_message:
         path: /reply/message
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:replyMessage}

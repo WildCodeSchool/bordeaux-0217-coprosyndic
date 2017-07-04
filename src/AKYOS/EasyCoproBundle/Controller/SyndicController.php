@@ -694,12 +694,29 @@ class SyndicController extends Controller
             'categorieId' => $categorie->getId(),
         ));
     }
+
+    public function deleteCategorieAction(Request $request, Categorie $categorie)
+    {
+        if ($categorie !== null) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($categorie);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'La catégorie a bien été supprimé.');
+            return $this->redirectToRoute('syndic_gestion_categories');
+        }
+        $request->getSession()->getFlashBag()->add('info', 'La catégorie n\'existe pas.');
+
+        return $this->redirectToRoute('syndic_gestion_categories');
+    }
+
     // ACTIONS LIEES AUX MSGS
     //-----------------------
 
     public function showMessageAction(Message $message)
     {
         if($this->getUser() == $message->getDestinataire()){
+            $message->setIsLu(true);
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message.html.twig', array(
                 'message' => $message
             ));
@@ -732,6 +749,7 @@ class SyndicController extends Controller
         $sender=$this->getUser();
         $message->setExpediteur($sender);
         $message->setisSupprime(false);
+        $message->setIsLu(false);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -754,6 +772,30 @@ class SyndicController extends Controller
         $sender=$this->getUser();
         $message->setExpediteur($sender);
         $message->setIsSupprime(false);
+        $message->setIsLu(true);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Votre réponse a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
+            ['formReply' => $form->createView()]);
+    }
+
+    public function newMessageAction(Request $request)
+    {
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message
+            ->setDateEnvoi(new \DateTime());
+        $sender=$this->getUser();
+        $message->setExpediteur($sender);
+        $message->setIsSupprime(false);
+        $message->setIsLu(false);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -764,7 +806,7 @@ class SyndicController extends Controller
             return $this->redirectToRoute('syndic_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
-            ['formReply' => $form->createView()]);
+            ['formNew' => $form->createView()]);
     }
 
 
@@ -777,8 +819,8 @@ class SyndicController extends Controller
         $sender=$this->getUser();
         $message->setExpediteur($sender);
         $message->setIsSupprime(false);
+        $message->setIsLu(false);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
@@ -823,21 +865,6 @@ class SyndicController extends Controller
         }
         $this->addFlash('info', "Ce Message n'existe pas !");
         return $this->redirectToRoute('syndic_corbeille');
-    }
-
-    public function deleteCategorieAction(Request $request, Categorie $categorie)
-    {
-        if ($categorie !== null) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($categorie);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('info', 'La catégorie a bien été supprimé.');
-            return $this->redirectToRoute('syndic_gestion_categories');
-        }
-        $request->getSession()->getFlashBag()->add('info', 'La catégorie n\'existe pas.');
-
-        return $this->redirectToRoute('syndic_gestion_categories');
     }
 
 

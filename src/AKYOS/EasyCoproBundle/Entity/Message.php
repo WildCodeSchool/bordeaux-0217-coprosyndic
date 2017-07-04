@@ -58,6 +58,13 @@ class Message
      */
     private $isSupprime;
 
+    /** @var boolean
+     *
+     * @ORM\Column(name="isLu", type="boolean")
+     */
+    private $isLu;
+
+
     /**
      * Get id
      *
@@ -189,26 +196,50 @@ class Message
     }
 
     /**
-     * Set suprime
+     * Set isSupprime
      *
-     * @param boolean $suprime
+     * @param boolean $IsSupprime
      *
      * @return Message
      */
-    public function setIsSupprime($isSupprime)
+    public function setIsSupprime($IsSupprime)
     {
-        $this->isSupprime = $isSupprime;
+        $this->isSupprime = $IsSupprime;
 
         return $this;
     }
 
     /**
-     * Get suprime
+     * Get isSupprime
      *
      * @return boolean
      */
     public function getIsSupprime()
     {
         return $this->isSupprime;
+    }
+
+    /**
+     * Set isLu
+     *
+     * @param boolean $IsLu
+     *
+     * @return Message
+     */
+    public function setIsLu($IsLu)
+    {
+        $this->isLu = $IsLu;
+
+        return $this;
+    }
+
+    /**
+     * Get isLu
+     *
+     * @return boolean
+     */
+    public function getIsLu()
+    {
+        return $this->isLu;
     }
 }
