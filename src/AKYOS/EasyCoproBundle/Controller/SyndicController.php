@@ -451,7 +451,7 @@ class SyndicController extends Controller
 
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
-
+        $lots = $copropriete->getLots();
         $artisans = $copropriete->getArtisans();
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
 
@@ -461,6 +461,7 @@ class SyndicController extends Controller
             'coproprietaires' =>$coproprietaires,
             'artisans' =>$artisans,
             'documents'=>$documents,
+            'lots' =>$lots,
             ));
     }
 
