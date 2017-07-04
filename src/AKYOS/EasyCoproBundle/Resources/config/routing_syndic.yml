@@ -187,14 +187,14 @@ syndic_delete_categorie:
 
 syndic_new_message:
         path: /reply/message
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:replyMessage}
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:newMessage}
 
 syndic_reply_message:
         path: /reply/message
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:replyMessage}
 
 syndic_show_message:
-        path: /show/message/{id}
+        path: /inbox/message/{id}
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessage}
 
 syndic_delete_message:
