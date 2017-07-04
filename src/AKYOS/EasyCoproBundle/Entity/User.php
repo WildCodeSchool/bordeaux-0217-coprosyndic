@@ -12,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity
  * @Vich\Uploadable
  * @ORM\Table(name="user")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
@@ -56,6 +57,13 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $updatedAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_inscription", type="datetime")
+     */
+    private $dateInscription;
 
 
     public function __construct()
@@ -167,6 +175,8 @@ class User extends BaseUser
             // if 'updatedAt' is not defined in your entity, use another property
             $this->updatedAt = new \DateTime('now');
         }
+
+        return $this;
     }
 
     public function getImageFile()
@@ -177,6 +187,8 @@ class User extends BaseUser
     public function setImage($image)
     {
         $this->image = $image;
+
+        return $this;
     }
 
     public function getImage()
@@ -207,5 +219,30 @@ class User extends BaseUser
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set dateInscription
+     *
+     * @param \DateTime $dateInscription
+     *
+     * @return User
+     * @ORM\PrePersist
+     */
+    public function setDateInscription()
+    {
+        $this->dateInscription = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * Get dateInscription
+     *
+     * @return \DateTime
+     */
+    public function getDateInscription()
+    {
+        return $this->dateInscription;
     }
 }

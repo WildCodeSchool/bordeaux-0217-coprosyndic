@@ -34,15 +34,22 @@
     <div class="col-sm-12">
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
-            {{ form_widget(form.user.imageFile, { 'attr': {'class': 'form-control', 'placeholder':'Photo du copropriétaire'}}) }}
+            {{ form_widget(form.user.imageFile, { 'attr': {'class': 'form-control', 'placeholder':'Image de profil'}}) }}
         </div>
     </div>
  </div>
  <div class="row" style="margin-bottom: 10px">
-     <div class="col-sm-12">
+     <div class="col-sm-7">
+         <div class="input-group">
+             <span class="input-group-addon"><i class="fa fa-building fa-fw" aria-hidden="true"></i></span>
+             {{ form_widget(form.copropriete, { 'attr': {'class': 'form-control', 'placeholder':'Copropriété'}}) }}
+         </div>
+     </div>
+     <div class="col-sm-5">
          <div class="input-group">
              <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
-             {{ form_widget(form.lot, { 'attr': {'class': 'form-control', 'placeholder':'Lot d\'appartenance'}}) }}
+             {{ form_widget(form.lot, { 'attr': {'class': 'form-control', 'placeholder':'Choisissez le lot ...'}}) }}
+
          </div>
      </div>
  </div>

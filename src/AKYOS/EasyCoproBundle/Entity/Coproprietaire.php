@@ -523,4 +523,5 @@ class Coproprietaire
     {
         return $this->ville;
     }
+
 }

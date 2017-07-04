@@ -51,9 +51,9 @@ $( document ).ready(function() {
                 for (i = 0; i < documents.length; i++) {
                     html += '<tr>' +
                         '<td class="text-center" style="display:none">' + documents[i].doc_id + '</td>' +
-                        '<td style="padding-left:17px;"><a href="/syndic/show/doc/' + documents[i].doc_id + '"><strong style="cursor: pointer !important;">' + documents[i].doc_nom + '</strong></a></td>' +
+                        '<td style="padding-left:17px;"><a href="/syndic/show/doc/' + documents[i].doc_id + '"><strong style="cursor: pointer !important;">' + documents[i].doc_titre + '</strong></a></td>' +
                         '<td><span class="label label-' + documents[i].cat_nom + '" style="background-color:' + documents[i].couleur + '">' + documents[i].cat_nom + '</span></td>' +
-                        '<td class="text-center">' + getFormattedDate(documents[i].dateModif.timestamp) + '</td>' +
+                        '<td class="text-center">' + getFormattedDate(documents[i].dateAjout.timestamp) + '</td>' +
                         '<td class="text-center">' +
                         '<a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">' +
                         '<i class="fa fa-download"></i></a>' + ' ' +
@@ -94,7 +94,6 @@ $( document ).ready(function() {
         var url = "/syndic/delete/doc/" + documentId;
         $('#delete-doc').attr('href',url);
     });
-
 
     // Fonction pour supprimer une categorie
     $('.btn-delete-categorie').on('click', function (e) {
