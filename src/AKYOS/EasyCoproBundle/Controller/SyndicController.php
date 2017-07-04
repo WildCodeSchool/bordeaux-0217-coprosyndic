@@ -21,6 +21,7 @@ use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
 use AKYOS\EasyCoproBundle\Form\EditCategorieType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
+use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -425,7 +426,7 @@ class SyndicController extends Controller
 
     public function editCoproprieteAction(Request $request, Copropriete $copropriete)
     {
-        $form = $this->createForm(CreateCoproprieteType::class, $copropriete);
+        $form = $this->createForm(EditCoproprieteType::class, $copropriete);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -436,7 +437,9 @@ class SyndicController extends Controller
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_copropriete.html.twig',
-            ['my_form' => $form->createView()]);
+            ['my_form' => $form->createView(),
+            'coproprieteId'=>$copropriete->getId(),
+            ]);
     }
 
     public function showCoproprieteAction(Request $request, Copropriete $copropriete)

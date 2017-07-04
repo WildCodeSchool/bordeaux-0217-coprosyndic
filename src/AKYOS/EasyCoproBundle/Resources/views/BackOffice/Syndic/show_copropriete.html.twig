@@ -63,85 +63,10 @@
                 <!-- Informations -->
                 <div class="tab-pane active" id="coownerships-inforrmations">
                     <div class="animation-fadeInQuick2">
-                        <form action="" method="post" class="form-horizontal" onsubmit="return false;">
-                            <div class="col-md-7" style="margin-right:30px">
-                                <div class="form-group">
-                                    <label for="val-coownership-name">Nom de la propriété</label>
-                                    <input type="text" id="val-coownership-name" name="val-coownership-name" value="{{ copropriete.nom }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="val-city">Ville</label>
-                                    <input type="text" id="val-city" name="val-city" value="{{ copropriete.ville }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-7" style="margin-right:30px">
-                                <div class="form-group">
-                                    <label for="val-address">Adresse</label>
-                                    <input type="text" id="val-address" name="val-address" value="{{ copropriete.adressePrinc }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="val-postal-code">Code postal</label>
-                                    <input type="text" id="val-postal-code" name="val-postal-code" value="{{ copropriete.codePostal }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-7" style="margin-right:30px">
-                                <div class="form-group">
-                                    <label for="val-address">Date de Création</label>
-                                    <input type="text" id="val-create-date" name="val-create-date" value="{{ copropriete.dateCreation|date('d/m/Y') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="val-postal-code">Date de début de Gestion</label>
-                                    <input type="text" id="val-" name="val-gestion-date" value="{{ copropriete.dateDebutGestion|date('d/m/Y') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4" style="margin-right:45px">
-                                <div class="form-group">
-                                    <label for="val-parcelle">Parcelle Cadastrale</label>
-                                    <input type="text" id="val-parcelle" name="val-parcelle" value="{{ copropriete.parcelleCadastrale }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-3" style="margin-right:45px">
-                                <div class="form-group">
-                                    <label for="val-batiment-number">Nombre de Batiments</label>
-                                    <input type="text" id="val-" name="val-batiment-number" value="{{ copropriete.nbBatiments|length }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="val-ascenceur-number">Nombre d'ascenceur</label>
-                                    <input type="text" id="val-ascenceur-number" name="val-ascenceur-number" value="{{ copropriete.nbAscenseurs|length }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4" style="margin-right:45px">
-                                <div class="form-group">
-                                    <label for="val-construction-period">Période de Construction</label>
-                                    <input type="text" id="val-construction-period" name="val-construction-period" value="{{ copropriete.periodeConstruction|date('Y') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-3" style="margin-right:45px">
-                                <div class="form-group">
-                                    <label for="val-lot-number">Nombre de Lots</label>
-                                    <input type="text" id="val-lot-number" name="val-lot-number" value="{{ copropriete.nbLots|length }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="val-lot-number">Date de Réglements</label>
-                                    <input type="text" id="val-reg-lots" name="val-reg-lots" value="{{ copropriete.dateReglement|length }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group form-actions">
-                                <div class="col-md-3">
-                                    <a href="{{ path('syndic_edit_copropriete', {'id':copropriete.id}) }}"><button type="button" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;" value="Mettre à jour">Mettre à jour
-                                        </button></a></div>
-                            </div>
-                        </form>
+
+                      {{ render(controller('AKYOSEasyCoproBundle:Syndic:editCopropriete', {'id': copropriete.id })) }}
+
+
                     </div>
                 </div>
                 <!-- END Informations -->
