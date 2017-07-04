@@ -1,6 +1,14 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{% block title %}
+     Affichage d'un copropriétaire
+{% endblock %}
 
+{% block stylesheets %}
+{% endblock %}
 
+{% block titre_page %}
+    Affichage d'un copropriétaire
+{% endblock %}
 
 {% block breadcrumb %}
     <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
@@ -11,64 +19,60 @@
 {% block content %}
 
     <div class="row">
-
-        <div class="col-md-3">
-            <div class="row" style="background:#FFF; margin-bottom: 20px">
-                <div class="col-md-12">
-                    <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-informations">Informations</a>
-                    <div id="todo-informations" class="collapse navbar-collapse remove-padding">
-                        <h4 class="inner-sidebar-header">Informations
-
-                            <span data-toggle="modal" data-target="#modal-fade-del-coproprietaire">
-                            <a data-toggle="tooltip" data-placement="top" title="Supprimer le document"
-                               class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc pull-right" data-coproprietaire="{{ coproprietaire.id }}">
-                                <i class="fa fa-times"></i></a></span>
-
-                            {#<a href="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}"
-                               download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip"
-                               title="Télécharger le document"
-                               class="btn btn-effect-ripple btn-xs btn-primary pull-right" style="margin-right: 4px">
-                                <i class="fa fa-download"></i></a>
-
-                            <span data-toggle="modal" data-target="#modal-fade-edit-document">
-                            <a data-toggle="tooltip" data-placement="top" title="Modifier le document"
-                               class="btn btn-effect-ripple btn-xs btn-success pull-right" style="margin-right: 4px">
-                                <i class="fa fa-edit"></i></a></span>
-                      #}  </h4>
-                        {#<div class="block-section">
-                            <h4 style="margin-top: 15px"><strong>{{ document.titre }} </strong>
-                                <span class="label pull-right" style="background-color: {{ document.categorie.couleur }}; font-size: small">{{ document.categorie }}</span></h4>
-                            <p>{{ document.description }}
-                                <small  class="pull-right text-right"><br><em>ajouté le {{ document.dateAjout|date('d/m/Y') }}</em>
-                                    {% if document.dateModif is not null %}<br><em>modifié le {{ document.dateModif|date('d/m/Y') }}</em>{% endif %}</small></p>
-                        </div>#}
-                    </div>
+        <div class="col-md-5 col-lg-4">
+            <div class="widget">
+                <div class="widget-content themed-background-danger clearfix">
+                    <img src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
+                    <h2 class="widget-heading h3 text-light"><strong>{{ coproprietaire.prenom~' '~coproprietaire.nom }}</strong></h2>
+                    <span class="text-light-op">Copropriétaire</span>
                 </div>
-            </div>
-
-            <div class="row" style="background:#FFF">
-                <div class="col-md-12">
-                    <div id="todo-options" class="collapse navbar-collapse remove-padding">
-                        <h4 class="inner-sidebar-header">Liste de diffusion</h4>
-                        <div class="block-section">
-
-                            {#<h5><strong style="margin-right: 20px">Copropriété :</strong> {{ document.copropriete }}</h5>
-                            <h5><strong>Copropriétaires :</strong></h5>
-
-                            {% for lot in document.lots %}
-                                {% set coproprietaire = lot|actuelCoproprietaire %}
-                                <span class="label label-primary">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</span>
-                            {% endfor %}#}
-
+                <div class="widget-content widget-content-mini themed-background-dark border-bottom">
+                    <span class="pull-right text-light-op">Depuis le {{ coproprietaire.dateArrivee|date("m/d/Y") }}</span>
+                    <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp;{{ coproprietaire.lot.copropriete }}</strong>
+                </div>
+                <div class="widget-content widget-content-full border-bottom">
+                    <div class="row text-center">
+                        <div class="col-xs-6 push-inner-top-bottom border-right">
+                            <h3 class="widget-heading"><i class="fa fa-file-o push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbdocs = coproprietaire.lot.documents|length %}
+                                            {{ nbdocs }}
+                                    </strong>
+                                            {% if nbdocs > 1 %} Fichiers uploadés{% else %} Fichier uploadé
+                                            {% endif %}
+                                </small></h3>
+                        </div>
+                        <div class="col-xs-6 push-inner-top-bottom">
+                            <h3 class="widget-heading"><i class="fa fa-envelope-o themed-color-social push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbmessages = coproprietaire.user.messagesRecus|length %}
+                                        {{ nbmessages }}
+                                    </strong>
+                                    {% if nbmessages > 1 %} Messages{% else %} Message
+                                    {% endif %}
+                                </small></h3>
                         </div>
                     </div>
                 </div>
+                <div class="widget-content border-bottom">
+                    <h4>Votre commentaire :</h4>
+                    <p>{{ coproprietaire.commentSyndic }}</p>
+                </div>
             </div>
+        </div>
+        <div class="col-md-7 col-lg-8">
+
+                {{ render(controller('AKYOSEasyCoproBundle:Syndic:editCoproprietaire', {'id':coproprietaire.id } )) }}
+
+
 
         </div>
-
-
     </div>
+
+
+
 
     <div id="modal-fade-edit-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
@@ -106,22 +110,6 @@
     </div>
     <!-- END provider Modal -->
 {% endblock %}
-
-
-
-
-
-
-
-    {#<h4>Afficher un copropriétaire :</h4>
-    <h4>{{ coproprietaire.nom }}</h4>
-    <ul>
-        <li>{{ coproprietaire.email }}</li>
-        <li>{{ coproprietaire.membreConseil }}</li>
-        <li>...</li>
-    </ul>
-    <p><a href="{{ path('syndic_edit_coproprietaire', {'id' : coproprietaire.id}) }}">Modifier le copropriétaire</a></p>
-    <p><a href="{{ path('syndic_delete_coproprietaire', {'id' : coproprietaire.id}) }}">Supprimer le copropriétaire</a></p>#}
 
 {% block scripts %}
 {% endblock %}

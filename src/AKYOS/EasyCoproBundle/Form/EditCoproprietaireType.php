@@ -4,6 +4,7 @@ namespace AKYOS\EasyCoproBundle\Form;
 
 use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,11 +23,19 @@ class EditCoproprietaireType extends AbstractType
             ->add('telephone')
             ->add('rib')
             ->add('nbEnfants')
-            ->add('dateArrivee')
-            ->add('dateDepart')
+            ->add('dateArrivee', DateType::class, array(
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+            ))
+            ->add('dateDepart', DateType::class, array(
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+            ))
             ->add('actuel')
             ->add('membreConseil')
-            ->add('submit',SubmitType::class)
+            ->add('submit',SubmitType::class, array(
+                'label'=>'Mettre à jour',
+            ))
         ;
     }
 

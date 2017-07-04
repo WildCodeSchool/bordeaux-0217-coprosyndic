@@ -161,6 +161,7 @@ class SyndicController extends Controller
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_coproprietaire.html.twig', array(
             'form' => $form->createView(),
+            'coproprietaireId' => $coproprietaire->getId(),
         ));
     }
 
