@@ -23,7 +23,10 @@ class MessageType extends AbstractType
                 'multiple' => false))
             ->add('titre', TextareaType::class)
             ->add('contenu', TextareaType::class)
-            ->add('send', SubmitType::class);
+            ->add('send', SubmitType::class, array(
+                'label' => 'Envoyer',
+            ))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

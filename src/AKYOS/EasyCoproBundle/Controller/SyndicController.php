@@ -809,7 +809,6 @@ class SyndicController extends Controller
             ['formNew' => $form->createView()]);
     }
 
-
     public function messagesEnvoyesAction(Request $request)
     {
         $message = new Message();
