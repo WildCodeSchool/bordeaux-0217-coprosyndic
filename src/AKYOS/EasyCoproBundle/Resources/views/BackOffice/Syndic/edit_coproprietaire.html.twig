@@ -16,6 +16,18 @@
             {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
         </div>
     </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            {{ form_label(form.copropriete, 'Copropriété', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.copropriete) }}
+            {{ form_widget(form.copropriete, { 'attr': {'class': 'form-control', 'placeholder':'Choisissez la copropriété'}}) }}
+        </div>
+        <div class="col-xs-6">
+            {{ form_label(form.lot, 'Choisissez le lot', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.lot) }}
+            {{ form_widget(form.lot, { 'attr': {'class': 'form-control', 'placeholder':'Choisissez le lot'}}) }}
+        </div>
+    </div>
 </div>
 <div class="block" >
     <div class="block-title" style="margin-bottom: 0;">
