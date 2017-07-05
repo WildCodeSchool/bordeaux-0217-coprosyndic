@@ -144,7 +144,7 @@ class Copropriete
     private $typeChauffage;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $illustrationName;
@@ -156,7 +156,7 @@ class Copropriete
     private $illustrationFile;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */
