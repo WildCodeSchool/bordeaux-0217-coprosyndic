@@ -969,7 +969,7 @@ class SyndicController extends Controller
 
     public function deleteMessageCorbeilleAction(Request $request, Message $message)
     {
-        if ($message !== null) {
+        if ($message !== null && $message->getIsSupprime()==true ) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($message);
             $em->flush();
