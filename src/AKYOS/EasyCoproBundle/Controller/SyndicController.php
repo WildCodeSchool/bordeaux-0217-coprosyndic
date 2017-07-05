@@ -21,6 +21,7 @@ use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
 use AKYOS\EasyCoproBundle\Form\EditCategorieType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
+use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -161,6 +162,7 @@ class SyndicController extends Controller
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_coproprietaire.html.twig', array(
             'form' => $form->createView(),
+            'coproprietaireId' => $coproprietaire->getId(),
         ));
     }
 
@@ -424,7 +426,7 @@ class SyndicController extends Controller
 
     public function editCoproprieteAction(Request $request, Copropriete $copropriete)
     {
-        $form = $this->createForm(CreateCoproprieteType::class, $copropriete);
+        $form = $this->createForm(EditCoproprieteType::class, $copropriete);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -435,7 +437,9 @@ class SyndicController extends Controller
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_copropriete.html.twig',
-            ['my_form' => $form->createView()]);
+            ['my_form' => $form->createView(),
+            'coproprieteId'=>$copropriete->getId(),
+            ]);
     }
 
     public function showCoproprieteAction(Request $request, Copropriete $copropriete)
@@ -447,7 +451,7 @@ class SyndicController extends Controller
 
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
-
+        $lots = $copropriete->getLots();
         $artisans = $copropriete->getArtisans();
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
 
@@ -457,6 +461,7 @@ class SyndicController extends Controller
             'coproprietaires' =>$coproprietaires,
             'artisans' =>$artisans,
             'documents'=>$documents,
+            'lots' =>$lots,
             ));
     }
 
@@ -493,10 +498,15 @@ class SyndicController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $copropriete = $em->getRepository(Copropriete::class)->find($request->getSession()->get('copro')->getId()); // on recupere dans la bdd la copropriete qui correspond a la copropriete contenue dans la variable de session
+            $lot->setCopropriete($copropriete); // on affecte au lot la copropriete
             $em->persist($lot);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', 'Le lot a été crée avec succès.');
-            return $this->redirectToRoute('syndic_list_lots');
+            return $this->redirectToRoute('syndic_show_copropriete', array(
+                'id'=>$lot->getCopropriete()->getId(),
+
+            ));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_lot.html.twig',
             ['form' => $form->createView()]);
@@ -698,7 +708,7 @@ class SyndicController extends Controller
             $em->remove($categorie);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'La catégorie a bien été supprimé.');
+            $request->getSession()->getFlashBag()->add('info', 'La catégorie a bien été supprimée.');
             return $this->redirectToRoute('syndic_gestion_categories');
         }
         $request->getSession()->getFlashBag()->add('info', 'La catégorie n\'existe pas.');

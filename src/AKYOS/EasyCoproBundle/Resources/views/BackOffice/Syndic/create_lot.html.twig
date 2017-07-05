@@ -1,24 +1,38 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{{ form_start(form, {'action': path('syndic_create_lot')}) }}
+<div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-building fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.identifiant, { 'attr': {'class': 'form-control', 'placeholder':'Identifiant'}}) }}
+            </div>
+        </div>
+</div>
+<div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-building fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.quotePart, { 'attr': {'class': 'form-control', 'placeholder':'Quote-Part'}}) }}
+            </div>
+        </div>
+</div>
+    <div class="row" style="margin-bottom: 10px">
+    <div class="col-sm-12">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.type, { 'attr': {'class': 'form-control', 'placeholder':'Type du lot'}}) }}
 
-{% block title %}
-    Création LOT
-{% endblock %}
+            </div>
+        </div>
 
-{% block stylesheets %}
-{% endblock %}
+</div>
+<div class="row" style="margin-bottom: 10px">
+    <div class="col-sm-12 text-center">
+        <div class="form-group">
+            {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
 
-{% block titre_page %}
-    Création d'un lot
-{% endblock %}
-
-{% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li class="active">Créer un lot</li>
-{% endblock %}
-
-{% block content %}
-    {{ form(form) }}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+        </div>
+    </div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}
