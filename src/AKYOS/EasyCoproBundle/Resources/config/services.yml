@@ -35,6 +35,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.format.compterebours:
+        class: AKYOS\EasyCoproBundle\Service\CompteReboursTwigFilter
+        tags:
+            - { name: twig.extension }
+
     app.form.registration:
         class: AKYOS\EasyCoproBundle\Form\CreateUserType
         tags:

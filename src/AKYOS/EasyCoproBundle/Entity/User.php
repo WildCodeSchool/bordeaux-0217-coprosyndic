@@ -53,7 +53,7 @@ class User extends BaseUser
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
     private $updatedAt;
@@ -61,7 +61,7 @@ class User extends BaseUser
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_inscription", type="datetime")
+     * @ORM\Column(name="date_inscription", type="datetime", nullable=true)
      */
     private $dateInscription;
 

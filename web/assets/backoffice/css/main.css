@@ -1851,6 +1851,7 @@ input[type="email"].form-control.input-lg {
 .input-group {
     margin-top: 1px;
     margin-bottom: 1px;
+    margin-right: 25px;
 }
 
 .input-group .form-control {
@@ -1873,6 +1874,9 @@ input[type="email"].form-control.input-lg {
     text-align: center;
     background-color: #ffffff;
     border-color: #dae0e8;
+}
+.input-group-addon i{
+    padding-left: 15px;
 }
 
 .form-horizontal .control-label {
