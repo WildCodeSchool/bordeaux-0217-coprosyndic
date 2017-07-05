@@ -20,6 +20,7 @@ use AKYOS\EasyCoproBundle\Form\CreateDocumentType;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
+use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
 use AKYOS\EasyCoproBundle\Form\EditCategorieType;
@@ -713,16 +714,47 @@ class SyndicController extends Controller
     // ACTIONS LIEES AUX MSGS
     //-----------------------
 
-    public function showMessageAction(Message $message)
+    public function showMessageAction(Request $request, Message $message)
     {
-        if($this->getUser() == $message->getDestinataire()){
+        if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
             $message->setIsLu(true);
+
+            $reply = new Message();
+            $form = $this->createForm(MessageReplyType::class, $reply);
+            $sender=$this->getUser();
+            $reply
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($sender)
+                ->setIsSupprime(false)
+                ->setIsLu(false);
+
+            //recuperer l'expéditeur du message
+            $expediteur=$message->getExpediteur();
+
+            //l'utiliser comme cible de la réponse
+            $reply->setDestinataire($expediteur);
+
+            //recuperer le titre original du message
+            $titre=$message->getTitre();
+
+            //l'utiliser comme titre de sujet avec "Re:" avant
+            $reply->setTitre('Re:'.$titre);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($reply);
+                $em->flush();
+                $this->addFlash('info', 'Votre réponse a été envoyé !');
+                return $this->redirectToRoute('syndic_inbox');
+            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message.html.twig', array(
-                'message' => $message
+                'message' => $message,'formReply' => $form->createView()
             ));
         }
         else{
-            return new Response("Vous n'êtes pas autorisé a lire ce message");
+            return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
@@ -761,52 +793,6 @@ class SyndicController extends Controller
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
             ['formSend' => $form->createView()]);
-    }
-
-    public function replyMessageAction(Request $request)
-    {
-        $message = new Message();
-        $form = $this->createForm(MessageType::class, $message);
-        $message
-            ->setDateEnvoi(new \DateTime());
-        $sender=$this->getUser();
-        $message->setExpediteur($sender);
-        $message->setIsSupprime(false);
-        $message->setIsLu(true);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($message);
-            $em->flush();
-            $this->addFlash('info', 'Votre réponse a été envoyé !');
-            return $this->redirectToRoute('syndic_inbox');
-        }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
-            ['formReply' => $form->createView()]);
-    }
-
-    public function newMessageAction(Request $request)
-    {
-        $message = new Message();
-        $form = $this->createForm(MessageType::class, $message);
-        $message
-            ->setDateEnvoi(new \DateTime());
-        $sender=$this->getUser();
-        $message->setExpediteur($sender);
-        $message->setIsSupprime(false);
-        $message->setIsLu(false);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($message);
-            $em->flush();
-            $this->addFlash('info', 'Le message a été envoyé !');
-            return $this->redirectToRoute('syndic_inbox');
-        }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
-            ['formNew' => $form->createView()]);
     }
 
     public function messagesEnvoyesAction(Request $request)

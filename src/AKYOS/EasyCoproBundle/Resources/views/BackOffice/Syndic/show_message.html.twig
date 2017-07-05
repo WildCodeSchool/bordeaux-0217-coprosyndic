@@ -58,10 +58,10 @@
             <!-- END Attachments Row -->
 
             <!-- Quick Reply Form -->
-            <form action="{{ path('syndic_reply_message') }}" method="post" onsubmit="return false;">
-                <textarea id="message-quick-reply" name="message-quick-reply" rows="5" class="form-control push-bit" placeholder="Votre réponse.."></textarea>
-                <button class="btn btn-effect-ripple btn-primary"><i class="fa fa-share"></i> Répondre</button>
-            </form>
+            {{ form_start(formReply) }}
+                {{ form_row(formReply.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre réponse..'}}) }}
+                {{ form_row(formReply.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+          {{ form_end(formReply) }}
             <!-- END Quick Reply Form -->
         </div>
         <!-- END Message View -->
