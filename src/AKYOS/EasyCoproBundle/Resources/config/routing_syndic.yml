@@ -189,6 +189,14 @@ syndic_show_message:
         path: /inbox/message/{id}
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessage}
 
+syndic_show_message_from_corbeille:
+        path: /corbeille/message/{id}
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessageFromCorbeille}
+
+syndic_show_message_from_envoye:
+        path: /messagesEnvoyes/message/{id}
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessagefromEnvoyes}
+
 syndic_inbox:
         path: /inbox
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:inbox}
@@ -206,5 +214,14 @@ syndic_corbeille:
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:corbeille}
 
 syndic_delete_message_corbeille:
-        path: /corbeille/message/{id}
+        path: /corbeille/message/{id}/delete
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessageCorbeille}
+
+syndic_nowSuprime:
+        path: /inbox/message/{id}/delete
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:nowSupprime}
+
+syndic_revertMessage:
+        path: /inbox/message/{id}/revert
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:revertMessage}
+

@@ -76,6 +76,7 @@
                         <!-- Use the first row as a prototype for your column widths -->
 
                         {% for message in app.user.messagesrecus %}
+                            {% if message.IsSupprime == false %}
                         <tr>
                             <td class="td-label td-label-muted text-center" style="width: 5%;">
                                 <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
@@ -94,6 +95,7 @@
                             </td>
                             <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
                         </tr>
+                                {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>

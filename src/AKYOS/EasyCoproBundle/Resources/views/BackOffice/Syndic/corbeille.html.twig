@@ -14,8 +14,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('syndic_inbox') }}">Boite de Réception</a></li>
-    <li class="active">Ma Corbeille</li>
+    <li><a href="{{ path('syndic_corbeille') }}">Corbeille</a></li>
+    <li class="active">Mes messages</li>
 {% endblock %}
 
 {% block boo %}
@@ -93,7 +93,7 @@
                                         </td>
                                         <td>
                                             <h4>
-                                                <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                                <a href="{{ path('syndic_show_message_from_corbeille', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
                                             </h4>
                                             <span class="text-muted">{{ message.contenu }}</span>
                                         </td>

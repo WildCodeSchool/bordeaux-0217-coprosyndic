@@ -758,11 +758,99 @@ class SyndicController extends Controller
         }
     }
 
+    public function showMessageFromCorbeilleAction(Request $request, Message $message)
+    {
+        if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
+            $message->setIsLu(true);
+
+            $reply = new Message();
+            $form = $this->createForm(MessageReplyType::class, $reply);
+            $sender=$this->getUser();
+            $reply
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($sender)
+                ->setIsSupprime(false)
+                ->setIsLu(false);
+
+            //recuperer l'expéditeur du message
+            $expediteur=$message->getExpediteur();
+
+            //l'utiliser comme cible de la réponse
+            $reply->setDestinataire($expediteur);
+
+            //recuperer le titre original du message
+            $titre=$message->getTitre();
+
+            //l'utiliser comme titre de sujet avec "Re:" avant
+            $reply->setTitre('Re:'.$titre);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($reply);
+                $em->flush();
+                $this->addFlash('info', 'Votre réponse a été envoyé !');
+                return $this->redirectToRoute('syndic_corbeille');
+            }
+            return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message_from_corbeille.html.twig', array(
+                'message' => $message,'formReply' => $form->createView()
+            ));
+        }
+        else{
+            return new Response("Vous n'êtes pas autorisé à lire ce message");
+        }
+    }
+
+    public function showMessagefromEnvoyesAction(Request $request, Message $message)
+    {
+        if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
+            $message->setIsLu(true);
+
+            $reply = new Message();
+            $form = $this->createForm(MessageReplyType::class, $reply);
+            $sender=$this->getUser();
+            $reply
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($sender)
+                ->setIsSupprime(false)
+                ->setIsLu(false);
+
+            //recuperer l'expéditeur du message
+            $expediteur=$message->getExpediteur();
+
+            //l'utiliser comme cible de la réponse
+            $reply->setDestinataire($expediteur);
+
+            //recuperer le titre original du message
+            $titre=$message->getTitre();
+
+            //l'utiliser comme titre de sujet avec "Re:" avant
+            $reply->setTitre('Re:'.$titre);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($reply);
+                $em->flush();
+                $this->addFlash('info', 'Votre réponse a été envoyé !');
+                return $this->redirectToRoute('syndic_messages_envoyes');
+            }
+            return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message_from_envoyes.html.twig', array(
+                'message' => $message,'formReply' => $form->createView()
+            ));
+        }
+        else{
+            return new Response("Vous n'êtes pas autorisé à lire ce message");
+        }
+    }
+
     public function deleteMessageAction(Request $request, Message $message)
     {
         if ($message !== null && $message->getIsSupprime()==false) {
             $em = $this->getDoctrine()->getManager();
-            $em->setisSupprime(true);
+            $em->setIsSupprime(true);
             $em->update($message);
             $em->flush();
             $this->addFlash('info', 'Le Message a été mis dans la corbeille.');
@@ -770,6 +858,26 @@ class SyndicController extends Controller
         }
         $this->addFlash('info', "Ce Message n'existe pas !");
         return $this->redirectToRoute('syndic_inbox');
+    }
+
+    public function revertMessageAction(Request $request, Message $message)
+    {
+        if ($message !== null) {
+            $em = $this->getDoctrine()->getManager();
+            $message->setIsSupprime(false);
+            $em->persist($message);
+            $em->flush();
+            $form = $this->createForm(MessageType::class, $message);
+        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig',
+            ['formSend' => $form->createView()]);
     }
 
     public function inboxAction(Request $request)
@@ -828,6 +936,26 @@ class SyndicController extends Controller
         $message->setIsSupprime(false);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig',
+            ['formSend' => $form->createView()]);
+    }
+
+    public function nowSupprimeAction(Request $request, Message $message)
+    {
+        if ($message !== null) {
+        $em = $this->getDoctrine()->getManager();
+        $message->setIsSupprime(true);
+        $em->persist($message);
+        $em->flush();
+            $form = $this->createForm(MessageType::class, $message);
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
