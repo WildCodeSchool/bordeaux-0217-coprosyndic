@@ -22,34 +22,45 @@ class CreateCoproprieteType extends AbstractType
         $builder
             ->add('nom')
             ->add('immatriculation')
-            ->add('dateImmat')
-            ->add('dateModifImmat')
+            ->add('dateImmat', DateType::class, array(
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'required' => false,
+            ))
             ->add('adressePrinc')
             ->add('adresseSec', TextType::class, array(
                 'required' => false,
             ))
             ->add('codePostal')
             ->add('ville')
-            ->add('dateCreation')
-            ->add('dateDebutGestion')
+            ->add('dateDebutGestion', DateType::class, array(
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'required' => false,
+                ))
             ->add('parcelleCadastrale',TextType::class, array(
                 'required' => false
             ))
             ->add('nbBatiments', IntegerType::class, array(
                 'constraints' => new Range(array('min'=> 0))))
             ->add('periodeConstruction', DateType::class, array(
-                'required' => false
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'required' => false,
             ))
-            ->add('nbLots', IntegerType::class, array(
-                'constraints' => new Range(array('min'=> 0))))
-            ->add('dateReglement')
+            ->add('dateReglement', DateType::class, array(
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'required' => false,
+            ))
             ->add('nbAscenseurs', IntegerType::class, array(
                 'constraints' => new Range(array('min'=> 0))))
             ->add('typeChauffage',TextType::class, array(
-                'required' => false
+                'required' => false,
             ))
-            ->add('syndic')
-            ->add('Enregistrer', SubmitType::class)
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Créer'
+            ))
         ;
     }
     
