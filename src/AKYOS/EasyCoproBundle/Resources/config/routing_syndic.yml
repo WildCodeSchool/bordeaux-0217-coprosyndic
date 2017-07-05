@@ -189,47 +189,46 @@ syndic_delete_categorie:
 #--------------------------
 
 syndic_show_message:
-        path: /inbox/message/{id}
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessage}
+    path: /inbox/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessage}
 
 syndic_show_message_from_corbeille:
-        path: /corbeille/message/{id}
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessageFromCorbeille}
+    path: /corbeille/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessageFromCorbeille}
 
 syndic_show_message_from_envoye:
-        path: /messagesEnvoyes/message/{id}
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessagefromEnvoyes}
+    path: /messagesEnvoyes/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:showMessagefromEnvoyes}
 
 syndic_inbox:
-        path: /inbox
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:inbox}
+    path: /inbox
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:inbox}
 
 syndic_delete_message:
-        path: /delete/message/{id}
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessage}
+    path: /delete/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessage}
 
 syndic_messages_envoyes:
-        path: /messagesEnvoyes
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:messagesEnvoyes}
+    path: /messagesEnvoyes
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:messagesEnvoyes}
 
 syndic_corbeille:
-        path: /corbeille
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:corbeille}
+    path: /corbeille
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:corbeille}
 
 syndic_delete_message_corbeille:
-        path: /corbeille/message/{id}/delete
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessageCorbeille}
+    path: /corbeille/message/{id}/delete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessageCorbeille}
 
 syndic_nowSupprime:
-        path: /inbox/message/{id}/delete
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:nowSupprime}
+    path: /inbox/message/{id}/delete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:nowSupprime}
 
 syndic_notLu:
-        path: /inbox/message/{id}/unread
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:notLu}
+    path: /inbox/message/{id}/unread
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:notLu}
 
 syndic_revertMessage:
-        path: /inbox/message/{id}/revert
-        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:revertMessage}
->>>>>>> development
+    path: /inbox/message/{id}/revert
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:revertMessage}
 
