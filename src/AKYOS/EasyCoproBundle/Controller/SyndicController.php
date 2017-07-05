@@ -410,12 +410,18 @@ class SyndicController extends Controller
 
     public function createCoproprieteAction(Request $request)
     {
-        $copro = new Copropriete();
-        $form = $this->createForm(CreateCoproprieteType::class, $copro);
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $copropriete = new Copropriete();
+        $form = $this->createForm(CreateCoproprieteType::class, $copropriete);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($copro);
+            $copropriete->setSyndic($syndic);
+            $copropriete->setDateCreation(new \DateTime());
+            $em->persist($copropriete);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', 'La copropriété a été créé avec succès.');
             return $this->redirectToRoute('syndic_list_coproprietes');
@@ -471,9 +477,22 @@ class SyndicController extends Controller
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
         $coproprietes = $syndic->getCoproprietes();
+        $counts = [];
+
+        foreach ($coproprietes as $copropriete) {
+            $nb_documents = count($copropriete->getDocuments());
+            $nb_coproprietaires = $em->getRepository(Coproprietaire::class)
+                ->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
+
+            $counts[] = [
+                'nbDocuments' => $nb_documents,
+                'nbCoproprietaires' => $nb_coproprietaires,
+            ];
+        }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietes.html.twig', array(
             'coproprietes' => $coproprietes,
+            'counts' => $counts,
         ));
     }
 

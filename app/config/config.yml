@@ -10,7 +10,7 @@ parameters:
     locale: fr
     app.path.img_documents: /assets/img/docs
     app.path.avatar_images: /assets/img/avatar
-
+    app.path.copropriete_images: /assets/img/copropriete
 
 framework:
     #esi: ~
@@ -106,6 +106,16 @@ vich_uploader:
         avatar_images:
             uri_prefix:         '%app.path.avatar_images%'
             upload_destination: '%kernel.root_dir%/../web/assets/img/avatar'
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+        copropriete_images:
+            uri_prefix:         '%app.path.copropriete_images%'
+            upload_destination: '%kernel.root_dir%/../web/assets/img/copropriete'
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
 # KNP Snappy Configuration
 knp_snappy:
     pdf:
