@@ -24,7 +24,7 @@
         <div class="col-lg-4 ">
             <div class="widget">
                 <div class="widget-image widget-image-xs">
-                    <img src="{{ asset('assets/backoffice/img/medias/coownerships/city01.jpg') }}">
+                    <img src="{{ vich_uploader_asset(copropriete, 'illustrationFile') }}">
                     <div class="widget-image-content">
                         <h2 class="widget-heading text-light"><strong>{{ copropriete.nom }}</strong></h2>
                         <h3 class="widget-heading text-light-op h4">{{ copropriete.adressePrinc }}</h3>
@@ -192,7 +192,11 @@
                                     <td class="text-center" style="width: 100px;">
                                         <a href="javascript:void(0)" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
                                             <i class="fa fa-envelope"></i></a> &nbsp;
-                                        <a href="#modal-fade-del-coproprietaire" data-coproprietaire="{{ coproprietaire.id }}" data-toggle="modal" title="Supprimer le copropriétaire"  class="btn btn-delete-coproprietaire btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Supprimer"><i class="fa fa-times"></i></a>
+
+                                        <span data-toggle="modal" data-target="#modal-fade-del-coproprietaire">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-coproprietaire="{{ coproprietaire.id }}"
+                                           class="btn btn-effect-ripple btn-xs btn-danger btn-delete-coproprietaire">
+                                            <i class="fa fa-times"></i></a></span>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -226,10 +230,14 @@
                                            class="btn btn-effect-ripple btn-xs btn-primary" style="overflow: hidden; position: relative;" data-original-title="{{ artisan.contactTelephone|telNumber }}"><span class="badge"><i class="gi gi-iphone"></i></span></a>
                                     </td>
                                     <td class="text-center" style="width: 100px;">
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Modifier"
-                                           class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Modifier"><i class="fa fa-pencil"></i></a>
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer"
-                                           class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Supprimer"><i class="fa fa-times"></i></a>
+
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                            <i class="fa fa-envelope"></i></a> &nbsp;
+
+                                        <span data-toggle="modal" data-target="#modal-fade-del-artisan">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-artisan="{{ artisan.id }}"
+                                           class="btn btn-effect-ripple btn-xs btn-danger btn-delete-artisan">
+                                            <i class="fa fa-times"></i></a></span>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -383,8 +391,33 @@
         </div>
     </div>
 
-{% endblock %}
+    <div id="modal-fade-del-artisan" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Voulez-vous vraiment supprimer ce fournisseur ?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right"  >
+                            <a href="" id="delete-artisan" style="margin-right: 20px;"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+{% endblock %}
 
 {% block scripts %}
     <script src="{{ asset('assets/backoffice/js/gestion_coproprietaires.js') }}"></script>

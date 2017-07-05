@@ -26,6 +26,7 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
             ->join('lc.syndic', 'lcs')
             ->where('lcs = :syndic')
             ->andWhere('lc = :copropriete')
+            ->andWhere('c.actuel = true')
             ->setParameters(array('syndic' => $syndic, 'copropriete' => $copropriete));
         return $qb->getQuery()->getSingleScalarResult();
     }
