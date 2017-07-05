@@ -16,7 +16,6 @@ class EditSyndicType extends AbstractType
         $builder
             ->add('user', ProfileFormType::class)
             ->add('nom')
-            ->add('statut')
             ->add('siret')
             ->add('adressePrinc')
             ->add('adresseSec')
@@ -28,7 +27,9 @@ class EditSyndicType extends AbstractType
             ->add('contactPrenom')
             ->add('contactTelephone')
             ->add('contactEmail')
-            ->add('save', SubmitType::class)
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Modifier'
+            ))
         ;
     }
 

@@ -23,6 +23,7 @@ use AKYOS\EasyCoproBundle\Form\EditCategorieType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
+use AKYOS\EasyCoproBundle\Form\EditSyndicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +68,7 @@ class SyndicController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        $form = $this->createForm(CreateSyndicType::class, $syndic);
+        $form = $this->createForm(EditSyndicType::class, $syndic);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,7 +77,7 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Les modifications sur le compte ont bien été enregistrées.');
 
-            return $this->redirectToRoute('syndic_show', array('id' => $syndic->getId()));
+            return $this->redirectToRoute('syndic_show');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit.html.twig', array(
             'form' => $form->createView(),
@@ -104,6 +105,11 @@ class SyndicController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/menu.html.twig', array(
             'coproprietes'=> $coproprietes,
         ));
+    }
+
+    public function parametersAction(){
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/parameters.html.twig');
     }
 
     // ACTIONS LIEES AUX COPROPRIETAIRES

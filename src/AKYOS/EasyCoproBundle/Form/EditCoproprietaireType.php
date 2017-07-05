@@ -65,7 +65,7 @@ class EditCoproprietaireType extends AbstractType
             ->add('actuel')
             ->add('membreConseil')
             ->add('submit',SubmitType::class, array(
-                'label'=>'Mettre à jour',
+                'label'=>'Modifier',
             ))
         ;
     }
