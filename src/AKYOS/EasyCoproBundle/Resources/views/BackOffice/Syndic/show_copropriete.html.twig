@@ -61,12 +61,9 @@
             <!-- Tabs Content -->
             <div class="tab-content">
                 <!-- Informations -->
-                <div class="tab-pane active" id="coownerships-inforrmations">
+                <div class="tab-pane active" id="coownerships-informations">
                     <div class="animation-fadeInQuick2">
-
                       {{ render(controller('AKYOSEasyCoproBundle:Syndic:editCopropriete', {'id': copropriete.id })) }}
-
-
                     </div>
                 </div>
                 <!-- END Informations -->
@@ -151,7 +148,7 @@
                                 </td>
 
                                 <td class="text-center" style="width: 100px;">
-                                    <a href="#modal-fade-del-lot" data-coproprietaire="{{ lot.id }}" data-toggle="modal" title="Supprimer le lot"  class="btn btn-delete-lot btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Supprimer"><i class="fa fa-times"></i></a>
+                                    <a href="#modal-fade-del-lot" data-lot="{{ lot.id }}" data-toggle="modal" title="Supprimer le lot"  class="btn btn-delete-lot btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Supprimer"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                             {% endfor %}
