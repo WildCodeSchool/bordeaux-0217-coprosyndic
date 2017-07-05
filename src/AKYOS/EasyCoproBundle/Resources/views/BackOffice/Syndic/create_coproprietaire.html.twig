@@ -168,7 +168,9 @@
     <div class="row" style="margin-bottom: 10px">
         <div class="col-sm-12 text-center">
             <div class="form-group">
-                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'}}) }}
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-effect-ripple btn-primary' }}) }}
+                <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
+
             </div>
         </div>
     </div>

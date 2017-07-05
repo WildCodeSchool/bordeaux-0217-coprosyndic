@@ -18,10 +18,9 @@ class CreateLotType extends AbstractType
             ->add('identifiant')
             ->add('type')
             ->add('quotePart')
-            ->add('loueAct')
-            ->add('copropriete')
-            ->add('documents')
-            ->add('Enregistrer', SubmitType::class)
+            ->add('submit', SubmitType::class, array(
+                'label'=> 'Enregistrer'
+            ))
         ;
     }
     

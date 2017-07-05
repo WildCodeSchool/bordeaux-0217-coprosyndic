@@ -498,10 +498,15 @@ class SyndicController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $copropriete = $em->getRepository(Copropriete::class)->find($request->getSession()->get('copro')->getId()); // on recupere dans la bdd la copropriete qui correspond a la copropriete contenue dans la variable de session
+            $lot->setCopropriete($copropriete); // on affecte au lot la copropriete
             $em->persist($lot);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', 'Le lot a été crée avec succès.');
-            return $this->redirectToRoute('syndic_list_lots');
+            return $this->redirectToRoute('syndic_show_copropriete', array(
+                'id'=>$lot->getCopropriete()->getId(),
+
+            ));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_lot.html.twig',
             ['form' => $form->createView()]);

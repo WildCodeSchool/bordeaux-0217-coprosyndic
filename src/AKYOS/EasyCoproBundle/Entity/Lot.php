@@ -45,14 +45,14 @@ class Lot
     /**
      * @var bool
      *
-     * @ORM\Column(name="occupe_act", type="boolean")
+     * @ORM\Column(name="occupe_act", type="boolean", nullable=true)
      */
     private $occupeAct;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="loue_act", type="boolean")
+     * @ORM\Column(name="loue_act", type="boolean", nullable=true)
      */
     private $loueAct;
 

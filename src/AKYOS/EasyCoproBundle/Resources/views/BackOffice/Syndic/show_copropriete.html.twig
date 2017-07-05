@@ -124,12 +124,10 @@
                             <thead class="themed-background-muted-off">
                             <tr style="background:#EDEDED;">
                                 <th class="text-center" style="width: 45px; display:none">ID</th>
-                                <th>Type du lot</th>
-                                <th>Quote Part</th>
-                                <th>Copropriétaires</th>
-                                <th>Loué</th>
-                                <th style="width: 85px;">Lot N°</th>
-                                <th>Locataires</th>
+                                <th  class="text-center" style="width: 100px;">Numéro</th>
+                                <th class="text-center" style="width: 100px;">Type du lot</th>
+                                <th class="text-center" style="width: 100px;">Quote Part</th>
+                                <th class="text-center" style="width: 100px;">Occupé</th>
                                 <td colspan="10" style="padding:10px;">
                                     <a href="#modal-create-lot" class="btn btn-create-lot btn-effect-ripple btn-primary pull-right animation-fadeInQuick2" data-lot="" data-toggle="modal">Ajouter un lot</a>
                                 </td>
@@ -138,37 +136,21 @@
                             <tbody>
                             {% for lot in lots %}
                             <tr class="animation-fadeInQuick2">
-                                <td class="text-center" style="width: 100px;">
-                                    <h4><strong> {{ lot.type }}</strong></h4>
+                                <td  class="text-center">
+                                    <i class="fa fa-fw fa-map-marker text-info"></i>{{ lot.identifiant }}
                                 </td>
-                                <td class="text-center" style="width: 100px;">
+                                <td class="text-center">
+                                     {{ lot.type }}
+                                </td>
+                                <td class="text-center">
                                    <span>{{ lot.quotePart }}</span>
                                 </td>
-                                <td class="text-center" style="width: 100px;">
-                                {% for coproprietaire in lot.coproprietaires %}
-                                <li class="list-unstyled">{{ coproprietaire.nom }}</li>
-                                {% endfor %}
-                                </td>
-                                <td class="text-center checkbox" style="width: 100px;">
-                                    <span>{{ lot.loueAct }}</span>
-                                </td>
-                                <td class="text-center" style="width: 100px;">
-                                    <i class="fa fa-fw fa-map-marker text-info"></i>N°{{ lot.identifiant }} &nbsp; &nbsp;
-                                </td>
-                                <td class="text-center" style="width: 100px;">
-                               {# {% for document in lot.documents %}
-                                    <td>{{ document.titre }}</td>
-                                {% endfor %}#}
-                                    {% for locataire in lot.locataires %}
-                                <li class="list-unstyled">{{ locataire.nom }}</li>
-                                {% endfor %}
+
+                                <td class="text-center">
+                                    {% if lot.loueAct %}<i class="fa fa-fw fa-check text-info"></i>{% endif %}
                                 </td>
 
-
-
                                 <td class="text-center" style="width: 100px;">
-                                    <a href="javascript:void(0)" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
-                                        <i class="fa fa-envelope"></i></a> &nbsp;
                                     <a href="#modal-fade-del-lot" data-coproprietaire="{{ lot.id }}" data-toggle="modal" title="Supprimer le lot"  class="btn btn-delete-lot btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Supprimer"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
@@ -197,7 +179,7 @@
                                         <img src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                     </td>
                                     <td>
-                                        <h4><strong>{{ coproprietaire.nom }}</strong> {{ coproprietaire.prenom }}
+                                        <a href="{{ path('syndic_show_coproprietaire', {'id': coproprietaire.id }) }}"><h4><strong>{{ coproprietaire.nom }}</strong> {{ coproprietaire.prenom }}</h4></a>
                                             <span>{% if coproprietaire.membreConseil  %}
                                                 <i class="fa fa-fw fa-bookmark"></i> Membre du Conseil
                                             {% endif %}
@@ -268,13 +250,31 @@
     </div>
     <!-- END User Profile Row -->
 
+    <!-- Add Lot Modal -->
+    <div id="modal-create-lot" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Ajouter un lot</h3>
+
+                </div>
+                <div class="modal-body">
+                    {{ render(controller('AKYOSEasyCoproBundle:Syndic:createLot')) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END coowner Modal -->
+
     <!-- Add coproprietaire Modal -->
     <div id="modal-create-coproprietaire" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Ajouter un copropriétaire</strong></h3>
+                    <h3 class="modal-title">Ajouter un copropriétaire</h3>
                 </div>
                 <div class="modal-body">
                     {{ render(controller('AKYOSEasyCoproBundle:Syndic:createCoproprietaire')) }}
@@ -348,7 +348,7 @@
         </div>
     </div>
     <!-- END provider Modal -->
-
+    <!-- Add Modals Document -->
     <div id="modal-addfile" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
