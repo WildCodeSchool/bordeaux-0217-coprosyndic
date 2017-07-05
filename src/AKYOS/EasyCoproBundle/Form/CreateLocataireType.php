@@ -18,7 +18,7 @@ class CreateLocataireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', RegistrationFormType::class)
+            ->add('user', CreateUserType::class)
             ->add('commentSyndic', TextType::class,array('attr' => array('placeholder' => 'Note du Syndic')))
             ->add('email', EmailType::class,array('attr' => array('placeholder' => 'Email du locataire')))
             ->add('nom', TextType::class,array('attr' => array('placeholder' => 'Nom du locataire')))
