@@ -10,5 +10,15 @@ namespace AKYOS\EasyCoproBundle\Repository;
  */
 class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
+  /*  public function findMessageInCorbeilleByUser($message) {
 
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.isSupprime as msg_isSup', 'd.id as msg_id', 'd.dateEnvoi', 'c.id as user_id')
+            ->join('d.user', 'c')
+            ->where('c.message = :message')
+            ->setParameter('message', $message)
+            ->orderBy('d.dateEnvoi', 'desc')
+        ;
+        return $qb->getQuery()->getArrayResult();
+    } */
 }

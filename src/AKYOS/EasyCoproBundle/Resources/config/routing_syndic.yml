@@ -208,4 +208,3 @@ syndic_corbeille:
 syndic_delete_message_corbeille:
         path: /corbeille/message/{id}
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessageCorbeille}
-
