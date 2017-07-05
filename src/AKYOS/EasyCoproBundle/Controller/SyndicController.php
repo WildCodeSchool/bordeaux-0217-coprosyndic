@@ -718,6 +718,9 @@ class SyndicController extends Controller
     {
         if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
             $message->setIsLu(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
 
             $reply = new Message();
             $form = $this->createForm(MessageReplyType::class, $reply);
@@ -952,6 +955,7 @@ class SyndicController extends Controller
         if ($message !== null) {
         $em = $this->getDoctrine()->getManager();
         $message->setIsSupprime(true);
+        $message->setIsLu(true);
         $em->persist($message);
         $em->flush();
             $form = $this->createForm(MessageType::class, $message);
@@ -966,6 +970,27 @@ class SyndicController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig',
             ['formSend' => $form->createView()]);
     }
+
+    public function notLuAction(Request $request, Message $message)
+    {
+        if ($message !== null) {
+            $em = $this->getDoctrine()->getManager();
+            $message->setIsLu(false);
+            $em->persist($message);
+            $em->flush();
+            $form = $this->createForm(MessageType::class, $message);
+        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
+            ['formSend' => $form->createView()]);
+    }
+
 
     public function deleteMessageCorbeilleAction(Request $request, Message $message)
     {

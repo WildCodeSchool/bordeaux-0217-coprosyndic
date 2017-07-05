@@ -76,7 +76,7 @@
                         <!-- Use the first row as a prototype for your column widths -->
 
                         {% for message in app.user.messagesrecus %}
-                            {% if message.IsSupprime == false %}
+                            {% if  message.IsSupprime == false and (message.isLu == false) %}
                         <tr>
                             <td class="td-label td-label-muted text-center" style="width: 5%;">
                                 <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
@@ -88,7 +88,7 @@
                                 <h4>
                                     <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
                                 </h4>
-                                <span class="text-muted">{{ message.contenu }}</span>
+                                <span class="text-muted"><strong>NON LU :</strong> {{ message.contenu }}</span>
                             </td>
                             <td class="hidden-xs text-center" style="width: 30px;">
                                 <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
@@ -96,6 +96,28 @@
                             <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
                         </tr>
                                 {% endif %}
+                        {% endfor %}
+                        {% for message in app.user.messagesrecus %}
+                            {% if message.IsSupprime == false and (message.isLu == true) %}
+                                <tr>
+                                    <td class="td-label td-label-muted text-center" style="width: 5%;">
+                                        <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                                    </td>
+                                    <td class="text-center" style="width: 7%;">
+                                        <img src="" alt="avatar" class="img-circle">
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                        </h4>
+                                        <span class="text-muted">{{ message.contenu }}</span>
+                                    </td>
+                                    <td class="hidden-xs text-center" style="width: 30px;">
+                                        <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
+                                    </td>
+                                    <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>

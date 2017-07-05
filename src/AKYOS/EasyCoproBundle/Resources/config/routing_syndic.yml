@@ -217,9 +217,13 @@ syndic_delete_message_corbeille:
         path: /corbeille/message/{id}/delete
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessageCorbeille}
 
-syndic_nowSuprime:
+syndic_nowSupprime:
         path: /inbox/message/{id}/delete
         defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:nowSupprime}
+
+syndic_notLu:
+        path: /inbox/message/{id}/unread
+        defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:notLu}
 
 syndic_revertMessage:
         path: /inbox/message/{id}/revert
