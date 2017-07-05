@@ -50,3 +50,9 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: form.type }
+
+    form.type.edit_coproprietaire:
+            class: AKYOS\EasyCoproBundle\Form\EditCoproprietaireType
+            arguments: ['@service_container']
+            tags:
+                - { name: form.type }
