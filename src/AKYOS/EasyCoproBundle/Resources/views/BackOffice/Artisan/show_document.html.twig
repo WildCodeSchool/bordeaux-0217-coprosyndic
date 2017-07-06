@@ -28,25 +28,16 @@
                     <div id="todo-informations" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Informations
 
-                            <span data-toggle="modal" data-target="#modal-fade-del-document">
-                            <a data-toggle="tooltip" data-placement="top" title="Supprimer le document"
-                               class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc pull-right" data-document="{{ document.id }}">
-                                <i class="fa fa-times"></i></a></span>
-
                             <a href="{{ vich_uploader_asset(document, 'fichier') }}"
                                download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip"
                                title="Télécharger le document"
                                class="btn btn-effect-ripple btn-xs btn-primary pull-right" style="margin-right: 4px">
                                 <i class="fa fa-download"></i></a>
 
-                            <span data-toggle="modal" data-target="#modal-fade-edit-document">
-                            <a data-toggle="tooltip" data-placement="top" title="Modifier le document"
-                               class="btn btn-effect-ripple btn-xs btn-success pull-right" style="margin-right: 4px">
-                                <i class="fa fa-edit"></i></a></span>
                         </h4>
                         <div class="block-section">
                             <h4 style="margin-top: 15px"><strong>{{ document.titre }} </strong>
-                                <span class="label pull-right" style="background-color: {{ document.categorie.couleur }}; font-size: small">{{ document.categorie }}</span></h4>
+
                             <p>{{ document.description }}
                                 <small  class="pull-right text-right"><br><em>ajouté le {{ document.dateAjout|date('d/m/Y') }}</em>
                                     {% if document.dateModif is not null %}<br><em>modifié le {{ document.dateModif|date('d/m/Y') }}</em>{% endif %}</small></p>
@@ -88,13 +79,6 @@
 
     </div>
 
-    <div id="modal-fade-edit-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{ render(controller('AKYOSEasyCoproBundle:Artisan:editDocument', {'id': document.id})) }}
-            </div>
-        </div>
-    </div>
 
     <div id="modal-fade-del-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">

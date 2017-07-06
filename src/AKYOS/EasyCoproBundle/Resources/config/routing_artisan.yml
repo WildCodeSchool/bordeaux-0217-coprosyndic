@@ -17,11 +17,6 @@ artisan_gestion_documents:
     path: /list/docs
     defaults: { _controller: AKYOSEasyCoproBundle:Artisan:gestionDocuments }
 
-artisan_create_document:
-    path: /create/doc
-    defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:createDocument}
-
-
 artisan_show_document:
     path: /show/doc/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:showDocument}

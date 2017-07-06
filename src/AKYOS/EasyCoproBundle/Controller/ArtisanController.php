@@ -101,29 +101,6 @@ class ArtisanController extends Controller
         ));
     }
 
-    public function createDocumentAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-
-        $document = new Document();
-        $form_document = $this->createForm(CreateDocumentForArtisanType::class, $document);
-        $form_document->handleRequest($request);
-
-        if ($form_document->isSubmitted() && $form_document->isValid()) {
-            $document->setArtisan($artisan);
-            $em->persist($document);
-            $em->flush();
-
-            $this->addFlash('info', 'Un nouveau document a été importé avec succès.');
-            return $this->redirectToRoute('artisan_show_document',
-                array('id' => $document->getId()));
-        }
-
-        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/create_document.html.twig', array(
-            'form_document' => $form_document->createView(),
-        ));
-    }
 
     // ACTIONS LIEES AUX MSGS
     //-----------------------
