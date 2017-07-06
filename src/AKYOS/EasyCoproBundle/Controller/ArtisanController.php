@@ -18,8 +18,9 @@ class ArtisanController extends Controller
 
     public function indexAction()
     {
-
-        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/index.html.twig');
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/index.html.twig', array('artisan'=>$artisan));
     }
 
     public function editAction(Request $request)
@@ -38,13 +39,12 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_show', array('id' => $artisan->getId()));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/edit.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(),'artisan'=>$artisan
         ));
     }
 
     public function showAction()
     {
-
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show.html.twig', array(
@@ -52,13 +52,23 @@ class ArtisanController extends Controller
         ));
     }
 
+    public function parametersAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/parameters.html.twig',array('artisan'=> $artisan));
+    }
+
     // ACTIONS LIEES AUX DOCUMENTS
     //----------------------------
 
     public function showDocumentAction(Document $document)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_document.html.twig', array(
-            'document' => $document
+            'document' => $document,'artisan'=>$artisan
         ));
     }
 
@@ -74,6 +84,7 @@ class ArtisanController extends Controller
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,
+            'artisan' => $artisan
         ));
     }
 
@@ -83,6 +94,9 @@ class ArtisanController extends Controller
 
     public function showMessageAction(Request $request, Message $message)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
+
         if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
             $message->setIsLu(true);
             $em = $this->getDoctrine()->getManager();
@@ -120,7 +134,7 @@ class ArtisanController extends Controller
                 return $this->redirectToRoute('artisan_inbox');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_message.html.twig', array(
-                'message' => $message,'formReply' => $form->createView()
+                'message' => $message,'formReply' => $form->createView(), 'artisan' => $artisan
             ));
         }
         else{
@@ -130,6 +144,9 @@ class ArtisanController extends Controller
 
     public function showMessageFromCorbeilleAction(Request $request, Message $message)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
+
         if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
             $message->setIsLu(true);
 
@@ -164,7 +181,7 @@ class ArtisanController extends Controller
                 return $this->redirectToRoute('artisan_corbeille');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_message_from_corbeille.html.twig', array(
-                'message' => $message,'formReply' => $form->createView()
+                'message' => $message,'formReply' => $form->createView(), 'artisan' => $artisan
             ));
         }
         else{
@@ -174,6 +191,8 @@ class ArtisanController extends Controller
 
     public function showMessagefromEnvoyesAction(Request $request, Message $message)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
             $message->setIsLu(true);
 
@@ -208,7 +227,7 @@ class ArtisanController extends Controller
                 return $this->redirectToRoute('artisan_messages_envoyes');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_message_from_envoyes.html.twig', array(
-                'message' => $message,'formReply' => $form->createView()
+                'message' => $message,'formReply' => $form->createView(), 'artisan' => $artisan
             ));
         }
         else{
@@ -218,6 +237,7 @@ class ArtisanController extends Controller
 
     public function deleteMessageAction(Request $request, Message $message)
     {
+
         if ($message !== null && $message->getIsSupprime()==false) {
             $em = $this->getDoctrine()->getManager();
             $em->setIsSupprime(true);
@@ -232,6 +252,9 @@ class ArtisanController extends Controller
 
     public function revertMessageAction(Request $request, Message $message)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
+
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsSupprime(false);
@@ -247,11 +270,13 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(), 'artisan' => $artisan]);
     }
 
     public function inboxAction(Request $request)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -270,11 +295,13 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(), 'artisan'=>$artisan]);
     }
 
     public function messagesEnvoyesAction(Request $request)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -292,11 +319,13 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/messages_envoyes.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(), 'artisan' => $artisan]);
     }
 
     public function corbeilleAction(Request $request)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -314,11 +343,13 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(), 'artisan' => $artisan]);
     }
 
     public function nowSupprimeAction(Request $request, Message $message)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsSupprime(true);
@@ -335,11 +366,13 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(), 'artisan' => $artisan]);
     }
 
     public function notLuAction(Request $request, Message $message)
     {
+        $artMsg = $this->getDoctrine()->getManager();
+        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsLu(false);
@@ -355,7 +388,7 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(), 'artisan' => $artisan]);
     }
 
     public function deleteMessageCorbeilleAction(Request $request, Message $message)

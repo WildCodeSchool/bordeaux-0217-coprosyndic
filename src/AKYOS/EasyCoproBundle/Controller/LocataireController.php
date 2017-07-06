@@ -18,7 +18,11 @@ class LocataireController extends Controller
 
     public function indexAction()
     {
-        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/index.html.twig');
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/index.html.twig', array(
+            'locataire' => $locataire));
     }
 
     public function editAction(Request $request)
@@ -37,13 +41,12 @@ class LocataireController extends Controller
             return $this->redirectToRoute('locataire_show', array('id' => $locataire->getId()));
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/edit.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(),'locataire' => $locataire
         ));
     }
 
     public function showAction()
     {
-
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show.html.twig', array(
@@ -51,13 +54,24 @@ class LocataireController extends Controller
         ));
     }
 
+    public function parametersAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/parameters.html.twig',array('locataire'=> $locataire));
+    }
+
     // ACTIONS LIEES AUX DOCUMENTS
     //----------------------------
 
     public function showDocumentAction(Document $document)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_document.html.twig', array(
-            'document' => $document
+            'document' => $document, 'locataire' => $locataire
         ));
     }
 
@@ -73,6 +87,7 @@ class LocataireController extends Controller
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,
+            'locataire' => $locataire
         ));
     }
 
@@ -82,12 +97,14 @@ class LocataireController extends Controller
 
     public function showMessageAction(Request $request, Message $message)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
-
             $reply = new Message();
             $form = $this->createForm(MessageReplyType::class, $reply);
             $sender = $this->getUser();
@@ -119,7 +136,8 @@ class LocataireController extends Controller
                 return $this->redirectToRoute('locataire_inbox');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView()
+                'message' => $message, 'formReply' => $form->createView(), 'locataire' => $locataire
+
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
@@ -128,6 +146,9 @@ class LocataireController extends Controller
 
     public function showMessageFromCorbeilleAction(Request $request, Message $message)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
 
@@ -162,7 +183,7 @@ class LocataireController extends Controller
                 return $this->redirectToRoute('locataire_corbeille');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message_from_corbeille.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView()
+                'message' => $message, 'formReply' => $form->createView(),'locataire' => $locataire
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
@@ -171,6 +192,9 @@ class LocataireController extends Controller
 
     public function showMessagefromEnvoyesAction(Request $request, Message $message)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
 
@@ -205,7 +229,7 @@ class LocataireController extends Controller
                 return $this->redirectToRoute('locataire_messages_envoyes');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message_from_envoyes.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView()
+                'message' => $message, 'formReply' => $form->createView(), 'locataire' => $locataire
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
@@ -214,6 +238,8 @@ class LocataireController extends Controller
 
     public function deleteMessageAction(Request $request, Message $message)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
         if ($message !== null && $message->getIsSupprime() == false) {
             $em = $this->getDoctrine()->getManager();
             $em->setIsSupprime(true);
@@ -228,6 +254,9 @@ class LocataireController extends Controller
 
     public function revertMessageAction(Request $request, Message $message)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsSupprime(false);
@@ -243,11 +272,13 @@ class LocataireController extends Controller
             return $this->redirectToRoute('locataire_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(), 'locataire' => $locataire]);
     }
 
     public function inboxAction(Request $request)
-    {
+    {   $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -266,11 +297,16 @@ class LocataireController extends Controller
             return $this->redirectToRoute('locataire_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+            array(
+                'formSend' => $form->createView(),
+                'locataire' => $locataire
+            ));
     }
 
     public function messagesEnvoyesAction(Request $request)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -288,11 +324,13 @@ class LocataireController extends Controller
             return $this->redirectToRoute('locataire_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/messages_envoyes.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(), 'locataire' => $locataire]);
     }
 
     public function corbeilleAction(Request $request)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -310,11 +348,13 @@ class LocataireController extends Controller
             return $this->redirectToRoute('locataire_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(),'locataire' => $locataire]);
     }
 
     public function nowSupprimeAction(Request $request, Message $message)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsSupprime(true);
@@ -331,11 +371,13 @@ class LocataireController extends Controller
             return $this->redirectToRoute('locataire_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(),'locataire' => $locataire]);
     }
 
     public function notLuAction(Request $request, Message $message)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsLu(false);
@@ -351,11 +393,13 @@ class LocataireController extends Controller
             return $this->redirectToRoute('locataire_inbox');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+            ['formSend' => $form->createView(),'locataire' => $locataire]);
     }
 
     public function deleteMessageCorbeilleAction(Request $request, Message $message)
     {
+        $locMsg = $this->getDoctrine()->getManager();
+        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
         if ($message !== null && $message->getIsSupprime() == true) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($message);

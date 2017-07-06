@@ -9,7 +9,3 @@ contact:
 mentions:
     path:     /mentions
     defaults: { _controller: AKYOSEasyCoproBundle:FrontOffice:mentions }
-
-acme_demo_pdf:
-    path: /pdf
-    defaults: { _controller: AKYOSEasyCoproBundle:FrontOffice:pdf }

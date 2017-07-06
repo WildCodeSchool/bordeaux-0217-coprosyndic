@@ -67,6 +67,7 @@ class SyndicController extends Controller
             'artisans' => $artisans,
             'coproprietes' => $coproprietes,
             'nbre_documents' => $nbre_documents,
+            'syndic' => $syndic
         ));
     }
 
@@ -86,7 +87,7 @@ class SyndicController extends Controller
             return $this->redirectToRoute('syndic_show');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(), 'syndic' => $syndic
         ));
     }
 
@@ -96,7 +97,7 @@ class SyndicController extends Controller
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show.html.twig', array(
-            'syndic' => $syndic,
+            'syndic' => $syndic
 
         ));
     }
@@ -105,17 +106,21 @@ class SyndicController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
         $coproprietes = $em->getRepository(Copropriete::class)->find3LastCoproprietesBySyndic($syndic);
 
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/menu.html.twig', array(
-            'coproprietes'=> $coproprietes,
+            'coproprietes'=> $coproprietes, 'syndic'=> $syndic
         ));
     }
 
     public function parametersAction(){
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/parameters.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/parameters.html.twig',array('syndic'=> $syndic));
     }
 
     // ACTIONS LIEES AUX COPROPRIETAIRES
@@ -159,6 +164,7 @@ class SyndicController extends Controller
 
     public function editCoproprietaireAction(Request $request, Coproprietaire $coproprietaire)
     {
+
         $form = $this->createForm(EditCoproprietaireType::class, $coproprietaire);
         $form->handleRequest($request);
 
@@ -180,6 +186,7 @@ class SyndicController extends Controller
 
     public function showCoproprietaireAction(Coproprietaire $coproprietaire)
     {
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_coproprietaire.html.twig', array(
             'coproprietaire' => $coproprietaire,
         ));
@@ -194,7 +201,7 @@ class SyndicController extends Controller
             ->findCoproprietairesBySyndic($syndic);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/list_coproprietaires.html.twig', array(
-            'coproprietaires' => $coproprietaires,
+            'coproprietaires' => $coproprietaires, 'syndic'=> $syndic
         ));
     }
 

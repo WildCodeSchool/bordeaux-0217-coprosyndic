@@ -20,7 +20,8 @@
                         <li class="sidebar-separator">
                         </li>
                         <li>
-                                <a href="{{ path('locataire_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">?</span>
+                                <a href="{{ path('locataire_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">{% set nbmessages = locataire.user.messagesRecus|length %}
+                                        {{ nbmessages }}</span>
                                         <span class="sidebar-nav-mini-hide">Mes Messages</span></a>
                         </li>
 
@@ -33,7 +34,6 @@
                         </li>
                 </ul>
                 <!-- END Sidebar Navigation -->
-
         </div>
         <!-- END Sidebar Content -->
 </div>
