@@ -74,8 +74,6 @@ Gestion des copropriétaires
         <div class="tab-pane" id="search-tab-users">
             <div class="row">
                 {% set moitieCoproprietaires = coproprietaires|length / 2 %}
-                {% dump(coproprietaires|length) %}
-                {% dump(moitieCoproprietaires) %}
                 <div class="col-sm-6">
                     <table class="table table-striped table-borderless table-hover table-vcenter">
                         <tbody>
@@ -94,10 +92,10 @@ Gestion des copropriétaires
                                     <td class="text-center">
                                         <a href="javascript:void(0)" class="btn btn-sm btn-info" data-toggle="tooltip" title="Envoyer un message">
                                             <i class="fa fa-envelope"></i></a>
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Éditer la fiche" class="btn btn-effect-ripple btn-sm btn-success">
-                                            <i class="fa fa-pencil"></i></a>
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer" class="btn btn-effect-ripple btn-sm btn-danger">
-                                            <i class="fa fa-times"></i></a>
+                                        <span data-toggle="modal" data-target="#modal-fade-del-coproprietaire">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-coproprietaire="{{ coproprietaire.id }}"
+                                           class="btn btn-effect-ripple btn-sm btn-danger btn-delete-coproprietaire">
+                                            <i class="fa fa-times"></i></a></span>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -108,7 +106,7 @@ Gestion des copropriétaires
                 <div class="col-sm-6">
                     <table class="table table-striped table-borderless table-hover table-vcenter">
                         <tbody>
-                        {% for coproprietaire in coproprietaires|slice(moitieCoproprietaires+1, coproprietaires|length) %}
+                        {% for coproprietaire in coproprietaires|slice(moitieCoproprietaires, coproprietaires|length) %}
                             <tr class="animation-fadeInQuick2">
                                 <td class="text-center" style="width: 100px;">
                                     <img src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar"
@@ -123,10 +121,10 @@ Gestion des copropriétaires
                                 <td class="text-center">
                                     <a href="javascript:void(0)" class="btn btn-sm btn-info" data-toggle="tooltip" title="Envoyer un message">
                                         <i class="fa fa-envelope"></i></a>
-                                    <a href="javascript:void(0)" data-toggle="tooltip" title="Éditer la fiche" class="btn btn-effect-ripple btn-sm btn-success">
-                                        <i class="fa fa-pencil"></i></a>
-                                    <a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer" class="btn btn-effect-ripple btn-sm btn-danger">
-                                        <i class="fa fa-times"></i></a>
+                                    <span data-toggle="modal" data-target="#modal-fade-del-coproprietaire">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-coproprietaire="{{ coproprietaire.id }}"
+                                           class="btn btn-effect-ripple btn-sm btn-danger btn-delete-coproprietaire">
+                                            <i class="fa fa-times"></i></a></span>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -135,54 +133,17 @@ Gestion des copropriétaires
                 </div>
 
             </div>
-            <div class="text-center">
-                <ul class="pagination">
-                    <li class="disabled"><a href="javascript:void(0)">Précédente</a></li>
-                    <li class="active"><a href="javascript:void(0)">1</a></li>
-                    <li><a href="javascript:void(0)">2</a></li>
-                    <li><a href="javascript:void(0)">3</a></li>
-                    <li><a href="javascript:void(0)">Suivante</a></li>
-                </ul>
-            </div>
+            {#<div class="text-center">#}
+                {#<ul class="pagination">#}
+                    {#<li class="disabled"><a href="javascript:void(0)">Précédente</a></li>#}
+                    {#<li class="active"><a href="javascript:void(0)">1</a></li>#}
+                    {#<li><a href="javascript:void(0)">2</a></li>#}
+                    {#<li><a href="javascript:void(0)">3</a></li>#}
+                    {#<li><a href="javascript:void(0)">Suivante</a></li>#}
+                {#</ul>#}
+            {#</div>#}
         </div>
         <!-- END Users Results -->
-    </div>
-
-    <!-- Users Results -->
-    <div class="row">
-        {% for coproprietaire in coproprietaires %}
-        <div class="col-sm-6">
-            <div class="no-padding">
-                <div class="lib-panel">
-                    <div class="row box-shadow">
-                        <div class="col-md-3 no-padding">
-                            <img class="img-circle img-thumbnail img-thumbnail-avatar-2x" src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar"/>
-
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="lib-row lib-header">
-                                <a href="{{ path('syndic_show_coproprietaire', {'id': coproprietaire.id }) }}">{{ coproprietaire.nom ~ ' ' ~ coproprietaire.prenom  }}</a>
-                                <div class="lib-header-seperator"></div>
-                            </div>
-                            <div class="lib-row lib-desc">
-                                <h5>{{ coproprietaire.adressePrinc ~' '~coproprietaire.codePostal~' '~coproprietaire.ville }}</h5>
-                                <h5>{% if coproprietaire.membreConseil %} Membre du Conseil <i class="fa fa-fw fa-bookmark"></i> {% endif %}</h5>
-                            </div>
-                        </div>
-                        <div class="col-sm-1 icon-fa text-right">
-                            <a href="javascript:void(0)" data-toggle="tooltip" title="Envoyer un message" style="width: 31px" class="btn btn-effect-ripple btn-sm btn-info">
-                                <i class="fa fa-envelope"></i></a>
-
-                            <a href="#modal-fade-del-coproprietaire" data-coproprietaire="{{ coproprietaire.id }}" data-toggle="modal" title="Supprimer le copropriétaire" style="width: 31px" class="btn-delete-coproprietaire btn btn-effect-ripple btn-sm btn-danger">
-                                <i class="fa fa-times"></i></a>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
     </div>
 
     <!-- Delete Modals -->
@@ -203,7 +164,7 @@ Gestion des copropriétaires
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="form-group pull-right">
-                            <a href=""  id="delete-coproprietaire"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
+                            <a href="" id="delete-coproprietaire"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
                             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
                         </div>
                     </div>

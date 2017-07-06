@@ -53,7 +53,8 @@ class EditCoproprieteType extends AbstractType
             ))
             ->add('dateReglement', DateType::class, array(
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',))
+                'format' => 'yyyy-MM-dd',
+                ))
             ->add('nbAscenseurs', IntegerType::class, array(
                 'constraints' => new Range(array('min'=> 0))))
             ->add('typeChauffage',TextType::class, array(

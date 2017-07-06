@@ -8,6 +8,7 @@ use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -62,8 +63,12 @@ class EditCoproprietaireType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
             ))
-            ->add('actuel')
-            ->add('membreConseil')
+            ->add('actuel', CheckboxType::class, array(
+                'label' => 'Propriétaire actuel',
+                ))
+            ->add('membreConseil', CheckboxType::class, array(
+                'label' => 'Conseiller syndical',
+            ))
             ->add('submit',SubmitType::class, array(
                 'label'=>'Modifier',
             ))

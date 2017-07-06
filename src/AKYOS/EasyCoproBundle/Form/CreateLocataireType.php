@@ -2,7 +2,6 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
-
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,7 +18,7 @@ class CreateLocataireType extends AbstractType
     {
         $builder
             ->add('user', CreateUserType::class)
-            ->add('commentSyndic', TextType::class,array('attr' => array('placeholder' => 'Note du Syndic')))
+            ->add('commentSyndic', TextType::class,array('attr' => array('placeholder' => 'Commentaire du syndic')))
             ->add('email', EmailType::class,array('attr' => array('placeholder' => 'Email du locataire')))
             ->add('nom', TextType::class,array('attr' => array('placeholder' => 'Nom du locataire')))
             ->add('prenom', TextType::class,array('attr' => array('placeholder' => 'Prénom du locataire')))
@@ -27,8 +26,10 @@ class CreateLocataireType extends AbstractType
             ->add('rib', TextType::class,array('attr' => array('placeholder' => 'RIB du locataire')))
             ->add('dateArrivee', DateType::class, array('widget' => 'single_text',))
             ->add('dateDepart', DateType::class, array('widget' => 'single_text',))
-            ->add('actuel', CheckboxType::class, array('label'    => 'Locataire Actuel', 'required' => true,))
-            ->add('submit',SubmitType::class)
+            ->add('actuel', CheckboxType::class, array('label'    => 'En cours de location', 'required' => true,))
+            ->add('submit',SubmitType::class, array(
+                'label' => 'Créer le compte'
+            ))
         ;
 
     }

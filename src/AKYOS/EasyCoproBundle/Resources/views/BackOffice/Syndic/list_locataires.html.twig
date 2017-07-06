@@ -18,28 +18,163 @@
 
 {% block content %}
 
-    <h4>Liste des locataires :</h4>
-    <table class="table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Raison sociale</th>
-                <th>SIRET</th>
-                <th>Email bureau</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for locataire in locataires %}
-            <tr>
-                <td><a href="{{ path('syndic_show_locataire', {'id': locataire.id}) }}">{{ locataire.id }}</a></td>
-                <td>{{ locataire.nom }}</td>
-                <td>{{ locataire.email }}</td>
-                <td>{{ locataire.actuel }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="content-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="header-section">
+                    <form action="<?= WWW; ?>" method="post" onsubmit="return false;">
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <input type="text" id="example-typeahead" name="example-typeahead" class="form-control input-typeahead-users" autocomplete="off" placeholder="Rechercher quelqu'un...">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="control-label" style="margin-right:15px">Trier par ordre Alphabétique</label>
+                                    <label class="switch switch-warning"><input type="checkbox"><span></span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Choississez..." style="width: 250px; display: none;" multiple="">
+                                                <option value="all" selected="">Tous les membres</option>
+                                                <option value="coowners">Copropriétaire</option>
+                                                <option value="coowners-graded">Conseiller Syndical</option>
+                                                <option value="syndic">Syndic</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Parmis une copropriété..." style="width: 250px; display: none;" multiple="">
+                                                <option value="all" selected="">Toutes les copropriétés</option>
+                                                <option value="coowners">Résidence aux 5 palmiers</option>
+                                                <option value="coowners-graded">Villa Roseraie</option>
+                                                <option value="syndic">Appartement Leclerc</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="submit" class="btn btn-effect-ripple btn-primary" value="Rechercher" style="overflow: hidden; position: relative;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block">
+        <!-- Users Results -->
+        <div class="tab-pane" id="search-tab-users">
+            <div class="row">
+                {% set moitieLocataires = locataires|length / 2 %}
+                <div class="col-sm-6">
+                    <table class="table table-striped table-borderless table-hover table-vcenter">
+                        <tbody>
+                        {% for locataire in locataires|slice(0, moitieLocataires) %}
+                            <tr class="animation-fadeInQuick2">
+                                <td class="text-center" style="width: 100px;">
+                                    <img src="{{ vich_uploader_asset(locataire.user, 'imageFile') }}" alt="avatar"
+                                         class="img-circle img-thumbnail img-thumbnail-avatar">
+                                </td>
+                                <td>
+                                    <h4><a href="{{ path('syndic_show_locataire', {'id': locataire.id }) }}">
+                                            <strong>{{ locataire.nom ~ ' ' ~ locataire.prenom  }}</strong></a></h4>
+                                    <i class="fa fa-fw fa-map-marker text-info"></i> {{ locataire.lot.copropriete }}<br>
+                                    {% if locataire.actuel %}<i class="fa fa-fw fa-bookmark"></i> En cours de location{% else %}&nbsp;{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                        <i class="fa fa-envelope"></i></a>
+                                    <span data-toggle="modal" data-target="#modal-fade-del-locataire">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-locataire="{{ locataire.id }}"
+                                           class="btn btn-effect-ripple btn-sm btn-danger btn-delete-locataire">
+                                            <i class="fa fa-times"></i></a></span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-6">
+                    <table class="table table-striped table-borderless table-hover table-vcenter">
+                        <tbody>
+                        {% for locataire in locataires|slice(moitieLocataires, locataires|length) %}
+                            <tr class="animation-fadeInQuick2">
+                                <td class="text-center" style="width: 100px;">
+                                    <img src="{{ vich_uploader_asset(locataire.user, 'imageFile') }}" alt="avatar"
+                                         class="img-circle img-thumbnail img-thumbnail-avatar">
+                                </td>
+                                <td>
+                                    <h4><a href="{{ path('syndic_show_locataire', {'id': locataire.id }) }}">
+                                            <strong>{{ locataire.nom ~ ' ' ~ locataire.prenom  }}</strong></a></h4>
+                                    <i class="fa fa-fw fa-map-marker text-info"></i> <br>
+                                    {% if locataire.actuel %}<i class="fa fa-fw fa-bookmark"></i> En cours de location{% else %}&nbsp;{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                        <i class="fa fa-envelope"></i></a>
+                                    <span data-toggle="modal" data-target="#modal-fade-del-locataire">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-locataire="{{ locataire.id }}"
+                                           class="btn btn-effect-ripple btn-sm btn-danger btn-delete-locataire">
+                                            <i class="fa fa-times"></i></a></span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            {#<div class="text-center">#}
+                {#<ul class="pagination">#}
+                    {#<li class="disabled"><a href="javascript:void(0)">Précédente</a></li>#}
+                    {#<li class="active"><a href="javascript:void(0)">1</a></li>#}
+                    {#<li><a href="javascript:void(0)">2</a></li>#}
+                    {#<li><a href="javascript:void(0)">3</a></li>#}
+                    {#<li><a href="javascript:void(0)">Suivante</a></li>#}
+                {#</ul>#}
+            {#</div>#}
+        </div>
+        <!-- END Users Results -->
+    </div>
+
+    <!-- Delete Modals -->
+    <div id="modal-fade-del-locataire" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Voulez-vous vraiment supprimer ce locataire ?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right">
+                            <a href=""  id="delete-locataire"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END provider Modal -->
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{ asset('assets/backoffice/js/gestion_locataires.js') }}"></script>
 {% endblock %}
