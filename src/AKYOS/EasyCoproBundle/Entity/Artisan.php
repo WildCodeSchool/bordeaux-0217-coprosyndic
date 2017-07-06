@@ -126,14 +126,6 @@ class Artisan
      * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="artisans")
      */
     private $copropriete;
-    /**
-     * @ORM\OneToMany(targetEntity="Document", mappedBy="artisan")
-     */
-    private $documents;
-    /**
-     * @ORM\OneToMany(targetEntity="Categorie", mappedBy="artisan")
-     */
-    private $categories;
 
     /**
      * Get id

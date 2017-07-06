@@ -61,6 +61,10 @@ class Document
      */
     private $artisan;
     /**
+     * @ORM\ManyToOne(targetEntity="Locataire", inversedBy="documents")
+     */
+    private $locataire;
+    /**
      * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="documents")
      */
     private $copropriete;
@@ -209,6 +213,27 @@ class Document
     public function getArtisan()
     {
         return $this->artisan;
+    }
+    /**
+     * Set locataire
+     *
+     * @param Locataire $locataire
+     *
+     * @return Document
+     */
+    public function setLocataire(Locataire $locataire = null)
+    {
+        $this->locataire = $locataire;
+        return $this;
+    }
+    /**
+     * Get locataire
+     *
+     * @return Locataire
+     */
+    public function getLocataire()
+    {
+        return $this->locataire;
     }
     /**
      * Add lot

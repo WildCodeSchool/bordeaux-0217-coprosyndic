@@ -1,16 +1,40 @@
-<li class="non-active"><a href="{{ path('locataire_index') }}"><span class="glyphicon glyphicon-lock"></span> Accueil</a></li>
-<li class="non-active"><a href="{{ path('locataire_show') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
-<li class="non-active">
-        <a href="#" data-toggle="collapse" data-target="#toggleDocuments" data-parent="#sidenav01"
-           class="collapsed">
-                <i class="fa fa-file-text fa-fw" aria-hidden="true"></i> Mes Documents<i class="fa fa-caret-down pull-right" aria-hidden="true"></i>
-        </a>
-        <div class="collapse" id="toggleDocuments" style="height: 0;">
-                <ul class="nav nav-list">
-                        <li><a href="{{ path('locataire_show_document', {'id':7}) }}">Afficher un document</a></li>
+<!-- Wrapper for scrolling functionality -->
+
+<div id="sidebar-scroll">
+        <!-- Sidebar Content -->
+        <div class="sidebar-content">
+                <!-- Sidebar Navigation -->
+                <ul class="sidebar-nav">
+                        <li>
+                                <a href="{{ path('locataire_index') }}" class=""><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Tableau de Bord</span></a>
+                        </li>
+                        <li class="sidebar-separator">
+                        </li>
+                        <li class="sidebar-separator">
+                        </li>
+                        <li>
+                                <a href="{{ path('locataire_gestion_documents') }}"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
+                        </li>
+                        <li class="sidebar-separator">
+                        </li>
+                        <li class="sidebar-separator">
+                        </li>
+                        <li>
+                                <a href="{{ path('locataire_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">?</span>
+                                        <span class="sidebar-nav-mini-hide">Mes Messages</span></a>
+                        </li>
+
+                        <li class="sidebar-separator">
+                                <i class="fa fa-ellipsis-h"></i>
+                        </li>
+                        <li>
+                                <a href=""><i class="fa fa-comment sidebar-nav-icon"></i>
+                                        <span class="badge badge-menu-item label-info pull-right sidebar-nav-mini-hide">X</span><span class="sidebar-nav-mini-hide">Suggestions</span></a>
+                        </li>
                 </ul>
+                <!-- END Sidebar Navigation -->
+
         </div>
-</li>
-<li class="non-active"><a href=""><span class="glyphicon glyphicon-calendar"></span> Messagerie
-        <span class="badge pull-right">3</span></a></li>
-<li class="non-active"><a href=""><span class="glyphicon glyphicon-cog"></span> Préférences</a></li>
+        <!-- END Sidebar Content -->
+</div>
+<!-- END Wrapper for scrolling functionality -->

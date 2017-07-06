@@ -7,18 +7,37 @@
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/syndic_dashboard.css') }}">
+
+{% endblock %}
+
+{% block titre_page %}
+    Dashboard
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="active">Dashboard</li>
 {% endblock %}
 
 {% block content %}
-    <h2>Bienvenue sur l'application EasyCopro</h2>
-    <h4>Vous êtes connecté en tant que <strong>{{ userType }}</strong></h4>
 
-    <p>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="row">
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+        </div>
+    </div>
+
+
     {% for message in app.session.flashbag.get('info') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
-    </p>
+
 {% endblock %}
 
 {% block scripts %}
 {% endblock %}
+

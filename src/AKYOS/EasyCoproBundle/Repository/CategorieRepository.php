@@ -65,4 +65,34 @@ class CategorieRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findCategoriesCountByLocataire($locataire) {
+
+        $qb = $this->createQueryBuilder('c')
+            ->select('c', 'COUNT(d.nom)')
+            ->leftJoin('c.documents', 'd')
+            ->where('c.locataire = :locataire')
+            ->setParameter('locataire', $locataire)
+            ->groupBy('c')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findCategorieByNomAndLocataire($nom, $locataire) {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.nom = :nom')
+            ->andWhere('c.locataire = :locataire')
+            ->setParameters(array('nom' => $nom, 'locataire' => $locataire));
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findCategorieByLocataire($locataire) {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.locataire = :locataire')
+            ->setParameter('locataire', $locataire);
+
+        return $qb->getQuery()->getResult();
+    }
 }

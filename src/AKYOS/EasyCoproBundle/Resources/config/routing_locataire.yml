@@ -10,6 +10,60 @@ locataire_show:
     path:     /show
     defaults: {_controller: AKYOSEasyCoproBundle:Locataire:show }
 
+# ROUTE LIEES AUX DOCUMENTS
+#--------------------------
+
+locataire_gestion_documents:
+    path: /list/docs
+    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:gestionDocuments }
+
 locataire_show_document:
-        path: /show/doc/{id}/
-        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showDocument}
+    path: /show/doc/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showDocument}
+
+# ROUTE LIEES AUX MESSAGES
+#--------------------------
+
+locataire_show_message:
+        path: /inbox/message/{id}
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showMessage}
+
+locataire_show_message_from_corbeille:
+        path: /corbeille/message/{id}
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showMessageFromCorbeille}
+
+locataire_show_message_from_envoye:
+        path: /messagesEnvoyes/message/{id}
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showMessagefromEnvoyes}
+
+locataire_inbox:
+        path: /inbox
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:inbox}
+
+locataire_delete_message:
+        path: /delete/message/{id}
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:deleteMessage}
+
+locataire_messages_envoyes:
+        path: /messagesEnvoyes
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:messagesEnvoyes}
+
+locataire_corbeille:
+        path: /corbeille
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:corbeille}
+
+locataire_delete_message_corbeille:
+        path: /corbeille/message/{id}/delete
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:deleteMessageCorbeille}
+
+locataire_nowSupprime:
+        path: /inbox/message/{id}/delete
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:nowSupprime}
+
+locataire_notLu:
+        path: /inbox/message/{id}/unread
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:notLu}
+
+locataire_revertMessage:
+        path: /inbox/message/{id}/revert
+        defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:revertMessage}

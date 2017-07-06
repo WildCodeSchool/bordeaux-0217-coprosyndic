@@ -55,6 +55,11 @@ class Categorie
      */
     private $artisan;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Locataire", inversedBy="categories")
+     */
+    private $locataire;
+
     public function __toString()
     {
         return $this->nom;
@@ -205,6 +210,30 @@ class Categorie
     public function getArtisan()
     {
         return $this->artisan;
+    }
+
+    /**
+     * Set locataire
+     *
+     * @param Locataire $locataire
+     *
+     * @return Categorie
+     */
+    public function setLocataire(Locataire $locataire = null)
+    {
+        $this->locataire = $locataire;
+
+        return $this;
+    }
+
+    /**
+     * Get locataire
+     *
+     * @return Locataire
+     */
+    public function getLocataire()
+    {
+        return $this->locataire;
     }
 
     /**
