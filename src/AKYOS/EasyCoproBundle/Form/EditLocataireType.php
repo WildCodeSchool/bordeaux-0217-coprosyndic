@@ -10,7 +10,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,12 +32,24 @@ class EditLocataireType extends AbstractType
     {
         $builder
             ->add('user', ProfileFormType::class)
-            ->add('commentSyndic')
-            ->add('email')
-            ->add('nom')
-            ->add('prenom')
-            ->add('telephone')
-            ->add('rib')
+            ->add('commentSyndic', TextareaType::class, array(
+                'required' => false,
+            ))
+            ->add('email', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('nom',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('prenom', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('telephone',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('rib', TextType::class, array(
+                'required' => false,
+            ))
             ->add('copropriete', TextType::class, array(
                 'label' => 'Copropriété',
                 'disabled' => true,
@@ -54,7 +68,9 @@ class EditLocataireType extends AbstractType
                     return $lot->getIdentifiant();
                 }
             ))
-            ->add('nbEnfants')
+            ->add('nbEnfants', IntegerType::class, array(
+                'required' => false,
+            ))
             ->add('dateArrivee', DateType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
@@ -62,9 +78,11 @@ class EditLocataireType extends AbstractType
             ->add('dateDepart', DateType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+                'required' => false,
             ))
             ->add('actuel', CheckboxType::class, array(
-                'label' => 'En cours de location'
+                'label' => 'En cours de location',
+                'required' => false,
             ))
             ->add('submit',SubmitType::class, array(
                 'label' => 'Modifier',

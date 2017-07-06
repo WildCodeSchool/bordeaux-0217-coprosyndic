@@ -195,8 +195,10 @@ class SyndicController extends Controller
         ));
     }
 
-    public function showCoproprietaireAction(Coproprietaire $coproprietaire)
+    public function showCoproprietaireAction(Request $request, Coproprietaire $coproprietaire)
     {
+        $request->getSession()->set('copro', $coproprietaire->getLot()->getCopropriete());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_coproprietaire.html.twig', array(
             'coproprietaire' => $coproprietaire,
         ));
@@ -298,8 +300,10 @@ class SyndicController extends Controller
         ));
     }
 
-    public function showLocataireAction(Locataire $locataire)
+    public function showLocataireAction(Request $request, Locataire $locataire)
     {
+        $request->getSession()->set('copro', $locataire->getLot()->getCopropriete());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_locataire.html.twig', array(
             'locataire' => $locataire,
         ));
@@ -421,8 +425,10 @@ class SyndicController extends Controller
         ));
     }
 
-    public function showArtisanAction(Artisan $artisan)
+    public function showArtisanAction(Request $request, Artisan $artisan)
     {
+        $request->getSession()->set('copro', $artisan->getCopropriete());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_artisan.html.twig', array(
             'artisan' => $artisan,
         ));
@@ -654,6 +660,7 @@ class SyndicController extends Controller
 
         if ($form_document->isSubmitted() && $form_document->isValid()) {
             $document->setSyndic($syndic);
+            $document->setExtension($document->getFichier()->guessExtension());
             $em->persist($document);
             $em->flush();
 

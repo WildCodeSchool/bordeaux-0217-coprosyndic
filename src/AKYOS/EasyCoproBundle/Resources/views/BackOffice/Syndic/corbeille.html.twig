@@ -13,9 +13,13 @@
 {% block scripts %}
 {% endblock %}
 
+{% block titre_page %}
+    Corbeille
+{% endblock %}
+
 {% block breadcrumb %}
-    <li><a href="{{ path('syndic_corbeille') }}">Corbeille</a></li>
-    <li class="active">Mes messages</li>
+    <li><a href="{{ path('syndic_inbox') }}">Mes messages</a></li>
+    <li class="active">Ma corbeille</li>
 {% endblock %}
 
 {% block boo %}

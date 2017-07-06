@@ -13,9 +13,13 @@
 {% block scripts %}
 {% endblock %}
 
+{% block titre_page %}
+    Messages envoyés
+{% endblock %}
+
 {% block breadcrumb %}
-    <li><a href="{{ path('syndic_messages_envoyes') }}">Messages envoyés</a></li>
-    <li class="active">Mes messages</li>
+    <li><a href="{{ path('syndic_inbox') }}">Mes messages</a></li>
+    <li class="active">Mes messages envoyés</li>
 {% endblock %}
 
 {% block boo %}

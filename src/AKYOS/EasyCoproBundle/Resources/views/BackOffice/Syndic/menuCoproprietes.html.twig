@@ -1,12 +1,8 @@
 <li class="hidden-xs animation-fadeInQuick" id="copro-selector">
     <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
-        {% if app.session.get('copro') %}
-            {% if app.session.get('copro') != null %}
-                <span>Gestion de : &nbsp;</span>&nbsp;
-                {{ app.session.get('copro') }} &nbsp;
-                <span class="caret"></span>
-            {% endif %}
-        {% endif %}
+        <span>Gestion de : &nbsp;</span>&nbsp;
+        {{ app.session.get('copro') }} &nbsp;
+        <span class="caret"></span>
     </a>
 
     <ul class="dropdown-menu text-left" id="all-coownerships-dropdown">

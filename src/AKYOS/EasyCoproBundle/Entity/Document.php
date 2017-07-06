@@ -49,7 +49,7 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="extension", type="string", length=10)
+     * @ORM\Column(name="extension", type="string", length=10, nullable=true)
      */
     private $extension;
     /**

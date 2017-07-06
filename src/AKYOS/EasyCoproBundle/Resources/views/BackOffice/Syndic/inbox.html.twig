@@ -10,9 +10,13 @@
 {% block scripts %}
 {% endblock %}
 
+{% block titre_page %}
+    Boîte de réception
+{% endblock %}
+
 {% block breadcrumb %}
-    <li><a href="{{ path('syndic_inbox') }}">Boite de Réception</a></li>
-    <li class="active">Mes messages</li>
+    <li><a href="{{ path('syndic_inbox') }}">Mes messages</a></li>
+    <li class="active">Ma boîte de réception</li>
 {% endblock %}
 
 {% block boo %}
@@ -82,7 +86,7 @@
                                 <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
                             </td>
                             <td class="text-center" style="width: 7%;">
-                                <img src="" alt="avatar" class="img-circle">
+                                <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
                             </td>
                             <td>
                                 <h4>

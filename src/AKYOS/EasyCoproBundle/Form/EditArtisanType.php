@@ -6,7 +6,9 @@ use AKYOS\EasyCoproBundle\Entity\Artisan;
 use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,19 +28,45 @@ class EditArtisanType extends AbstractType
                 'placeholder' => 'Choisissez une copropriété',
                 'label' => 'Copropriété',
             ))
-            ->add('raisonSociale')
-            ->add('activite')
-            ->add('siret')
-            ->add('emailBureau')
-            ->add('telephoneBureau')
-            ->add('adressePrinc')
-            ->add('adresseSec')
-            ->add('ville')
-            ->add('codePostal')
-            ->add('contactNom')
-            ->add('contactPrenom')
-            ->add('contactTelephone')
-            ->add('contactEmail')
+            ->add('raisonSociale', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('activite', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('siret', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('emailBureau', EmailType::class, array(
+                'required' => false,
+            ))
+            ->add('telephoneBureau', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('adressePrinc',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('adresseSec',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('ville',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('codePostal',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('contactNom',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('contactPrenom',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('contactTelephone', TextType::class, array(
+                'required' => false,
+            ))
+            ->add('contactEmail', EmailType::class, array(
+                'required' => false,
+            ))
             ->add('submit',SubmitType::class, array('label' => 'Modifier'))
         ;
     }
