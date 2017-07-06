@@ -1,18 +1,22 @@
-
 {% extends '@AKYOSEasyCopro/BackOffice/Artisan/layout.html.twig' %}
 
 {% block title %}
-    Modification de votre profil ARTISAN
-
+    Edition du profil
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Edition du profil
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('artisan_index') }}">Dashboard</a></li>
+    <li class="active">Mon profil</li>
+{% endblock %}
+
 {% block content %}
-
-    <h4>Modifier votre Profil :</h4>
-
     {{ form(form) }}
 {% endblock %}
 

@@ -50,6 +50,10 @@ class Categorie
      */
     private $syndic;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Artisan", inversedBy="categories")
+     */
+    private $artisan;
 
     public function __toString()
     {
@@ -177,6 +181,30 @@ class Categorie
     public function getSyndic()
     {
         return $this->syndic;
+    }
+
+    /**
+     * Set artisan
+     *
+     * @param Artisan $artisan
+     *
+     * @return Categorie
+     */
+    public function setArtisan(Artisan $artisan = null)
+    {
+            $this->artisan = $artisan;
+
+        return $this;
+    }
+
+    /**
+     * Get artisan
+     *
+     * @return Artisan
+     */
+    public function getArtisan()
+    {
+        return $this->artisan;
     }
 
     /**

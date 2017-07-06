@@ -28,6 +28,18 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+
+    public function findArtisanDocumentsSortedByDate($artisan) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->where('d.artisan = :artisan')
+            ->setParameter('artisan', $artisan)
+            ->orderBy('d.dateModif', 'desc')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findDocumentsByCategorie($categorie) {
 
         $qb = $this->createQueryBuilder('d')
@@ -100,5 +112,18 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
          ;
         return $qb->getQuery()->getResult();
 
+    }
+
+    public function findAllDocumentsByArtisan($artisan) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.id as doc_id', 'd.titre as doc_titre', 'd.dateAjout', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->join('d.categorie', 'c')
+            ->where('c.artisan = :artisan')
+            ->setParameter('artisan', $artisan)
+            ->orderBy('d.dateAjout', 'desc')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
     }
 }

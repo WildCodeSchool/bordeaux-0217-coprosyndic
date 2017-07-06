@@ -57,6 +57,10 @@ class Document
      */
     private $syndic;
     /**
+     * @ORM\ManyToOne(targetEntity="Artisan", inversedBy="documents")
+     */
+    private $artisan;
+    /**
      * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="documents")
      */
     private $copropriete;
@@ -184,6 +188,27 @@ class Document
     public function getSyndic()
     {
         return $this->syndic;
+    }
+    /**
+     * Set artisan
+     *
+     * @param Artisan $artisan
+     *
+     * @return Document
+     */
+    public function setArtisan(Artisan $artisan = null)
+    {
+        $this->artisan = $artisan;
+        return $this;
+    }
+    /**
+     * Get artisan
+     *
+     * @return Artisan
+     */
+    public function getArtisan()
+    {
+        return $this->artisan;
     }
     /**
      * Add lot

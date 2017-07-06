@@ -35,4 +35,34 @@ class CategorieRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findCategoriesCountByArtisan($artisan) {
+
+        $qb = $this->createQueryBuilder('c')
+            ->select('c', 'COUNT(d.nom)')
+            ->leftJoin('c.documents', 'd')
+            ->where('c.artisan = :artisan')
+            ->setParameter('artisan', $artisan)
+            ->groupBy('c')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findCategorieByNomAndArtisan($nom, $artisan) {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.nom = :nom')
+            ->andWhere('c.artisan = :artisan')
+            ->setParameters(array('nom' => $nom, 'artisan' => $artisan));
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findCategorieByArtisan($artisan) {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.artisan = :artisan')
+            ->setParameter('artisan', $artisan);
+
+        return $qb->getQuery()->getResult();
+    }
 }
