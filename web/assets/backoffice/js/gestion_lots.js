@@ -7,11 +7,6 @@ $( document ).ready(function() {
         $('#delete-lot').attr('href',url);
     });
 
-    // Fonction pour supprimer un document
-    $('.btn-delete-doc').on('click', function (e) {
-        var documentId = $(this).data('document');
-        var url = "/syndic/delete/doc/" + documentId;
-        $('#delete-doc').attr('href',url);
-    });
+
 
 });

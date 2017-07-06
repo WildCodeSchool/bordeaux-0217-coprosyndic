@@ -31,4 +31,16 @@ class LocataireRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findLocatairesByCopropriete($copropriete){
+
+        $qb = $this->createQueryBuilder('l')
+            ->join('l.lot', 'll')
+            ->join('ll.copropriete', 'c')
+            ->where('c = :copropriete')
+            ->setParameter('copropriete', $copropriete);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

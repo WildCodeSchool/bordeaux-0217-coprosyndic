@@ -141,20 +141,16 @@
     </div>
     <div class="row" style="margin-bottom: 10px">
         <div class="col-sm-6">
-            <div class="checkbox">
-                <label>
-
-                    {{ form_widget(form.membreConseil) }} Membre du conseil syndical
-
-                </label>
-            </div>
+            {{ form_label(form.membreConseil) }}
+            <label class="switch switch-warning">
+                {{ form_widget(form.membreConseil) }}<span></span>
+            </label>
         </div>
         <div class="col-sm-6">
-            <div class="checkbox">
-                <label>
-                    {{ form_widget(form.actuel) }} Actuellement copropriétaire
-                </label>
-            </div>
+            {{ form_label(form.actuel) }}
+            <label class="switch switch-warning">
+                {{ form_widget(form.actuel) }}<span></span>
+            </label>
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px">

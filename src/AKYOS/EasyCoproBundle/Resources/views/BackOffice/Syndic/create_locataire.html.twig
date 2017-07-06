@@ -1,24 +1,122 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
-{% block title %}
-    Création LOCATAIRE
-{% endblock %}
+{{ form_start(form, {'action': path('syndic_create_locataire')}) }}
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Informations de connexion</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Mot de passe'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Répétez le mot de passe'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.user.imageFile, { 'attr': {'class': 'form-control', 'placeholder':'Image de profil'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <h3>Informations personnelles</h3>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder':'Prenom'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail du contact'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-12">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.rib, { 'attr': {'class': 'form-control', 'placeholder':'RIB' }}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-at fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.dateArrivee, { 'attr': {'class': 'form-control', 'placeholder':'Date d\'arrivée'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i></span>
+                {{ form_widget(form.dateDepart, { 'attr': {'class': 'form-control', 'placeholder':'Date de départ'}}) }}
+            </div>
+        </div>
+    </div>
+<div class="row" style="margin-bottom: 10px">
+    <div class="col-sm-12">
+        <div class="form-group">
+            {{ form_label(form.actuel) }}
+            <label class="switch switch-warning">
+                {{ form_widget(form.actuel) }}<span></span>
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+            {{ form_widget(form.commentSyndic, { 'attr': {'class': 'form-control', 'placeholder':'Commentaire interne'}}) }}
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-bottom: 10px">
+    <div class="col-sm-12 text-center">
+        <div class="form-group">
+            {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-effect-ripple btn-primary' }}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
 
-{% block stylesheets %}
-{% endblock %}
+        </div>
+    </div>
+</div>
 
-{% block titre_page %}
-    Création d'un locataire
-{% endblock %}
-
-{% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li class="active">Créer un locataire</li>
-{% endblock %}
-
-{% block content %}
-    {{ form(form) }}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+{{ form_rest(form) }}
+{{ form_end(form) }}

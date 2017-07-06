@@ -51,19 +51,17 @@ class EditCoproprieteType extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'required' => false,
             ))
-            ->add('nbLots', IntegerType::class, array(
-                'constraints' => new Range(array('min'=> 0))))
             ->add('dateReglement', DateType::class, array(
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',))
+                'format' => 'yyyy-MM-dd',
+                ))
             ->add('nbAscenseurs', IntegerType::class, array(
                 'constraints' => new Range(array('min'=> 0))))
             ->add('typeChauffage',TextType::class, array(
                 'required' => false
             ))
-            ->add('syndic')
             ->add('submit',SubmitType::class, array(
-                'label'=>'Mettre à jour',
+                'label'=>'Modifier',
             ))
         ;
     }

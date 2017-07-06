@@ -20,6 +20,7 @@ use AKYOS\EasyCoproBundle\Form\CreateDocumentType;
 use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
+use AKYOS\EasyCoproBundle\Form\EditLocataireType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
@@ -27,6 +28,7 @@ use AKYOS\EasyCoproBundle\Form\EditCategorieType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
+use AKYOS\EasyCoproBundle\Form\EditSyndicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,7 +74,7 @@ class SyndicController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-        $form = $this->createForm(CreateSyndicType::class, $syndic);
+        $form = $this->createForm(EditSyndicType::class, $syndic);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,7 +83,7 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Les modifications sur le compte ont bien été enregistrées.');
 
-            return $this->redirectToRoute('syndic_show', array('id' => $syndic->getId()));
+            return $this->redirectToRoute('syndic_show');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit.html.twig', array(
             'form' => $form->createView(),
@@ -111,6 +113,11 @@ class SyndicController extends Controller
         ));
     }
 
+    public function parametersAction(){
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/parameters.html.twig');
+    }
+
     // ACTIONS LIEES AUX COPROPRIETAIRES
     //----------------------------------
 
@@ -131,8 +138,8 @@ class SyndicController extends Controller
             $em->persist($coproprietaire);
             $em->flush();
 
-//            $confirmService = $this->get('akyos.confirm_registration');
-//            $confirmService->confirm($coproprietaire->getUser());
+            $confirmService = $this->get('akyos.confirm_registration');
+            $confirmService->confirm($coproprietaire->getUser());
 
 //            $password = $_POST['akyos_easycoprobundle_copro']['user']['plainPassword']['first'];
 //            $documentService = $this->get('akyos.generate_document');
@@ -225,6 +232,10 @@ class SyndicController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $locataire->getUser()->setType('LOC');
             $locataire->getUser()->addRole('ROLE_LOC');
+            if ($locataire->getActuel()) {
+                $lot = $locataire->getLot();
+                $lot->setLoueAct(true);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($locataire);
             $em->flush();
@@ -232,9 +243,9 @@ class SyndicController extends Controller
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($locataire->getUser());
 
-            $password = $_POST['akyos_easycoprobundle_locataire']['user']['plainPassword']['first'];
-            $documentService = $this->get('akyos.generate_document');
-            $documentService->generateRegistrationDocument($this->getUser(), $locataire, $password);
+//            $password = $_POST['akyos_easycoprobundle_locataire']['user']['plainPassword']['first'];
+//            $documentService = $this->get('akyos.generate_document');
+//            $documentService->generateRegistrationDocument($this->getUser(), $locataire, $password);
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été créé avec succès.');
 
@@ -249,7 +260,7 @@ class SyndicController extends Controller
 
     public function editLocataireAction(Request $request, Locataire $locataire)
     {
-        $form = $this->createForm(CreateLocataireType::class, $locataire);
+        $form = $this->createForm(EditLocataireType::class, $locataire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -264,6 +275,7 @@ class SyndicController extends Controller
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_locataire.html.twig', array(
             'form' => $form->createView(),
+            'locataireId' => $locataire->getId(),
         ));
     }
 
@@ -464,6 +476,7 @@ class SyndicController extends Controller
         $nbre_coproprietaires = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesBySyndicByCopropriete($syndic, $copropriete);
         $lots = $copropriete->getLots();
         $artisans = $copropriete->getArtisans();
+        $locataires = $em->getRepository(Locataire::class)->findLocatairesByCopropriete($copropriete);
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_copropriete.html.twig', array(
@@ -473,6 +486,7 @@ class SyndicController extends Controller
             'artisans' =>$artisans,
             'documents'=>$documents,
             'lots' =>$lots,
+            'locataires'=>$locataires,
             ));
     }
 
