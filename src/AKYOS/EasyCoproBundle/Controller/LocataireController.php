@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class LocataireController extends Controller
 {
 
+
     public function indexAction()
     {
         $locMsg = $this->getDoctrine()->getManager();
@@ -38,7 +39,7 @@ class LocataireController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
 
-            return $this->redirectToRoute('locataire_show', array('id' => $locataire->getId()));
+            return $this->redirectToRoute('locataire_show');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/edit.html.twig', array(
             'form' => $form->createView(),'locataire' => $locataire

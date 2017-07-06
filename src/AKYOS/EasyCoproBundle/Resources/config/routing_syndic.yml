@@ -17,6 +17,8 @@ syndic_parameters:
     path: /parameters
     defaults: {_controller: AKYOSEasyCoproBundle:Syndic:parameters }
 
+
+
 # ROUTE LIEES AUX COPROPRIETAIRES
 #--------------------------------
 

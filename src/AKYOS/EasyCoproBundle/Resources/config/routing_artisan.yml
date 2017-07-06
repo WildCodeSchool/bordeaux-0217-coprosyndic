@@ -10,6 +10,12 @@ artisan_show:
     path:     /show
     defaults: { _controller: AKYOSEasyCoproBundle:Artisan:show }
 
+artisan_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSEasyCoproBundle:Artisan:parameters }
+
+
+
 # ROUTE LIEES AUX DOCUMENTS
 #--------------------------
 

@@ -28,7 +28,7 @@ class CoproprietaireController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
 
-            return $this->redirectToRoute('coproprietaire_show', array('id' => $coproprietaire->getId()));
+            return $this->redirectToRoute('coproprietaire_show');
         }
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/edit.html.twig', array(
             'form' => $form->createView(),

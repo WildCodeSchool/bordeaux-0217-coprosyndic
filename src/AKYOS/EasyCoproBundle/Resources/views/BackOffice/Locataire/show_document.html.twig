@@ -1,4 +1,4 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Artisan/layout.html.twig' %}
+{% extends '@AKYOSEasyCopro/BackOffice/Locataire/layout.html.twig' %}
 
 {% block title %}
     Affichage d'un document
@@ -12,8 +12,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('artisan_index') }}">Dashboard</a></li>
-    <li><a href="{{ path('artisan_gestion_documents') }}">Mes documents</a></li>
+    <li><a href="{{ path('locataire_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('locataire_gestion_documents') }}">Mes documents</a></li>
     <li class="active">{{ document.titre }}</li>
 {% endblock %}
 

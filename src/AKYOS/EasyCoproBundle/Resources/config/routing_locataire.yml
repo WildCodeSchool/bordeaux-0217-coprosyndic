@@ -10,6 +10,11 @@ locataire_show:
     path:     /show
     defaults: {_controller: AKYOSEasyCoproBundle:Locataire:show }
 
+locataire_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSEasyCoproBundle:Locataire:parameters }
+
+
 # ROUTE LIEES AUX DOCUMENTS
 #--------------------------
 
