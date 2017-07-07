@@ -6,6 +6,7 @@ use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Document;
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Message;
+use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
@@ -66,8 +67,8 @@ class ArtisanController extends Controller
 
     public function showDocumentAction(Document $document)
     {
-        $artMsg = $this->getDoctrine()->getManager();
-        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_document.html.twig', array(
             'document' => $document,'artisan'=>$artisan
         ));
@@ -77,6 +78,10 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($artisan->getSyndic);
+
+        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
+        $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
 
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
         $allDocuments = $em->getRepository(Document::class)->findArtisanDocumentsSortedByDate($artisan);

@@ -51,12 +51,12 @@ class Categorie
     private $syndic;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Artisan", inversedBy="categories")
+     * @ORM\ManyToOne(targetEntity="Artisan")
      */
     private $artisan;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Locataire", inversedBy="categories")
+     * @ORM\ManyToOne(targetEntity="Locataire")
      */
     private $locataire;
 

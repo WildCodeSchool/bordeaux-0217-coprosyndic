@@ -57,11 +57,11 @@ class Document
      */
     private $syndic;
     /**
-     * @ORM\ManyToOne(targetEntity="Artisan", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="Artisan")
      */
     private $artisan;
     /**
-     * @ORM\ManyToOne(targetEntity="Locataire", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="Locataire")
      */
     private $locataire;
     /**
