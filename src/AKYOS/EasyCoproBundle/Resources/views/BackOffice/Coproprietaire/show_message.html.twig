@@ -1,4 +1,4 @@
-{% extends 'AKYOSEasyCoproBundle:BackOffice/Coproprietaire:layout.html.twig' %}
+{% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
 
 {% block title %}
     Affichage d'un message
@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="">Mes messagesx</a></li>
+    <li><a href="{{ path('coproprietaire_inbox') }}">Mes messages</a></li>
     <li class="active">Affichage d'un message</li>
 {% endblock %}
 
