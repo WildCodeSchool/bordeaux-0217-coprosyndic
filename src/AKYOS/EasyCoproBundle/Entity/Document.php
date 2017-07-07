@@ -49,7 +49,7 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="extension", type="string", length=10)
+     * @ORM\Column(name="extension", type="string", length=10, nullable=true)
      */
     private $extension;
     /**
@@ -155,7 +155,6 @@ class Document
      * @param \DateTime $dateModif
      *
      * @return Document
-     * @ORM\PreUpdate
      */
     public function setDateModif($dateModif = null)
     {

@@ -41,8 +41,7 @@
                 <a href="{{ path('syndic_gestion_documents') }}"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
             </li>
             <li>
-                <a href="{{ path('syndic_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">{% set nbmessages = syndic.user.messagesRecus|length %}
-                        {{ nbmessages }}</span>
+                <a href="{{ path('syndic_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">{{ nbMessages }}</span>
                     <span class="sidebar-nav-mini-hide">Mes Messages</span></a>
             </li>
 

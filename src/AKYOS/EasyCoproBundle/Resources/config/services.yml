@@ -57,6 +57,12 @@ services:
         tags:
             - { name: form.type }
 
+    form.type.create_locataire:
+        class: AKYOS\EasyCoproBundle\Form\CreateLocataireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
     form.type.edit_locataire:
         class: AKYOS\EasyCoproBundle\Form\EditLocataireType
         arguments: ['@service_container']
