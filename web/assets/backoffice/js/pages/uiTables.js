@@ -23,8 +23,8 @@ var UiTables = function() {
                     "</span>" +
                     "</div>" +
                     "<div class=\"input-group\">" +
-                    "<a href=\"#modal-addfile\" data-toggle=\"modal\" class=\"btn btn-effect-ripple btn-primary\" style=\"margin-left:15px;\">" +
-                    "Ajouter un document</a></div>",
+                    "<a href=\"/syndic/list/docs\" class=\"btn btn-effect-ripple btn-primary\" style=\"margin-left:15px;\">" +
+                    "Gérer mes documents</a></div>",
 
                 }
             });

@@ -590,7 +590,7 @@ var App = function () {
     /* Datatables basic Bootstrap integration (pagination integration included under the Datatables plugin in plugins.js) */
     var dtIntegration = function() {
         $.extend(true, $.fn.dataTable.defaults, {
-            "sDom": "<'row'<'col-sm-2 col-xs-2'l><'col-sm-8 col-xs-8'f>r>t<'row'<'col-sm-5 hidden-xs'i><'col-sm-7 col-xs-12 clearfix'p>>",
+            "sDom": "<'row'<'col-sm-2 col-xs-2'l><'col-sm-10 col-xs-10'f>r>t<'row'<'col-sm-5 hidden-xs'i><'col-sm-7 col-xs-12 clearfix'p>>",
             "sPaginationType": "bootstrap",
             "oLanguage": {
                 "sLengthMenu": "_MENU_",

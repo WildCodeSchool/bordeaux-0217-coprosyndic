@@ -333,7 +333,10 @@ class SyndicController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le compte a bien été supprimé.');
 
-            return $this->redirectToRoute('syndic_list_locataires');
+            $copropriete = $em->getRepository(Copropriete::class)->find($request->getSession()->get('copro'));
+            return $this->redirectToRoute('syndic_show_copropriete', array(
+                'id' => $copropriete->getId(),
+            ));
         }
         $request->getSession()->getFlashBag()->add('info', 'Le compte que vous souhaitez supprimer n\'existe pas !');
 
@@ -485,7 +488,9 @@ class SyndicController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', 'Les modifications sur la copropriété ont bien été enregistrées.');
-            return $this->redirectToRoute('syndic_list_coproprietes');
+            return $this->redirectToRoute('syndic_show_copropriete', array(
+                'id' => $copropriete->getId(),
+            ));
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/edit_copropriete.html.twig',
@@ -625,8 +630,10 @@ class SyndicController extends Controller
         $em->remove($lot);
         $em->flush();
         $request->getSession()->getFlashBag()->add('info', 'Le lot a bien été supprimé.');
-
-        return $this->redirectToRoute('syndic_list_lots');
+        $copropriete = $em->getRepository(Copropriete::class)->find($request->getSession()->get('copro'));
+        return $this->redirectToRoute('syndic_show_copropriete', array(
+            'id' => $copropriete->getId(),
+        ));
     }
 
     // ACTIONS LIEES AUX DOCUMENTS
@@ -680,6 +687,7 @@ class SyndicController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $document->setDateModif(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', 'Les modifications sur le document ont bien été enregistrées.');

@@ -147,7 +147,6 @@ class Document
      * @param \DateTime $dateModif
      *
      * @return Document
-     * @ORM\PreUpdate
      */
     public function setDateModif($dateModif = null)
     {
