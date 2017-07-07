@@ -17,3 +17,11 @@ coproprietaire_show_document:
 coproprietaire_gestion_documents:
     path: /documents
     defaults: { _controller: AKYOSEasyCoproBundle:Coproprietaire:gestionDocuments }
+
+coproprietaire_show_copropriete:
+    path: /show/copropriete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showCopropriete}
+
+coproprietaire_edit_copropriete:
+    path: /edit/copropriete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:editCopropriete}

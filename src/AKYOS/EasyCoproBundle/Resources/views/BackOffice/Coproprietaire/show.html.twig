@@ -7,20 +7,75 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Mes informations
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('coproprietaire_show') }}">Mon compte</a></li>
+    <li class="active">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</li>
+{% endblock %}
 {% block content %}
-    <p>
+
     {% for message in app.session.flashbag.get('infoCopro') %}
         <p>Message flash : {{ message }}</p>
     {% endfor %}
-    </p>
-    <h4>Votre Profil:</h4>
-    <h4>{{ coproprietaire.nom }}</h4>
-    <ul>
-        <li>{{ coproprietaire.email }}</li>
-        <li>{{ coproprietaire.telephone }}</li>
-        <li>...</li>
-    </ul>
-    <p><a href="{{ path('coproprietaire_edit') }}">Modifier votre Profil</a></p>
+
+
+    <div class="row">
+        <div class="col-md-5 col-lg-4">
+            <div class="widget">
+                <div class="widget-content themed-background-danger clearfix">
+                    <img src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
+                    <h2 class="widget-heading h3 text-light"><strong>{{ coproprietaire.prenom~' '~coproprietaire.nom }}</strong></h2>
+                    <span class="text-light-op">Copropriétaire</span>
+                </div>
+                <div class="widget-content widget-content-mini themed-background-dark border-bottom">
+                    <span class="pull-right text-light-op">Depuis le {{ coproprietaire.dateArrivee|date("m/d/Y") }}</span>
+                    <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp;{{ coproprietaire.lot.copropriete }}</strong>
+                </div>
+                <div class="widget-content widget-content-full border-bottom">
+                    <div class="row text-center">
+                        <div class="col-xs-6 push-inner-top-bottom border-right">
+                            <h3 class="widget-heading"><i class="fa fa-file-o push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbdocs = coproprietaire.lot.documents|length %}
+                                        {{ nbdocs }}
+                                    </strong>
+                                    {% if nbdocs > 1 %} Fichiers uploadés{% else %} Fichier uploadé
+                                    {% endif %}
+                                </small></h3>
+                        </div>
+                        <div class="col-xs-6 push-inner-top-bottom">
+                            <h3 class="widget-heading"><i class="fa fa-envelope-o themed-color-social push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbmessages = coproprietaire.user.messagesRecus|length %}
+                                        {{ nbmessages }}
+                                    </strong>
+                                    {% if nbmessages > 1 %} Messages{% else %} Message
+                                    {% endif %}
+                                </small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-lg-8">
+
+            {{ render(controller('AKYOSEasyCoproBundle:Coproprietaire:edit')) }}
+
+
+
+        </div>
+    </div>
+
+
+
+
+
 {% endblock %}
 
 {% block scripts %}
