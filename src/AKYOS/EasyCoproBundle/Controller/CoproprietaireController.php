@@ -3,15 +3,24 @@
 namespace AKYOS\EasyCoproBundle\Controller;
 
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
+use AKYOS\EasyCoproBundle\Entity\Copropriete;
 use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
+use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
+use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AKYOS\EasyCoproBundle\Entity\Document;
 
 class CoproprietaireController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+        $copropriete = $coproprietaire->getLot()->getCopropriete();
+        $request->getSession()->set('copro', $copropriete);
+
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/index.html.twig');
     }
 
@@ -19,7 +28,7 @@ class CoproprietaireController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
-        $form = $this->createForm(CreateCoproprietaireType::class, $coproprietaire);
+        $form = $this->createForm(EditCoproprietaireType::class, $coproprietaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -34,6 +43,7 @@ class CoproprietaireController extends Controller
             'form' => $form->createView(),
         ));
     }
+
 
     public function showAction()
     {
@@ -66,5 +76,43 @@ class CoproprietaireController extends Controller
             'documents' => $allDocuments,
         ));
     }
+
+    public function showCoproprieteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+        $copropriete = $coproprietaire->getLot()->getCopropriete();
+        $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
+        $nbrecoproprietaire = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesByCopropriete($copropriete);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/show_copropriete.html.twig', array(
+            'coproprietaire' =>$coproprietaire,
+            'documents'=>$documents,
+            'copropriete'=>$copropriete,
+            'nbrecoproprietaire' =>$nbrecoproprietaire,
+        ));
+    }
+
+    public function editCoproprieteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+        $copropriete = $coproprietaire->getLot()->getCopropriete();
+        $form = $this->createForm(EditCoproprieteType::class, $copropriete);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur la copropriété ont bien été enregistrées.');
+            return $this->redirectToRoute('coproprietaire_show_copropriete');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/edit_copropriete.html.twig',
+            ['my_form' => $form->createView(),
+                'coproprieteId'=>$copropriete->getId(),
+            ]);
+    }
+
+
 }
 
