@@ -12,10 +12,9 @@ use AKYOS\EasyCoproBundle\Form\EditLocataireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-;
+
 class LocataireController extends Controller
 {
-
 
     public function indexAction()
     {
@@ -53,6 +52,21 @@ class LocataireController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show.html.twig', array(
             'locataire' => $locataire
         ));
+    }
+
+    public function menuAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/menu.html.twig', array(
+            'nbMessages' => $nbMessages,
+        ));
+    }
+
+    public function userMenuAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/menuUser.html.twig');
     }
 
     public function parametersAction(){

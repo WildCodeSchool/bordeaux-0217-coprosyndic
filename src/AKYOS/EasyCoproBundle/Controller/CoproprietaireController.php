@@ -3,9 +3,7 @@
 namespace AKYOS\EasyCoproBundle\Controller;
 
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
-use AKYOS\EasyCoproBundle\Entity\Copropriete;
 use AKYOS\EasyCoproBundle\Entity\Message;
-use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
@@ -48,14 +46,34 @@ class CoproprietaireController extends Controller
         ));
     }
 
-
-    public function showAction(Request $request)
+    public function showAction()
     {
         $em = $this->getDoctrine()->getManager();
         $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/show.html.twig', array(
             'coproprietaire' => $coproprietaire
         ));
+    }
+
+    public function menuAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/menu.html.twig', array(
+            'nbMessages' => $nbMessages,
+        ));
+    }
+
+    public function userMenuAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/menuUser.html.twig');
+    }
+
+    public function parametersAction(Request $request)
+    {
+        $request->getSession()->set('copro', null);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/parameters.html.twig');
     }
 
     public function showDocumentAction(Document $document)

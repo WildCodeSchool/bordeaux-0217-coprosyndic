@@ -50,8 +50,6 @@
                 </div>
             </div>
             {%  endfor %}
-
-
         </div>
     </div>
 
@@ -110,11 +108,6 @@
         </div>
     </div>
 </div>
-
-
-{% for message in app.session.flashbag.get('info') %}
-    <p>Message flash : {{ message }}</p>
-{% endfor %}
 
 {% endblock %}
 

@@ -130,14 +130,16 @@ class SyndicController extends Controller
         ));
     }
 
+    public function userMenuAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/menuUser.html.twig');
+    }
+
     public function parametersAction(Request $request)
     {
         $request->getSession()->set('copro', null);
 
-        $em = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/parameters.html.twig',array('syndic'=> $syndic));
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/parameters.html.twig');
     }
 
     // ACTIONS LIEES AUX COPROPRIETAIRES

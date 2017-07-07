@@ -20,9 +20,14 @@
                         <li class="sidebar-separator">
                         </li>
                         <li>
-                                <a href="{{ path('artisan_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">{% set nbmessages = artisan.user.messagesRecus|length %}
-                                        {{ nbmessages }}</span>
-                                        <span class="sidebar-nav-mini-hide">Mes Messages</span></a>
+                                <a href="{{ path('artisan_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i>
+                                    {% if nbMessages > 0 %}
+                                            <span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">
+                                        {{ nbMessages }}
+                                        </span>
+                                    {% endif %}
+                                        <span class="sidebar-nav-mini-hide">Mes Messages</span>
+                                </a>
                         </li>
 
                         <li class="sidebar-separator">

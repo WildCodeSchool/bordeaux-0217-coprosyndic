@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArtisanController extends Controller
 {
-
-
     public function indexAction()
     {
         $artMsg = $this->getDoctrine()->getManager();
@@ -54,12 +52,24 @@ class ArtisanController extends Controller
         ));
     }
 
-    public function parametersAction(){
+    public function menuAction(){
 
         $em = $this->getDoctrine()->getManager();
-        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/parameters.html.twig',array('artisan'=> $artisan));
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/menu.html.twig', array(
+            'nbMessages' => $nbMessages,
+        ));
+    }
+
+    public function parametersAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/parameters.html.twig');
+    }
+
+    public function userMenuAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/menuUser.html.twig');
     }
 
     // ACTIONS LIEES AUX DOCUMENTS
@@ -78,7 +88,7 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($artisan->getSyndic);
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($artisan->getSyndic());
 
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
         $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);

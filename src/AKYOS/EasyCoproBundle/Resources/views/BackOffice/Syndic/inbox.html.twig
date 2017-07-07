@@ -86,6 +86,7 @@
                                 <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
                             </td>
                             <td class="text-center" style="width: 7%;">
+
                                 <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
                             </td>
                             <td>
@@ -99,7 +100,7 @@
                             </td>
                             <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
                         </tr>
-                                {% endif %}
+                            {% endif %}
                         {% endfor %}
                         {% for message in app.user.messagesrecus %}
                             {% if message.IsSupprime == false and (message.isLu == true) %}
@@ -108,7 +109,7 @@
                                         <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
                                     </td>
                                     <td class="text-center" style="width: 7%;">
-                                        <img src="" alt="avatar" class="img-circle">
+                                        <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
                                     </td>
                                     <td>
                                         <h4>
