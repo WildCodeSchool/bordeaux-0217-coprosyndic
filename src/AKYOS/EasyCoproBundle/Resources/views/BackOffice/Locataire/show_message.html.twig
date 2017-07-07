@@ -1,9 +1,24 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Locataire/layout.html.twig' %}
-{% block breadcrumb %}
-    <li><a href="{{ path('locataire_inbox') }}">Boite de Réception</a></li>
-    <li class="active">Mes messages</li>
-    <li class="active">Visionnage</li>
+
+{% block title %}
+    Affichage d'un message
 {% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block titre_page %}
+    Affichage d'un message
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('locataire_inbox') }}">Mes messages</a></li>
+    <li class="active">Affichage d'un message</li>
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <!-- Message View -->
@@ -32,11 +47,40 @@
             <hr>
             <!-- END Message Body -->
 
+            <!-- Attachments Row --> <!--
+            <div class="row block-section">
+                <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
+                    <a href="<?= ressources('back'); ?>/img/placeholders/photos/photo2.jpg" data-toggle="lightbox-image">
+                        <img src="<?= ressources('back'); ?>/img/placeholders/photos/photo2.jpg" alt="photo" class="img-responsive push-bit">
+                    </a>
+                    <span class="text-muted">IMG0001.JPG</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
+                    <a href="<?= ressources('back'); ?>/img/placeholders/photos/photo16.jpg" data-toggle="lightbox-image">
+                        <img src="<?= ressources('back'); ?>/img/placeholders/photos/photo16.jpg" alt="photo" class="img-responsive push-bit">
+                    </a>
+                    <span class="text-muted">IMG0002.JPG</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
+                    <a href="<?= ressources('back'); ?>/img/placeholders/photos/photo9.jpg" data-toggle="lightbox-image">
+                        <img src="<?= ressources('back'); ?>/img/placeholders/photos/photo9.jpg" alt="photo" class="img-responsive push-bit">
+                    </a>
+                    <span class="text-muted">IMG0003.JPG</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
+                    <a href="<?= ressources('back'); ?>/img/placeholders/photos/photo15.jpg" data-toggle="lightbox-image">
+                        <img src="<?= ressources('back'); ?>/img/placeholders/photos/photo15.jpg" alt="photo" class="img-responsive push-bit">
+                    </a>
+                    <span class="text-muted">IMG0004.JPG</span>
+                </div>
+            </div> -->
+            <!-- END Attachments Row -->
+
             <!-- Quick Reply Form -->
             {{ form_start(formReply) }}
-                {{ form_row(formReply.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre réponse..'}}) }}
-                {{ form_row(formReply.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
-          {{ form_end(formReply) }}
+            {{ form_row(formReply.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre réponse..'}}) }}
+            {{ form_row(formReply.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            {{ form_end(formReply) }}
             <!-- END Quick Reply Form -->
         </div>
         <!-- END Message View -->

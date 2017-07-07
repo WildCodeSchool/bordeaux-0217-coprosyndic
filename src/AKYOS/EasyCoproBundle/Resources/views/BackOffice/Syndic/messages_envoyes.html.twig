@@ -7,9 +7,6 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block content %}
-{% endblock %}
-
 {% block scripts %}
 {% endblock %}
 
@@ -81,27 +78,25 @@
                         <tbody>
                         <!-- Use the first row as a prototype for your column widths -->
 
-                        {% for message in app.user.messagesenvoyes %}
-                            {% if  message.IsSupprime == false %}
+                        {% for message in messages %}
                             <tr>
                                 <td class="td-label td-label-muted text-center" style="width: 5%;">
                                     <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
                                 </td>
                                 <td class="text-center" style="width: 7%;">
-                                    <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
+                                    <img src="{{ vich_uploader_asset(message.destinataire, 'imageFile') }}" alt="avatar" class="img-circle">
                                 </td>
                                 <td>
                                     <h4>
-                                        <a href="{{ path('syndic_show_message_from_envoye', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                        <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
                                     </h4>
-                                    <span class="text-muted">{{ message.contenu }}</span>
+                                    <span class="text-muted"> {{ message.contenu }}</span>
                                 </td>
                                 <td class="hidden-xs text-center" style="width: 30px;">
                                     <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
                                 </td>
-                                <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>Envoyé le : {{ message.dateEnvoi|date('Y-m-d') }}</em></td>
+                                <td class="hidden-xs text-right text-muted" style="width: 180px;"><em>envoyé il y a {{ message.dateEnvoi|compteRebours }}</em></td>
                             </tr>
-                                {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>

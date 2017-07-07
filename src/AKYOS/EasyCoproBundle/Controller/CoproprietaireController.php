@@ -327,10 +327,13 @@ class CoproprietaireController extends Controller
             return $this->redirectToRoute('coproprietaire_inbox');
         }
 
-        $request->getSession()->set('copro', null);
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findInboxMessagesByUser($this->getUser());
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/inbox.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function messagesEnvoyesAction(Request $request)
@@ -351,8 +354,14 @@ class CoproprietaireController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('coproprietaire_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/messages_envoyes.html.twig',
-            ['formSend' => $form->createView()]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findSendMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/messages_envoyes.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function corbeilleAction(Request $request)
@@ -373,8 +382,14 @@ class CoproprietaireController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('coproprietaire_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findDeletedMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/corbeille.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function nowSupprimeAction(Request $request, Message $message)

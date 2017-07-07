@@ -1,9 +1,24 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Locataire/layout.html.twig' %}
-{% block breadcrumb %}
-    <li><a href="{{ path('locataire_messages_envoyes') }}">Messages envoyés</a></li>
-    <li class="active">Mes messages</li>
-    <li class="active">Visionnage</li>
+
+{% block title %}
+    Affichage d'un message
 {% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block titre_page %}
+    Affichage d'un message
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('locataire_inbox') }}">Mes messages</a></li>
+    <li class="active">Affichage d'un message</li>
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <!-- Message View -->
@@ -62,9 +77,9 @@
 
             <!-- Quick Reply Form -->
             {{ form_start(formReply) }}
-                {{ form_row(formReply.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre réponse..'}}) }}
-                {{ form_row(formReply.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
-          {{ form_end(formReply) }}
+            {{ form_row(formReply.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre réponse..'}}) }}
+            {{ form_row(formReply.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            {{ form_end(formReply) }}
             <!-- END Quick Reply Form -->
         </div>
         <!-- END Message View -->

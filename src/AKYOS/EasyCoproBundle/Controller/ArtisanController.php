@@ -6,7 +6,6 @@ use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Document;
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Message;
-use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
@@ -88,10 +87,10 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($artisan->getSyndic());
+        $syndic = $em->getRepository(Artisan::class)->findOneByUser($artisan->getArtisan());
 
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
-        $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
+        $allDocuments = $em->getRepository(Document::class)->findArtisanDocumentsSortedByDate($syndic);
 
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
         $allDocuments = $em->getRepository(Document::class)->findArtisanDocumentsSortedByDate($artisan);
@@ -291,8 +290,6 @@ class ArtisanController extends Controller
 
     public function inboxAction(Request $request)
     {
-        $artMsg = $this->getDoctrine()->getManager();
-        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -310,14 +307,18 @@ class ArtisanController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('artisan_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/inbox.html.twig',
-            ['formSend' => $form->createView(), 'artisan'=>$artisan]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findInboxMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/inbox.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function messagesEnvoyesAction(Request $request)
     {
-        $artMsg = $this->getDoctrine()->getManager();
-        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -334,14 +335,18 @@ class ArtisanController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('artisan_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/messages_envoyes.html.twig',
-            ['formSend' => $form->createView(), 'artisan' => $artisan]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findSendMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/messages_envoyes.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function corbeilleAction(Request $request)
     {
-        $artMsg = $this->getDoctrine()->getManager();
-        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -358,8 +363,14 @@ class ArtisanController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('artisan_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/corbeille.html.twig',
-            ['formSend' => $form->createView(), 'artisan' => $artisan]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findDeletedMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/corbeille.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function nowSupprimeAction(Request $request, Message $message)

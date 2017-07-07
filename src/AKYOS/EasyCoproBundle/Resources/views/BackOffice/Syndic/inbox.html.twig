@@ -79,50 +79,26 @@
                         <tbody>
                         <!-- Use the first row as a prototype for your column widths -->
 
-                        {% for message in app.user.messagesrecus %}
-                            {% if  message.IsSupprime == false and (message.isLu == false) %}
-                        <tr>
+                        {% for message in messages %}
+                        <tr {% if message.isLu == false %}style="background-color: #c5f5ea"{% endif %}>
                             <td class="td-label td-label-muted text-center" style="width: 5%;">
                                 <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
                             </td>
                             <td class="text-center" style="width: 7%;">
-
                                 <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
                             </td>
                             <td>
                                 <h4>
                                     <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                    {% if message.isLu == false %}<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 20px;"></i>{% endif %}
                                 </h4>
-                                <span class="text-muted"><strong>NON LU :</strong> {{ message.contenu }}</span>
+                                <span class="text-muted"> {{ message.contenu }}</span>
                             </td>
                             <td class="hidden-xs text-center" style="width: 30px;">
                                 <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
                             </td>
-                            <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
+                            <td class="hidden-xs text-right text-muted" style="width: 180px;"><em>reçu il y a {{ message.dateEnvoi|compteRebours }}</em></td>
                         </tr>
-                            {% endif %}
-                        {% endfor %}
-                        {% for message in app.user.messagesrecus %}
-                            {% if message.IsSupprime == false and (message.isLu == true) %}
-                                <tr>
-                                    <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                        <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                                    </td>
-                                    <td class="text-center" style="width: 7%;">
-                                        <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
-                                        </h4>
-                                        <span class="text-muted">{{ message.contenu }}</span>
-                                    </td>
-                                    <td class="hidden-xs text-center" style="width: 30px;">
-                                        <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
-                                    </td>
-                                    <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
-                                </tr>
-                            {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>

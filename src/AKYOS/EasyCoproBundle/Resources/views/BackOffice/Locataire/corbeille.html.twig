@@ -7,15 +7,16 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block content %}
-{% endblock %}
-
 {% block scripts %}
 {% endblock %}
 
+{% block titre_page %}
+    Corbeille
+{% endblock %}
+
 {% block breadcrumb %}
-    <li><a href="{{ path('locataire_corbeille') }}">Corbeille</a></li>
-    <li class="active">Mes messages</li>
+    <li><a href="{{ path('locataire_inbox') }}">Mes messages</a></li>
+    <li class="active">Ma corbeille</li>
 {% endblock %}
 
 {% block content %}
@@ -77,32 +78,29 @@
                         <table class="table table-borderless table-striped table-vcenter remove-margin">
                             <tbody>
                             <!-- Use the first row as a prototype for your column widths -->
-
-                            {% for message in app.user.messagesrecus %}
-                                {% if message.IsSupprime %}
-                                    <tr>
-                                        <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                                        </td>
-                                        <td class="text-center" style="width: 7%;">
-                                            <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                                        </td>
-                                        <td>
-                                            <h4>
-                                                <a href="{{ path('locataire_show_message_from_corbeille', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
-                                            </h4>
-                                            <span class="text-muted">{{ message.contenu }}</span>
-                                        </td>
-                                        <td class="hidden-xs text-center" style="width: 30px;">
-                                            <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
-                                        </td>
-                                        <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>Envoyé le : {{ message.dateEnvoi|date('Y-m-d') }}</em></td>
-                                    </tr>
+                                {% for message in messages %}
+                                <tr>
+                                    <td class="td-label td-label-muted text-center" style="width: 5%;">
+                                        <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                                    </td>
+                                    <td class="text-center" style="width: 7%;">
+                                        <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="{{ path('locataire_show_message_from_corbeille', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                        </h4>
+                                        <span class="text-muted"> {{ message.contenu }}</span>
+                                    </td>
+                                    <td class="hidden-xs text-center" style="width: 30px;">
+                                        <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
+                                    </td>
+                                    <td class="hidden-xs text-right text-muted" style="width: 180px;"><em>reçu il y a {{ message.dateEnvoi|compteRebours }}</em></td>
+                                </tr>
                                 {% else %}
                                     <tr>
                                     </tr>
-                                {% endif %}
-                            {% endfor %}
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

@@ -997,10 +997,13 @@ class SyndicController extends Controller
             return $this->redirectToRoute('syndic_inbox');
         }
 
-        $request->getSession()->set('copro', null);
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findInboxMessagesByUser($this->getUser());
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function messagesEnvoyesAction(Request $request)
@@ -1021,8 +1024,14 @@ class SyndicController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('syndic_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/messages_envoyes.html.twig',
-            ['formSend' => $form->createView()]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findSendMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/messages_envoyes.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function corbeilleAction(Request $request)
@@ -1043,8 +1052,14 @@ class SyndicController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('syndic_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findDeletedMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function nowSupprimeAction(Request $request, Message $message)
