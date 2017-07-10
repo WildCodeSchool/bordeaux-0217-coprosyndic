@@ -1,56 +1,79 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Artisan/layout.html.twig' %}
 
 {% block title %}
-    Affichage du profil
+    Affichage ARTISAN
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block titre_page %}
-    Affichage du profil
+    Mes informations
 {% endblock %}
 
 {% block breadcrumb %}
     <li><a href="{{ path('artisan_index') }}">Dashboard</a></li>
-    <li class="active">Mon profil</li>
+    <li><a href="{{ path('artisan_show') }}">Mon compte</a></li>
+    <li class="active">{{ artisan.raisonSociale ~ ' ' ~ artisan.activite }}</li>
 {% endblock %}
-
 {% block content %}
+
+    {% for message in app.session.flashbag.get('infoArtisan') %}
+        <p>Message flash : {{ message }}</p>
+    {% endfor %}
+
 
     <div class="row">
         <div class="col-md-5 col-lg-4">
             <div class="widget">
                 <div class="widget-content themed-background-danger clearfix">
                     <img src="{{ vich_uploader_asset(artisan.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
-                    <h2 class="widget-heading h3 text-light"><strong>{{ artisan.raisonSociale }}</strong></h2>
+                    <h2 class="widget-heading h3 text-light"><strong>{{ artisan.raisonSociale~' '~artisan.activite }}</strong></h2>
                     <span class="text-light-op">Artisan</span>
                 </div>
                 <div class="widget-content widget-content-mini themed-background-dark border-bottom">
-                    <span class="pull-right text-light-op">Depuis le {{ app.user.dateInscription|date("m/d/Y") }}</span>
-                    <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp;{{ artisan.activite }}</strong>
+                    <span class="pull-right text-light-op">SIRET N° {{ artisan.siret}}</span>
+                    </br>
                 </div>
                 <div class="widget-content widget-content-full border-bottom">
-                    <div class="col-xs-6 push-inner-top-bottom">
-                        <h3 class="widget-heading"><i class="fa fa-envelope-o themed-color-social push"></i> <br>
-                            <small>
-                                <strong>
-                                    {% set nbmessages = artisan.user.messagesRecus|length %}
-                                    {{ nbmessages }}
-                                </strong>
-                                {% if nbmessages > 1 %} Messages{% else %} Message
-                                {% endif %}
-                            </small>
-                        </h3>
+                    <div class="row text-center">
+                        <div class="col-xs-6 push-inner-top-bottom border-right">
+                            <h3 class="widget-heading"><i class="fa fa-file-o push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% if artisan.lot.documents is defined %}
+                                            {% set nbdocs = artisan.lot.documents|length %}
+                                            {{ nbdocs }}
+                                            {% else %}
+                                                0
+                                        {% endif %}
+                                    </strong>
+                                    {% if artisan.lot.documents is defined %}
+                                        {% if nbdocs > 1 %} Fichiers uploadés{% else %} Fichier uploadé
+                                        {% endif %}
+                                    {% endif %}
+                                     Fichier uploadé
+                                </small></h3>
+                        </div>
+                        <div class="col-xs-6 push-inner-top-bottom">
+                            <h3 class="widget-heading"><i class="fa fa-envelope-o themed-color-social push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbmessages = artisan.user.messagesRecus|length %}
+                                        {{ nbmessages }}
+                                    </strong>
+                                    {% if nbmessages > 1 %} Messages{% else %} Message
+                                    {% endif %}
+                                </small></h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="col-md-7 col-lg-8">
+            {{ render(controller('AKYOSEasyCoproBundle:Artisan:edit')) }}
+        </div>
     </div>
-
-    </div>
-
 {% endblock %}
 
 {% block scripts %}

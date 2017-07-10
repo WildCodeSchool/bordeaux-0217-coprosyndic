@@ -78,7 +78,7 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($artisan->getSyndic);
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($artisan->getSyndic());
 
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
         $allDocuments = $em->getRepository(Document::class)->findSyndicDocumentsSortedByDate($syndic);
