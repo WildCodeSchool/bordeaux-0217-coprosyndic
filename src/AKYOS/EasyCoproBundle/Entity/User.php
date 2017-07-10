@@ -65,6 +65,11 @@ class User extends BaseUser
      */
     private $dateInscription;
 
+    /**
+     *
+     * @ORM\OneToMany(targetEntity = "Postit", mappedBy = "user")
+     */
+    private $postits;
 
     public function __construct()
     {
@@ -244,5 +249,39 @@ class User extends BaseUser
     public function getDateInscription()
     {
         return $this->dateInscription;
+    }
+
+    /**
+     * Add postit
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Postit $postit
+     *
+     * @return User
+     */
+    public function addPostit(\AKYOS\EasyCoproBundle\Entity\Postit $postit)
+    {
+        $this->postits[] = $postit;
+
+        return $this;
+    }
+
+    /**
+     * Remove postit
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Postit $postit
+     */
+    public function removePostit(\AKYOS\EasyCoproBundle\Entity\Postit $postit)
+    {
+        $this->postits->removeElement($postit);
+    }
+
+    /**
+     * Get postits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPostits()
+    {
+        return $this->postits;
     }
 }

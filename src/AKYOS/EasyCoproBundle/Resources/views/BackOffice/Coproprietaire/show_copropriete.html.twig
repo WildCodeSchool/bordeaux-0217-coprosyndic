@@ -7,6 +7,15 @@
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Mes informations
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('coproprietaire_show_copropriete') }}">Ma copropriété</a></li>
+    <li class="active">{{ copropriete.nom }}</li>
+{% endblock %}
 {% block content %}
 
     {% for message in app.session.flashbag.get('infoCopro') %}
