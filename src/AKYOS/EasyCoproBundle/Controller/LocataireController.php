@@ -374,8 +374,6 @@ class LocataireController extends Controller
 
     public function nowSupprimeAction(Message $message)
     {
-        $locMsg = $this->getDoctrine()->getManager();
-        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsSupprime(true);
