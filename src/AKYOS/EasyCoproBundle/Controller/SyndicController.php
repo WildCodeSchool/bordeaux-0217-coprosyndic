@@ -54,6 +54,9 @@ class SyndicController extends Controller
         //Requete Locataire Repository
         $nbre_locataires = $em->getRepository(Locataire::class)->findNbrLocatairesBySyndic($syndic);
         $artisans = $syndic->getArtisans();
+        //Requete Messages
+        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
+        $nbMessagesNonLus = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
         //Requete Document
         $documents = $syndic->getDocuments();
         $coproprietes = $syndic->getCoproprietes();
@@ -65,9 +68,11 @@ class SyndicController extends Controller
             'nbre_coproprietaires' => $nbre_coproprietaires,
             'documents' => $documents,
             'nbre_locataires' => $nbre_locataires,
+            'nbMessagesTotal' => $nbMessagesTotal,
+            'nbMessagesNonLus' => $nbMessagesNonLus,
             'artisans' => $artisans,
             'coproprietes' => $coproprietes,
-            'nbre_documents' => $nbre_documents,
+            'nbDocuments' => $nbre_documents,
             'syndic' => $syndic
         ));
     }
