@@ -1,4 +1,4 @@
-{{ form_start(form, {'attr': {'class': 'form-horizontal', 'action': path('admin_edit') }}) }}
+{{ form_start(form, {'attr': {'class': 'form-horizontal', 'action': path('admin_edit_syndic', {'id': syndic.id })  }})}}
 
 <div class="block">
     <div class="block-title" style="margin-bottom: 0;">
@@ -100,9 +100,10 @@
     </div>
 </div>
 
-<div class="block">
+
+{#<div class="block">
     <div class="form-group">
-        <div class="col-md-10">
+        {#<div class="col-md-10">
             <div class="col-md-8">
                 {{ form_label(form.user.current_password, 'Veuillez saisir le mot de passe pour valider', {'label_attr': {'class': 'control-label'}}) }}
                 {{ form_errors(form.user.current_password) }}
@@ -111,10 +112,8 @@
                 {{ form_widget(form.user.current_password, { 'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
-        <div class="col-md-2">
-            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+        #}<div class="col-md-offset-10">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
         </div>
-    </div>
-</div>
-{{ form_rest(form) }}
-{{ form_end(form) }}
+   {# </div>
+</div>#}

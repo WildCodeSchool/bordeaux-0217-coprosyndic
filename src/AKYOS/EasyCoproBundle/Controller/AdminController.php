@@ -112,7 +112,7 @@ class AdminController extends Controller
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Admin/edit_syndic.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(), 'syndic' => $syndic,
         ));
     }
 
