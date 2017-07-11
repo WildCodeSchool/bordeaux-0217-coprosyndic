@@ -1,12 +1,12 @@
 
 {{ form_start(form_add_categorie, {'attr':{'class':'form-horizontal', 'action': path('syndic_create_categorie') }}) }}
 
-<div class="col-md-8">
+<div class="col-sm-12">
     <div class="form-group" style="margin-right: 5px">
         {{ form_row(form_add_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'Saisissez le nom ...'}}) }}
     </div>
 </div>
-<div class="col-md-4">
+<div class="col-sm-8    ">
     <div class="form-group">
         {{ form_label(form_add_categorie.couleur) }}
         <div class="input-group colorpicker-component">
@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div class="col-md-12">
+<div class="col-sm-12">
     <div class="form-group">
         {{ form_row(form_add_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'Entrez une description ...'}}) }}
     </div>
