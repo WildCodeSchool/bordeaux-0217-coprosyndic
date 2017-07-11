@@ -1,24 +1,119 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Locataire/layout.html.twig' %}
 
-{% block title %}
-    Edition du profil
-{% endblock %}
+{{ form_start(form, {'attr': {'action': path('locataire_edit'), 'class': 'form-horizontal'}}) }}
 
-{% block stylesheets %}
-{% endblock %}
+<div class="block">
+    <div class="block-title">
+        <h2>Mes informations de connexion</h2>
+    </div>
 
-{% block titre_page %}
-    Edition du profil
-{% endblock %}
+    <div class="form-group">
+        <div class="col-xs-6">
+            {{ form_label(form.user.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.user.username) }}
+            {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+        </div>
+        <div class="col-xs-6">
+            {{ form_label(form.user.email, 'Email', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.user.email) }}
+            {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            <label class="control-label" for="copropriete">Copropriété</label>
+            <input type="text" id="copropriete" name="copropriete" disabled="disabled" class="form-control" value="{{ locataire.lot.copropriete }}">
+        </div>
+        <div class="col-xs-6">
+            <label class="control-label" for="lot">Lot</label>
+            <input type="text" id="lot" name="lot" disabled="disabled" class="form-control" value="{{ locataire.lot }}">
+        </div>
+    </div>
+</div>
 
-{% block breadcrumb %}
-    <li><a href="{{ path('locataire_index') }}">Tableau de bord</a></li>
-    <li class="active">Mon profil</li>
-{% endblock %}
+<div class="block" >
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Informations personnelles</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.nom,'Nom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.nom) }}
+            {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.prenom,'Prénom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.prenom) }}
+            {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.email,'Email', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.telephone,'Téléphone', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.telephone) }}
+            {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.rib,'RIB', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.rib) }}
+            {{ form_widget(form.rib, { 'attr': {'class': 'form-control', 'placeholder':'RIB'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.nbEnfants,'Nombre d\'enfants', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.nbEnfants) }}
+            {{ form_widget(form.nbEnfants, { 'attr': {'class': 'form-control', 'placeholder':'Nombre d\'enfants'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.dateArrivee,'Date d\'Arrivée', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.dateArrivee) }}
+            {{ form_widget(form.dateArrivee, { 'attr': {'class': 'form-control', 'placeholder':'Date d\'Arrivée'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.dateDepart,'Date de Départ', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.dateDepart) }}
+            {{ form_widget(form.dateDepart, { 'attr': {'class': 'form-control', 'placeholder':'Date de Départ'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            {{ form_label(form.actuel) }}
+            <label class="switch switch-info">
+                {{ form_widget(form.actuel) }}<span></span>
+            </label>
+            {{ form_widget(form.actuel, { 'attr': {'class': 'form-control', 'placeholder':'Locataire actuel'}}) }}
+        </div>
+    </div>
+</div>
 
-{% block content %}
-    {{ form(form) }}
-{% endblock %}
+<div class="block">
+    <div class="form-group">
+        <div class="col-md-11">
+            <div class="col-md-7">
+                {{ form_label(form.user.current_password, 'Veuillez saisir le mot de passe pour valider', {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_errors(form.user.current_password) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_widget(form.user.current_password, { 'attr': {'class': 'form-control'}}) }}
+            </div>
 
-{% block scripts %}
-{% endblock %}
+            <div class="col-md-2">
+                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none">
+    {{ form_row(form.lot) }}
+    {{ form_row(form.commentSyndic) }}
+    {{ form_row(form.copropriete) }}
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

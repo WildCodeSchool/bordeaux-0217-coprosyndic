@@ -6,6 +6,7 @@ use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Document;
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Message;
+use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
@@ -87,7 +88,7 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        $syndic = $em->getRepository(Artisan::class)->findOneByUser($artisan->getArtisan());
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($artisan->getSyndic());
 
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
         $allDocuments = $em->getRepository(Document::class)->findArtisanDocumentsSortedByDate($syndic);
@@ -102,7 +103,6 @@ class ArtisanController extends Controller
             'artisan' => $artisan
         ));
     }
-
 
     // ACTIONS LIEES AUX MSGS
     //-----------------------
