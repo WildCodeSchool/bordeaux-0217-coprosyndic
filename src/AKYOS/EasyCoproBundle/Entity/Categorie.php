@@ -50,6 +50,15 @@ class Categorie
      */
     private $syndic;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Artisan")
+     */
+    private $artisan;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Locataire")
+     */
+    private $locataire;
 
     public function __toString()
     {
@@ -177,6 +186,54 @@ class Categorie
     public function getSyndic()
     {
         return $this->syndic;
+    }
+
+    /**
+     * Set artisan
+     *
+     * @param Artisan $artisan
+     *
+     * @return Categorie
+     */
+    public function setArtisan(Artisan $artisan = null)
+    {
+            $this->artisan = $artisan;
+
+        return $this;
+    }
+
+    /**
+     * Get artisan
+     *
+     * @return Artisan
+     */
+    public function getArtisan()
+    {
+        return $this->artisan;
+    }
+
+    /**
+     * Set locataire
+     *
+     * @param Locataire $locataire
+     *
+     * @return Categorie
+     */
+    public function setLocataire(Locataire $locataire = null)
+    {
+        $this->locataire = $locataire;
+
+        return $this;
+    }
+
+    /**
+     * Get locataire
+     *
+     * @return Locataire
+     */
+    public function getLocataire()
+    {
+        return $this->locataire;
     }
 
     /**

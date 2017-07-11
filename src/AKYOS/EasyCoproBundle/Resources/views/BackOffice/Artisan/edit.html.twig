@@ -1,20 +1,94 @@
 
-{% extends '@AKYOSEasyCopro/BackOffice/Artisan/layout.html.twig' %}
+{{ form_start(form, {'attr': {'action': path('artisan_edit'), 'class': 'form-horizontal'}}) }}
 
-{% block title %}
-    Modification de votre profil ARTISAN
+<div class="block">
+    <div class="block-title">
+        <h2>Mes informations de connexion</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            {{ form_label(form.user.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.user.username) }}
+            {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+        </div>
+        <div class="col-xs-6">
+            {{ form_label(form.user.email, 'Email', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.user.email) }}
+            {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
+        </div>
+    </div>
+</div>
+<div class="block" >
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Informations personnelles</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.raisonSociale,'Raison Sociale', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.raisonSociale) }}
+            {{ form_widget(form.raisonSociale, { 'attr': {'class': 'form-control', 'placeholder':'Raison Sociale'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.activite,'Activité', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.activite) }}
+            {{ form_widget(form.activite, { 'attr': {'class': 'form-control', 'placeholder':'Activité'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.contactEmail,'Email Contact', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.contactEmail) }}
+            {{ form_widget(form.contactEmail, { 'attr': {'class': 'form-control', 'placeholder':'Email Contact'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.contactTelephone,'Téléphone Contact', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.contactTelephone) }}
+            {{ form_widget(form.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone Contact'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.siret,'SIRET', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.siret) }}
+            {{ form_widget(form.siret, { 'attr': {'class': 'form-control', 'placeholder':'SIRET'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.ville,'Ville', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.ville) }}
+            {{ form_widget(form.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.adressePrinc,'Adresse Principale', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.adressePrinc) }}
+            {{ form_widget(form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse Principale'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.adresseSec,'Adresse Secondaire', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.adresseSec) }}
+            {{ form_widget(form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Adresse Secondaire'}}) }}
+        </div>
+    </div>
+</div>
 
-{% endblock %}
+<div class="block">
+    <div class="form-group">
+        <div class="col-md-11">
+            <div class="col-md-7">
+                {{ form_label(form.user.current_password, 'Veuillez saisir le mot de passe pour valider', {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_errors(form.user.current_password) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_widget(form.user.current_password, { 'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-md-2">
+                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none">
+</div>
 
-{% block stylesheets %}
-{% endblock %}
 
-{% block content %}
-
-    <h4>Modifier votre Profil :</h4>
-
-    {{ form(form) }}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}

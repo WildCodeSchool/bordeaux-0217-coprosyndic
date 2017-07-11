@@ -60,7 +60,7 @@ class Message
 
     /** @var boolean
      *
-     * @ORM\Column(name="isLu", type="boolean")
+     * @ORM\Column(name="isLu", type="boolean", nullable=true)
      */
     private $isLu;
 

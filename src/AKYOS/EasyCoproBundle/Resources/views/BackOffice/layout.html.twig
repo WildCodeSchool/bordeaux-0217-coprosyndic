@@ -85,20 +85,7 @@
                         <!-- END Main Sidebar Toggle Button -->
 
                         <!-- Header Link -->
-                        <li class="hidden-xs animation-fadeInQuick" id="copro-selector">
-                            <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
-                                <span>Gestion de : &nbsp;</span>&nbsp;
-                                    {% if app.session.get('copro') is defined %}{{ app.session.get('copro') }}{% endif %} &nbsp;
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu text-left" id="all-coownerships-dropdown">
-                                <li class="dropdown-header"><i class="fa fa-building pull-right"></i> <strong>Mes copropriétés</strong></li>
-                                {#TODO : adapter la liste déroulante au syndic actuel#}
-                                {#<li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Résidence aux 5 palmiers</a></li>#}
-                                {#<li><a href="javascript:void(0)"><i class="fa fa-folder-o pull-right"></i>Appartement Leclerc</a></li>#}
-                                <li class="divider"></li>
-                                <li><a href="{{ path('syndic_create_copropriete') }}"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
-                            </ul>
-                        </li>
+                        {% block listeCoproprietes %}{% endblock %}
                         <!-- END Header Link -->
                     </ul>
                     <!-- END Left Header Navigation -->
@@ -106,42 +93,15 @@
                     <!-- Right Header Navigation -->
                     <ul class="nav navbar-nav-custom pull-right">
                         <!-- Search Form -->
-                        <li>
-                            <form action="" method="post" class="navbar-form-custom" role="search">
-                                <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Rechercher..">
-                            </form>
-                        </li>
+                        {#<li>#}
+                            {#<form action="" method="post" class="navbar-form-custom" role="search">#}
+                                {#<input type="text" id="top-search" name="top-search" class="form-control" placeholder="Rechercher..">#}
+                            {#</form>#}
+                        {#</li>#}
                         <!-- END Search Form -->
 
-                        <!-- User Dropdown -->                    <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ asset('assets/backoffice/img/placeholders/avatars/avatar1.jpg') }}" alt="avatar">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-header">
-                                    <strong>{{ app.user.username }}</strong>
-                                </li>
-                                <li>
-                                    <a href="/">
-                                        <i class="fa fa-pencil-square fa-fw pull-right"></i>
-                                        Mon compte
-                                    </a>
-                                </li>
-                                <li class="divider"><li>
-                                <li>
-                                    <a href="">
-                                        <i class="gi gi-settings fa-fw pull-right"></i>
-                                        Paramètres
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('fos_user_security_logout') }}">
-                                        <i class="fa fa-power-off fa-fw pull-right"></i>
-                                        Se déconnecter
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        <!-- User Dropdown -->
+                        {% block userMenu %}{% endblock %}
                         <!-- END User Dropdown -->
                     </ul>
                     <!-- END Right Header Navigation -->
@@ -162,7 +122,7 @@
 
                     {% for message in app.session.flashbag.get('info') %}
                         <div class="flash-box">
-                            <div class="alert alert-warning">
+                            <div class="alert alert-success">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                                     ×</button>
                                 <span class="glyphicon glyphicon-ok"></span> <strong>Notification</strong>
@@ -181,7 +141,6 @@
             <div id="page-content">
                 <div class="container-fluid">
                     {% block content %}{% endblock %}
-                    {% block boo %}{% endblock %}
                 </div>
             </div>
 

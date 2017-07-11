@@ -55,24 +55,17 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-6" style="margin-right:30px">
+        <div class="col-md-4" style="margin-right:30px">
             {{ form_label(my_form.nbBatiments, 'Nombre de bâtiments', {'label_attr': {'class': 'control-label'}}) }}
             {{ form_errors(my_form.nbBatiments) }}
             {{ form_widget(my_form.nbBatiments, { 'attr': {'class': 'form-control','disabled':true, 'placeholder':'Nombre de bâtiments'}}) }}
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             {{ form_label(my_form.nbAscenseurs, 'Nombre d\'ascenseurs', {'label_attr': {'class': 'control-label'}}) }}
             {{ form_errors(my_form.nbAscenseurs) }}
             {{ form_widget(my_form.nbAscenseurs, { 'attr': {'class': 'form-control','disabled':true, 'placeholder':'Nombre d\'ascenseurs'}}) }}
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-6" style="margin-right:30px">
-            {{ form_label(my_form.nbLots, 'Nombre de lots', {'label_attr': {'class': 'control-label'}}) }}
-            {{ form_errors(my_form.nbLots) }}
-            {{ form_widget(my_form.nbLots, { 'attr': {'class': 'form-control','disabled':true, 'placeholder':'Nombre de lots'}}) }}
-        </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
             {{ form_label(my_form.parcelleCadastrale, 'Parcelle Cadastrale', {'label_attr': {'class': 'control-label'}}) }}
             {{ form_errors(my_form.parcelleCadastrale) }}
             {{ form_widget(my_form.parcelleCadastrale, { 'attr': {'class': 'form-control','disabled':true, 'placeholder':'Parcelle Cadastrale'}}) }}
@@ -107,11 +100,6 @@
             {{ form_label(my_form.typeChauffage, 'Type de Chauffage', {'label_attr': {'class': 'control-label'}}) }}
             {{ form_errors(my_form.typeChauffage) }}
             {{ form_widget(my_form.typeChauffage, { 'attr': {'class': 'form-control','disabled':true, 'placeholder':'Type de Chauffage' }}) }}
-        </div>
-        <div class="col-md-5">
-            {{ form_label(my_form.syndic, 'Syndic', {'label_attr': {'class': 'control-label'}}) }}
-            {{ form_errors(my_form.syndic) }}
-            {{ form_widget(my_form.syndic, { 'attr': {'class': 'form-control','disabled':true, 'placeholder':'Syndic' }}) }}
         </div>
     </div>
     <div class="form-group" style="display: none;">

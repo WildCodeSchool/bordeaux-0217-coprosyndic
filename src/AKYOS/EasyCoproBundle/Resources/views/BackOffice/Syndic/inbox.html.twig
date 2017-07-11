@@ -1,7 +1,7 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
 
 {% block title %}
-    Boite de Reception
+    Boîte de réception
 {% endblock %}
 
 {% block stylesheets %}
@@ -10,15 +10,19 @@
 {% block scripts %}
 {% endblock %}
 
-{% block breadcrumb %}
-    <li><a href="{{ path('syndic_inbox') }}">Boite de Réception</a></li>
-    <li class="active">Mes messages</li>
+{% block titre_page %}
+    Boîte de réception
 {% endblock %}
 
-{% block boo %}
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_inbox') }}">Mes messages</a></li>
+    <li class="active">Ma boîte de réception</li>
+{% endblock %}
+
+{% block content %}
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-sm-4 col-md-3">
         <!-- Inner Sidebar -->
         <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
         <div class="block-section">
@@ -33,17 +37,17 @@
             <div class="block-section">
                 <ul class="nav nav-pills nav-stacked">
                     <li class="active">
-                        <a href="{{path('syndic_inbox')}}">
+                        <a href="{{ path('syndic_inbox') }}">
                             <i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong>
                         </a>
                     </li>
                     <li>
-                        <a href="{{path('syndic_messages_envoyes')}}">
+                        <a href="{{ path('syndic_messages_envoyes') }}">
                             <i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong>
                         </a>
                     </li>
                     <li>
-                        <a href="{{path('syndic_corbeille')}}">
+                        <a href="{{ path('syndic_corbeille') }}">
                             <i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong>
                         </a>
                     </li>
@@ -54,18 +58,18 @@
     </div>
     <!-- END Inner Sidebar -->
 
-    <div class="col-md-10">
+    <div class="col-sm-8 col-md-9">
         <!-- Email Center Content -->
         <div class="block overflow-hidden">
             <!-- Message List -->
             <div id="message-list">
                 <!-- Title -->
                 <div class="block-title clearfix">
-                    <div class="block-options pull-left" style="padding-left:18px;">
-                        <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>
-                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="(non fonctionnel) Marquer comme non lu"><i class="fa fa-exclamation-circle"></i></a>
-                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>
-                    </div>
+                    {#<div class="block-options pull-left" style="padding-left:18px;">#}
+                        {#<label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>#}
+                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="(non fonctionnel) Marquer comme non lu"><i class="fa fa-exclamation-circle"></i></a>#}
+                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>#}
+                    {#</div>#}
                 </div>
                 <!-- END Title -->
 
@@ -75,49 +79,26 @@
                         <tbody>
                         <!-- Use the first row as a prototype for your column widths -->
 
-                        {% for message in app.user.messagesrecus %}
-                            {% if  message.IsSupprime == false and (message.isLu == false) %}
-                        <tr>
-                            <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                        {% for message in messages %}
+                        <tr {% if message.isLu == false %}style="background-color: #f7efb2"{% endif %}>
+                            <td class="td-label {% if message.isLu == false %}td-label-warning{% else %}td-label-info{% endif %} text-center" style="width: 2%;">
+                                {#<label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>#}
                             </td>
                             <td class="text-center" style="width: 7%;">
-                                <img src="" alt="avatar" class="img-circle">
+                                <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
                             </td>
                             <td>
                                 <h4>
                                     <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                    {% if message.isLu == false %}<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 20px;"></i>{% endif %}
                                 </h4>
-                                <span class="text-muted"><strong>NON LU :</strong> {{ message.contenu }}</span>
+                                <span class="text-muted"> {{ message.contenu }}</span>
                             </td>
                             <td class="hidden-xs text-center" style="width: 30px;">
                                 <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
                             </td>
-                            <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
+                            <td class="hidden-xs text-right {% if message.isLu == false %}text-warning{% else %}text-info{% endif %}" style="width: 180px;"><em>reçu il y a {{ message.dateEnvoi|compteRebours }}</em></td>
                         </tr>
-                                {% endif %}
-                        {% endfor %}
-                        {% for message in app.user.messagesrecus %}
-                            {% if message.IsSupprime == false and (message.isLu == true) %}
-                                <tr>
-                                    <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                        <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                                    </td>
-                                    <td class="text-center" style="width: 7%;">
-                                        <img src="" alt="avatar" class="img-circle">
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
-                                        </h4>
-                                        <span class="text-muted">{{ message.contenu }}</span>
-                                    </td>
-                                    <td class="hidden-xs text-center" style="width: 30px;">
-                                        <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
-                                    </td>
-                                    <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
-                                </tr>
-                            {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>

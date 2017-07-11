@@ -1,27 +1,22 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
 
 {% block title %}
-    Affichage COPROPRIETAIRE
+    Affichage Copropriété
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block titre_page %}
-    Mes informations
+    Ma copropriété
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li><a href="{{ path('coproprietaire_show_copropriete') }}">Ma copropriété</a></li>
-    <li class="active">{{ copropriete.nom }}</li>
+    <li><a href="{{ path('coproprietaire_index') }}">Tableau de bord</a></li>
+    <li class="active">Ma copropriété</li>
 {% endblock %}
+
 {% block content %}
-
-    {% for message in app.session.flashbag.get('infoCopro') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-
 
     <div class="row">
         <div class="col-lg-4 ">
