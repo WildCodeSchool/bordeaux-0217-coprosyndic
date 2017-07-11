@@ -40,6 +40,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.format.limitmessage:
+        class: AKYOS\EasyCoproBundle\Service\LimitMessageTwigFilter
+        tags:
+            - { name: twig.extension }
+
     app.form.registration:
         class: AKYOS\EasyCoproBundle\Form\CreateUserType
         tags:

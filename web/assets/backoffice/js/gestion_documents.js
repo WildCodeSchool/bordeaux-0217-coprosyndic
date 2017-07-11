@@ -75,7 +75,7 @@ $( document ).ready(function() {
         data[$copropriete.attr('name')] = $copropriete.val();
         var loader = startLoader($('.modal-content'));
         $.ajax({
-            url : "../create/doc",
+            url : "/syndic/create/doc",
             type: $form.attr('method'),
             data : data,
             success: function(html) {
