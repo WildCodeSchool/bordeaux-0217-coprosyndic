@@ -6,6 +6,7 @@ use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Document;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Message;
+use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditLocataireType;
@@ -16,10 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 class LocataireController extends Controller
 {
 
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $locMsg = $this->getDoctrine()->getManager();
-        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+        $em = $this->getDoctrine()->getManager();
+        $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+        $copropriete = $locataire->getLot()->getCopropriete();
+        $request->getSession()->set('copro', $copropriete);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/index.html.twig', array(
             'locataire' => $locataire));
@@ -75,6 +78,42 @@ class LocataireController extends Controller
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/parameters.html.twig',array('locataire'=> $locataire));
+    }
+
+    public function showCoproprieteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+        $copropriete = $locataire->getLot()->getCopropriete();
+        $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
+        $nbrelocataire = $em->getRepository(Locataire::class)->findNbrLocatairesByCopropriete($copropriete);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_copropriete.html.twig', array(
+            'locataire' =>$locataire,
+            'documents'=>$documents,
+            'copropriete'=>$copropriete,
+            'nbrelocataire' =>$nbrelocataire,
+        ));
+    }
+
+    public function editCoproprieteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+        $copropriete = $locataire->getLot()->getCopropriete();
+        $form = $this->createForm(EditCoproprieteType::class, $copropriete);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur la copropriété ont bien été enregistrées.');
+            return $this->redirectToRoute('locataire_show_copropriete');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/edit_copropriete.html.twig',
+            ['my_form' => $form->createView(),
+                'coproprieteId'=>$copropriete->getId(),
+            ]);
     }
 
     // ACTIONS LIEES AUX DOCUMENTS
