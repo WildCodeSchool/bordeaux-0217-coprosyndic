@@ -16,9 +16,11 @@ class MessageReplyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('contenu', TextareaType::class)
+            ->add('contenu', TextareaType::class, array(
+                'label' => 'Votre réponse',
+            ))
             ->add('send', SubmitType::class, array(
-                'label' => 'Envoyer',
+                'label' => 'Répondre',
             ))
         ;
     }

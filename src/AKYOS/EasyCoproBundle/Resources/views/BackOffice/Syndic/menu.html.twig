@@ -22,6 +22,9 @@
                     <li><a href="{{ path('syndic_create_copropriete') }}" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
                 </ul>
             </li>
+            <li class="sidebar-separator">
+                <i class="fa fa-ellipsis-h"></i>
+            </li>
             <li>
                 <a href="{{ path('syndic_list_coproprietaires') }}"><i class="fa fa-users sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gérer les copropriétaires</span></a>
             </li>
@@ -41,17 +44,25 @@
                 <a href="{{ path('syndic_gestion_documents') }}"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
             </li>
             <li>
-                <a href="{{ path('syndic_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">{{ nbMessages }}</span>
-                    <span class="sidebar-nav-mini-hide">Mes Messages</span></a>
+                <a href="{{ path('syndic_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i>
+                    {% if nbMessages > 0 %}
+                        <span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">
+                            {{ nbMessages }}
+                        </span>
+                    {% endif %}
+                    <span class="sidebar-nav-mini-hide">Mes Messages</span>
+                </a>
             </li>
-
             <li class="sidebar-separator">
                 <i class="fa fa-ellipsis-h"></i>
             </li>
             <li>
-                <a href=""><i class="fa fa-comment sidebar-nav-icon"></i>
-                    <span class="badge badge-menu-item label-info pull-right sidebar-nav-mini-hide">X</span><span class="sidebar-nav-mini-hide">Suggestions</span></a>
+                <a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-power-off sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Se déconnecter</span></a>
             </li>
+            {#<li>#}
+                {#<a href=""><i class="fa fa-comment sidebar-nav-icon"></i>#}
+                    {#<span class="badge badge-menu-item label-info pull-right sidebar-nav-mini-hide">X</span><span class="sidebar-nav-mini-hide">Suggestions</span></a>#}
+            {#</li>#}
         </ul>
         <!-- END Sidebar Navigation -->
 

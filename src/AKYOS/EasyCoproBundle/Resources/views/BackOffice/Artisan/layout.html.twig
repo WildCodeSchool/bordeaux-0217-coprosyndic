@@ -7,7 +7,11 @@
 {% endblock %}
 
 {% block menu %}
-    {% include '@AKYOSEasyCopro/BackOffice/Artisan/menu.html.twig' %}
+    {{ render(controller('AKYOSEasyCoproBundle:Artisan:menu')) }}
+{% endblock %}
+
+{% block userMenu %}
+    {{ render(controller('AKYOSEasyCoproBundle:Artisan:userMenu')) }}
 {% endblock %}
 
 {% block content %}

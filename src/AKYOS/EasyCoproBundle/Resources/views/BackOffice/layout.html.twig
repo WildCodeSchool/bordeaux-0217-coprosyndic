@@ -101,35 +101,7 @@
                         <!-- END Search Form -->
 
                         <!-- User Dropdown -->
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="avatar">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-header">
-                                    <strong>{{ app.user.username }}</strong>
-                                </li>
-                                <li>
-                                    <a href="{{ path('redirectToProfile')}}">
-                                        <i class="fa fa-pencil-square fa-fw pull-right"></i>
-                                        Mon compte
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="{{ path('redirectToParameters')}}">
-                                        <i class="gi gi-settings fa-fw pull-right"></i>
-                                        Paramètres
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('fos_user_security_logout') }}">
-                                        <i class="fa fa-power-off fa-fw pull-right"></i>
-                                        Se déconnecter
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        {% block userMenu %}{% endblock %}
                         <!-- END User Dropdown -->
                     </ul>
                     <!-- END Right Header Navigation -->
@@ -169,7 +141,6 @@
             <div id="page-content">
                 <div class="container-fluid">
                     {% block content %}{% endblock %}
-                    {% block boo %}{% endblock %}
                 </div>
             </div>
 

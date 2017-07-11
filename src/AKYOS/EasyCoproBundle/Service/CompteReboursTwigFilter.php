@@ -16,7 +16,7 @@ class CompteReboursTwigFilter extends \Twig_Extension
 
     public function formatCompteRebours($date)
     {
-        $rebours = 'il y a ';
+        $rebours = '';
         $int = date_diff(new \DateTime(), $date);
 
         if ($int->y > 0) {
