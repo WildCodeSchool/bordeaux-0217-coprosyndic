@@ -12,9 +12,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('artisan_index') }}">Dashboard</a></li>
-    <li><a href="{{ path('artisan_show') }}">Mon compte</a></li>
-    <li class="active">{{ artisan.raisonSociale ~ ' ' ~ artisan.activite }}</li>
+    <li><a href="{{ path('artisan_index') }}">Tableau de bord</a></li>
+    <li class="active">Mon profil</li>
 {% endblock %}
 {% block content %}
 

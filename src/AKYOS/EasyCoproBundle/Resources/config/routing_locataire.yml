@@ -14,6 +14,13 @@ locataire_parameters:
     path: /parameters
     defaults: {_controller: AKYOSEasyCoproBundle:Locataire:parameters }
 
+locataire_show_copropriete:
+    path: /show/copropriete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showCopropriete}
+
+locataire_edit_copropriete:
+    path: /edit/copropriete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:editCopropriete}
 
 # ROUTE LIEES AUX DOCUMENTS
 #--------------------------

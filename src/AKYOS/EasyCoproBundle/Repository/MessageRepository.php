@@ -22,6 +22,16 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getArrayResult();
     } */
 
+    public function findNbMessagesByUser($user) {
+        $qb = $this->createQueryBuilder('m')
+            ->select('COUNT(m)')
+            ->where('m.destinataire = :user')
+            ->setParameter('user', $user)
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
   public function findUnreadMessagesByUser($user) {
       $qb = $this->createQueryBuilder('m')
           ->select('COUNT(m)')
@@ -32,5 +42,38 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
 
       return $qb->getQuery()->getSingleScalarResult();
   }
+
+    public function findInboxMessagesByUser($user) {
+        $qb = $this->createQueryBuilder('m')
+            ->where('m.destinataire = :user')
+            ->andWhere('m.isSupprime = false')
+            ->setParameter('user', $user)
+            ->orderBy('m.dateEnvoi', 'desc');
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findSendMessagesByUser($user) {
+        $qb = $this->createQueryBuilder('m')
+            ->where('m.expediteur = :user')
+            ->andWhere('m.isSupprime = false')
+            ->setParameter('user', $user)
+            ->orderBy('m.dateEnvoi', 'desc');
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findDeletedMessagesByUser($user) {
+        $qb = $this->createQueryBuilder('m')
+            ->where('m.destinataire = :user')
+            ->andWhere('m.isSupprime = true')
+            ->setParameter('user', $user)
+            ->orderBy('m.dateEnvoi', 'desc');
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 
 }

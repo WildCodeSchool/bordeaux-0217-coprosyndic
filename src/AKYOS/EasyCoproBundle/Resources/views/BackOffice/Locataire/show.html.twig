@@ -12,16 +12,10 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('locataire_index') }}">Dashboard</a></li>
-    <li><a href="{{ path('locataire_show') }}">Mon compte</a></li>
-    <li class="active">{{ locataire.prenom ~ ' ' ~ locataire.nom }}</li>
+    <li><a href="{{ path('locataire_index') }}">Tableau de bord</a></li>
+    <li class="active">Mon profil</li>
 {% endblock %}
 {% block content %}
-
-    {% for message in app.session.flashbag.get('infoLoc') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-
 
     <div class="row">
         <div class="col-md-5 col-lg-4">

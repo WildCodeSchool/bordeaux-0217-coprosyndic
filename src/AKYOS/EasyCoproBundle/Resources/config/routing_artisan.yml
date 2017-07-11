@@ -13,8 +13,7 @@ artisan_show:
 artisan_parameters:
     path: /parameters
     defaults: {_controller: AKYOSEasyCoproBundle:Artisan:parameters }
-
-
+    
 
 # ROUTE LIEES AUX DOCUMENTS
 #--------------------------
