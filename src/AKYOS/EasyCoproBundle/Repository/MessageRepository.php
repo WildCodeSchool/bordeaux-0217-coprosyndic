@@ -22,6 +22,16 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getArrayResult();
     } */
 
+    public function findNbMessagesByUser($user) {
+        $qb = $this->createQueryBuilder('m')
+            ->select('COUNT(m)')
+            ->where('m.destinataire = :user')
+            ->setParameter('user', $user)
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
   public function findUnreadMessagesByUser($user) {
       $qb = $this->createQueryBuilder('m')
           ->select('COUNT(m)')

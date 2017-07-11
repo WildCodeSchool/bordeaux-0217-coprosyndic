@@ -22,7 +22,15 @@ class CoproprietaireController extends Controller
         $copropriete = $coproprietaire->getLot()->getCopropriete();
         $request->getSession()->set('copro', $copropriete);
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/index.html.twig');
+        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLot($coproprietaire->getLot());
+        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
+        $nbMessagesNonLus = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/index.html.twig', array(
+            'nbDocuments' => $nbDocuments,
+            'nbMessagesTotal' => $nbMessagesTotal,
+            'nbMessagesNonLus' => $nbMessagesNonLus,
+        ));
     }
 
     public function editAction(Request $request)
