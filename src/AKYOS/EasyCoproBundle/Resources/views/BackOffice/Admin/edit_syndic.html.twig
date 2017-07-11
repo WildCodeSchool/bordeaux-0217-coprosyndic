@@ -1,16 +1,120 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Admin/layout.html.twig' %}
+{{ form_start(form, {'attr': {'class': 'form-horizontal', 'action': path('admin_edit') }}) }}
 
-{% block title %}
-    Modification SYNDIC
-{% endblock %}
+<div class="block">
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Informations de connexion</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            {{ form_label(form.user.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.user.username) }}
+            {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.user.email,'Email de connexion', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.user.email) }}
+            {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+        </div>
+    </div>
+</div>
+<div class="block" >
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Informations sur la société</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.nom,'Nom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.nom) }}
+            {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.siret,'SIRET', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.siret) }}
+            {{ form_widget(form.siret, { 'attr': {'class': 'form-control', 'placeholder':'SIRET'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.emailBureau,'Email société', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.emailBureau) }}
+            {{ form_widget(form.emailBureau, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.telephoneBureau,'Téléphone société', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.telephoneBureau) }}
+            {{ form_widget(form.telephoneBureau, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.adressePrinc,'Adresse postale', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.adressePrinc) }}
+            {{ form_widget(form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse postale'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.adresseSec,'Complément d\'adresse', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.adresseSec) }}
+            {{ form_widget(form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adresse'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4">
+            {{ form_label(form.codePostal,'Code postal', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.codePostal) }}
+            {{ form_widget(form.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code postal'}}) }}
+        </div>
+        <div class="col-md-8">
+            {{ form_label(form.ville,'Ville', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.ville) }}
+            {{ form_widget(form.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
+        </div>
+    </div>
+</div>
+<div class="block">
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Utilisateur du compte</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            {{ form_label(form.contactPrenom,'Prénom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.contactPrenom) }}
+            {{ form_widget(form.contactPrenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom du contact'}}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.contactNom,'Nom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.contactNom) }}
+            {{ form_widget(form.contactNom, { 'attr': {'class': 'form-control', 'placeholder':'Nom du contact'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.contactEmail,'Email', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.contactEmail) }}
+            {{ form_widget(form.contactEmail, { 'attr': {'class': 'form-control', 'placeholder':'Adresse e-mail du contact'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.contactTelephone,'Téléphone portable', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.contactTelephone) }}
+            {{ form_widget(form.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
+        </div>
+    </div>
+</div>
 
-{% block stylesheets %}
-{% endblock %}
-
-{% block content %}
-    <h4>Modifier un syndic :</h4>
-    {{ form(form) }}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+<div class="block">
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="col-md-8">
+                {{ form_label(form.user.current_password, 'Veuillez saisir le mot de passe pour valider', {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_errors(form.user.current_password) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.user.current_password, { 'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+        </div>
+    </div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

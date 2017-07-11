@@ -27,22 +27,6 @@ class FrontOfficeController extends Controller
             return $this->render('AKYOSEasyCoproBundle:FrontOffice:index.html.twig');
     }
 
-    public function redirectToParametersAction()
-    {
-        $user = $this->getUser();
-        $userType= $user->getType();
-        if ($userType=='SYNDIC')
-            return $this->redirectToRoute('syndic_parameters');
-        elseif ($userType=='LOC')
-            return $this->redirectToRoute('locataire_parameters');
-        elseif ($userType=='ARTISAN')
-            return $this->redirectToRoute('artisan_parameters');
-        elseif ($userType=='SUPERADMIN')
-            return $this->redirectToRoute('admin_index');
-        else
-            return $this->render('AKYOSEasyCoproBundle:FrontOffice:index.html.twig');
-    }
-
     public function indexAction(Request $request)
     {
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {

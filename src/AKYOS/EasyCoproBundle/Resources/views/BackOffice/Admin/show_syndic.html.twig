@@ -1,27 +1,73 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Admin/layout.html.twig' %}
 
 {% block title %}
-    Affichage SYNDIC
+    Affichage du profil du Syndic
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
+{% block titre_page %}
+    Affichage du profil du Syndic
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('admin_index') }}">Dashboard</a></li>
+    <li class="active">Vue Syndic</li>
+{% endblock %}
+
 {% block content %}
-    <p>
-    {% for message in app.session.flashbag.get('info') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-    </p>
-    <h4>Afficher un syndic :</h4>
-    <h4>{{ syndic.nom }}</h4>
-    <ul>
-        <li>{{ syndic.emailBureau }}</li>
-        <li>{{ syndic.adressePrinc }}</li>
-        <li>...</li>
-    </ul>
-    <p><a href="{{ path('admin_edit_syndic', {'id' : syndic.id}) }}">Modifier le syndic</a></p>
-    <p><a href="{{ path('admin_delete_syndic', {'id' : syndic.id}) }}">Supprimer le syndic</a></p>
+
+    <div class="row">
+        <div class="col-md-5 col-lg-4">
+            <div class="widget">
+                <div class="widget-content themed-background-danger clearfix">
+                    <img src="{{ vich_uploader_asset(syndic.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
+                    <h2 class="widget-heading h3 text-light"><strong>{{ syndic.nom }}</strong></h2>
+                    <span class="text-light-op">Syndic</span>
+                </div>
+                <div class="widget-content widget-content-mini themed-background-dark border-bottom">
+                    <span class="pull-right text-light-op">Depuis le {{ app.user.dateInscription|date("m/d/Y") }}</span>
+                    <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp;{{ syndic.statut }}</strong>
+                </div>
+                <div class="widget-content widget-content-full border-bottom">
+                    <div class="row text-center">
+                        <div class="col-xs-6 push-inner-top-bottom border-right">
+                            <h3 class="widget-heading"><i class="fa fa-file-o push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbdocs = syndic.documents|length %}
+                                        {{ nbdocs }}
+                                    </strong>
+                                    {% if nbdocs > 1 %} Fichiers uploadés{% else %} Fichier uploadé
+                                    {% endif %}
+                                </small></h3>
+                        </div>
+                        <div class="col-xs-6 push-inner-top-bottom">
+                            <h3 class="widget-heading"><i class="fa fa-envelope-o themed-color-social push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbmessages = syndic.user.messagesRecus|length %}
+                                        {{ nbmessages }}
+                                    </strong>
+                                    {% if nbmessages > 1 %} Messages{% else %} Message
+                                    {% endif %}
+                                </small>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                {#<div class="widget-content border-bottom">#}
+                {#<h4>Votre commentaire :</h4>#}
+                {#<p>{{ coproprietaire.commentSyndic }}</p>#}
+                {#</div>#}
+            </div>
+        </div>
+        <div class="col-md-7 col-lg-8">
+            {{ render(controller('AKYOSEasyCoproBundle:Syndic:edit')) }}
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block scripts %}
