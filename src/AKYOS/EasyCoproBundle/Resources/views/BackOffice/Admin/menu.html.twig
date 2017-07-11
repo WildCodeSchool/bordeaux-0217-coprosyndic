@@ -1,18 +1,38 @@
-<li class="non-active"><a href="{{ path('admin_index') }}"><span class="glyphicon glyphicon-lock"></span> Accueil</a></li>
-<li class="non-active"><a href="{{ path('admin_index') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
-<li class="non-active">
-    <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01"
-       class="collapsed">
-        <span class="glyphicon glyphicon-inbox"></span> Mes Syndics<span
-                class="caret pull-right"></span>
-    </a>
-    <div class="collapse" id="toggleDemo2" style="height: 0;">
-        <ul class="nav nav-list">
-            <li><a href="{{ path('admin_list_syndics') }}">Liste des syndics</a></li>
-            <li><a href="{{ path('admin_create_syndic') }}">Créer un syndic</a></li>
+<!-- Wrapper for scrolling functionality -->
+
+<div id="sidebar-scroll">
+    <!-- Sidebar Content -->
+    <div class="sidebar-content">
+        <!-- Sidebar Navigation -->
+        <ul class="sidebar-nav">
+            <li>
+                <a href="{{ path('admin_index') }}" class=""><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Tableau de Bord</span></a>
+            </li>
+            <li class="sidebar-separator">
+                <i class="fa fa-ellipsis-h"></i>
+            </li>
+            <li>
+                <a href="{{ path('admin_list_syndics') }}" class=""><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Liste des Syndics</span></a>
+            </li>
+            <li class="sidebar-separator">
+                <i class="fa fa-ellipsis-h"></i>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
+            </li>
+            <li>
+                <a href="{{ path('admin_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">{% set nbmessages = app.user.messagesRecus|length %}
+                        {{ nbmessages }}</span>
+                    <span class="sidebar-nav-mini-hide">Mes Messages</span></a>
+            </li>
+
+            <li class="sidebar-separator">
+                <i class="fa fa-ellipsis-h"></i>
+            </li>
         </ul>
+        <!-- END Sidebar Navigation -->
+
     </div>
-</li>
-<li class="non-active"><a href=""><span class="glyphicon glyphicon-calendar"></span> Messagerie
-        <span class="badge pull-right">3</span></a></li>
-<li class="non-active"><a href=""><span class="glyphicon glyphicon-cog"></span> Préférences</a></li>
+    <!-- END Sidebar Content -->
+</div>
+<!-- END Wrapper for scrolling functionality -->
