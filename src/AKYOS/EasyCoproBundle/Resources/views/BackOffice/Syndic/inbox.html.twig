@@ -92,7 +92,7 @@
                                     <a href="{{ path('syndic_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
                                     {% if message.isLu == false %}<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 20px;"></i>{% endif %}
                                 </h4>
-                                <span class="text-muted"> {{ message.contenu }}</span>
+                                <span class="text-muted"> {{ message.contenu|limitMessage }}</span>
                             </td>
                             <td class="hidden-xs text-center" style="width: 30px;">
                                 <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
