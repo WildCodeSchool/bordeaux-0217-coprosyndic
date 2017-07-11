@@ -810,15 +810,17 @@ class SyndicController extends Controller
 
     public function showMessageAction(Request $request, Message $message)
     {
-        if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
+        $locMsg = $this->getDoctrine()->getManager();
+        $syndic = $locMsg->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
-
             $reply = new Message();
             $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender=$this->getUser();
+            $sender = $this->getUser();
             $reply
                 ->setDateEnvoi(new \DateTime())
                 ->setExpediteur($sender)
@@ -826,16 +828,16 @@ class SyndicController extends Controller
                 ->setIsLu(false);
 
             //recuperer l'expéditeur du message
-            $expediteur=$message->getExpediteur();
+            $expediteur = $message->getExpediteur();
 
             //l'utiliser comme cible de la réponse
             $reply->setDestinataire($expediteur);
 
             //recuperer le titre original du message
-            $titre=$message->getTitre();
+            $titre = $message->getTitre();
 
             //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:'.$titre);
+            $reply->setTitre('Re:' . $titre);
 
             $form->handleRequest($request);
 
@@ -847,22 +849,25 @@ class SyndicController extends Controller
                 return $this->redirectToRoute('syndic_inbox');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message.html.twig', array(
-                'message' => $message,'formReply' => $form->createView()
+                'message' => $message, 'formReply' => $form->createView(), 'syndic' => $syndic
+
             ));
-        }
-        else{
+        } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
     public function showMessageFromCorbeilleAction(Request $request, Message $message)
     {
-        if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
+        $locMsg = $this->getDoctrine()->getManager();
+        $syndic = $locMsg->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
 
             $reply = new Message();
             $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender=$this->getUser();
+            $sender = $this->getUser();
             $reply
                 ->setDateEnvoi(new \DateTime())
                 ->setExpediteur($sender)
@@ -870,16 +875,16 @@ class SyndicController extends Controller
                 ->setIsLu(false);
 
             //recuperer l'expéditeur du message
-            $expediteur=$message->getExpediteur();
+            $expediteur = $message->getExpediteur();
 
             //l'utiliser comme cible de la réponse
             $reply->setDestinataire($expediteur);
 
             //recuperer le titre original du message
-            $titre=$message->getTitre();
+            $titre = $message->getTitre();
 
             //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:'.$titre);
+            $reply->setTitre('Re:' . $titre);
 
             $form->handleRequest($request);
 
@@ -891,22 +896,24 @@ class SyndicController extends Controller
                 return $this->redirectToRoute('syndic_corbeille');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message_from_corbeille.html.twig', array(
-                'message' => $message,'formReply' => $form->createView()
+                'message' => $message, 'formReply' => $form->createView(),'syndic' => $syndic
             ));
-        }
-        else{
+        } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
     public function showMessagefromEnvoyesAction(Request $request, Message $message)
     {
-        if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
+        $locMsg = $this->getDoctrine()->getManager();
+        $syndic = $locMsg->getRepository(syndic::class)->findOneByUser($this->getUser());
+
+        if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
 
             $reply = new Message();
             $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender=$this->getUser();
+            $sender = $this->getUser();
             $reply
                 ->setDateEnvoi(new \DateTime())
                 ->setExpediteur($sender)
@@ -914,16 +921,16 @@ class SyndicController extends Controller
                 ->setIsLu(false);
 
             //recuperer l'expéditeur du message
-            $expediteur=$message->getExpediteur();
+            $expediteur = $message->getExpediteur();
 
             //l'utiliser comme cible de la réponse
             $reply->setDestinataire($expediteur);
 
             //recuperer le titre original du message
-            $titre=$message->getTitre();
+            $titre = $message->getTitre();
 
             //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:'.$titre);
+            $reply->setTitre('Re:' . $titre);
 
             $form->handleRequest($request);
 
@@ -935,17 +942,18 @@ class SyndicController extends Controller
                 return $this->redirectToRoute('syndic_messages_envoyes');
             }
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message_from_envoyes.html.twig', array(
-                'message' => $message,'formReply' => $form->createView()
+                'message' => $message, 'formReply' => $form->createView(), 'syndic' => $syndic
             ));
-        }
-        else{
+        } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
     public function deleteMessageAction(Request $request, Message $message)
     {
-        if ($message !== null && $message->getIsSupprime()==false) {
+        $locMsg = $this->getDoctrine()->getManager();
+        $syndic = $locMsg->getRepository(syndic::class)->findOneByUser($this->getUser());
+        if ($message !== null && $message->getIsSupprime() == false) {
             $em = $this->getDoctrine()->getManager();
             $em->setIsSupprime(true);
             $em->update($message);
@@ -962,10 +970,10 @@ class SyndicController extends Controller
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsSupprime(false);
-            $em->persist($message);
             $em->flush();
             $form = $this->createForm(MessageType::class, $message);
         }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
@@ -973,8 +981,8 @@ class SyndicController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('syndic_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+
+        return $this->redirectToRoute('syndic_inbox');
     }
 
     public function inboxAction(Request $request)
@@ -1062,14 +1070,14 @@ class SyndicController extends Controller
         ));
     }
 
-    public function nowSupprimeAction(Request $request, Message $message)
+    public function nowSupprimeAction(Message $message)
     {
         if ($message !== null) {
-        $em = $this->getDoctrine()->getManager();
-        $message->setIsSupprime(true);
-        $message->setIsLu(true);
-        $em->persist($message);
-        $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $message->setIsSupprime(true);
+            $message->setIsLu(true);
+            $em->persist($message);
+            $em->flush();
             $form = $this->createForm(MessageType::class, $message);
         }
         if ($form->isSubmitted() && $form->isValid()) {
@@ -1079,16 +1087,15 @@ class SyndicController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('syndic_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+
+        return $this->redirectToRoute('syndic_inbox');
     }
 
-    public function notLuAction(Request $request, Message $message)
+    public function notLuAction(Message $message)
     {
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsLu(false);
-            $em->persist($message);
             $em->flush();
             $form = $this->createForm(MessageType::class, $message);
         }
@@ -1099,20 +1106,22 @@ class SyndicController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('syndic_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+
+        return $this->redirectToRoute('syndic_inbox');
     }
 
     public function deleteMessageCorbeilleAction(Request $request, Message $message)
     {
-        if ($message !== null && $message->getIsSupprime()==true ) {
+        if ($message !== null && $message->getIsSupprime() == true) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($message);
             $em->flush();
-            $this->addFlash('info', 'Le Message a été définitivement supprimé.');
+            $this->addFlash('info', 'Le message a été définitivement supprimé.');
+
             return $this->redirectToRoute('syndic_corbeille');
         }
-        $this->addFlash('info', "Ce Message n'existe pas !");
+
+        $this->addFlash('info', "Ce message n'existe pas !");
         return $this->redirectToRoute('syndic_corbeille');
     }
 

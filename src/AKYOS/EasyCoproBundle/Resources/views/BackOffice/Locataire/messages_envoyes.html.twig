@@ -21,7 +21,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-sm-4 col-md-3">
             <!-- Inner Sidebar -->
             <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
             <div class="block-section">
@@ -58,17 +58,17 @@
         <!-- END Inner Sidebar -->
 
 
-        <div class="col-md-10">
+        <div class="col-sm-8 col-md-9">
             <!-- Email Center Content -->
             <div class="block overflow-hidden">
                 <!-- Message List -->
                 <div id="message-list">
                     <!-- Title -->
                     <div class="block-title clearfix">
-                        <div class="block-options pull-left" style="padding-left:18px;">
-                            <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>
-                        </div>
+                        {#<div class="block-options pull-left" style="padding-left:18px;">#}
+                            {#<label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>#}
+                            {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>#}
+                        {#</div>#}
                     </div>
                     <!-- END Title -->
 
@@ -80,8 +80,8 @@
 
                             {% for message in messages %}
                                 <tr>
-                                    <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                        <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                                    <td class="td-label td-label-info text-center" style="width: 2%;">
+                                        {#<label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>#}
                                     </td>
                                     <td class="text-center" style="width: 7%;">
                                         <img src="{{ vich_uploader_asset(message.destinataire, 'imageFile') }}" alt="avatar" class="img-circle">
@@ -95,7 +95,7 @@
                                     <td class="hidden-xs text-center" style="width: 30px;">
                                         <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
                                     </td>
-                                    <td class="hidden-xs text-right text-muted" style="width: 180px;"><em>envoyé il y a {{ message.dateEnvoi|compteRebours }}</em></td>
+                                    <td class="hidden-xs text-right text-info" style="width: 180px;"><em>envoyé il y a {{ message.dateEnvoi|compteRebours }}</em></td>
                                 </tr>
                             {% endfor %}
                             </tbody>

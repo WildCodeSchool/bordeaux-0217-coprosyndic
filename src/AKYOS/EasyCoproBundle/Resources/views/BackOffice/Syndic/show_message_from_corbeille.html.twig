@@ -26,19 +26,19 @@
             <!-- Title -->
             <div class="block-title clearfix" style="margin:0px -15px">
                 <div class="block-options pull-right">
-                    <a href="{{ path('syndic_revertMessage', {'id': message.id}) }}" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Annuler Supression"><i class="fa fa-exclamation-triangle"></i></a>
-                    <a href="{{ path('syndic_delete_message_corbeille', {'id': message.id}) }}" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="Supprimer Définitivement"><i class="fa fa-times"></i></a>
+                    <a href="{{ path('syndic_revertMessage', {'id': message.id}) }}" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Renvoyer dans la boîte de réception"><i class="fa fa-inbox"></i></a>
+                    <a href="{{ path('syndic_delete_message_corbeille', {'id': message.id}) }}" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Supprimer définitivement"><i class="fa fa-times"></i></a>
                 </div>
                 <div class="block-options pull-left">
-                    <a href="{{ path('syndic_corbeille') }}" class="btn btn-effect-ripple btn-default" id="message-view-back"><i class="fa fa-chevron-left"></i> Retour à la Corbeille</a>
+                    <a href="{{ path('syndic_corbeille') }}" class="btn btn-effect-ripple btn-default" id="message-view-back"><i class="fa fa-chevron-left"></i> Retour à la corbeille</a>
                 </div>
             </div>
             <!-- END Title -->
 
             <!-- Header -->
-
-            <h3><strong>{{ message.titre }}</strong> <small><em>Reçu le {{ message.dateEnvoi|date('Y-m-d') }}</em></small></h3>
-            <p>Expéditeur:<a href="#"> <strong>{{ message.expediteur }}</strong></a> Destinataire: <a href="#"><strong>{{ message.destinataire }}</strong></a></p>
+            <h3><strong>{{ message.titre }}</strong>
+                <small class="pull-right"><em>le {{ message.dateEnvoi|date('d/m/Y \\à h\\hi') }}</em></small></h3>
+            <p>de <strong style="color: #45A7B9">{{ message.expediteur }}</strong></p>
             <!-- END Header -->
 
             <!-- Message Body -->
@@ -76,12 +76,6 @@
             </div> -->
             <!-- END Attachments Row -->
 
-            <!-- Quick Reply Form -->
-            {{ form_start(formReply) }}
-                {{ form_row(formReply.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre réponse..'}}) }}
-                {{ form_row(formReply.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
-          {{ form_end(formReply) }}
-            <!-- END Quick Reply Form -->
         </div>
         <!-- END Message View -->
     </div>
