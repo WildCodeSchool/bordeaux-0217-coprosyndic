@@ -35,7 +35,7 @@
                                 </li>
                                 {% for categorie in categoriesCount %}
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="" class="categorie-link-copro" data-categorie="{{ categorie[0]['id'] }}">
                                         <span class="badge pull-right">{{ categorie[1] }}</span>
                                         <strong>{{ categorie['nom'] }}</strong>
                                     </a>
@@ -89,5 +89,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ asset('assets/backoffice/js/custom.js') }}"
+    <script src="{{ asset('assets/backoffice/js/gestion_documents.js') }}"></script>
 {% endblock %}
