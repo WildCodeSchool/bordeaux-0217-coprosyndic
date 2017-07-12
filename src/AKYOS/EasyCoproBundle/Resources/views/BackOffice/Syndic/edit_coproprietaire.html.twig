@@ -1,24 +1,126 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{{ form_start(form, {'attr': {'action': path('syndic_edit_coproprietaire', {'id': coproprietaireId }), 'class': 'form-horizontal'}}) }}
 
-{% block title %}
-    Modification COPROPRIETAIRE
-{% endblock %}
+<div class="block">
+    <div class="block-title">
+        <h2>Informations de connexion</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            {{ form_label(form.user.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.user.username) }}
+            {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+        </div>
+        <div class="col-xs-6">
+            {{ form_label(form.user.email, 'Email', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.user.email) }}
+            {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            {{ form_label(form.copropriete, 'Copropriété', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.copropriete) }}
+            {{ form_widget(form.copropriete, { 'attr': {'class': 'form-control', 'placeholder':'Choisissez la copropriété'}}) }}
+        </div>
+        <div class="col-xs-6">
+            {{ form_label(form.lot, 'Choisissez le lot', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.lot) }}
+            {{ form_widget(form.lot, { 'attr': {'class': 'form-control', 'placeholder':'Choisissez le lot'}}) }}
+        </div>
+    </div>
+</div>
+<div class="block" >
+    <div class="block-title" style="margin-bottom: 0;">
+        <h2>Informations personnelles</h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.nom,'Nom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.nom) }}
+            {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.prenom,'Prénom', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.prenom) }}
+            {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.email,'Email', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.telephone,'Téléphone', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.telephone) }}
+            {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.rib,'RIB', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.rib) }}
+            {{ form_widget(form.rib, { 'attr': {'class': 'form-control', 'placeholder':'RIB'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.nbEnfants,'Nombre d\'enfants', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.nbEnfants) }}
+            {{ form_widget(form.nbEnfants, { 'attr': {'class': 'form-control', 'placeholder':'Nombre d\'enfants'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+            {{ form_label(form.dateArrivee,'Date d\'Arrivée', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.dateArrivee) }}
+            {{ form_widget(form.dateArrivee, { 'attr': {'class': 'form-control', 'placeholder':'Date d\'Arrivée'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.dateDepart,'Date de Déaprt', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.dateDepart) }}
+            {{ form_widget(form.dateDepart, { 'attr': {'class': 'form-control', 'placeholder':'Date de Départ'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+                {{ form_label(form.membreConseil) }}
+                <label class="switch switch-info">
+                    {{ form_widget(form.membreConseil) }}<span></span>
+                </label>
+            {{ form_errors(form.membreConseil) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.actuel) }}
+            <label class="switch switch-info">
+                {{ form_widget(form.actuel) }}<span></span>
+            </label>
+            {{ form_widget(form.actuel, { 'attr': {'class': 'form-control', 'placeholder':'Copropriétaire actuel'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            {{ form_label(form.commentSyndic,'Commentaire', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_widget(form.commentSyndic, { 'attr': {'class': 'form-control', 'placeholder':'Commentaire'}}) }}
+            {{ form_errors(form.commentSyndic) }}
+        </div>
+    </div>
+</div>
 
-{% block stylesheets %}
-{% endblock %}
-
-{% block titre_page %}
-    Edition d'un compte Copropriétaire
-{% endblock %}
-
-{% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
-    <li class="active">Editer un compte Copropriétaire</li>
-{% endblock %}
-
-{% block content %}
-    {{ form(form) }}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+<div class="block">
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="col-md-8">
+                {{ form_label(form.user.current_password, 'Veuillez saisir le mot de passe pour valider', {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_errors(form.user.current_password) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.user.current_password, { 'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+        </div>
+    </div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "b22013067d279860a8b7d3e52213019a",
     "content-hash": "2bbb18923d1397ff2bc8866094ad2e4b",
     "packages": [
         {
@@ -1041,7 +1042,7 @@
                 "thumbnail",
                 "wkhtmltopdf"
             ],
-            "time": "2016-02-02T19:38:55+00:00"
+            "time": "2016-02-02 19:38:55"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1258,7 +1259,7 @@
                 "thumbnail",
                 "wkhtmltopdf"
             ],
-            "time": "2017-06-16T07:50:40+00:00"
+            "time": "2017-06-16 07:50:40"
         },
         {
             "name": "knplabs/knp-snappy-bundle",
@@ -1315,7 +1316,7 @@
                 "pdf",
                 "snappy"
             ],
-            "time": "2015-11-11T17:40:14+00:00"
+            "time": "2015-11-11 17:40:14"
         },
         {
             "name": "monolog/monolog",
@@ -1393,7 +1394,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19T01:22:40+00:00"
+            "time": "2017-06-19 01:22:40"
         },
         {
             "name": "paragonie/random_compat",

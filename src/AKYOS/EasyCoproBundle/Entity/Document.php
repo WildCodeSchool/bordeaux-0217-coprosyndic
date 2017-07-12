@@ -49,13 +49,21 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="extension", type="string", length=10)
+     * @ORM\Column(name="extension", type="string", length=10, nullable=true)
      */
     private $extension;
     /**
      * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="documents")
      */
     private $syndic;
+    /**
+     * @ORM\ManyToOne(targetEntity="Artisan")
+     */
+    private $artisan;
+    /**
+     * @ORM\ManyToOne(targetEntity="Locataire")
+     */
+    private $locataire;
     /**
      * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="documents")
      */
@@ -147,7 +155,6 @@ class Document
      * @param \DateTime $dateModif
      *
      * @return Document
-     * @ORM\PreUpdate
      */
     public function setDateModif($dateModif = null)
     {
@@ -184,6 +191,48 @@ class Document
     public function getSyndic()
     {
         return $this->syndic;
+    }
+    /**
+     * Set artisan
+     *
+     * @param Artisan $artisan
+     *
+     * @return Document
+     */
+    public function setArtisan(Artisan $artisan = null)
+    {
+        $this->artisan = $artisan;
+        return $this;
+    }
+    /**
+     * Get artisan
+     *
+     * @return Artisan
+     */
+    public function getArtisan()
+    {
+        return $this->artisan;
+    }
+    /**
+     * Set locataire
+     *
+     * @param Locataire $locataire
+     *
+     * @return Document
+     */
+    public function setLocataire(Locataire $locataire = null)
+    {
+        $this->locataire = $locataire;
+        return $this;
+    }
+    /**
+     * Get locataire
+     *
+     * @return Locataire
+     */
+    public function getLocataire()
+    {
+        return $this->locataire;
     }
     /**
      * Add lot

@@ -1,0 +1,16 @@
+<li class="hidden-xs animation-fadeInQuick" id="copro-selector">
+    <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
+        <span>Gestion de : &nbsp;</span>&nbsp;
+        {{ app.session.get('copro') }} &nbsp;
+        <span class="caret"></span>
+    </a>
+
+    <ul class="dropdown-menu text-left" id="all-coownerships-dropdown">
+        <li class="dropdown-header"><i class="fa fa-building pull-right"></i> <strong>Mes copropriétés</strong></li>
+        {% for copropriete in coproprietes %}
+            <li><a href="{{ path('syndic_show_copropriete', {'id': copropriete.id}) }}"><i class="fa fa-folder-o pull-right"></i>{{ copropriete.nom }}</a></li>
+        {% endfor %}
+        <li class="divider"></li>
+        <li><a href="{{ path('syndic_create_copropriete') }}"><i class="fa fa-plus pull-right"></i>Ajouter</a></li>
+    </ul>
+</li>

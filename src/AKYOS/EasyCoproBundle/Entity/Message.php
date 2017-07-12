@@ -52,6 +52,18 @@ class Message
      */
     private $destinataire;
 
+    /** @var boolean
+     *
+     * @ORM\Column(name="isSupprime", type="boolean")
+     */
+    private $isSupprime;
+
+    /** @var boolean
+     *
+     * @ORM\Column(name="isLu", type="boolean", nullable=true)
+     */
+    private $isLu;
+
 
     /**
      * Get id
@@ -181,5 +193,53 @@ class Message
     public function getDestinataire()
     {
         return $this->destinataire;
+    }
+
+    /**
+     * Set isSupprime
+     *
+     * @param boolean $IsSupprime
+     *
+     * @return Message
+     */
+    public function setIsSupprime($IsSupprime)
+    {
+        $this->isSupprime = $IsSupprime;
+
+        return $this;
+    }
+
+    /**
+     * Get isSupprime
+     *
+     * @return boolean
+     */
+    public function getIsSupprime()
+    {
+        return $this->isSupprime;
+    }
+
+    /**
+     * Set isLu
+     *
+     * @param boolean $IsLu
+     *
+     * @return Message
+     */
+    public function setIsLu($IsLu)
+    {
+        $this->isLu = $IsLu;
+
+        return $this;
+    }
+
+    /**
+     * Get isLu
+     *
+     * @return boolean
+     */
+    public function getIsLu()
+    {
+        return $this->isLu;
     }
 }

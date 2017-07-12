@@ -35,6 +35,16 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.format.compterebours:
+        class: AKYOS\EasyCoproBundle\Service\CompteReboursTwigFilter
+        tags:
+            - { name: twig.extension }
+
+    twig.format.limitmessage:
+        class: AKYOS\EasyCoproBundle\Service\LimitMessageTwigFilter
+        tags:
+            - { name: twig.extension }
+
     app.form.registration:
         class: AKYOS\EasyCoproBundle\Form\CreateUserType
         tags:
@@ -42,6 +52,24 @@ services:
 
     form.type.create_coproprietaire:
         class: AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
+    form.type.edit_coproprietaire:
+        class: AKYOS\EasyCoproBundle\Form\EditCoproprietaireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
+    form.type.create_locataire:
+        class: AKYOS\EasyCoproBundle\Form\CreateLocataireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
+    form.type.edit_locataire:
+        class: AKYOS\EasyCoproBundle\Form\EditLocataireType
         arguments: ['@service_container']
         tags:
             - { name: form.type }

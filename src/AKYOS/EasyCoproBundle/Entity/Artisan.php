@@ -127,7 +127,6 @@ class Artisan
      */
     private $copropriete;
 
-
     /**
      * Get id
      *

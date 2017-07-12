@@ -66,14 +66,14 @@ class CreateCoproprietaireType extends AbstractType
                 'required' => false,
                 ))
             ->add('actuel', CheckboxType::class, array(
-                'label'    => 'Actuellement copropriétaire',
+                'label'    => 'Propriétaire actuel',
                 'required' => false,
                 'data' => true,
                 ))
             ->add('membreConseil', CheckboxType::class, array(
-                'label'    => 'Membre du Conseil Syndical',
+                'label'    => 'Conseiller Syndical',
                 'required' => false,
-            ))
+                ))
             ->add('copropriete', TextType::class, array(
                 'label' => 'Copropriété',
                 'disabled' => true,

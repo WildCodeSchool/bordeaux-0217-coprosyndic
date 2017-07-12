@@ -49,6 +49,7 @@
          <div class="input-group">
              <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
              {{ form_widget(form.lot, { 'attr': {'class': 'form-control', 'placeholder':'Choisissez le lot ...'}}) }}
+
          </div>
      </div>
  </div>
@@ -59,7 +60,7 @@
         <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom'}}) }}
+                {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder':'Prenom'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
@@ -127,7 +128,7 @@
             {{ form_label(form.dateArrivee) }}
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
-                {{ form_widget(form.dateArrivee, { 'attr': {'class': 'form-control', 'placeholder':'Date d\emménagement'}}) }}
+                {{ form_widget(form.dateArrivee, { 'attr': {'class': 'form-control', 'placeholder':'Date d\'emmenagement'}}) }}
             </div>
         </div>
         <div class="col-sm-6">
@@ -140,20 +141,16 @@
     </div>
     <div class="row" style="margin-bottom: 10px">
         <div class="col-sm-6">
-            <div class="checkbox">
-                <label>
-
-                    {{ form_widget(form.membreConseil) }} Membre du conseil syndical
-
-                </label>
-            </div>
+            {{ form_label(form.membreConseil) }}
+            <label class="switch switch-warning">
+                {{ form_widget(form.membreConseil) }}<span></span>
+            </label>
         </div>
         <div class="col-sm-6">
-            <div class="checkbox">
-                <label>
-                    {{ form_widget(form.actuel) }} Actuellement copropriétaire
-                </label>
-            </div>
+            {{ form_label(form.actuel) }}
+            <label class="switch switch-warning">
+                {{ form_widget(form.actuel) }}<span></span>
+            </label>
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px">
@@ -167,7 +164,9 @@
     <div class="row" style="margin-bottom: 10px">
         <div class="col-sm-12 text-center">
             <div class="form-group">
-                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-default'}}) }}
+                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-effect-ripple btn-primary' }}) }}
+                <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
+
             </div>
         </div>
     </div>

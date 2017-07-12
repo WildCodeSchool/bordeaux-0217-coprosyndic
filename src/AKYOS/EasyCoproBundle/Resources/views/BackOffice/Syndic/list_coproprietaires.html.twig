@@ -12,96 +12,138 @@ Gestion des copropriétaires
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('syndic_index') }}">Tableau de bord</a></li>
     <li class="active">Mes copropriétaires</li>
 {% endblock %}
 
 {% block content %}
-    <div class="content-header">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="header-section">
-                    <form action="<?= WWW; ?>" method="post" onsubmit="return false;">
-                        <div class="col-sm-10">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="form-group">
-                                        <input type="text" id="example-typeahead" name="example-typeahead" class="form-control input-typeahead-users" autocomplete="off" placeholder="Rechercher quelqu'un...">
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <label class="control-label" style="margin-right:15px">Trier par ordre Alphabétique</label>
-                                    <label class="switch switch-warning"><input type="checkbox"><span></span></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Choississez..." style="width: 250px; display: none;" multiple="">
-                                                <option value="all" selected="">Tous les membres</option>
-                                                <option value="coowners">Copropriétaire</option>
-                                                <option value="coowners-graded">Conseiller Syndical</option>
-                                                <option value="syndic">Syndic</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Parmis une copropriété..." style="width: 250px; display: none;" multiple="">
-                                                <option value="all" selected="">Toutes les copropriétés</option>
-                                                <option value="coowners">Résidence aux 5 palmiers</option>
-                                                <option value="coowners-graded">Villa Roseraie</option>
-                                                <option value="syndic">Appartement Leclerc</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="submit" class="btn btn-effect-ripple btn-primary" value="Rechercher" style="overflow: hidden; position: relative;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+
+    {#<div class="content-header">#}
+        {#<div class="row">#}
+            {#<div class="col-sm-12">#}
+                {#<div class="header-section">#}
+                    {#<form action="<?= WWW; ?>" method="post" onsubmit="return false;">#}
+                        {#<div class="col-sm-10">#}
+                            {#<div class="row">#}
+                                {#<div class="col-md-7">#}
+                                    {#<div class="form-group">#}
+                                        {#<input type="text" id="example-typeahead" name="example-typeahead" class="form-control input-typeahead-users" autocomplete="off" placeholder="Rechercher quelqu'un...">#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="col-md-5">#}
+                                    {#<label class="control-label" style="margin-right:15px">Trier par ordre Alphabétique</label>#}
+                                    {#<label class="switch switch-warning"><input type="checkbox"><span></span></label>#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="row">#}
+                                {#<div class="form-group">#}
+                                    {#<div class="col-md-5">#}
+                                        {#<div class="form-group">#}
+                                            {#<select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Choississez..." style="width: 250px; display: none;" multiple="">#}
+                                                {#<option value="all" selected="">Tous les membres</option>#}
+                                                {#<option value="coowners">Copropriétaire</option>#}
+                                                {#<option value="coowners-graded">Conseiller Syndical</option>#}
+                                                {#<option value="syndic">Syndic</option>#}
+                                            {#</select>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<div class="col-md-5">#}
+                                        {#<div class="form-group">#}
+                                            {#<select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Parmis une copropriété..." style="width: 250px; display: none;" multiple="">#}
+                                                {#<option value="all" selected="">Toutes les copropriétés</option>#}
+                                                {#<option value="coowners">Résidence aux 5 palmiers</option>#}
+                                                {#<option value="coowners-graded">Villa Roseraie</option>#}
+                                                {#<option value="syndic">Appartement Leclerc</option>#}
+                                            {#</select>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<div class="col-md-2">#}
+                                        {#<input type="submit" class="btn btn-effect-ripple btn-primary" value="Rechercher" style="overflow: hidden; position: relative;">#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</form>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+
+    <div class="block">
+        <!-- Users Results -->
+        <div class="tab-pane" id="search-tab-users">
+            <div class="row">
+                {% set moitieCoproprietaires = coproprietaires|length / 2 %}
+                <div class="col-sm-6">
+                    <table class="table table-striped table-borderless table-hover table-vcenter">
+                        <tbody>
+                            {% for coproprietaire in coproprietaires|slice(0, moitieCoproprietaires+1) %}
+                                <tr class="animation-fadeInQuick2">
+                                    <td class="text-center" style="width: 100px;">
+                                        <img src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar"
+                                             class="img-circle img-thumbnail img-thumbnail-avatar">
+                                    </td>
+                                    <td>
+                                        <h4><a href="{{ path('syndic_show_coproprietaire', {'id': coproprietaire.id }) }}">
+                                                <strong>{{ coproprietaire.nom ~ ' ' ~ coproprietaire.prenom  }}</strong></a></h4>
+                                        <i class="fa fa-fw fa-map-marker text-info"></i> {{ coproprietaire.adressePrinc }}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ coproprietaire.codePostal~' '~coproprietaire.ville }}<br>
+                                        {% if coproprietaire.membreConseil %}<i class="fa fa-fw fa-bookmark"></i> Conseiller syndical{% else %}&nbsp;{% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ path('syndic_inbox') }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                            <i class="fa fa-envelope"></i></a>
+                                        <span data-toggle="modal" data-target="#modal-fade-del-coproprietaire">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-coproprietaire="{{ coproprietaire.id }}"
+                                           class="btn btn-effect-ripple btn-sm btn-danger btn-delete-coproprietaire">
+                                            <i class="fa fa-times"></i></a></span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Users Results -->
-    <div class="row">
-        {% for coproprietaire in coproprietaires %}
-        <div class="col-md-6">
-            <div class="no-padding">
-                <div class="lib-panel">
-                    <div class="row box-shadow">
-                        <div class="col-md-5 no-padding">
-                            <img class="lib-img-show" src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="lib-row lib-header">
-                                <a href="{{ path('syndic_show_coproprietaire', {'id': coproprietaire.id }) }}">{{ coproprietaire.nom ~ ' ' ~ coproprietaire.prenom  }}</a>
-                                <div class="lib-header-seperator"></div>
-                            </div>
-                            <div class="lib-row lib-desc">
-                                <h5>{{ coproprietaire.adressePrinc ~' '~coproprietaire.codePostal~' '~coproprietaire.ville }}</h5>
-                                <h5>{% if coproprietaire.membreConseil %} Membre du Conseil <i class="fa fa-fw fa-bookmark"></i> {% endif %}</h5>
-                            </div>
-                        </div>
-                        <div class="col-md-1 icon-fa text-right">
-                            <a href="javascript:void(0)" data-toggle="tooltip" title="Envoyer un message" style="width: 31px" class="btn btn-effect-ripple btn-sm btn-info">
-                                <i class="fa fa-envelope"></i></a>
-
-                            <a href="#modal-fade-del-coproprietaire" data-coproprietaire="{{ coproprietaire.id }}" data-toggle="modal" title="Supprimer le copropriétaire" style="width: 31px" class="btn-delete-coproprietaire btn btn-effect-ripple btn-sm btn-danger">
-                                <i class="fa fa-times"></i></a>
-
-
-                        </div>
-                    </div>
+                <div class="col-sm-6">
+                    <table class="table table-striped table-borderless table-hover table-vcenter">
+                        <tbody>
+                        {% for coproprietaire in coproprietaires|slice(moitieCoproprietaires+1, coproprietaires|length) %}
+                            <tr class="animation-fadeInQuick2">
+                                <td class="text-center" style="width: 100px;">
+                                    <img src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar"
+                                         class="img-circle img-thumbnail img-thumbnail-avatar">
+                                </td>
+                                <td>
+                                    <h4><a href="{{ path('syndic_show_coproprietaire', {'id': coproprietaire.id }) }}">
+                                            <strong>{{ coproprietaire.nom ~ ' ' ~ coproprietaire.prenom  }}</strong></a></h4>
+                                    <i class="fa fa-fw fa-map-marker text-info"></i> {{ coproprietaire.adressePrinc }}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ coproprietaire.codePostal~' '~coproprietaire.ville }}<br>
+                                    {% if coproprietaire.membreConseil %}<i class="fa fa-fw fa-bookmark"></i> Conseiller syndical{% else %}&nbsp;{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ path('syndic_inbox') }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                        <i class="fa fa-envelope"></i></a>
+                                    <span data-toggle="modal" data-target="#modal-fade-del-coproprietaire">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-coproprietaire="{{ coproprietaire.id }}"
+                                           class="btn btn-effect-ripple btn-sm btn-danger btn-delete-coproprietaire">
+                                            <i class="fa fa-times"></i></a></span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
+            {#<div class="text-center">#}
+                {#<ul class="pagination">#}
+                    {#<li class="disabled"><a href="javascript:void(0)">Précédente</a></li>#}
+                    {#<li class="active"><a href="javascript:void(0)">1</a></li>#}
+                    {#<li><a href="javascript:void(0)">2</a></li>#}
+                    {#<li><a href="javascript:void(0)">3</a></li>#}
+                    {#<li><a href="javascript:void(0)">Suivante</a></li>#}
+                {#</ul>#}
+            {#</div>#}
         </div>
-        {% endfor %}
+        <!-- END Users Results -->
     </div>
 
     <!-- Delete Modals -->
@@ -122,7 +164,7 @@ Gestion des copropriétaires
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="form-group pull-right">
-                            <a href=""  id="delete-coproprietaire"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
+                            <a href="" id="delete-coproprietaire"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
                             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
                         </div>
                     </div>
@@ -131,8 +173,7 @@ Gestion des copropriétaires
         </div>
     </div>
     <!-- END provider Modal -->
-
-
+    
 {% endblock %}
 
 {% block scripts %}

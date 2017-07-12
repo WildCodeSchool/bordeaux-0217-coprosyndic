@@ -1,4 +1,4 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Syndic/layout.html.twig' %}
+{% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
 
 {% block title %}
     Gestion des documents
@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('coproprietaire_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('coproprietaire_index') }}">Tableau de bord</a></li>
     <li class="active">Mes documents</li>
 {% endblock %}
 
@@ -64,20 +64,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for document in documents %}
+                            {% for document in documents %}
                                 <tr>
                                     <td class="text-center" style="display:none">{{ document.id }}</td>
-                                    <td style="padding-left:17px;"><a href="{{ path('coproprietaire_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.nom }}</strong></a></td>
-                                    <td><span class="label label-{{ document.categorie }}" style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span></td>
-                                    <td class="text-center">{{ document.dateAjout|date('d-m-Y') }}</td>
+                                    <td style="padding-left:17px;">
+                                        <a href="{{ path('coproprietaire_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.titre }}</strong></a>
+                                    </td>
+                                    <td><span class="label label-{{ document.categorie }}"
+                                              style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span>
+                                    </td>
+                                    <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                     <td class="text-center">
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">
+                                        <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}"
+                                           data-toggle="tooltip" title="Télécharger le document"
+                                           class="btn btn-effect-ripple btn-xs btn-primary">
                                             <i class="fa fa-download"></i></a>
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">
-                                            <i class="fa fa-times"></i></a>
+
+                                        <span data-toggle="modal" data-target="#modal-fade-del-document">
+                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer le document" data-document="{{ document.id }}"
+                                           class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc">
+                                            <i class="fa fa-times"></i></a></span>
                                     </td>
                                 </tr>
-                                {% endfor %}
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -89,5 +98,4 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ asset('assets/backoffice/js/custom.js') }}"
 {% endblock %}

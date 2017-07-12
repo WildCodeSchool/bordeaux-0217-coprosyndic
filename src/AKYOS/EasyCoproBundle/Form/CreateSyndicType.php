@@ -28,7 +28,8 @@ class CreateSyndicType extends AbstractType
             ->add('contactPrenom')
             ->add('contactTelephone')
             ->add('contactEmail')
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, array(
+                'label'=> 'Modifier'))
         ;
     }
 

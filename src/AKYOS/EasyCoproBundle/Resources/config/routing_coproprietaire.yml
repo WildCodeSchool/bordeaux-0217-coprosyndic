@@ -10,6 +10,10 @@ coproprietaire_show:
     path:     /show
     defaults: {_controller: AKYOSEasyCoproBundle:Coproprietaire:show }
 
+coproprietaire_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSEasyCoproBundle:Coproprietaire:parameters }
+
 coproprietaire_show_document:
     path: /show/doc/{id}/
     defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showDocument}
@@ -17,3 +21,58 @@ coproprietaire_show_document:
 coproprietaire_gestion_documents:
     path: /documents
     defaults: { _controller: AKYOSEasyCoproBundle:Coproprietaire:gestionDocuments }
+
+coproprietaire_show_copropriete:
+    path: /show/copropriete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showCopropriete}
+
+coproprietaire_edit_copropriete:
+    path: /edit/copropriete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:editCopropriete}
+    
+# ROUTE LIEES AUX MESSAGES
+#--------------------------
+
+coproprietaire_show_message:
+    path: /inbox/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showMessage}
+
+coproprietaire_show_message_from_corbeille:
+    path: /corbeille/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showMessageFromCorbeille}
+
+coproprietaire_show_message_from_envoye:
+    path: /messagesEnvoyes/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showMessagefromEnvoyes}
+
+coproprietaire_inbox:
+    path: /inbox
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:inbox}
+
+coproprietaire_delete_message:
+    path: /delete/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:deleteMessage}
+
+coproprietaire_messages_envoyes:
+    path: /messagesEnvoyes
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:messagesEnvoyes}
+
+coproprietaire_corbeille:
+    path: /corbeille
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:corbeille}
+
+coproprietaire_delete_message_corbeille:
+    path: /corbeille/message/{id}/delete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:deleteMessageCorbeille}
+
+coproprietaire_nowSupprime:
+    path: /inbox/message/{id}/delete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:nowSupprime}
+
+coproprietaire_notLu:
+    path: /inbox/message/{id}/unread
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:notLu}
+
+coproprietaire_revertMessage:
+    path: /inbox/message/{id}/revert
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:revertMessage}

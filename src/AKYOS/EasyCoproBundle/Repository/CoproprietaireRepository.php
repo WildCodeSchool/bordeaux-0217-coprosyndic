@@ -26,6 +26,7 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
             ->join('lc.syndic', 'lcs')
             ->where('lcs = :syndic')
             ->andWhere('lc = :copropriete')
+            ->andWhere('c.actuel = true')
             ->setParameters(array('syndic' => $syndic, 'copropriete' => $copropriete));
         return $qb->getQuery()->getSingleScalarResult();
     }
@@ -66,4 +67,15 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findNbrCoproprietairesByCopropriete($copropriete){
+
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c)')
+            ->join('c.lot', 'l')
+            ->join('l.copropriete', 'lc')
+            ->where('lc = :copropriete')
+            ->andWhere('c.actuel = true')
+            ->setParameter('copropriete', $copropriete);
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
