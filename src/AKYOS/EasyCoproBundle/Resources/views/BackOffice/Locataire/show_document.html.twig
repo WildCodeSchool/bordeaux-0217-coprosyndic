@@ -60,6 +60,9 @@
                                 <span class="label label-primary">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</span>
                             {% endfor %}
 
+                            {% if document.toLocataires %}
+                                <h5><em>Diffusé également aux locataires</em></h5>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -22,6 +22,10 @@ coproprietaire_gestion_documents:
     path: /documents
     defaults: { _controller: AKYOSEasyCoproBundle:Coproprietaire:gestionDocuments }
 
+coproprietaire_list_categorie_documents:
+    path: /list/docs/{categorieId}
+    defaults: { _controller: AKYOSEasyCoproBundle:Coproprietaire:listCategorieDocuments }
+
 coproprietaire_show_copropriete:
     path: /show/copropriete
     defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showCopropriete}
