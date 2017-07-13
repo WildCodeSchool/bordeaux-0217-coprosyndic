@@ -77,13 +77,8 @@
                                     <td class="text-center">
                                         <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}"
                                            data-toggle="tooltip" title="Télécharger le document"
-                                           class="btn btn-effect-ripple btn-xs btn-primary">
-                                            <i class="fa fa-download"></i></a>
-
-                                        <span data-toggle="modal" data-target="#modal-fade-del-document">
-                                        <a data-toggle="tooltip" data-placement="top" title="Supprimer le document" data-document="{{ document.id }}"
-                                           class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc">
-                                            <i class="fa fa-times"></i></a></span>
+                                           class="btn btn-effect-ripple btn-xs btn-primary" style="cursor: pointer;">
+                                            <i class="fa fa-download" style="cursor: pointer;"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
