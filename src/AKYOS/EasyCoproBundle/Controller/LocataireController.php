@@ -11,8 +11,12 @@ use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditLocataireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class LocataireController extends Controller
 {
@@ -133,18 +137,17 @@ class LocataireController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+        $lot = $locataire->getLot();
 
-        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByLocataire($locataire);
-        $allDocuments = $em->getRepository(Document::class)->findLocataireDocumentsSortedByDate($locataire);
+        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByLotForLocataires($lot);
+        $allDocuments = $em->getRepository(Document::class)->findLotDocumentsSortedByDateForLocataires($lot);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/gestion_documents.html.twig', array(
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,
-            'locataire' => $locataire
         ));
     }
-
 
     // ACTIONS LIEES AUX MSGS
     //-----------------------
@@ -465,5 +468,37 @@ class LocataireController extends Controller
         $this->addFlash('info', "Ce message n'existe pas !");
         return $this->redirectToRoute('locataire_corbeille');
     }
+
+    // ACTIONS REQUETES AJAX
+    //----------------------
+
+    public function listCategorieDocumentsAction(Request $request, $categorieId) {
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+            $lot = $locataire->getLot();
+
+            if ($categorieId == 'all') {
+                $documents = $em->getRepository(Document::class)->findAllDocumentsByLotForLocataires($lot);
+            } else {
+                $categorie = $em->getRepository(Categorie::class)->find($categorieId);
+                $documents = $em->getRepository(Document::class)->findLotDocumentsByCategorieForLocataires($categorie,$lot);
+            }
+
+            $encoder = new JsonEncoder();
+            $normalizer = new ObjectNormalizer();
+
+            $serializer = new Serializer(array($normalizer), array($encoder));
+
+            $jsonDocuments = $serializer->serialize($documents, 'json');
+
+            return new JsonResponse(array(
+                'data'=> $jsonDocuments
+            ));
+        }
+        throw new HttpException('501', 'Invalid Call');
+    }
+
 
 }

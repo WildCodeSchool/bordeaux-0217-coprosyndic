@@ -63,6 +63,38 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function findLotDocumentsByCategorie($categorie, $lot) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.id as doc_id', 'd.titre as doc_titre', 'd.dateAjout', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->leftjoin('d.categorie', 'c')
+            ->leftJoin('d.lots', 'l')
+            ->where('c = :categorie')
+            ->andWhere('l = :lot')
+            ->setParameters(array('categorie'=>$categorie, 'lot'=>$lot))
+            ->orderBy('d.dateAjout', 'desc')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findLotDocumentsByCategorieForLocataires($categorie, $lot) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.id as doc_id', 'd.titre as doc_titre', 'd.dateAjout', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->leftjoin('d.categorie', 'c')
+            ->leftJoin('d.lots', 'l')
+            ->where('c = :categorie')
+            ->andWhere('l = :lot')
+            ->andWhere('d.toLocataires = true')
+            ->setParameters(array('categorie'=>$categorie, 'lot'=>$lot))
+            ->orderBy('d.dateAjout', 'desc')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
     public function findAllDocumentsBySyndic($syndic) {
 
         $qb = $this->createQueryBuilder('d')
@@ -70,6 +102,35 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
             ->join('d.categorie', 'c')
             ->where('c.syndic = :syndic')
             ->setParameter('syndic', $syndic)
+            ->orderBy('d.dateAjout', 'desc')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findAllDocumentsByLot($lot) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.id as doc_id', 'd.titre as doc_titre', 'd.dateAjout', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->leftjoin('d.categorie', 'c')
+            ->leftJoin('d.lots', 'l')
+            ->where('l = :lot')
+            ->setParameter('lot', $lot)
+            ->orderBy('d.dateAjout', 'desc')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findAllDocumentsByLotForLocataires($lot) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.id as doc_id', 'd.titre as doc_titre', 'd.dateAjout', 'c.id as cat_id', 'c.nom as cat_nom', 'c.couleur')
+            ->leftjoin('d.categorie', 'c')
+            ->leftJoin('d.lots', 'l')
+            ->where('l = :lot')
+            ->andWhere('d.toLocataires = true')
+            ->setParameter('lot', $lot)
             ->orderBy('d.dateAjout', 'desc')
         ;
 
@@ -95,6 +156,18 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('d')
             ->leftJoin('d.lots', 'l')
             ->where('l = :lot')
+            ->setParameter('lot', $lot)
+            ->orderBy('d.dateModif', 'desc');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findLotDocumentsSortedByDateForLocataires($lot) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->leftJoin('d.lots', 'l')
+            ->where('l = :lot')
+            ->andWhere('d.toLocataires = true')
             ->setParameter('lot', $lot)
             ->orderBy('d.dateModif', 'desc');
 

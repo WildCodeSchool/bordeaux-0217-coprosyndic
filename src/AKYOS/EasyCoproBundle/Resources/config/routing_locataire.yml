@@ -33,6 +33,10 @@ locataire_show_document:
     path: /show/doc/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showDocument}
 
+locataire_list_categorie_documents:
+    path: /list/docs/{categorieId}
+    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:listCategorieDocuments }
+
 # ROUTE LIEES AUX MESSAGES
 #--------------------------
 

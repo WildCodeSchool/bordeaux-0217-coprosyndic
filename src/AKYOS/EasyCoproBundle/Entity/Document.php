@@ -53,6 +53,12 @@ class Document
      */
     private $extension;
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="to_locataires", type="boolean")
+     */
+    private $toLocataires;
+    /**
      * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="documents")
      */
     private $syndic;
@@ -60,10 +66,6 @@ class Document
      * @ORM\ManyToOne(targetEntity="Artisan")
      */
     private $artisan;
-    /**
-     * @ORM\ManyToOne(targetEntity="Locataire")
-     */
-    private $locataire;
     /**
      * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="documents")
      */
@@ -380,5 +382,29 @@ class Document
     public function getCopropriete()
     {
         return $this->copropriete;
+    }
+
+    /**
+     * Set toLocataires
+     *
+     * @param boolean $toLocataires
+     *
+     * @return Document
+     */
+    public function setToLocataires($toLocataires)
+    {
+        $this->toLocataires = $toLocataires;
+
+        return $this;
+    }
+
+    /**
+     * Get toLocataires
+     *
+     * @return boolean
+     */
+    public function getToLocataires()
+    {
+        return $this->toLocataires;
     }
 }

@@ -2,16 +2,23 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
+use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Message;
+use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AKYOS\EasyCoproBundle\Entity\Document;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class CoproprietaireController extends Controller
 {
@@ -97,7 +104,7 @@ class CoproprietaireController extends Controller
         $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
         $lot = $coproprietaire->getLot();
 
-        $categoriesCount = $em->getRepository(Document::class)->findCategoriesCountByLot($lot);
+        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByLot($lot);
         $allDocuments = $em->getRepository(Document::class)->findLotDocumentsSortedByDate($lot);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/gestion_documents.html.twig', array(
@@ -462,5 +469,36 @@ class CoproprietaireController extends Controller
         $this->addFlash('info', "Ce message n'existe pas !");
         return $this->redirectToRoute('coproprietaire_corbeille');
     }
+
+    // ACTIONS REQUETES AJAX
+    //----------------------
+
+    public function listCategorieDocumentsAction(Request $request, $categorieId) {
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+            $lot = $coproprietaire->getLot();
+
+            if ($categorieId == 'all') {
+                $documents = $em->getRepository(Document::class)->findAllDocumentsByLot($lot);
+            } else {
+                $categorie = $em->getRepository(Categorie::class)->find($categorieId);
+                $documents = $em->getRepository(Document::class)->findLotDocumentsByCategorie($categorie,$lot);
+            }
+            $encoder = new JsonEncoder();
+            $normalizer = new ObjectNormalizer();
+
+            $serializer = new Serializer(array($normalizer), array($encoder));
+
+            $jsonDocuments = $serializer->serialize($documents, 'json');
+
+            return new JsonResponse(array(
+                'data'=> $jsonDocuments
+            ));
+        }
+        throw new HttpException('501', 'Invalid Call');
+    }
+
 }
 

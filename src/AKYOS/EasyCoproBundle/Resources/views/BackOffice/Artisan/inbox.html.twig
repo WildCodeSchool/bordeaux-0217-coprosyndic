@@ -89,7 +89,7 @@
                             </td>
                             <td>
                                 <h4>
-                                    <a href="{{ path('artisan_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                    <a href="{{ path('artisan_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre|limitObject }}</strong></a>
                                     {% if message.isLu == false %}<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 20px;"></i>{% endif %}
                                 </h4>
                                 <span class="text-muted"> {{ message.contenu|limitMessage }}</span>

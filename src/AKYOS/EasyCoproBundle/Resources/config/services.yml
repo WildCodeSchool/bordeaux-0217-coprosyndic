@@ -4,6 +4,7 @@ services:
         arguments: ['@router', '@session']
         tags:
             - { name: kernel.event_subscriber }
+
     akyos.confirm_registration:
         class: AKYOS\EasyCoproBundle\Service\RegistrationConfirmation
         arguments: ['@fos_user.mailer','@fos_user.util.token_generator','@router','@session', '@service_container']
@@ -24,24 +25,9 @@ services:
         tags:
             - { name: form.type }
 
-    app.twig_extension:
-        class: AKYOS\EasyCoproBundle\Service\ActuelCoproprietaireFilter
+    akyos.twig.filters:
+        class: AKYOS\EasyCoproBundle\Service\TwigFilters
         arguments: ['@service_container']
-        tags:
-            - { name: twig.extension }
-
-    twig.format.telnumber:
-        class: AKYOS\EasyCoproBundle\Service\TelNumberTwigFilter
-        tags:
-            - { name: twig.extension }
-
-    twig.format.compterebours:
-        class: AKYOS\EasyCoproBundle\Service\CompteReboursTwigFilter
-        tags:
-            - { name: twig.extension }
-
-    twig.format.limitmessage:
-        class: AKYOS\EasyCoproBundle\Service\LimitMessageTwigFilter
         tags:
             - { name: twig.extension }
 
