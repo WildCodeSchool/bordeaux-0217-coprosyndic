@@ -18,52 +18,53 @@
 
 {% block content %}
 
-    <div class="content-header">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="header-section">
-                    <form action="" method="post" onsubmit="return false;">
-                        <div class="col-sm-10">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="form-group">
-                                        <input type="text" id="example-typeahead" name="example-typeahead"
-                                               class="form-control input-typeahead-providers" autocomplete="off"
-                                               placeholder="Rechercher...">
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <label class="control-label" style="margin-right:15px">Trier par ordre
-                                        Alphabétique</label>
-                                    <label class="switch switch-warning"><input type="checkbox"><span></span></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <select id="search-categories" name="search-categories"
-                                                    class="select-chosen" data-placeholder="Parmis une copropriété..."
-                                                    style="width: 250px; display: none;" multiple="">
-                                                <option value="all" selected="">Toutes les copropriétés</option>
-                                                <option value="coowners">Résidence aux 5 palmiers</option>
-                                                <option value="coowners-graded">Villa Roseraie</option>
-                                                <option value="syndic">Appartement Leclerc</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="submit" class="btn btn-effect-ripple btn-primary"
-                                               value="Rechercher" style="overflow: hidden; position: relative;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    {#<div class="content-header">#}
+        {#<div class="row">#}
+            {#<div class="col-sm-12">#}
+                {#<div class="header-section">#}
+                    {#<form action="" method="post" onsubmit="return false;">#}
+                        {#<div class="col-sm-10">#}
+                            {#<div class="row">#}
+                                {#<div class="col-md-7">#}
+                                    {#<div class="form-group">#}
+                                        {#<input type="text" id="example-typeahead" name="example-typeahead"#}
+                                               {#class="form-control input-typeahead-providers" autocomplete="off"#}
+                                               {#placeholder="Rechercher...">#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="col-md-5">#}
+                                    {#<label class="control-label" style="margin-right:15px">Trier par ordre#}
+                                        {#Alphabétique</label>#}
+                                    {#<label class="switch switch-warning"><input type="checkbox"><span></span></label>#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="row">#}
+                                {#<div class="form-group">#}
+                                    {#<div class="col-md-10">#}
+                                        {#<div class="form-group">#}
+                                            {#<select id="search-categories" name="search-categories"#}
+                                                    {#class="select-chosen" data-placeholder="Parmis une copropriété..."#}
+                                                    {#style="width: 250px; display: none;" multiple="">#}
+                                                {#<option value="all" selected="">Toutes les copropriétés</option>#}
+                                                {#<option value="coowners">Résidence aux 5 palmiers</option>#}
+                                                {#<option value="coowners-graded">Villa Roseraie</option>#}
+                                                {#<option value="syndic">Appartement Leclerc</option>#}
+                                            {#</select>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<div class="col-md-2">#}
+                                        {#<input type="submit" class="btn btn-effect-ripple btn-primary"#}
+                                               {#value="Rechercher" style="overflow: hidden; position: relative;">#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</form>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+
     <div class="block-content-full animation-fadeInQuick2">
         <!-- Users Results -->
         <div class="tab-pane" id="search-tab-users">
@@ -100,7 +101,7 @@
                                     </td>
                                     <td class="text-center" style="width: 100px;">
 
-                                        <a href="javascript:void(0)" data-toggle="tooltip" title="Envoyer un message" class="btn btn-effect-ripple btn-xs btn-info">
+                                        <a href="{{ path('syndic_inbox') }}" data-toggle="tooltip" title="Envoyer un message" class="btn btn-effect-ripple btn-xs btn-info">
                                             <i class="fa fa-envelope"></i></a>
 
                                         <span data-toggle="modal" data-target="#modal-fade-del-artisan">
