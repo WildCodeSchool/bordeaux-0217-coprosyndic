@@ -291,10 +291,10 @@ class AdminController extends Controller
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsSupprime(false);
-            $em->persist($message);
             $em->flush();
             $form = $this->createForm(MessageType::class, $message);
         }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
@@ -302,8 +302,8 @@ class AdminController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('admin_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+
+        return $this->redirectToRoute('admin_inbox');
     }
 
     public function inboxAction(Request $request)
@@ -326,12 +326,14 @@ class AdminController extends Controller
             return $this->redirectToRoute('admin_inbox');
         }
 
-        $request->getSession()->set('copro', null);
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findInboxMessagesByUser($this->getUser());
 
-        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/inbox.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
-
     public function messagesEnvoyesAction(Request $request)
     {
         $message = new Message();
@@ -350,8 +352,14 @@ class AdminController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('admin_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/messages_envoyes.html.twig',
-            ['formSend' => $form->createView()]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findSendMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/messages_envoyes.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
     public function corbeilleAction(Request $request)
@@ -372,11 +380,17 @@ class AdminController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('admin_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findDeletedMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/corbeille.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
     }
 
-    public function nowSupprimeAction(Request $request, Message $message)
+    public function nowSupprimeAction(Message $message)
     {
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
@@ -393,16 +407,15 @@ class AdminController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('admin_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/corbeille.html.twig',
-            ['formSend' => $form->createView()]);
+
+        return $this->redirectToRoute('admin_inbox');
     }
 
-    public function notLuAction(Request $request, Message $message)
+    public function notLuAction(Message $message)
     {
         if ($message !== null) {
             $em = $this->getDoctrine()->getManager();
             $message->setIsLu(false);
-            $em->persist($message);
             $em->flush();
             $form = $this->createForm(MessageType::class, $message);
         }
@@ -413,20 +426,22 @@ class AdminController extends Controller
             $this->addFlash('info', 'Le message a été envoyé !');
             return $this->redirectToRoute('admin_inbox');
         }
-        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/inbox.html.twig',
-            ['formSend' => $form->createView()]);
+
+        return $this->redirectToRoute('admin_inbox');
     }
 
     public function deleteMessageCorbeilleAction(Request $request, Message $message)
     {
-        if ($message !== null && $message->getIsSupprime()==true ) {
+        if ($message !== null && $message->getIsSupprime() == true) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($message);
             $em->flush();
-            $this->addFlash('info', 'Le Message a été définitivement supprimé.');
+            $this->addFlash('info', 'Le message a été définitivement supprimé.');
+
             return $this->redirectToRoute('admin_corbeille');
         }
-        $this->addFlash('info', "Ce Message n'existe pas !");
+
+        $this->addFlash('info', "Ce message n'existe pas !");
         return $this->redirectToRoute('admin_corbeille');
     }
 
