@@ -88,7 +88,7 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="{{ path('syndic_show_message_from_corbeille', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                            <a href="{{ path('syndic_show_message_from_corbeille', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre|limitObject }}</strong></a>
                                         </h4>
                                         <span class="text-muted"> {{ message.contenu|limitMessage }}</span>
                                     </td>

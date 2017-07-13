@@ -10,8 +10,10 @@ class LimitMessageTwigFilter extends \Twig_Extension
 
     public function getFilters()
     {
-        return [ new \Twig_SimpleFilter('limitMessage',
-            array($this, 'limitMessageLength'))];
+        return [
+            new \Twig_SimpleFilter('limitMessage', array($this, 'limitMessageLength')),
+            new \Twig_SimpleFilter('limitObject', array($this, 'limitObjectLength'))
+        ];
     }
 
     public function limitMessageLength($message)
@@ -25,5 +27,18 @@ class LimitMessageTwigFilter extends \Twig_Extension
         $messageReduit .= ' ...';
 
         return $messageReduit;
+    }
+
+    public function limitObjectLength($object)
+    {
+        $maxLength = strlen($object) < 40 ? strlen($object) : 40;
+        $objectReduit = '';
+
+        for($i = 0; $i < $maxLength; $i++) {
+            $objectReduit .= $object[$i];
+        }
+        $objectReduit .= ' ...';
+
+        return $objectReduit;
     }
 }
