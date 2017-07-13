@@ -7,9 +7,6 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block content %}
-{% endblock %}
-
 {% block scripts %}
 {% endblock %}
 
@@ -22,9 +19,9 @@
     <li class="active">Ma corbeille</li>
 {% endblock %}
 
-{% block boo %}
+{% block content %}
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-sm-4 col-md-3">
             <!-- Inner Sidebar -->
             <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
             <div class="block-section">
@@ -61,18 +58,18 @@
         <!-- END Inner Sidebar -->
 
 
-        <div class="col-md-10">
+        <div class="col-sm-8 col-md-9">
             <!-- Email Center Content -->
             <div class="block overflow-hidden">
                 <!-- Message List -->
                 <div id="message-list">
                     <!-- Title -->
                     <div class="block-title clearfix">
-                        <div class="block-options pull-left" style="padding-left:18px;">
-                            <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="(non fonctionnel) Annuler Supression"><i class="fa fa-exclamation-triangle"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer Définitivement"><i class="fa fa-times"></i></a>
-                        </div>
+                        {#<div class="block-options pull-left" style="padding-left:18px;">#}
+                        {#<label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>#}
+                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="(non fonctionnel) Annuler Supression"><i class="fa fa-exclamation-triangle"></i></a>#}
+                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer Définitivement"><i class="fa fa-times"></i></a>#}
+                        {#</div>#}
                     </div>
                     <!-- END Title -->
 
@@ -81,31 +78,28 @@
                         <table class="table table-borderless table-striped table-vcenter remove-margin">
                             <tbody>
                             <!-- Use the first row as a prototype for your column widths -->
-
-                            {% for message in app.user.messagesrecus %}
-                                {% if message.IsSupprime %}
-                                    <tr>
-                                        <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                                        </td>
-                                        <td class="text-center" style="width: 7%;">
-                                            <img src="<?= ressources('back'); ?>/img/placeholders/avatars/avatar<?php echo rand(1, 16); ?>.jpg" alt="avatar" class="img-circle">
-                                        </td>
-                                        <td>
-                                            <h4>
-                                                <a href="{{ path('admin_show_message_from_corbeille', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
-                                            </h4>
-                                            <span class="text-muted">{{ message.contenu }}</span>
-                                        </td>
-                                        <td class="hidden-xs text-center" style="width: 30px;">
-                                            <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
-                                        </td>
-                                        <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>Envoyé le : {{ message.dateEnvoi|date('Y-m-d') }}</em></td>
-                                    </tr>
-                                {% else %}
-                                    <tr>
-                                    </tr>
-                                {% endif %}
+                            {% for message in messages %}
+                                <tr>
+                                    <td class="td-label td-label-warning text-center" style="width: 2%;">
+                                        {#<label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>#}
+                                    </td>
+                                    <td class="text-center" style="width: 7%;">
+                                        <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <a href="{{ path('admin_show_message_from_corbeille', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre|limitObject }}</strong></a>
+                                        </h4>
+                                        <span class="text-muted"> {{ message.contenu|limitMessage }}</span>
+                                    </td>
+                                    <td class="hidden-xs text-center" style="width: 30px;">
+                                        <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
+                                    </td>
+                                    <td class="hidden-xs text-right text-muted" style="width: 180px;"><em>il y a {{ message.dateEnvoi|compteRebours }}</em></td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                </tr>
                             {% endfor %}
                             </tbody>
                         </table>

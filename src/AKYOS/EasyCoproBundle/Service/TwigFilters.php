@@ -27,28 +27,20 @@ class TwigFilters extends \Twig_Extension
 
     public function limitMessageLength($message)
     {
-        $maxLength = strlen($message) < 50 ? strlen($message) : 50;
-        $messageReduit = '';
-
-        for($i = 0; $i < $maxLength; $i++) {
-            $messageReduit .= $message[$i];
+        $maxLength = 50;
+        if (strlen($message) > $maxLength - 4) {
+            $message = substr($message,0, $maxLength - 4).' ...';
         }
-        $messageReduit .= ' ...';
-
-        return $messageReduit;
+        return $message;
     }
 
     public function limitObjectLength($object)
     {
-        $maxLength = strlen($object) < 40 ? strlen($object) : 40;
-        $objectReduit = '';
-
-        for($i = 0; $i < $maxLength; $i++) {
-            $objectReduit .= $object[$i];
+        $maxLength = 40;
+        if (strlen($object) > $maxLength - 4) {
+            $object = substr($object,0, $maxLength - 4).' ...';
         }
-        $objectReduit .= ' ...';
-
-        return $objectReduit;
+        return $object;
     }
 
     public function formatTelNumber($number)

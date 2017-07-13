@@ -45,9 +45,9 @@
                                 <i class="fa fa-edit"></i></a></span>
                         </h4>
                         <div class="block-section">
-                            <h4 style="margin-top: 15px"><strong>{{ document.titre }} </strong>
-                                <span class="label pull-right" style="background-color: {{ document.categorie.couleur }}; font-size: small">{{ document.categorie }}</span></h4>
-                            <p>{{ document.description }}
+                            <h4 style="margin: 15px 0 8px 0"><strong>{{ document.titre }} </strong></h4>
+                                <p><span class="label pull-right" style="background-color: {{ document.categorie.couleur }}; font-size: small;">{{ document.categorie }}</span></p>
+                            <p style="margin-top: 35px">{{ document.description|nl2br }}
                             <small  class="pull-right text-right"><br><em>ajouté le {{ document.dateAjout|date('d/m/Y') }}</em>
                                 {% if document.dateModif is not null %}<br><em>modifié le {{ document.dateModif|date('d/m/Y') }}</em>{% endif %}</small></p>
                         </div>
