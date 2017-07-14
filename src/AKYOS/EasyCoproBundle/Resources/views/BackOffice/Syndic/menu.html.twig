@@ -19,7 +19,7 @@
                     {% for copropriete in coproprietes %}
                     <li><a href="{{ path('syndic_show_copropriete', {'id':copropriete.id}) }}">{{ copropriete.nom }}</a></li>
                     {% endfor %}
-                    <li><a href="{{ path('syndic_create_copropriete') }}" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
+                    <li><a href="#modal-fade-add-copropriete" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
                 </ul>
             </li>
             <li class="sidebar-separator">

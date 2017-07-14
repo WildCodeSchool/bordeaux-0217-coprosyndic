@@ -48,7 +48,7 @@ class Copropriete
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_modif_immat", type="date")
+     * @ORM\Column(name="date_modif_immat", type="date", nullable=true)
      */
     private $dateModifImmat;
 
@@ -76,7 +76,7 @@ class Copropriete
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255)
+     * @ORM\Column(name="ville", type="string", length=50)
      */
     private $ville;
 
@@ -90,49 +90,42 @@ class Copropriete
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_debut_gestion", type="date")
+     * @ORM\Column(name="date_debut_gestion", type="date", nullable=true)
      */
     private $dateDebutGestion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="parcelle_cadastrale", type="string", length=255, nullable=true, unique=true)
+     * @ORM\Column(name="parcelle_cadastrale", type="string", length=255, nullable=true)
      */
     private $parcelleCadastrale;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb_batiments", type="integer")
+     * @ORM\Column(name="nb_batiments", type="integer", nullable=true)
      */
     private $nbBatiments;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="periode_construction", type="date")
+     * @ORM\Column(name="periode_construction", type="date", nullable=true)
      */
     private $periodeConstruction;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="nb_lots", type="integer")
-     */
-    private $nbLots;
-
-    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_reglement", type="date")
+     * @ORM\Column(name="date_reglement", type="date", nullable=true)
      */
     private $dateReglement;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb_ascenseurs", type="integer")
+     * @ORM\Column(name="nb_ascenseurs", type="integer", nullable=true)
      */
     private $nbAscenseurs;
 

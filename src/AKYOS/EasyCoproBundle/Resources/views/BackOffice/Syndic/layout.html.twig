@@ -21,5 +21,15 @@
 {% block content %}
 {% endblock %}
 
+{% block modals %}
+    <div id="modal-fade-add-copropriete" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                {{ render(controller('AKYOSEasyCoproBundle:Syndic:createCopropriete')) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block scripts %}
 {% endblock %}

@@ -105,7 +105,6 @@ syndic_show_copropriete:
     path:     /show/copropriete/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showCopropriete }
 
-
 syndic_list_coproprietes:
     path:     /list/coproprietes
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:listCoproprietes }

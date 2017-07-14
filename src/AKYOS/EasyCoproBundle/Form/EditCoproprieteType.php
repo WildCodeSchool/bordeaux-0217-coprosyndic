@@ -26,7 +26,9 @@ class EditCoproprieteType extends AbstractType
                 'format' => 'yyyy-MM-dd',))
             ->add('dateModifImmat', DateType::class, array(
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',))
+                'format' => 'yyyy-MM-dd',
+                'required' => false,
+            ))
             ->add('adressePrinc')
             ->add('adresseSec', TextType::class, array(
                 'required' => false,
@@ -40,12 +42,15 @@ class EditCoproprieteType extends AbstractType
             ->add('dateDebutGestion', DateType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+                'required' => false,
             ))
             ->add('parcelleCadastrale',TextType::class, array(
                 'required' => false
             ))
             ->add('nbBatiments', IntegerType::class, array(
-                'constraints' => new Range(array('min'=> 0))))
+                'constraints' => new Range(array('min'=> 0)),
+                'required' => false,
+            ))
             ->add('periodeConstruction', DateType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
@@ -54,11 +59,14 @@ class EditCoproprieteType extends AbstractType
             ->add('dateReglement', DateType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+                'required' => false,
                 ))
             ->add('nbAscenseurs', IntegerType::class, array(
-                'constraints' => new Range(array('min'=> 0))))
+                'constraints' => new Range(array('min'=> 0)),
+                'required' => false,
+            ))
             ->add('typeChauffage',TextType::class, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('submit',SubmitType::class, array(
                 'label'=>'Modifier',
