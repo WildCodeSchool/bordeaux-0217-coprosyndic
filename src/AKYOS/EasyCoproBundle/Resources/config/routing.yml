@@ -14,10 +14,3 @@ mentions:
     path:     /mentions
     defaults: { _controller: AKYOSEasyCoproBundle:FrontOffice:mentions }
 
-redirectToProfile:
-    path: /Sprofil
-    defaults: {_controller: AKYOSEasyCoproBundle:FrontOffice:redirectToProfile }
-
-redirectToParameters:
-    path: /Sparameters
-    defaults: {_controller: AKYOSEasyCoproBundle:FrontOffice:redirectToParameters}

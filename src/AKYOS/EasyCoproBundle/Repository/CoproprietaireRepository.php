@@ -78,4 +78,18 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('copropriete', $copropriete);
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function findSyndicCoproprietairesBySearch($syndic, $search) {
+        $qb = $this->createQueryBuilder('c')
+            ->leftJoin('c.lot', 'l')
+            ->leftJoin('l.copropriete','lc')
+            ->leftJoin('lc.syndic', 's')
+            ->where('s = :syndic')
+            ->andWhere('c.nom LIKE :search')
+            ->setParameters(array('syndic'=>$syndic, 'search'=>'%'.$search.'%'))
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

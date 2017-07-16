@@ -1130,6 +1130,33 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_corbeille');
     }
 
+    // ACTIONS LIEES A LA RECHERCHE
+    //-----------------------------
+
+    public function searchAction(Request $request) {
+
+        $search = $request->get('top-search');
+
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $documents = $em->getRepository(Document::class)->findSyndicDocumentsBySearch($syndic, $search);
+        $lots = $em->getRepository(Lot::class)->findSyndicLotsBySearch($syndic, $search);
+        $coproprietaires = $em->getRepository(Coproprietaire::class)->findSyndicCoproprietairesBySearch($syndic, $search);
+        $locataires = $em->getRepository(Locataire::class)->findSyndicLocatairesBySearch($syndic, $search);
+        $artisans= $em->getRepository(Artisan::class)->findSyndicArtisansBySearch($syndic, $search);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/search.html.twig', array(
+            'recherche' => $search,
+            'documents' => $documents,
+            'lots' => $lots,
+            'coproprietaires' => $coproprietaires,
+            'locataires' => $locataires,
+            'artisans' => $artisans,
+        ));
+
+    }
+
     // ACTIONS REQUETES AJAX
     //----------------------
 

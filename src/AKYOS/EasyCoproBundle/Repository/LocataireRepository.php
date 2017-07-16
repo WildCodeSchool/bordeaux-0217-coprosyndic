@@ -55,4 +55,17 @@ class LocataireRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
+    public function findSyndicLocatairesBySearch($syndic, $search) {
+        $qb = $this->createQueryBuilder('l')
+            ->leftJoin('l.lot', 'll')
+            ->leftJoin('ll.copropriete','c')
+            ->leftJoin('c.syndic', 's')
+            ->where('s = :syndic')
+            ->andWhere('l.nom LIKE :search')
+            ->setParameters(array('syndic'=>$syndic, 'search'=>'%'.$search.'%'))
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

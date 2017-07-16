@@ -233,3 +233,9 @@ syndic_revertMessage:
     path: /inbox/message/{id}/revert
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:revertMessage}
 
+# ROUTE LIEES A LA RECHERCHE
+#---------------------------
+
+syndic_search:
+    path: /search
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:search}

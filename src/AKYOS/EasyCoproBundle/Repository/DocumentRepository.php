@@ -234,4 +234,16 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function findSyndicDocumentsBySearch($syndic, $search) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->where('d.syndic = :syndic')
+            ->andWhere('d.titre LIKE :search')
+            ->setParameters(array('syndic' => $syndic, 'search' => '%'.$search.'%'))
+            ->orderBy('d.dateModif', 'desc')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }
