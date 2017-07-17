@@ -37,14 +37,14 @@
                         <div class="block-section">
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="active">
-                                    <a href="" class="categorie-link" data-categorie="all">
+                                    <a href="" class="categorie-link" data-categorie="all" data-compte="syndic">
                                         <span class="badge pull-right">{{ documentsCount }}</span>
                                         <strong>Toutes</strong>
                                     </a>
                                 </li>
                                 {% for categorie in categoriesCount %}
                                     <li>
-                                        <a href="" class="categorie-link" data-categorie="{{ categorie[0]['id'] }}">
+                                        <a href="" class="categorie-link" data-categorie="{{ categorie[0]['id'] }}" data-compte="syndic">
                                             <span class="badge pull-right">{{ categorie[1] }}</span>
                                             <strong>{{ categorie[0]['nom'] }}</strong>
                                         </a>
