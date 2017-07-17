@@ -7,9 +7,6 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block scripts %}
-{% endblock %}
-
 {% block titre_page %}
     Corbeille
 {% endblock %}
@@ -171,4 +168,8 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
 {% endblock %}

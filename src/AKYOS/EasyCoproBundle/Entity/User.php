@@ -44,7 +44,7 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $image;
+    private $image = 'avatar15.jpg';
 
     /**
      * @Vich\UploadableField(mapping="avatar_images", fileNameProperty="image")

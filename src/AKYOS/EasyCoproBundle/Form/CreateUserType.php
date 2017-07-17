@@ -10,7 +10,10 @@ class CreateUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-            ->add('imageFile', FileType::class);
+            ->add('imageFile', FileType::class, array(
+                'label' => 'Image de profil',
+                'required' => false,
+            ));
     }
 
     public function getParent()

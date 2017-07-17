@@ -113,6 +113,7 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $syndic->getUser()->setType('SYNDIC');
             $syndic->getUser()->addRole('ROLE_SYNDIC');
+            $syndic->setStatut('Valide');
             $em = $this->getDoctrine()->getManager();
             $em->persist($syndic);
             $em->flush();
@@ -120,9 +121,9 @@ class AdminController extends Controller
             $confirmService = $this->get('akyos.confirm_registration');
             $confirmService->confirm($syndic->getUser());
 
-            $password = $_POST['akyos_easycoprobundle_syndic']['user']['plainPassword']['first'];
-            $documentService = $this->get('akyos.generate_document');
-            $documentService->generateRegistrationDocument($this->getUser(), $syndic, $password);
+//            $password = $_POST['akyos_easycoprobundle_syndic']['user']['plainPassword']['first'];
+//            $documentService = $this->get('akyos.generate_document');
+//            $documentService->generateRegistrationDocument($this->getUser(), $syndic, $password);
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été crée avec succès.');
 
