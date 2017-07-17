@@ -57,7 +57,7 @@ class MessageType extends AbstractType
                     }
                     elseif ($type == "LOCATAIRE" || $type == "LOC"){
                         $name = $em->getRepository("AKYOSEasyCoproBundle:Locataire")->findOneByUser($user);
-                        //renvoie 'Copropriétaire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
+                        //renvoie 'Locataire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
                         return "Locataire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
                     }
                     elseif ($type == "ARTISAN"){
