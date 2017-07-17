@@ -43,10 +43,12 @@ class MessageType extends AbstractType
                 'choice_label' => function($user){
                     $type = $user->getType();
                     $em = $this->container->get('doctrine')->getManager();
+                    //EXPLICATION POUR CETTE LIGNE
                     if ($type == "COPRO"){
+                        //recupère "user" du Repository "Copropriétaire"
                         $name = $em->getRepository("AKYOSEasyCoproBundle:Coproprietaire")->findOneByUser($user);
+                        //renvoie 'Copropriétaire' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
                         return "Coproprietaire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-
                     }
                     elseif ($type == "SYNDIC"){
                         $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
