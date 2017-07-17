@@ -45,24 +45,24 @@ class MessageType extends AbstractType
                     $em = $this->container->get('doctrine')->getManager();
                     if ($type == "COPRO"){
                         $name = $em->getRepository("AKYOSEasyCoproBundle:Coproprietaire")->findOneByUser($user);
-                        return "Coproprietaire : " . ($name != null ? $name->getNom() : $user->getUsername());
+                        return "Coproprietaire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
 
                     }
                     elseif ($type == "SYNDIC"){
                         $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                        return "Syndic : " . ($name != null ? $name->getNom() : $user->getUsername());
+                        return "Syndic : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
                     }
                     elseif ($type == "LOCATAIRE" || $type == "LOC"){
                         $name = $em->getRepository("AKYOSEasyCoproBundle:Locataire")->findOneByUser($user);
-                        return "Locataire : " . ($name != null ? $name->getNom() : $user->getUsername());
+                        return "Locataire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
                     }
                     elseif ($type == "ARTISAN"){
                         $name = $em->getRepository("AKYOSEasyCoproBundle:Artisan")->findOneByUser($user);
-                        return "Artisan : " . ($name != null ? $name->getRaisonSociale() : $user->getUsername());
+                        return "Artisan : " . ($name != null ? $name->getRaisonSociale()." ( ".$name->getActivite()." )" : $user->getUsername());
                     }
                     else{
                         $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                        return "Admin : " . ($name != null ? $name->getNom() : $user->getUsername());
+                        return "Admin : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
                     }
                 }
             ))
