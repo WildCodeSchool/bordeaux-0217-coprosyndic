@@ -24,9 +24,9 @@
         {{ form_widget(my_form.dateImmat, { 'attr': {'class': 'form-control', 'placeholder':'Date d\'immatriculation' }}) }}
     </div>
     <div class="col-md-4">
-        {{ form_label(my_form.dateModifImmat, 'Modification d\'immatriculation', {'label_attr': {'class': 'control-label'}}) }}
+        {{ form_label(my_form.dateModifImmat, 'Modif. d\'immatriculation', {'label_attr': {'class': 'control-label'}}) }}
         {{ form_errors(my_form.dateModifImmat) }}
-        {{ form_widget(my_form.dateModifImmat, { 'attr': {'class': 'form-control', 'placeholder':'Modification d\'immatriculation' }}) }}
+        {{ form_widget(my_form.dateModifImmat, { 'attr': {'class': 'form-control', 'placeholder':'Modif. d\'immatriculation' }}) }}
     </div>
 </div>
 <div class="form-group">
@@ -36,9 +36,9 @@
         {{ form_widget(my_form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse postale'}}) }}
     </div>
     <div class="col-md-3">
-        {{ form_label(my_form.adresseSec, 'Complément d\'adresse', {'label_attr': {'class': 'control-label'}}) }}
+        {{ form_label(my_form.adresseSec, 'Complément d\'adr.', {'label_attr': {'class': 'control-label'}}) }}
         {{ form_errors(my_form.adresseSec) }}
-        {{ form_widget(my_form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adresse'}}) }}
+        {{ form_widget(my_form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adr.'}}) }}
     </div>
     <div class="col-md-2">
         {{ form_label(my_form.codePostal, 'Code postal', {'label_attr': {'class': 'control-label'}}) }}
@@ -52,44 +52,51 @@
     </div>
 </div>
 
-<div class="form-group">
-    <div class="col-md-3">
-        {{ form_label(my_form.dateDebutGestion, 'Début de gestion', {'label_attr': {'class': 'control-label'}}) }}
-        {{ form_errors(my_form.dateDebutGestion) }}
-        {{ form_widget(my_form.dateDebutGestion, { 'attr': {'class': 'form-control', 'placeholder':'Début de gestion'}}) }}
+<div class="collapse" id="collapseSecondaireEdit">
+    <div class="form-group">
+        <div class="col-md-3">
+            {{ form_label(my_form.dateDebutGestion, 'Début de gestion', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(my_form.dateDebutGestion) }}
+            {{ form_widget(my_form.dateDebutGestion, { 'attr': {'class': 'form-control', 'placeholder':'Début de gestion'}}) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_label(my_form.parcelleCadastrale, 'Parcelle cadastrale', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(my_form.parcelleCadastrale) }}
+            {{ form_widget(my_form.parcelleCadastrale, { 'attr': {'class': 'form-control', 'placeholder':'Parcelle Cadastrale'}}) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_label(my_form.nbBatiments, 'Nbr de bâtiments', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(my_form.nbBatiments) }}
+            {{ form_widget(my_form.nbBatiments, { 'attr': {'class': 'form-control', 'placeholder':'Nombre de bâtiments'}}) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_label(my_form.nbAscenseurs, 'Nbr d\'ascenseurs', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(my_form.nbAscenseurs) }}
+            {{ form_widget(my_form.nbAscenseurs, { 'attr': {'class': 'form-control', 'placeholder':'Nombre d\'ascenseurs'}}) }}
+        </div>
     </div>
-    <div class="col-md-3">
-        {{ form_label(my_form.parcelleCadastrale, 'Parcelle Cadastrale', {'label_attr': {'class': 'control-label'}}) }}
-        {{ form_errors(my_form.parcelleCadastrale) }}
-        {{ form_widget(my_form.parcelleCadastrale, { 'attr': {'class': 'form-control', 'placeholder':'Parcelle Cadastrale'}}) }}
-    </div>
-    <div class="col-md-3">
-        {{ form_label(my_form.nbBatiments, 'Nombre de bâtiments', {'label_attr': {'class': 'control-label'}}) }}
-        {{ form_errors(my_form.nbBatiments) }}
-        {{ form_widget(my_form.nbBatiments, { 'attr': {'class': 'form-control', 'placeholder':'Nombre de bâtiments'}}) }}
-    </div>
-    <div class="col-md-3">
-        {{ form_label(my_form.nbAscenseurs, 'Nombre d\'ascenseurs', {'label_attr': {'class': 'control-label'}}) }}
-        {{ form_errors(my_form.nbAscenseurs) }}
-        {{ form_widget(my_form.nbAscenseurs, { 'attr': {'class': 'form-control', 'placeholder':'Nombre d\'ascenseurs'}}) }}
+    <div class="form-group">
+        <div class="col-md-4">
+            {{ form_label(my_form.periodeConstruction, 'Période de construction', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(my_form.periodeConstruction) }}
+            {{ form_widget(my_form.periodeConstruction, { 'attr': {'class': 'form-control', 'placeholder':'Période de construction' }}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(my_form.dateReglement, 'Date du réglement intérieur', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(my_form.dateReglement) }}
+            {{ form_widget(my_form.dateReglement, { 'attr': {'class': 'form-control', 'placeholder':'Date de réglement' }}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_label(my_form.typeChauffage, 'Type de Chauffage', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(my_form.typeChauffage) }}
+            {{ form_widget(my_form.typeChauffage, { 'attr': {'class': 'form-control', 'placeholder':'Type de Chauffage' }}) }}
+        </div>
     </div>
 </div>
-<div class="form-group">
-    <div class="col-md-4">
-        {{ form_label(my_form.periodeConstruction, 'Période de construction', {'label_attr': {'class': 'control-label'}}) }}
-        {{ form_errors(my_form.periodeConstruction) }}
-        {{ form_widget(my_form.periodeConstruction, { 'attr': {'class': 'form-control', 'placeholder':'Période de construction' }}) }}
-    </div>
-    <div class="col-md-4">
-        {{ form_label(my_form.dateReglement, 'Date du réglement intérieur', {'label_attr': {'class': 'control-label'}}) }}
-        {{ form_errors(my_form.dateReglement) }}
-        {{ form_widget(my_form.dateReglement, { 'attr': {'class': 'form-control', 'placeholder':'Date de réglement' }}) }}
-    </div>
-    <div class="col-md-4">
-        {{ form_label(my_form.typeChauffage, 'Type de Chauffage', {'label_attr': {'class': 'control-label'}}) }}
-        {{ form_errors(my_form.typeChauffage) }}
-        {{ form_widget(my_form.typeChauffage, { 'attr': {'class': 'form-control', 'placeholder':'Type de Chauffage' }}) }}
-    </div>
+<div class="col-sm-12">
+    <a role="button" data-toggle="collapse" href="#collapseSecondaireEdit" aria-expanded="false" aria-controls="collapseSecondaire">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;&nbsp;Afficher les informations complémentaires
+    </a>
 </div>
 
 <div class="form-group">
