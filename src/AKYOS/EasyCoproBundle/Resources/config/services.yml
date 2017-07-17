@@ -73,3 +73,9 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: form.type }
+
+    form.type.message:
+        class: AKYOS\EasyCoproBundle\Form\MessageType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }

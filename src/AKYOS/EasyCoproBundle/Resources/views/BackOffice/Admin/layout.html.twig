@@ -10,6 +10,10 @@
     {% include '@AKYOSEasyCopro/BackOffice/Admin/menu.html.twig' %}
 {% endblock %}
 
+{% block userMenu %}
+    {{ render(controller('AKYOSEasyCoproBundle:Artisan:userMenu')) }}
+{% endblock %}
+
 {% block content %}
 {% endblock %}
 
