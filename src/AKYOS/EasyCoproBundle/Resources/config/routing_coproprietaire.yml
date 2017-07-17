@@ -29,7 +29,15 @@ coproprietaire_show_copropriete:
 coproprietaire_edit_copropriete:
     path: /edit/copropriete
     defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:editCopropriete}
-    
+
+coproprietaire_show_syndic:
+    path: /show/syndic/
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:showSyndic}
+
+coproprietaire_edit_syndic:
+    path: /edit/syndic/
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:editSyndic}
+
 # ROUTE LIEES AUX MESSAGES
 #--------------------------
 
