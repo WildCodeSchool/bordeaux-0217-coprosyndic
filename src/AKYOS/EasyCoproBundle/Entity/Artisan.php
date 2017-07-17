@@ -113,6 +113,13 @@ class Artisan
     private $activite;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="comment_syndic", type="text", nullable=true)
+     */
+    private $commentSyndic;
+
+    /**
      * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
      */
     private $user;
@@ -527,5 +534,29 @@ class Artisan
     public function getCopropriete()
     {
         return $this->copropriete;
+    }
+
+    /**
+     * Set commentSyndic
+     *
+     * @param string $commentSyndic
+     *
+     * @return Artisan
+     */
+    public function setCommentSyndic($commentSyndic)
+    {
+        $this->commentSyndic = $commentSyndic;
+
+        return $this;
+    }
+
+    /**
+     * Get commentSyndic
+     *
+     * @return string
+     */
+    public function getCommentSyndic()
+    {
+        return $this->commentSyndic;
     }
 }

@@ -1,9 +1,7 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
 
-{% set userType = app.user.type %}
-
 {% block title %}
-    {{ userType }}
+    Tableau de bord
 {% endblock %}
 
 {% block stylesheets %}
@@ -39,7 +37,7 @@
                         <div class="widget-content" style="background-color: #FFFFFF">
                             <div class="row text-center">
                                 <div class="col-xs-12">
-                                    <h4 class="widget-heading" style="color: #222;">Vous avez <strong style="color: #fcb244;">{{ nbMessagesTotal }}</strong>  messages dont <strong style="color: #fcb244;">{{ nbMessagesNonLus }}</strong> non lus</h4>
+                                    <h4 class="widget-heading" style="color: #222;">Vous avez <strong style="color: #fcb244;">{{ nbMessagesTotal }}</strong>  message{% if nbMessagesTotal > 1 %}s{% endif %} dont <strong style="color: #fcb244;">{{ nbMessagesNonLus }}</strong> non lu{% if nbMessagesNonLus > 1 %}s{% endif %}</h4>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +67,7 @@
                             <div class="widget-content" style="background-color: #FFFFFF">
                                 <div class="row text-center">
                                     <div class="col-xs-12">
-                                        <h4 class="widget-heading" style="color: #222;">Vous avez reçu <strong style="color: #6136d8;">{{ nbDocuments }}</strong> documents</h4>
+                                        <h4 class="widget-heading" style="color: #222;">Vous avez reçu <strong style="color: #6136d8;">{{ nbDocuments }}</strong> document{% if nbDocuments > 1 %}s{% endif %}</h4>
                                     </div>
                                 </div>
                             </div>

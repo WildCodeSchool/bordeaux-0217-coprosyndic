@@ -26,8 +26,8 @@
                     <span class="text-light-op">Locataire</span>
                 </div>
                 <div class="widget-content widget-content-mini themed-background-dark border-bottom">
-                    <span class="pull-right text-light-op">Depuis le {{ locataire.dateArrivee|date("m/d/Y") }}</span>
                     <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp;{{ locataire.lot.copropriete.nom }}</strong>
+                    <p><span class="pull-right text-light-op">Inscrit depuis le {{ locataire.user.dateInscription|date("m/d/Y") }}</span></p>
                 </div>
                 <div class="widget-content widget-content-full border-bottom">
                     <div class="row text-center">
@@ -43,7 +43,7 @@
                                         {% endif %}
                                     </strong>
                                         {% if locataire.lot.documents is defined %}
-                                        {% if nbdocs > 1 %} Fichiers uploadés{% else %} Fichier uploadé
+                                        {% if nbdocs > 1 %} Documents{% else %} Document
                                         {% endif %}
                                         {% endif %}
                                 </small></h3>

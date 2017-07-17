@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +32,9 @@ class EditCoproprietaireType extends AbstractType
     {
         $builder
             ->add('user', ProfileFormType::class)
-            ->add('commentSyndic')
+            ->add('commentSyndic', TextareaType::class, array(
+                'label' => 'Votre commentaire',
+            ))
             ->add('email')
             ->add('nom')
             ->add('prenom')

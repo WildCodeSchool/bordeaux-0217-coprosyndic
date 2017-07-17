@@ -185,6 +185,18 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
+    public function findNbDocumentsByLotForLocataire($lot) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('COUNT(d)')
+            ->leftJoin('d.lots', 'l')
+            ->where('l = :lot')
+            ->andWhere('d.toLocataires = true')
+            ->setParameter('lot', $lot);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
     public function findDocumentsByCopropriete($copropriete) {
 
         $qb = $this->createQueryBuilder('d')

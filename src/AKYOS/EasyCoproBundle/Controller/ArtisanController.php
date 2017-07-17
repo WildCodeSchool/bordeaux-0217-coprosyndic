@@ -16,11 +16,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArtisanController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $artMsg = $this->getDoctrine()->getManager();
-        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/index.html.twig', array('artisan'=>$artisan));
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        $copropriete = $artisan->getCopropriete();
+        $request->getSession()->set('copro', $copropriete);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/index.html.twig', array(
+            'artisan'=>$artisan
+        ));
     }
 
     public function editAction(Request $request)
@@ -38,8 +43,10 @@ class ArtisanController extends Controller
 
             return $this->redirectToRoute('artisan_show');
         }
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/edit.html.twig', array(
-            'form' => $form->createView(),'artisan'=>$artisan
+            'form' => $form->createView(),
+            'artisan'=> $artisan,
         ));
     }
 

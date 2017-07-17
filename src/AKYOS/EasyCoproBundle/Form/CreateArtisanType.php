@@ -7,6 +7,7 @@ use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -40,6 +41,10 @@ class CreateArtisanType extends AbstractType
             ->add('contactPrenom', TextType::class,array('attr' => array('placeholder' => 'Prenom Contact')))
             ->add('contactTelephone', TextType::class,array('attr' => array('placeholder' => 'Contact Téléphone')))
             ->add('contactEmail', TextType::class,array('attr' => array('placeholder' => 'Contact Email')))
+            ->add('commentSyndic', TextareaType::class, array(
+                'label' => 'Votre commentaire',
+                'required' => false,
+            ))
             ->add('submit',SubmitType::class,array('label' => 'Créer le compte'))
         ;
     }

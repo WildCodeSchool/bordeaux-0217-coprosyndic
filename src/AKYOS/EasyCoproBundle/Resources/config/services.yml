@@ -59,3 +59,9 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: form.type }
+
+    form.type.edit_artisan:
+            class: AKYOS\EasyCoproBundle\Form\EditArtisanType
+            arguments: ['@service_container']
+            tags:
+                - { name: form.type }
