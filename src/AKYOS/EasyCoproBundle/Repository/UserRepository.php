@@ -10,34 +10,4 @@ namespace AKYOS\EasyCoproBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
-/*
-    public function findAllName(){
-        $qb = $this->createQueryBuilder('locataire, AKYOSEasyCoproBundle:syndic')
-            ->select('locataire.nom', 'syndic.nom')
-            ->from('locataire', 'locataire')
-            ->leftJoin('AKYOSEasyCoproBundle:syndic', 'syndic');
-            return $qb;
-    }
-
-    public function findNamesByTypeOfUser($user, $syndic, $coproprietaire, $locataire){
-
-        //SELECT USER
-        //recuperer le type de chaque USER (pour SYNDIC, COPROPRIETAIRE & LOCATAIRE)
-        //recuperer les noms de chacun des types précédents
-        //retourner les noms sous forme de tableau
-
-        $qb = $this->createQueryBuilder('user')
-            ->select('user')
-            ->join('user.syndic', 'usa')
-            ->join('usa.coproprietaire', 'usac')
-            ->join('usac.locataire', 'usacl')
-            ->where('usacl = :nom')
-            ->setParameters(array('user' => $user,
-                                    'syndic' => $syndic,
-                                        'coproprietaire' => $coproprietaire,
-                                            'locataire' => $locataire)
-            );
-        return $qb->getQuery()->getArrayResult();
-    }
-*/
 }
