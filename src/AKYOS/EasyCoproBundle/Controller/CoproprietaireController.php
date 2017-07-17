@@ -8,6 +8,7 @@ use AKYOS\EasyCoproBundle\Entity\Message;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
+use AKYOS\EasyCoproBundle\Form\EditSyndicType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -148,6 +149,43 @@ class CoproprietaireController extends Controller
             ['my_form' => $form->createView(),
                 'coproprieteId'=>$copropriete->getId(),
             ]);
+    }
+
+    public function showSyndicAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+
+        $syndic = $em->getRepository(Syndic::class)->findSyndicByCoproprietaire($coproprietaire);
+
+        return $this->render('AKYOSEasyCoproBundle:BackOffice/Coproprietaire:show_syndic.html.twig',array(
+            'syndic'=>$syndic,
+        ));
+
+    }
+
+    public function editSyndicAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+
+        $syndic = $em->getRepository(Syndic::class)->findSyndicByCoproprietaire($coproprietaire);
+        $form = $this->createForm(EditSyndicType::class, $syndic);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur le compte ont bien été enregistrées.');
+
+            return $this->redirectToRoute('coproprietaire_show_syndic');
+        }
+
+        return $this->render('AKYOSEasyCoproBundle:BackOffice/Coproprietaire:edit_syndic.html.twig',array(
+            'syndic'=>$syndic,
+            'form' => $form->createView(),
+        ));
     }
 
     // ACTIONS LIEES AUX MSGS

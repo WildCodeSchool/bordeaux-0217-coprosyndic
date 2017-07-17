@@ -10,4 +10,15 @@ namespace AKYOS\EasyCoproBundle\Repository;
  */
 class SyndicRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findSyndicByCoproprietaire($coproprietaire){
+
+        $qb = $this->createQueryBuilder('s')
+            ->JOIN('s.coproprietes','sc')
+            ->JOIN('sc.lots', 'scl')
+            ->JOIN('scl.coproprietaires', 'c')
+            ->where('c = :coproprietaire')
+            ->setParameter('coproprietaire',$coproprietaire);
+
+            return $qb->getQuery()->getSingleResult();
+    }
 }
