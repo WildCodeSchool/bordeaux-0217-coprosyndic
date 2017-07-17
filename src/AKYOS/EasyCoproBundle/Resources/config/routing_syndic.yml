@@ -206,10 +206,6 @@ syndic_inbox:
     path: /inbox
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:inbox}
 
-syndic_MessageTEST:
-    path: /TEST
-    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:inboxTEST}
-
 syndic_delete_message:
     path: /delete/message/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessage}
