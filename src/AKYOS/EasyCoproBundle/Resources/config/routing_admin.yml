@@ -2,6 +2,14 @@ admin_index:
     path:     /
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:index }
 
+admin_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSEasyCoproBundle:Admin:edit }
+
+admin_show:
+    path:     /show
+    defaults: {_controller: AKYOSEasyCoproBundle:Admin:show }
+    
 admin_create_syndic:
     path:     /create/syndic
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:createSyndic }
@@ -21,6 +29,10 @@ admin_edit_syndic:
 admin_delete_syndic:
     path:     /delete/syndic/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:deleteSyndic }
+
+admin_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSEasyCoproBundle:Admin:parameters }
 
 # ROUTE LIEES AUX MESSAGES
 #--------------------------

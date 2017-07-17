@@ -12,62 +12,62 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('admin_index') }}">Dashboard</a></li>
+    <li><a href="{{ path('admin_index') }}">Tableau de bord</a></li>
     <li class="active">Mes syndics</li>
 {% endblock %}
 
 {% block content %}
 
-    <div class="content-header">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="header-section">
-                    <form action="<?= WWW; ?>" method="post" onsubmit="return false;">
-                        <div class="col-sm-10">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="form-group">
-                                        <input type="text" id="example-typeahead" name="example-typeahead" class="form-control input-typeahead-users" autocomplete="off" placeholder="Rechercher un Syndic...">
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <label class="control-label" style="margin-right:15px">Trier par ordre Alphabétique</label>
-                                    <label class="switch switch-warning"><input type="checkbox"><span></span></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Choississez..." style="width: 250px; display: none;" multiple="">
-                                                <option value="syndic" selected="">Syndic</option>
-                                                <option value="all">Toutes les entitées</option>
-                                                <option value="coowners">Copropriétaire</option>
-                                                <option value="coowners-graded">Conseiller Syndical</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Parmis une copropriété..." style="width: 250px; display: none;" multiple="">
-                                                <option value="all" selected="">Tous les syndicats</option>
-                                                <option value="coowners">Syndicat N1</option>
-                                                <option value="coowners-graded">Syndicat N2</option>
-                                                <option value="syndic">Syndicat N3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="submit" class="btn btn-effect-ripple btn-primary" value="Rechercher" style="overflow: hidden; position: relative;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    {#<div class="content-header">#}
+        {#<div class="row">#}
+            {#<div class="col-sm-12">#}
+                {#<div class="header-section">#}
+                    {#<form action="<?= WWW; ?>" method="post" onsubmit="return false;">#}
+                        {#<div class="col-sm-10">#}
+                            {#<div class="row">#}
+                                {#<div class="col-md-7">#}
+                                    {#<div class="form-group">#}
+                                        {#<input type="text" id="example-typeahead" name="example-typeahead" class="form-control input-typeahead-users" autocomplete="off" placeholder="Rechercher un Syndic...">#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="col-md-5">#}
+                                    {#<label class="control-label" style="margin-right:15px">Trier par ordre Alphabétique</label>#}
+                                    {#<label class="switch switch-warning"><input type="checkbox"><span></span></label>#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="row">#}
+                                {#<div class="form-group">#}
+                                    {#<div class="col-md-5">#}
+                                        {#<div class="form-group">#}
+                                            {#<select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Choississez..." style="width: 250px; display: none;" multiple="">#}
+                                                {#<option value="syndic" selected="">Syndic</option>#}
+                                                {#<option value="all">Toutes les entitées</option>#}
+                                                {#<option value="coowners">Copropriétaire</option>#}
+                                                {#<option value="coowners-graded">Conseiller Syndical</option>#}
+                                            {#</select>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<div class="col-md-5">#}
+                                        {#<div class="form-group">#}
+                                            {#<select id="search-categories" name="search-categories" class="select-chosen" data-placeholder="Parmis une copropriété..." style="width: 250px; display: none;" multiple="">#}
+                                                {#<option value="all" selected="">Tous les syndicats</option>#}
+                                                {#<option value="coowners">Syndicat N1</option>#}
+                                                {#<option value="coowners-graded">Syndicat N2</option>#}
+                                                {#<option value="syndic">Syndicat N3</option>#}
+                                            {#</select>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<div class="col-md-2">#}
+                                        {#<input type="submit" class="btn btn-effect-ripple btn-primary" value="Rechercher" style="overflow: hidden; position: relative;">#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</form>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
 
     <div class="block">
         <!-- Users Results -->

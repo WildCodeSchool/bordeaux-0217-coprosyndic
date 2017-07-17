@@ -21,6 +21,7 @@ use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
 use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
 use AKYOS\EasyCoproBundle\Form\EditLocataireType;
+use AKYOS\EasyCoproBundle\Form\EditUserType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
@@ -29,6 +30,7 @@ use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use AKYOS\EasyCoproBundle\Form\EditSyndicType;
+use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +46,61 @@ class AdminController extends Controller
     public function indexAction()
     {
         return $this->render('@AKYOSEasyCopro/BackOffice/Admin/index.html.twig');
+    }
+
+    public function editAction(Request $request)
+    {
+        $admin = $this->getUser();
+        $form = $this->createForm(EditUserType::class, $admin);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
+
+            return $this->redirectToRoute('admin_show');
+        }
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/edit.html.twig', array(
+            'form' => $form->createView(),
+            'admin' => $admin,
+        ));
+    }
+
+    public function showAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $admin = $this->getUser();
+
+        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/show.html.twig', array(
+            'admin' => $admin,
+            'nbMessagesTotal' => $nbMessagesTotal,
+        ));
+    }
+
+    public function menuAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $syndics = $em->getRepository(Syndic::class)->findAll();
+        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/menu.html.twig', array(
+            'syndics' => $syndics,
+            'nbMessages' => $nbMessages,
+        ));
+    }
+
+    public function userMenuAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/menuUser.html.twig');
+    }
+
+    public function parametersAction()
+    {
+        return $this->render('@AKYOSEasyCopro/BackOffice/Admin/parameters.html.twig');
     }
 
     public function createSyndicAction(Request $request)
@@ -334,6 +391,7 @@ class AdminController extends Controller
             'messages' => $messages,
         ));
     }
+
     public function messagesEnvoyesAction(Request $request)
     {
         $message = new Message();

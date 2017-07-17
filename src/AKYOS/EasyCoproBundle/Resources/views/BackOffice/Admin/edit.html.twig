@@ -1,0 +1,41 @@
+
+{{ form_start(form, {'attr': {'action': path('admin_edit'), 'class': 'form-horizontal'}}) }}
+
+    <div class="block">
+        <div class="block-title">
+            <h2>Mes informations de connexion</h2>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                {{ form_label(form.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_errors(form.username) }}
+                {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom'}}) }}
+            </div>
+            <div class="col-xs-6">
+                {{ form_label(form.email, 'Email', {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_errors(form.email) }}
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="block">
+        <div class="form-group">
+            <div class="col-md-11">
+                <div class="col-md-7">
+                    {{ form_label(form.current_password, 'Veuillez saisir le mot de passe pour valider', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.current_password) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_widget(form.current_password, { 'attr': {'class': 'form-control'}}) }}
+                </div>
+
+            <div class="col-md-2">
+                {#{{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}#}
+            </div>
+            </div>
+        </div>
+    </div>
+
+{{ form_rest(form) }}
+{{ form_end(form) }}

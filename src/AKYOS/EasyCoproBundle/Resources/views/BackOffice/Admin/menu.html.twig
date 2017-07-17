@@ -13,17 +13,29 @@
                 <i class="fa fa-ellipsis-h"></i>
             </li>
             <li>
+                <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                    <i class="fa fa-building sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Syndics</span></a>
+                <ul>
+                    <li><a href="{{ path('admin_list_syndics') }}">Tous</a></li>
+                    {% for syndic in syndics %}
+                        <li><a href="{{ path('admin_show_syndic', {'id':syndic.id}) }}">{{ syndic.nom }}</a></li>
+                    {% endfor %}
+                    <li><a href="#modal-fade-add-syndic" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
+                </ul>
+            </li>
+            <li>
                 <a href="{{ path('admin_list_syndics') }}" class=""><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Liste des Syndics</span></a>
             </li>
             <li class="sidebar-separator">
                 <i class="fa fa-ellipsis-h"></i>
             </li>
             <li>
-                <a href="#"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
-            </li>
-            <li>
-                <a href="{{ path('admin_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i><span class="badge badge-menu-item label-primary pull-right sidebar-nav-mini-hide">{% set nbmessages = app.user.messagesRecus|length %}
-                        {{ nbmessages }}</span>
+                <a href="{{ path('admin_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i>
+                    {% if nbMessages > 0 %}
+                        <span class="badge badge-menu-item label-primary pull-right sidebar-nav-mini-hide">
+                            {{ nbMessages }}
+                        </span>
+                    {% endif %}
                     <span class="sidebar-nav-mini-hide">Mes Messages</span></a>
             </li>
 

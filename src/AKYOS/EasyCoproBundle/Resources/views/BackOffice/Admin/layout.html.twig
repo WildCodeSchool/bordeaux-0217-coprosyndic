@@ -7,10 +7,24 @@
 {% endblock %}
 
 {% block menu %}
-    {% include '@AKYOSEasyCopro/BackOffice/Admin/menu.html.twig' %}
+    {{ render(controller('AKYOSEasyCoproBundle:Admin:menu')) }}
+{% endblock %}
+
+{% block userMenu %}
+    {{ render(controller('AKYOSEasyCoproBundle:Admin:userMenu')) }}
 {% endblock %}
 
 {% block content %}
+{% endblock %}
+
+{% block modals %}
+    <div id="modal-fade-add-syndic" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                {{ render(controller('AKYOSEasyCoproBundle:Admin:createSyndic')) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}

@@ -1,14 +1,14 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
 
 {% block title %}
-    Affichage COPROPRIETAIRE
+    Affichage du profil
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block titre_page %}
-    Mes informations
+    Affichage du profil
 {% endblock %}
 
 {% block breadcrumb %}
@@ -17,11 +17,6 @@
     <li class="active">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</li>
 {% endblock %}
 {% block content %}
-
-    {% for message in app.session.flashbag.get('infoCopro') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-
 
     <div class="row">
         <div class="col-md-5 col-lg-4">
