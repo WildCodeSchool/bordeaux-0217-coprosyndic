@@ -98,14 +98,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.user.imageFile, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
-                    <div class="bootstrap-filestyle input-group">
-                        <input type="text" id="filename-box" class="form-control" disabled="">
-                        <span class="group-span-filestyle input-group-btn" tabindex="0">
-                            <label for="create_document_fichier" class="btn btn-info">
-                                <span class="glyphicon fa fa-file-o"></span> Importer
-                            </label>
-                        </span>
+                    <div class="col-sm-8">
+                        {{ form_row(form.user.imageFile, {'attr':{'class':'filestyle inputfile-syndic','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                        <div class="bootstrap-filestyle input-group">
+                            <input type="text" id="filename-box-syndic" class="form-control" disabled="">
+                            <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                <label for="akyos_easycoprobundle_syndic_user_imageFile" class="btn btn-info">
+                                    <span class="glyphicon fa fa-file-o"></span> Importer
+                                </label>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

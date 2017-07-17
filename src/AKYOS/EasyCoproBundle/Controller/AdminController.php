@@ -127,7 +127,9 @@ class AdminController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été crée avec succès.');
 
-            return $this->redirectToRoute('admin_list_syndics');
+            return $this->redirectToRoute('admin_show_syndic', array(
+                'id' => $syndic->getId(),
+            ));
         }
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Admin/create_syndic.html.twig', array(
@@ -155,7 +157,7 @@ class AdminController extends Controller
 
     public function editSyndicAction(Request $request, Syndic $syndic)
     {
-        $form = $this->createForm(CreateSyndicType::class, $syndic);
+        $form = $this->createForm(EditSyndicType::class, $syndic);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -181,12 +183,12 @@ class AdminController extends Controller
             $em->remove($syndic);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Le compte SYNDIC a bien été supprimé.');
+            $request->getSession()->getFlashBag()->add('info', 'Le compte a bien été supprimé.');
 
             return $this->redirectToRoute('admin_list_syndics');
         }
 
-        $request->getSession()->getFlashBag()->add('info', "Ce compte SYNDIC n'existe pas !");
+        $request->getSession()->getFlashBag()->add('info', 'Le compte que vous souhaitez supprimer n\'existe pas !');
 
         return $this->redirectToRoute('admin_list_syndics');
     }

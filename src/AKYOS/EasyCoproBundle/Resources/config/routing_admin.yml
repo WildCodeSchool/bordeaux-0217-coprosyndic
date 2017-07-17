@@ -9,7 +9,7 @@ admin_edit:
 admin_show:
     path:     /show
     defaults: {_controller: AKYOSEasyCoproBundle:Admin:show }
-    
+
 admin_create_syndic:
     path:     /create/syndic
     defaults: { _controller: AKYOSEasyCoproBundle:Admin:createSyndic }
