@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
+use AKYOS\EasyCoproBundle\Entity\Message;
 use AKYOS\EasyCoproBundle\Repository\SyndicRepository;
 use AKYOS\EasyCoproBundle\Repository\UserRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -39,14 +40,14 @@ class MessageType extends AbstractType
         }
 
         $em = $this->container->get('doctrine')->getManager();
-        $type = $user->getType();
-        if ($type == 'SYNDIC') {
+        $this->type = $user->getType();
+        if ($this->type == 'SYNDIC') {
             $this->userAccount = $em->getRepository(Syndic::class)->findOneByUser($user);
-        } elseif ($type == 'COPRO') {
+        } elseif ($this->type == 'COPRO') {
             $this->userAccount = $em->getRepository(Coproprietaire::class)->findOneByUser($user);
-        } elseif ($type == 'LOC') {
+        } elseif ($this->type == 'LOC') {
             $this->userAccount = $em->getRepository(Locataire::class)->findOneByUser($user);
-        } elseif ($type == 'ARTISAN') {
+        } elseif ($this->type == 'ARTISAN') {
             $this->userAccount = $em->getRepository(Artisan::class)->findOneByUser($user);
         } else {
             $this->userAccount = null;
@@ -64,7 +65,8 @@ class MessageType extends AbstractType
                     'Coproprietaire' => 'COPRO',
                     'Locataire' => 'LOC',
                     'Fournisseur' => 'ARTISAN'),
-                'expanded' => true,
+                'expanded' => false,
+                'label' => 'Type de compte',
             ))
             ->add('send', SubmitType::class, array(
                 'label' => 'Envoyer',
@@ -72,42 +74,66 @@ class MessageType extends AbstractType
             ;
 
         $formModifier = function (FormInterface $form, $destinataireCompte = null) {
-            //var_dump($choixCompte);
-            if ($destinataireCompte == 'SYNDIC')
-            {
+
+            $destinataires = array();
+            if ($destinataireCompte == 'SYNDIC') {
+
                 if ($this->type == 'COPRO' || $this->type == 'LOC') {
-                    $syndic = $this->userAccount->getLot()->getCopropropriete()->getSyndic();
+                    $syndic = $this->userAccount->getLot()->getCopropriete()->getSyndic();
                     $destinataires = array($syndic->getUser());
                 } elseif ($this->type == 'ARTISAN') {
                     $syndic = $this->userAccount->getSyndic();
                     $destinataires = array($syndic->getUser());
-                } else {
-                    $destinataires = array();
                 }
-                var_dump($destinataires);
-                $form->add('destinataire', EntityType::class, array(
-                    'class' => 'AKYOS\EasyCoproBundle\Entity\User',
-                    'choices' => $destinataires,
-                    'choice_label' => function (User $user) {
-//                        $em = $this->container->get('doctrine')->getManager();
-//                        $coproprietaire = $em->getRepository(Coproprietaire::class)->findActuelCoproprietaire($lot);
-                        return null === $user ? 'Aucun choix' : $user->getUsername();
-                    },
-                    'label' => 'Destinataire',
-                    'multiple' => false,
-                ));
-            } else {
-                $form->add('destinataire');
             }
+            elseif ($destinataireCompte == 'COPRO') {
+
+                $em = $this->container->get('doctrine')->getManager()->getRepository(Coproprietaire::class);
+                if ($this->type == 'SYNDIC') {
+                    $coproprietaires = $em->findCoproprietairesActuelsBySyndic($this->userAccount);
+                    foreach ($coproprietaires as $coproprietaire) {
+                        $destinataires[] = $coproprietaire->getUser();
+                    }
+                } elseif ($this->type == 'COPRO') {
+                    $coproprietaires = $em->findCoproprietairesActuelsByCopropriete($this->userAccount->getLot()->getCopropriete());
+                    foreach ($coproprietaires as $coproprietaire) {
+                        $destinataires[] = $coproprietaire->getUser();
+                    }
+                }
+            }
+
+            $form->add('destinataire', EntityType::class, array(
+                'class' => 'AKYOS\EasyCoproBundle\Entity\User',
+                'choices' => $destinataires,
+                'choice_label' => function (User $user) {
+                    $em = $this->container->get('doctrine');
+                    $type = $user->getType();
+                    $label = '';
+                    if ($type == 'SYNDIC') {
+                        $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
+                        $label =  $syndic->getNom();
+                    } elseif ($type == 'COPRO') {
+                        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($user);
+                        $label =  $coproprietaire->getNom().' '.$coproprietaire->getPrenom();
+                    } elseif ($type == 'LOC') {
+                        $locataire = $em->getRepository(Locataire::class)->findOneByUser($user);
+                        $label =  $locataire->getNom().' '.$locataire->getPrenom();
+                    } elseif ($type == 'ARTISAN') {
+                        $artisan = $em->getRepository(Artisan::class)->findOneByUser($user);
+                        $label =  $artisan->getRaisonSociale();
+                    }
+                    return null === $user ? 'Aucun destinataire' : $label;
+                },
+                'label' => 'Destinataire',
+                'multiple' => false,
+            ));
         };
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formModifier) {
-                $destinataireCompte = $event->getData();
-//                var_dump($destinataireCompte);
-//                $data = $event->getData();
-                $formModifier($event->getForm(), $destinataireCompte);
+                $data = $event->getData();
+                $formModifier($event->getForm(), $data->getDestinataireCompte());
             }
         );
 
@@ -115,7 +141,6 @@ class MessageType extends AbstractType
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($formModifier) {
                 $destinataireCompte = $event->getForm()->getData();
-                //var_dump($destinataireCompte);
                 $formModifier($event->getForm()->getParent(), $destinataireCompte);
             }
         );
@@ -125,7 +150,7 @@ class MessageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AKYOS\EasyCoproBundle\Entity\Message',
+            'data_class' => Message::class,
         ));
     }
 }

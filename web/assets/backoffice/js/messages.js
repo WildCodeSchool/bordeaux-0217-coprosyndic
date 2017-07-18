@@ -1,25 +1,24 @@
 $( document ).ready(function() {
 
-// Fonction de mise à jour des destinataires en fonction du type de compte choisi
-    var $typeCompte = $('#message_destinataireCompte');
-    $typeCompte.change(function () {
+    // Fonction de mise à jour des destinataires en fonction du type de compte choisi
+    var $destinataireCompte = $('#message_destinataireCompte');
+
+    $destinataireCompte.change(function() {
         var $form = $(this).closest('form');
         var data = {};
-        $typeCompte = $('input[type="radio"]:checked', '#newMessageForm');
-        console.log($typeCompte.val());
-        data['message[destinataireCompte]'] = $typeCompte.val();
+        data[$destinataireCompte.attr('name')] = $destinataireCompte.val();
         var loader = startLoader($('.modal-content'));
         $.ajax({
-            url: "/coproprietaire/create/message",
+            url : $form.attr('action'),
             type: $form.attr('method'),
-            data: data,
-            success: function (html) {
+            data : data,
+            success: function(html) {
+                $newSelect = $(html).find('#message_destinataire');
+                $newSelect.prepend('<option></option>');
                 stopLoader(loader);
-                // console.log($(html).find('#message_destinataire').html());
-                // console.log($('#message_destinataires').html());
-                // $('#message_destinataires').html(
-                //     $(html).find('#message_destinataire').html()
-                // );
+                $('#message_destinataire').replaceWith(
+                    $newSelect
+                );
             }
         });
     });

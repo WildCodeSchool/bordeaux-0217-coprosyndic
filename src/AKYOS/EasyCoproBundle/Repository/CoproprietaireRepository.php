@@ -91,5 +91,30 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findCoproprietairesActuelsBySyndic($syndic) {
+
+        $qb = $this->createQueryBuilder('c')
+            ->leftJoin('c.lot', 'l')
+            ->leftJoin('l.copropriete','ce')
+            ->where('c.actuel = true')
+            ->andWhere('ce.syndic = :syndic')
+            ->setParameter('syndic', $syndic)
+            ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findCoproprietairesActuelsByCopropriete($copropriete) {
+
+        $qb = $this->createQueryBuilder('c')
+            ->leftJoin('c.lot', 'l')
+            ->where('c.actuel = true')
+            ->andWhere('l.copropriete = :copropriete')
+            ->setParameter('copropriete', $copropriete)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
     
 }

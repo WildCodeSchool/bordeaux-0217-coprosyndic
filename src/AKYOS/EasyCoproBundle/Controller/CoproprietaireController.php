@@ -378,15 +378,14 @@ class CoproprietaireController extends Controller
 
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
-        $message
-            ->setDateEnvoi(new \DateTime());
-        $sender=$this->getUser();
-        $message->setExpediteur($sender);
-        $message->setisSupprime(false);
-        $message->setIsLu(false);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $message
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($this->getUser())
+                ->setisSupprime(false)
+                ->setIsLu(false);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
