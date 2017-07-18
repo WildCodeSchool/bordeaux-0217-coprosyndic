@@ -37,7 +37,7 @@ class MessageType extends AbstractType
         if($this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $actualType = $user->getType();
-        // SI le SYNDIC est sur la Boite de reception faire ...
+        // SI le SYNDIC est sur la Boite de reception il peut envoyer des messages à ...
         if ($actualType == 'SYNDIC')
         {
             $builder
@@ -82,7 +82,7 @@ class MessageType extends AbstractType
                 ))
             ;
         }
-        // SI le LOCATAIRE est sur la Boite de reception faire ...
+        // SI le LOCATAIRE est sur la Boite de reception il peut envoyer des messages à ...
         elseif ($actualType == 'LOC' || $actualType == 'LOCATAIRE') {
             $builder
                 ->add('destinataire', EntityType::class, array(
@@ -126,7 +126,7 @@ class MessageType extends AbstractType
                 ))
             ;
         }
-        // SI l'ARTISAN est sur la Boite de reception faire ...
+        // SI l'ARTISAN est sur la Boite de reception il peut envoyer des messages à ...
         elseif ($actualType == 'ARTISAN') {
             $builder
                 ->add('destinataire', EntityType::class, array(
@@ -170,7 +170,7 @@ class MessageType extends AbstractType
                 ))
             ;
         }
-        // SI le COPROPRIETAIRE est sur la Boite de reception faire ...
+        // SI le COPROPRIETAIRE est sur la Boite de reception il peut envoyer des messages à ...
         elseif ($actualType == 'COPRO') {
             $builder
                 ->add('destinataire', EntityType::class, array(
@@ -214,7 +214,7 @@ class MessageType extends AbstractType
                 ))
             ;
         }
-        // SI l'ADMIN est sur la Boite de reception faire ...
+        // SI l'ADMIN est sur la Boite de reception il peut envoyer des messages à ...
         else {
             $builder
                 ->add('destinataire', EntityType::class, array(
