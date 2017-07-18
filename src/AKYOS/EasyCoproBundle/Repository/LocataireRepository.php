@@ -68,4 +68,29 @@ class LocataireRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findLocatairesActuelsBySyndic($syndic) {
+
+        $qb = $this->createQueryBuilder('l')
+            ->leftJoin('l.lot', 'lot')
+            ->leftJoin('lot.copropriete','ce')
+            ->where('l.actuel = true')
+            ->andWhere('ce.syndic = :syndic')
+            ->setParameter('syndic', $syndic)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findLocatairesActuelsByCopropriete($copropriete) {
+
+        $qb = $this->createQueryBuilder('l')
+            ->leftJoin('l.lot', 'lot')
+            ->where('l.actuel = true')
+            ->andWhere('lot.copropriete = :copropriete')
+            ->setParameter('copropriete', $copropriete)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

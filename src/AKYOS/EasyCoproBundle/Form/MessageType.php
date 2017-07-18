@@ -3,8 +3,6 @@
 namespace AKYOS\EasyCoproBundle\Form;
 
 use AKYOS\EasyCoproBundle\Entity\Message;
-use AKYOS\EasyCoproBundle\Repository\SyndicRepository;
-use AKYOS\EasyCoproBundle\Repository\UserRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,16 +19,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class MessageType extends AbstractType
 {
     private $container;
     private $type;
     private $userAccount;
+    private $choices;
 
     public function __construct(ContainerInterface $container)
     {
@@ -41,30 +37,33 @@ class MessageType extends AbstractType
 
         $em = $this->container->get('doctrine')->getManager();
         $this->type = $user->getType();
-        if ($this->type == 'SYNDIC') {
+        if ($this->type == 'ADMIN') {
+            $this->choices = array('Syndic' => 'SYNDIC', 'Coproprietaire' => 'COPRO', 'Locataire' => 'LOC', 'Fournisseur' => 'ARTISAN');
+        } elseif ($this->type == 'SYNDIC') {
             $this->userAccount = $em->getRepository(Syndic::class)->findOneByUser($user);
+            $this->choices = array('Coproprietaire' => 'COPRO','Locataire' => 'LOC','Fournisseur' => 'ARTISAN');
         } elseif ($this->type == 'COPRO') {
             $this->userAccount = $em->getRepository(Coproprietaire::class)->findOneByUser($user);
+            $this->choices = array('Syndic' => 'SYNDIC', 'Coproprietaire' => 'COPRO','Locataire' => 'LOC','Fournisseur' => 'ARTISAN');
         } elseif ($this->type == 'LOC') {
             $this->userAccount = $em->getRepository(Locataire::class)->findOneByUser($user);
+            $this->choices = array('Syndic' => 'SYNDIC', 'Coproprietaire' => 'COPRO','Locataire' => 'LOC','Fournisseur' => 'ARTISAN');
         } elseif ($this->type == 'ARTISAN') {
             $this->userAccount = $em->getRepository(Artisan::class)->findOneByUser($user);
+            $this->choices = array('Syndic' => 'SYNDIC', 'Coproprietaire' => 'COPRO','Locataire' => 'LOC');
         } else {
             $this->userAccount = null;
+            $this->choices = null;
         }
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre', TextareaType::class)
+            ->add('titre', TextType::class)
             ->add('contenu', TextareaType::class)
             ->add('destinataireCompte', ChoiceType::class, array(
-                'choices' => array(
-                    'Syndic' => 'SYNDIC',
-                    'Coproprietaire' => 'COPRO',
-                    'Locataire' => 'LOC',
-                    'Fournisseur' => 'ARTISAN'),
+                'choices' => $this->choices,
                 'expanded' => false,
                 'label' => 'Type de compte',
             ))
@@ -94,10 +93,49 @@ class MessageType extends AbstractType
                     foreach ($coproprietaires as $coproprietaire) {
                         $destinataires[] = $coproprietaire->getUser();
                     }
-                } elseif ($this->type == 'COPRO') {
+                } elseif ($this->type == 'COPRO' | $this->type == 'LOC') {
                     $coproprietaires = $em->findCoproprietairesActuelsByCopropriete($this->userAccount->getLot()->getCopropriete());
                     foreach ($coproprietaires as $coproprietaire) {
                         $destinataires[] = $coproprietaire->getUser();
+                    }
+                } elseif ($this->type == 'ARTISAN') {
+                    $coproprietaires = $em->findCoproprietairesActuelsByCopropriete($this->userAccount->getCopropriete());
+                    foreach ($coproprietaires as $coproprietaire) {
+                        $destinataires[] = $coproprietaire->getUser();
+                    }
+                }
+            }
+            elseif ($destinataireCompte == 'LOC') {
+
+                $em = $this->container->get('doctrine')->getManager()->getRepository(Locataire::class);
+                if ($this->type == 'SYNDIC') {
+                    $locataires = $em->findLocatairesActuelsBySyndic($this->userAccount);
+                    foreach ($locataires as $locataire) {
+                        $destinataires[] = $locataire->getUser();
+                    }
+                } elseif ($this->type == 'COPRO' | $this->type == 'LOC') {
+                    $locataires = $em->findLocatairesActuelsByCopropriete($this->userAccount->getLot()->getCopropriete());
+                    foreach ($locataires as $locataire) {
+                        $destinataires[] = $locataire->getUser();
+                    }
+                } elseif ($this->type == 'ARTISAN') {
+                    $locataires = $em->findLocatairesActuelsByCopropriete($this->userAccount->getCopropriete());
+                    foreach ($locataires as $locataire) {
+                        $destinataires[] = $locataire->getUser();
+                    }
+                }
+            }
+            elseif ($destinataireCompte == 'ARTISAN') {
+
+                if ($this->type == 'SYNDIC') {
+                    $artisans = $this->userAccount->getArtisans();
+                    foreach ($artisans as $artisan) {
+                        $destinataires[] = $artisan->getUser();
+                    }
+                } elseif ($this->type == 'COPRO' | $this->type == 'LOC') {
+                    $artisans = $this->userAccount->getLot()->getCopropriete()->getArtisans();
+                    foreach ($artisans as $artisan) {
+                        $destinataires[] = $artisan->getUser();
                     }
                 }
             }

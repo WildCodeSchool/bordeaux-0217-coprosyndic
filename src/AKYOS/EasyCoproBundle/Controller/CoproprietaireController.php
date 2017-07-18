@@ -237,8 +237,11 @@ class CoproprietaireController extends Controller
                 $this->addFlash('info', 'Votre réponse a été envoyé !');
                 return $this->redirectToRoute('coproprietaire_inbox');
             }
+
             return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/show_message.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(), 'coproprietaire' => $coproprietaire
+                'message' => $message,
+                'formReply' => $form->createView(),
+                'coproprietaire' => $coproprietaire
 
             ));
         } else {

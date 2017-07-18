@@ -23,4 +23,5 @@ class ArtisanRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('copropriete', $copropriete);
         return $qb->getQuery()->getSingleScalarResult();
     }
+
 }
