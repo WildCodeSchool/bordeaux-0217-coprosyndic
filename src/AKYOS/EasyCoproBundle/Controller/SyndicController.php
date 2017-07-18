@@ -1018,6 +1018,35 @@ class SyndicController extends Controller
         ));
     }
 
+    public function inboxTESTAction(Request $request)
+    {
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message
+            ->setDateEnvoi(new \DateTime());
+        $sender=$this->getUser();
+        $message->setExpediteur($sender);
+        $message->setisSupprime(false);
+        $message->setIsLu(false);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findInboxMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/MessageTEST.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
+    }
+
     public function messagesEnvoyesAction(Request $request)
     {
         $message = new Message();

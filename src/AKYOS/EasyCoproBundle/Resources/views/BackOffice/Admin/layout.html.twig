@@ -14,6 +14,10 @@
     {{ render(controller('AKYOSEasyCoproBundle:Admin:userMenu')) }}
 {% endblock %}
 
+{% block userMenu %}
+    {{ render(controller('AKYOSEasyCoproBundle:Artisan:userMenu')) }}
+{% endblock %}
+
 {% block content %}
 {% endblock %}
 
