@@ -130,6 +130,11 @@ class Artisan
     private $syndic;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Document", mappedBy="artisans", cascade={"persist"})
+     */
+    private $documents;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="artisans")
      */
     private $copropriete;
@@ -558,5 +563,39 @@ class Artisan
     public function getCommentSyndic()
     {
         return $this->commentSyndic;
+    }
+
+    /**
+     * Add document
+     *
+     * @param Document $document
+     *
+     * @return Artisan
+     */
+    public function addDocument(Document $document)
+    {
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param Document $document
+     */
+    public function removeDocument(Document $document)
+    {
+        $this->documents->removeElement($document);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 }

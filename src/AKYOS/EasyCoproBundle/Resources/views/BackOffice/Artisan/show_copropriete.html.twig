@@ -1,4 +1,4 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
+{% extends '@AKYOSEasyCopro/BackOffice/Artisan/layout.html.twig' %}
 
 {% block title %}
     Affichage Copropriété
@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('coproprietaire_index') }}">Tableau de bord</a></li>
+    <li><a href="{{ path('artisan_index') }}">Tableau de bord</a></li>
     <li class="active">Ma copropriété</li>
 {% endblock %}
 
@@ -32,7 +32,7 @@
                     <div class="row text-center">
                         <div class="col-xs-6 push-inner-top-bottom border-right">
                             <h3 class="widget-heading"><i class="fa fa-users push"></i>
-                                <br><small><strong>{{ nbrecoproprietaire }}</strong> Copropriétaire{% if nbrecoproprietaire>1 %}s{% endif %}</small></h3>
+                                <br><small><strong>{{ nbArtisans }}</strong> Artisan{% if nbArtisans>1 %}s{% endif %}</small></h3>
                         </div>
                         <div class="col-xs-6 push-inner-top-bottom">
                             <h3 class="widget-heading"><i class="fa fa-folder themed-color-social push"></i>
@@ -43,17 +43,9 @@
             </div>
         </div>
         <div class="col-md-7 col-lg-8">
-
-            {{ render(controller('AKYOSEasyCoproBundle:Coproprietaire:editCopropriete')) }}
-
-
-
+            {{ render(controller('AKYOSEasyCoproBundle:Artisan:editCopropriete')) }}
         </div>
     </div>
-
-
-
-
 
 {% endblock %}
 
