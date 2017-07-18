@@ -39,7 +39,7 @@
                                         {% set nbdocs = syndic.documents|length %}
                                         {{ nbdocs }}
                                     </strong>
-                                    {% if nbdocs > 1 %} Fichiers uploadés{% else %} Fichier uploadé
+                                    {% if nbdocs > 1 %} Documents{% else %} Document
                                     {% endif %}
                                 </small></h3>
                         </div>
@@ -71,4 +71,5 @@
 {% endblock %}
 
 {% block scripts %}
+    {{ parent() }}
 {% endblock %}

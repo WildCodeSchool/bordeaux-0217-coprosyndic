@@ -176,5 +176,6 @@
 {% endblock %}
 
 {% block scripts %}
+    {{ parent() }}
     <script src="{{ asset('assets/backoffice/js/gestion_locataires.js') }}"></script>
 {% endblock %}

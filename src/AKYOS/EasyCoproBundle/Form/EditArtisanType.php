@@ -4,32 +4,40 @@ namespace AKYOS\EasyCoproBundle\Form;
 
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use FOS\UserBundle\Form\Type\ProfileFormType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditArtisanType extends AbstractType
 {
+    private $container;
+    private $copropriete;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+        $this->copropriete = $this->container->get('session')->get('copro');
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
             ->add('user', ProfileFormType::class)
-            ->add('copropriete', ChoiceType::class,array(
-                'choices' => $options['coproprietes'],
-                'choice_label' => function ($copropriete) {
-                    return $copropriete->getNom();
-                },
-                'placeholder' => 'Choisissez une copropriété',
-                'label' => 'Copropriété',
-            ))
             ->add('raisonSociale', TextType::class, array(
                 'required' => false,
+            ))
+            ->add('copropriete', TextType::class, array(
+                'label' => 'Copropriété',
+                'disabled' => true,
+                'data' => $this->copropriete,
+                'mapped' => false,
             ))
             ->add('activite', TextType::class, array(
                 'required' => false,
@@ -65,6 +73,10 @@ class EditArtisanType extends AbstractType
                 'required' => false,
             ))
             ->add('contactEmail', EmailType::class, array(
+                'required' => false,
+            ))
+            ->add('commentSyndic', TextareaType::class, array(
+                'label' => 'Votre commentaire',
                 'required' => false,
             ))
             ->add('submit',SubmitType::class, array('label' => 'Modifier'))

@@ -532,6 +532,7 @@
 {% endblock %}
 
 {% block scripts %}
+    {{ parent() }}
     <script src="{{ asset('assets/backoffice/js/gestion_coproprietaires.js') }}"></script>
     <script src="{{ asset('assets/backoffice/js/gestion_lots.js') }}"></script>
     <script src="{{ asset('assets/backoffice/js/gestion_locataires.js') }}"></script>

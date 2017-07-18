@@ -7,9 +7,6 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block scripts %}
-{% endblock %}
-
 {% block titre_page %}
     Messages envoyés
 {% endblock %}
@@ -168,4 +165,8 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
 {% endblock %}

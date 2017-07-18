@@ -15,4 +15,12 @@ class ArtisanRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findNbrArtisansByCopropriete($copropriete){
+
+        $qb = $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->where('a.copropriete = :copropriete')
+            ->setParameter('copropriete', $copropriete);
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

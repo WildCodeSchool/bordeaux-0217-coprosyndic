@@ -7,9 +7,6 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block scripts %}
-{% endblock %}
-
 {% block titre_page %}
     Boîte de réception
 {% endblock %}
@@ -171,5 +168,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
 
+{% block scripts %}
+    {{ parent() }}
 {% endblock %}

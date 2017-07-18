@@ -28,8 +28,15 @@ class LocataireController extends Controller
         $copropriete = $locataire->getLot()->getCopropriete();
         $request->getSession()->set('copro', $copropriete);
 
+        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLotForLocataire($locataire->getLot());
+        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
+        $nbMessagesNonLus = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/index.html.twig', array(
-            'locataire' => $locataire));
+            'nbDocuments' => $nbDocuments,
+            'nbMessagesTotal' => $nbMessagesTotal,
+            'nbMessagesNonLus' => $nbMessagesNonLus,
+            ));
     }
 
     public function editAction(Request $request)
@@ -56,8 +63,14 @@ class LocataireController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
+        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
+        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLotForLocataire($locataire->getLot());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show.html.twig', array(
-            'locataire' => $locataire
+            'locataire' => $locataire,
+            'nbDocuments' => $nbDocuments,
+            'nbMessagesTotal' => $nbMessagesTotal,
         ));
     }
 

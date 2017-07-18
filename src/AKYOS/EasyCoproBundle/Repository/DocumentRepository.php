@@ -32,7 +32,8 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
     public function findArtisanDocumentsSortedByDate($artisan) {
 
         $qb = $this->createQueryBuilder('d')
-            ->where('d.artisan = :artisan')
+            ->leftJoin('d.artisans', 'a')
+            ->where('a = :artisan')
             ->setParameter('artisan', $artisan)
             ->orderBy('d.dateModif', 'desc')
         ;
@@ -181,6 +182,29 @@ class DocumentRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('d.lots', 'l')
             ->where('l = :lot')
             ->setParameter('lot', $lot);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findNbDocumentsByLotForLocataire($lot) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('COUNT(d)')
+            ->leftJoin('d.lots', 'l')
+            ->where('l = :lot')
+            ->andWhere('d.toLocataires = true')
+            ->setParameter('lot', $lot);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findNbDocumentsByArtisan($artisan) {
+
+        $qb = $this->createQueryBuilder('d')
+            ->select('COUNT(d)')
+            ->leftJoin('d.artisans', 'a')
+            ->where('a = :artisan')
+            ->setParameter('artisan', $artisan);
 
         return $qb->getQuery()->getSingleScalarResult();
     }

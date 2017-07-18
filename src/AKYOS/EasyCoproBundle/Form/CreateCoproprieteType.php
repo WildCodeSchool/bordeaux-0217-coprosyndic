@@ -40,7 +40,7 @@ class CreateCoproprieteType extends AbstractType
                 'required' => false,
                 ))
             ->add('parcelleCadastrale',TextType::class, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('nbBatiments', IntegerType::class, array(
                 'constraints' => new Range(array('min'=> 0)),

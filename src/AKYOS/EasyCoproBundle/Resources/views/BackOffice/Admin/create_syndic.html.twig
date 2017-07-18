@@ -1,16 +1,139 @@
-{% extends '@AKYOSEasyCopro/BackOffice/Admin/layout.html.twig' %}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title"><strong>Créer un syndic</strong></h3>
+</div>
 
-{% block title %}
-    Création SYNDIC
-{% endblock %}
+<div class="modal-body">
+    {{ form_start(form, {'attr': {'action': path('admin_create_syndic'), 'class': 'form-horizontal' }}) }}
 
-{% block stylesheets %}
-{% endblock %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-md-5">
+                    {{ form_label(form.user.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.user.username) }}
+                    {{ form_widget(form.user.username, { 'attr': {'class': 'form-control', 'placeholder':'Nom d\'utilisateur'}}) }}
+                </div>
+                <div class="col-md-7">
+                    {{ form_label(form.user.email, 'E-mail de connexion', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.user.email) }}
+                    {{ form_widget(form.user.email, { 'attr': {'class': 'form-control', 'placeholder':'E-mail de connexion'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(form.user.plainPassword.first, 'Mot de passe', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.user.plainPassword.first) }}
+                    {{ form_widget(form.user.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder':'Mot de passe'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(form.user.plainPassword.second, 'Répétez le mot de passe', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.user.plainPassword.second) }}
+                    {{ form_widget(form.user.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder':'Répétez le mot de passe'}}) }}
+                </div>
+                <div class="col-md-7">
+                    {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.nom) }}
+                    {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder':'Nom du syndic'}}) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_label(form.siret, 'SIRET', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.siret) }}
+                    {{ form_widget(form.siret, { 'attr': {'class': 'form-control', 'placeholder':'SIRET'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(form.adressePrinc, 'Adresse postale', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.adressePrinc) }}
+                    {{ form_widget(form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'Adresse postale'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(form.adresseSec, 'Complément d\'adresse', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.adresseSec) }}
+                    {{ form_widget(form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'Complément d\'adresse'}}) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(form.codePostal, 'Code postal', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.codePostal) }}
+                    {{ form_widget(form.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'Code postal'}}) }}
+                </div>
+                <div class="col-md-8">
+                    {{ form_label(form.ville, 'Ville', {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.ville) }}
+                    {{ form_widget(form.ville, { 'attr': {'class': 'form-control', 'placeholder':'Ville'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="collapse" id="collapseSecondaireSyndic">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        {{ form_label(form.emailBureau, 'Email principal', {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.emailBureau) }}
+                        {{ form_widget(form.emailBureau, { 'attr': {'class': 'form-control', 'placeholder':'Email principal'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_label(form.telephoneBureau, 'Téléphone principal', {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.telephoneBureau) }}
+                        {{ form_widget(form.telephoneBureau, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone principal'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.contactNom, 'Nom du contact', {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.contactNom) }}
+                        {{ form_widget(form.contactNom, { 'attr': {'class': 'form-control', 'placeholder':'Nom du contact'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.contactPrenom, 'Prénom du contact', {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.contactPrenom) }}
+                        {{ form_widget(form.contactPrenom, { 'attr': {'class': 'form-control', 'placeholder':'Prénom du contact'}}) }}
+                    </div>
+                    <div class="col-md-7">
+                        {{ form_label(form.contactEmail, 'E-mail du contact', {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.contactEmail) }}
+                        {{ form_widget(form.contactEmail, { 'attr': {'class': 'form-control', 'placeholder':'E-mail du contact'}}) }}
+                    </div>
+                    <div class="col-md-5">
+                        {{ form_label(form.contactTelephone, 'Téléphone du contact', {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.contactTelephone) }}
+                        {{ form_widget(form.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-8">
+                        {{ form_row(form.user.imageFile, {'attr':{'class':'filestyle inputfile-syndic','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                        <div class="bootstrap-filestyle input-group">
+                            <input type="text" id="filename-box-syndic" class="form-control" disabled="">
+                            <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                <label for="akyos_easycoprobundle_syndic_user_imageFile" class="btn btn-info">
+                                    <span class="glyphicon fa fa-file-o"></span> Importer
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <a role="button" data-toggle="collapse" href="#collapseSecondaireSyndic" aria-expanded="false" aria-controls="collapseSecondaire">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> Ajoutez des informations complémentaires
+            </a>
+        </div>
+    </div>
 
-{% block content %}
-    <h4>Créer un syndic :</h4>
-    {{ form(form) }}
-{% endblock %}
+</div>
 
-{% block scripts %}
-{% endblock %}
+<div class="modal-footer">
+    <div class="col-md-12">
+        <div class="form-group pull-right">
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal"
+                    style="margin-left: 20px;">Annuler
+            </button>
+        </div>
+    </div>
+</div>
+
+{{ form_rest(form) }}
+{{ form_errors(form) }}
+{{ form_end(form) }}
+
+

@@ -1,0 +1,44 @@
+{% extends '@AKYOSEasyCopro/BackOffice/Admin/layout.html.twig' %}
+
+{% block title %}
+    Mon profil
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Mon profil
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('admin_index') }}">Tableau de bord</a></li>
+    <li><a href="{{ path('admin_show') }}">Mon compte</a></li>
+    <li class="active">{{ admin.username }}</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-5 col-lg-4">
+            <div class="widget">
+                <div class="widget-content themed-background-danger clearfix">
+                    <img src="{{ vich_uploader_asset(admin, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
+                    <h2 class="widget-heading h3 text-light"><strong>{{ admin.username }}</strong></h2>
+                    <span class="text-light-op">Admin</span>
+                </div>
+                <div class="widget-content widget-content-mini themed-background-dark border-bottom">
+                    <p><span class="pull-right text-light-op">Inscrit depuis le {{ admin.dateInscription|date("d/m/Y") }}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-lg-8">
+            {{ render(controller('AKYOSEasyCoproBundle:Admin:edit')) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+{% endblock %}

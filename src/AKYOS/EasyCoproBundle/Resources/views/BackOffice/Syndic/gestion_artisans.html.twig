@@ -164,5 +164,6 @@
 {% endblock %}
 
 {% block scripts %}
+    {{ parent() }}
     <script src="{{ asset('assets/backoffice/js/gestion_artisans.js') }}"></script>
 {% endblock %}
