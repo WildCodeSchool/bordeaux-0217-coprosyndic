@@ -13,6 +13,9 @@
                 <i class="fa fa-ellipsis-h"></i>
             </li>
             <li>
+                <a href="{{ path('admin_show') }}" class=""><i class="fa fa-pencil-square sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mon Profil</span></a>
+            </li>
+            <li>
                 <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
                     <i class="fa fa-building sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Syndics</span></a>
                 <ul>
@@ -22,9 +25,6 @@
                     {% endfor %}
                     <li><a href="#modal-fade-add-syndic" data-toggle="modal">Ajouter &nbsp; <i class="fa fa-plus pull-right badge-menu-item"></i></a></li>
                 </ul>
-            </li>
-            <li>
-                <a href="{{ path('admin_list_syndics') }}" class=""><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Liste des Syndics</span></a>
             </li>
             <li class="sidebar-separator">
                 <i class="fa fa-ellipsis-h"></i>

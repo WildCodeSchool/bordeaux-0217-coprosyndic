@@ -12,8 +12,9 @@ class EditUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-            ->add('imageFile', FileType::class)
-            ;
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Modifier',
+))            ;
     }
 
     public function getParent()
