@@ -374,8 +374,8 @@ class CoproprietaireController extends Controller
         return $this->redirectToRoute('coproprietaire_inbox');
     }
 
-    public function inboxAction(Request $request)
-    {
+    public function createMessageAction(Request $request) {
+
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message
@@ -394,11 +394,17 @@ class CoproprietaireController extends Controller
             return $this->redirectToRoute('coproprietaire_inbox');
         }
 
+        return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/create_message.html.twig', array(
+            'formSend' => $form->createView(),
+        ));
+    }
+
+    public function inboxAction(Request $request)
+    {
         $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
             ->findInboxMessagesByUser($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/inbox.html.twig', array(
-            'formSend' => $form->createView(),
             'messages' => $messages,
         ));
     }

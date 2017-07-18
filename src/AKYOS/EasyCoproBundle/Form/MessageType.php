@@ -17,6 +17,9 @@ use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,240 +28,98 @@ use Symfony\Component\HttpFoundation\Request;
 class MessageType extends AbstractType
 {
     private $container;
+    private $type;
+    private $userAccount;
 
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        if ($this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        }
+
+        $em = $this->container->get('doctrine')->getManager();
+        $type = $user->getType();
+        if ($type == 'SYNDIC') {
+            $this->userAccount = $em->getRepository(Syndic::class)->findOneByUser($user);
+        } elseif ($type == 'COPRO') {
+            $this->userAccount = $em->getRepository(Coproprietaire::class)->findOneByUser($user);
+        } elseif ($type == 'LOC') {
+            $this->userAccount = $em->getRepository(Locataire::class)->findOneByUser($user);
+        } elseif ($type == 'ARTISAN') {
+            $this->userAccount = $em->getRepository(Artisan::class)->findOneByUser($user);
+        } else {
+            $this->userAccount = null;
+        }
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        if($this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')){
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $actualType = $user->getType();
-        // SI le SYNDIC est sur la Boite de reception il peut envoyer des messages à ...
-        if ($actualType == 'SYNDIC')
-        {
-            $builder
-                ->add('destinataire', EntityType::class, array(
-                    'class' => 'AKYOSEasyCoproBundle:User',
-                    'choice_label' => function($user){
-                        $type = $user->getType();
-                        $em = $this->container->get('doctrine')->getManager();
-
-                        //EXPLICATIONS des SI ET DES SI SINON
-                        if ($type == "COPRO"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Coproprietaire")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Coproprietaire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "SYNDIC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Syndic : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Syndic : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                        elseif ($type == "LOCATAIRE" || $type == "LOC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Locataire")->findOneByUser($user);
-                            //renvoie 'Locataire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Locataire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "ARTISAN"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Artisan")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "RaisonSociale" + ' ' + "Activité" si NON null , sinon renvoie le Username .
-                            return "Artisan : " . ($name != null ? $name->getRaisonSociale()." ( ".$name->getActivite()." )" : $user->getUsername());
-                        }
-                        else{
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Admin : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Admin : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                    }
-                ))
-                ->add('titre', TextareaType::class)
-                ->add('contenu', TextareaType::class)
-                ->add('send', SubmitType::class, array(
-                    'label' => 'Envoyer',
-                ))
+        $builder
+            ->add('titre', TextareaType::class)
+            ->add('contenu', TextareaType::class)
+            ->add('destinataireCompte', ChoiceType::class, array(
+                'choices' => array(
+                    'Syndic' => 'SYNDIC',
+                    'Coproprietaire' => 'COPRO',
+                    'Locataire' => 'LOC',
+                    'Fournisseur' => 'ARTISAN'),
+                'expanded' => true,
+            ))
+            ->add('send', SubmitType::class, array(
+                'label' => 'Envoyer',
+            ))
             ;
-        }
-        // SI le LOCATAIRE est sur la Boite de reception il peut envoyer des messages à ...
-        elseif ($actualType == 'LOC' || $actualType == 'LOCATAIRE') {
-            $builder
-                ->add('destinataire', EntityType::class, array(
-                    'class' => 'AKYOSEasyCoproBundle:User',
-                    'choice_label' => function($user){
-                        $type = $user->getType();
-                        $em = $this->container->get('doctrine')->getManager();
 
-                        //EXPLICATIONS des SI ET DES SI SINON
-                        if ($type == "COPRO"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Coproprietaire")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Coproprietaire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "SYNDIC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Syndic : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Syndic : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                        elseif ($type == "LOCATAIRE" || $type == "LOC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Locataire")->findOneByUser($user);
-                            //renvoie 'Locataire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Locataire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "ARTISAN"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Artisan")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "RaisonSociale" + ' ' + "Activité" si NON null , sinon renvoie le Username .
-                            return "Artisan : " . ($name != null ? $name->getRaisonSociale()." ( ".$name->getActivite()." )" : $user->getUsername());
-                        }
-                        else{
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Admin : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Admin : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                    }
-                ))
-                ->add('titre', TextareaType::class)
-                ->add('contenu', TextareaType::class)
-                ->add('send', SubmitType::class, array(
-                    'label' => 'Envoyer',
-                ))
-            ;
-        }
-        // SI l'ARTISAN est sur la Boite de reception il peut envoyer des messages à ...
-        elseif ($actualType == 'ARTISAN') {
-            $builder
-                ->add('destinataire', EntityType::class, array(
-                    'class' => 'AKYOSEasyCoproBundle:User',
-                    'choice_label' => function($user){
-                        $type = $user->getType();
-                        $em = $this->container->get('doctrine')->getManager();
+        $formModifier = function (FormInterface $form, $destinataireCompte = null) {
+            //var_dump($choixCompte);
+            if ($destinataireCompte == 'SYNDIC')
+            {
+                if ($this->type == 'COPRO' || $this->type == 'LOC') {
+                    $syndic = $this->userAccount->getLot()->getCopropropriete()->getSyndic();
+                    $destinataires = array($syndic->getUser());
+                } elseif ($this->type == 'ARTISAN') {
+                    $syndic = $this->userAccount->getSyndic();
+                    $destinataires = array($syndic->getUser());
+                } else {
+                    $destinataires = array();
+                }
+                var_dump($destinataires);
+                $form->add('destinataire', EntityType::class, array(
+                    'class' => 'AKYOS\EasyCoproBundle\Entity\User',
+                    'choices' => $destinataires,
+                    'choice_label' => function (User $user) {
+//                        $em = $this->container->get('doctrine')->getManager();
+//                        $coproprietaire = $em->getRepository(Coproprietaire::class)->findActuelCoproprietaire($lot);
+                        return null === $user ? 'Aucun choix' : $user->getUsername();
+                    },
+                    'label' => 'Destinataire',
+                    'multiple' => false,
+                ));
+            } else {
+                $form->add('destinataire');
+            }
+        };
 
-                        //EXPLICATIONS des SI ET DES SI SINON
-                        if ($type == "COPRO"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Coproprietaire")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Coproprietaire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "SYNDIC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Syndic : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Syndic : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                        elseif ($type == "LOCATAIRE" || $type == "LOC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Locataire")->findOneByUser($user);
-                            //renvoie 'Locataire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Locataire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "ARTISAN"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Artisan")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "RaisonSociale" + ' ' + "Activité" si NON null , sinon renvoie le Username .
-                            return "Artisan : " . ($name != null ? $name->getRaisonSociale()." ( ".$name->getActivite()." )" : $user->getUsername());
-                        }
-                        else{
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Admin : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Admin : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                    }
-                ))
-                ->add('titre', TextareaType::class)
-                ->add('contenu', TextareaType::class)
-                ->add('send', SubmitType::class, array(
-                    'label' => 'Envoyer',
-                ))
-            ;
-        }
-        // SI le COPROPRIETAIRE est sur la Boite de reception il peut envoyer des messages à ...
-        elseif ($actualType == 'COPRO') {
-            $builder
-                ->add('destinataire', EntityType::class, array(
-                    'class' => 'AKYOSEasyCoproBundle:User',
-                    'choice_label' => function($user){
-                        $type = $user->getType();
-                        $em = $this->container->get('doctrine')->getManager();
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                $destinataireCompte = $event->getData();
+//                var_dump($destinataireCompte);
+//                $data = $event->getData();
+                $formModifier($event->getForm(), $destinataireCompte);
+            }
+        );
 
-                        //EXPLICATIONS des SI ET DES SI SINON
-                        if ($type == "COPRO"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Coproprietaire")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Coproprietaire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "SYNDIC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Syndic : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Syndic : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                        elseif ($type == "LOCATAIRE" || $type == "LOC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Locataire")->findOneByUser($user);
-                            //renvoie 'Locataire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Locataire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "ARTISAN"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Artisan")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "RaisonSociale" + ' ' + "Activité" si NON null , sinon renvoie le Username .
-                            return "Artisan : " . ($name != null ? $name->getRaisonSociale()." ( ".$name->getActivite()." )" : $user->getUsername());
-                        }
-                        else{
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Admin : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Admin : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                    }
-                ))
-                ->add('titre', TextareaType::class)
-                ->add('contenu', TextareaType::class)
-                ->add('send', SubmitType::class, array(
-                    'label' => 'Envoyer',
-                ))
-            ;
-        }
-        // SI l'ADMIN est sur la Boite de reception il peut envoyer des messages à ...
-        else {
-            $builder
-                ->add('destinataire', EntityType::class, array(
-                    'class' => 'AKYOSEasyCoproBundle:User',
-                    'choice_label' => function($user){
-                        $type = $user->getType();
-                        $em = $this->container->get('doctrine')->getManager();
+        $builder->get('destinataireCompte')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                $destinataireCompte = $event->getForm()->getData();
+                //var_dump($destinataireCompte);
+                $formModifier($event->getForm()->getParent(), $destinataireCompte);
+            }
+        );
 
-                        //EXPLICATIONS des SI ET DES SI SINON
-                        if ($type == "COPRO"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Coproprietaire")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Coproprietaire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "SYNDIC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Syndic : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Syndic : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                        elseif ($type == "LOCATAIRE" || $type == "LOC"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Locataire")->findOneByUser($user);
-                            //renvoie 'Locataire : ' + "Nom" + ' ' + "Prénom" si NON null , sinon renvoie le Username .
-                            return "Locataire : " . ($name != null ? $name->getNom()." ".$name->getPrenom() : $user->getUsername());
-                        }
-                        elseif ($type == "ARTISAN"){
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Artisan")->findOneByUser($user);
-                            //renvoie 'Copropriétaire : ' + "RaisonSociale" + ' ' + "Activité" si NON null , sinon renvoie le Username .
-                            return "Artisan : " . ($name != null ? $name->getRaisonSociale()." ( ".$name->getActivite()." )" : $user->getUsername());
-                        }
-                        else{
-                            $name = $em->getRepository("AKYOSEasyCoproBundle:Syndic")->findOneByUser($user);
-                            //renvoie 'Admin : ' + "Nom" + ' ' + "Statut" si NON null , sinon renvoie le Username .
-                            return "Admin : " . ($name != null ? $name->getNom()." ".$name->getStatut() : $user->getUsername());
-                        }
-                    }
-                ))
-                ->add('titre', TextareaType::class)
-                ->add('contenu', TextareaType::class)
-                ->add('send', SubmitType::class, array(
-                    'label' => 'Envoyer',
-                ))
-            ;
-        }
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

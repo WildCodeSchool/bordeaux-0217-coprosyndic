@@ -61,6 +61,10 @@ coproprietaire_inbox:
     path: /inbox
     defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:inbox}
 
+coproprietaire_create_message:
+    path: /create/message
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:createMessage}
+
 coproprietaire_delete_message:
     path: /delete/message/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:deleteMessage}
