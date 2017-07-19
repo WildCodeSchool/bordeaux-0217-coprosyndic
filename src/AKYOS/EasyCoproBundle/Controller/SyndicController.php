@@ -858,8 +858,11 @@ class SyndicController extends Controller
             $em->persist($message);
             $em->flush();
 
+            $expediteurToString= $this->get('akyos.stringify_user')->stringify($message->getExpediteur());
+
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message.html.twig', array(
                 'message' => $message,
+                'expediteurToString' => $expediteurToString,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
@@ -874,7 +877,7 @@ class SyndicController extends Controller
             $em->persist($message);
             $em->flush();
 
-            return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message.html.twig', array(
+            return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message_from_corbeille.html.twig', array(
                 'message' => $message,
             ));
         } else {
@@ -890,8 +893,11 @@ class SyndicController extends Controller
             $em->persist($message);
             $em->flush();
 
-            return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message.html.twig', array(
+            $destinataireToString= $this->get('akyos.stringify_user')->stringify($message->getDestinataire());
+
+            return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message_from_envoyes.html.twig', array(
                 'message' => $message,
+                'destinataireToString' => $destinataireToString,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");

@@ -235,7 +235,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function showMessageAction(Request $request, Message $message)
+    public function showMessageAction(Message $message)
     {
         if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
             $message->setIsLu(true);
@@ -243,7 +243,27 @@ class AdminController extends Controller
             $em->persist($message);
             $em->flush();
 
+            $expediteurToString= $this->get('akyos.stringify_user')->stringify($message->getExpediteur());
+
             return $this->render('@AKYOSEasyCopro/BackOffice/Admin/show_message.html.twig', array(
+                'message' => $message,
+                'expediteurToString' => $expediteurToString,
+            ));
+        }
+        else{
+            return new Response("Vous n'êtes pas autorisé à lire ce message");
+        }
+    }
+
+    public function showMessageFromCorbeilleAction(Message $message)
+    {
+        if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
+            $message->setIsLu(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+
+            return $this->render('@AKYOSEasyCopro/BackOffice/Admin/show_message_from_corbeille.html.twig', array(
                 'message' => $message,
             ));
         }
@@ -252,7 +272,7 @@ class AdminController extends Controller
         }
     }
 
-    public function showMessageFromCorbeilleAction(Request $request, Message $message)
+    public function showMessagefromEnvoyesAction(Message $message)
     {
         if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
             $message->setIsLu(true);
@@ -260,25 +280,11 @@ class AdminController extends Controller
             $em->persist($message);
             $em->flush();
 
-            return $this->render('@AKYOSEasyCopro/BackOffice/Admin/show_message.html.twig', array(
-                'message' => $message,
-            ));
-        }
-        else{
-            return new Response("Vous n'êtes pas autorisé à lire ce message");
-        }
-    }
+            $destinataireToString= $this->get('akyos.stringify_user')->stringify($message->getDestinataire());
 
-    public function showMessagefromEnvoyesAction(Request $request, Message $message)
-    {
-        if($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()){
-            $message->setIsLu(true);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($message);
-            $em->flush();
-
-            return $this->render('@AKYOSEasyCopro/BackOffice/Admin/show_message.html.twig', array(
+            return $this->render('@AKYOSEasyCopro/BackOffice/Admin/show_message_from_envoyes.html.twig', array(
                 'message' => $message,
+                'destinataireToString' => $destinataireToString,
             ));
         }
         else{

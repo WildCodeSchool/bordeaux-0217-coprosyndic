@@ -211,9 +211,11 @@ class LocataireController extends Controller
             $em->persist($message);
             $em->flush();
 
+            $expediteurToString= $this->get('akyos.stringify_user')->stringify($message->getExpediteur());
+
             return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message.html.twig', array(
                 'message' => $message,
-
+                'expediteurToString' => $expediteurToString,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
@@ -228,9 +230,8 @@ class LocataireController extends Controller
             $em->persist($message);
             $em->flush();
 
-            return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message.html.twig', array(
+            return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message_from_corbeille.html.twig', array(
                 'message' => $message,
-
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
@@ -245,9 +246,11 @@ class LocataireController extends Controller
             $em->persist($message);
             $em->flush();
 
-            return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message.html.twig', array(
-                'message' => $message,
+            $destinataireToString= $this->get('akyos.stringify_user')->stringify($message->getDestinataire());
 
+            return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message_from_envoyes.html.twig', array(
+                'message' => $message,
+                'destinataireToString' => $destinataireToString,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
