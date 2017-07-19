@@ -1,0 +1,12 @@
+{{ form_start(formReply, {'attr':{'action':path('admin_reply_message', {'id':messageId})}}) }}
+<div class="col-sm-12">
+    <div class="form-group">
+        {{ form_row(formReply.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Répondez au message ici ...'}}) }}
+    </div>
+</div>
+<div class="col-sm-12">
+    <div class="form-group">
+        {{ form_row(formReply.send, {'attr': {'class': 'btn btn-effect-ripple btn-info pull-right'}}) }}
+    </div>
+</div>
+{{ form_end(formReply) }}

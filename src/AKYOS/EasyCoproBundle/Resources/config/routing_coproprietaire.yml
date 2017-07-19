@@ -65,6 +65,10 @@ coproprietaire_create_message:
     path: /create/message
     defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:createMessage}
 
+coproprietaire_reply_message:
+    path: /reply/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:replyMessage}
+
 coproprietaire_delete_message:
     path: /delete/message/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Coproprietaire:deleteMessage}

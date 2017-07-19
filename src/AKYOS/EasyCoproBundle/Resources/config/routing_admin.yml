@@ -53,6 +53,14 @@ admin_inbox:
     path: /inbox
     defaults: {  _controller: AKYOSEasyCoproBundle:Admin:inbox}
 
+admin_create_message:
+    path: /create/message
+    defaults: {  _controller: AKYOSEasyCoproBundle:Admin:createMessage}
+
+admin_reply_message:
+    path: /reply/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Admin:replyMessage}
+
 admin_delete_message:
     path: /delete/message/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Admin:deleteMessage}

@@ -117,59 +117,15 @@
                     <h3 class="modal-title"><strong>Écrire un nouveau message</strong></h3>
                 </div>
                 <div class="modal-body">
-                    {{ form_start(formSend, {'attr': {'class': 'form-horizontal form-bordered'}}) }}
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.destinataire, {'attr': {'class': 'form-control'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.titre, {'attr': {'class': 'form-control', 'placeholder':'Objet du message ...'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre message ...'}}) }}
-                        </div>
-                    </div>
-                    {#<div class="form-group">#}
-                    {#<div class="col-xs-12">#}
-                    {#<label class="control-label">Importer depuis mes documents :</label>#}
-                    {#<select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="Rechercher.." style="width: 250px;" multiple="">#}
-                    {#<option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->#}
-                    {#<option value="john.doe">Tableur des habitants de la Résidence Roserai.indd</option>#}
-                    {#<option value="sara.castillo">Journal "Charlie Hebdo" - Edition spéciale.pdf</option>#}
-                    {#</select>#}
-                    {#</div>#}
-                    {#</div>#}
-                    {#<div class="form-group">#}
-                    {#<div class="col-xs-12">#}
-                    {#<label class="control-label">Importer depuis mon ordinateur :</label>#}
-                    {#<input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">#}
-                    {#<div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">#}
-                    {#<span class="group-span-filestyle input-group-btn" tabindex="0">#}
-                    {#<label for="fileInput" class="btn btn-info">#}
-                    {#<span class="glyphicon fa fa-file-o"></span> &nbsp; Sélectionnez un fichier#}
-                    {#</label>#}
-                    {#</span>#}
-                    {#</div>#}
-                    {#</div>#}
-                    {#</div>#}
-
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            {{ form_row(formSend.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
-                        </div>
-                    </div>
-                    {{ form_end(formSend) }}
+                    {{ render(controller('AKYOSEasyCoproBundle:Admin:createMessage')) }}
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
+
 
 {% block scripts %}
     {{ parent() }}
+    <script src="{{ asset('assets/backoffice/js/messages.js') }}"></script>
 {% endblock %}

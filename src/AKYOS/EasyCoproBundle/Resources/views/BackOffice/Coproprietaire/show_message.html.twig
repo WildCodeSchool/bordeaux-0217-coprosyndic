@@ -79,18 +79,7 @@
 
             <!-- Quick Reply Form -->
             <div class="row" style="margin-bottom: 20px;">
-                {{ form_start(formReply) }}
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        {{ form_row(formReply.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Répondez au message ici ...'}}) }}
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        {{ form_row(formReply.send, {'attr': {'class': 'btn btn-effect-ripple btn-info pull-right'}}) }}
-                    </div>
-                </div>
-                {{ form_end(formReply) }}
+                {{ render(controller('AKYOSEasyCoproBundle:Coproprietaire:replyMessage', {'message': message})) }}
             </div>
             <!-- END Quick Reply Form -->
         </div>

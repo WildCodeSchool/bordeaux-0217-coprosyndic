@@ -53,6 +53,14 @@ artisan_inbox:
         path: /inbox
         defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:inbox}
 
+artisan_create_message:
+    path: /create/message
+    defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:createMessage}
+
+artisan_reply_message:
+    path: /reply/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:replyMessage}
+
 artisan_delete_message:
         path: /delete/message/{id}
         defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:deleteMessage}
