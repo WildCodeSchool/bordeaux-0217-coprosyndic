@@ -34,11 +34,11 @@
                     <div class="row text-center">
                         <div class="col-xs-6 push-inner-top-bottom border-right">
                             <h3 class="widget-heading"><i class="fa fa-users push"></i>
-                            <br><small><strong>{{ nbre_coproprietaires }}</strong> Copropriétaires</small></h3>
+                            <br><small><strong>{{ nbre_coproprietaires }}</strong> Copropriétaire{% if nbre_coproprietaires>1 %}s{% endif %}</small></h3>
                         </div>
                         <div class="col-xs-6 push-inner-top-bottom">
                             <h3 class="widget-heading"><i class="fa fa-folder themed-color-social push"></i>
-                            <br><small><strong>{{ documents|length }}</strong> Documents</small></h3>
+                            <br><small><strong>{{ documents|length }}</strong> Document{% if documents|length>1 %}s{% endif %}</small></h3>
                         </div>
                     </div>
                 </div>
