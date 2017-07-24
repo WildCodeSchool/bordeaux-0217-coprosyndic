@@ -12,7 +12,7 @@
                 <i class="fa fa-ellipsis-h"></i>
             </li>
             <li>
-                <a href="{{ path('locataire_show') }}" class=""><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mon Profil</span></a>
+                <a href="{{ path('locataire_show') }}" class=""><i class="fa fa-pencil-square sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mon Profil</span></a>
             </li>
             <li>
                 <a href="{{ path('locataire_show_copropriete') }}"><i class="fa fa-building sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Ma Copropriété</span></a>
@@ -26,7 +26,7 @@
             <li>
                 <a href="{{ path('locataire_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i>
                     {% if nbMessages > 0 %}
-                    <span class="badge badge-menu-item label-danger pull-right sidebar-nav-mini-hide">
+                    <span class="badge badge-menu-item label-primary pull-right sidebar-nav-mini-hide">
                         {{ nbMessages }}
                     </span>
                     {% endif %}

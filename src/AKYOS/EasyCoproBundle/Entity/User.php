@@ -12,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity
  * @Vich\Uploadable
  * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AKYOS\EasyCoproBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
@@ -44,7 +45,7 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $image;
+    private $image = 'avatar15.jpg';
 
     /**
      * @Vich\UploadableField(mapping="avatar_images", fileNameProperty="image")

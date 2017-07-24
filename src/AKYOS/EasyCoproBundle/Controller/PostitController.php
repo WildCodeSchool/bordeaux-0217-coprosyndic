@@ -20,7 +20,7 @@ class PostitController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $postits = $em->getRepository('AKYOSEasyCoproBundle:Postit')->findAll();
+        $postits = $em->getRepository('AKYOSEasyCoproBundle:Postit')->findByUser($this->getUser()); //on recupere tous les postits de l'utilisateur en cours
 
         return $this->render('@AKYOSEasyCopro/BackOffice/postit/index.html.twig', array(
             'postits' => $postits,
@@ -39,12 +39,28 @@ class PostitController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $postit->setUser($this->getUser());//attribuer l'utilisateur en cours au postit creer
+
             $em->persist($postit);
             $em->flush();
 
-            return $this->redirectToRoute('coproprietaire_index', array('id' => $postit->getId()));
-        }
+            $type = $this->getUser()->getType();
+            $route = '';
 
+        if($type=='COPRO'){
+            $route = 'coproprietaire_index';
+        }
+        elseif($type=='SYNDIC'){
+            $route = 'syndic_index';
+        }
+        elseif($type=='LOC'){
+            $route = 'locataire_index';
+        }
+        elseif($type=='ARTISAN'){
+            $route = 'artisan_index';
+        }
+            return $this->redirectToRoute($route, array('id' => $postit->getId()));
+        }
         return $this->render('@AKYOSEasyCopro/BackOffice/postit/new.html.twig', array(
             'postit' => $postit,
             'form' => $form->createView(),
@@ -97,8 +113,21 @@ class PostitController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($postit);
             $em->flush();
-
-        return $this->redirectToRoute('coproprietaire_index');
+        $type = $this->getUser()->getType();
+        $route='';
+        if($type=='COPRO'){
+            $route = 'coproprietaire_index';
+        }
+        elseif($type=='SYNDIC'){
+            $route = 'syndic_index';
+        }
+        elseif($type=='LOC'){
+            $route = 'locataire_index';
+        }
+        elseif($type=='ARTISAN'){
+            $route = 'artisan_index';
+        }
+        return $this->redirectToRoute($route);
     }
 
 

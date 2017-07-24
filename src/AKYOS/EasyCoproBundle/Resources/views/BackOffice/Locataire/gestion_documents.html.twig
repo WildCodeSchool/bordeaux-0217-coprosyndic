@@ -20,7 +20,6 @@
 
     <div class="row">
         <div class="col-md-3">
-
             <div class="row" style="background:#FFF; margin-bottom: 20px;">
                 <div class="col-md-12">
                     <a href="" class="btn btn-block btn-default visible-xs" data-toggle="collapse"
@@ -31,14 +30,14 @@
                         <div class="block-section">
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="active">
-                                    <a href="" class="categorie-link" data-categorie="all">
+                                    <a href="" class="categorie-link" data-categorie="all" data-compte="locataire">
                                         <span class="badge pull-right">{{ documentsCount }}</span>
                                         <strong>Toutes</strong>
                                     </a>
                                 </li>
                                 {% for categorie in categoriesCount %}
                                     <li>
-                                        <a href="" class="categorie-link" data-categorie="{{ categorie[0]['id'] }}">
+                                        <a href="" class="categorie-link" data-categorie="{{ categorie[0]['id'] }}" data-compte="locataire">
                                             <span class="badge pull-right">{{ categorie[1] }}</span>
                                             <strong>{{ categorie[0]['nom'] }}</strong>
                                         </a>
@@ -74,15 +73,14 @@
                                         <a href="{{ path('locataire_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.titre }}</strong></a>
                                     </td>
                                     <td><span class="label label-{{ document.categorie }}"
-                                              style="background-color: black">{{ document.categorie }}</span>
+                                              style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span>
                                     </td>
                                     <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                     <td class="text-center">
                                         <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}"
                                            data-toggle="tooltip" title="Télécharger le document"
-                                           class="btn btn-effect-ripple btn-xs btn-primary">
-                                            <i class="fa fa-download"></i></a>
-
+                                           class="btn btn-effect-ripple btn-xs btn-primary" style="cursor: pointer">
+                                            <i class="fa fa-download" style="cursor: pointer;"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -94,36 +92,6 @@
         </div>
     </div>
 
-    <!-- Regular Modals -->
-    <div id="modal-fade-add-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    </div>
-
-    <div id="modal-fade-del-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>Voulez-vous vraiment supprimer ce document ?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <div class="form-group pull-right">
-                            <a href="" id="delete-doc" style="margin-right: 20px;"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
-                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END Regular Fade -->
 {% endblock %}
 
 {% block scripts %}

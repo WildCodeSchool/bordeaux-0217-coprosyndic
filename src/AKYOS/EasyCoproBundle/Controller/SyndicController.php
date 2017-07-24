@@ -38,7 +38,6 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-
 class SyndicController extends Controller
 {
 
@@ -813,141 +812,92 @@ class SyndicController extends Controller
     // ACTIONS LIEES AUX MSGS
     //-----------------------
 
-    public function showMessageAction(Request $request, Message $message)
-    {
-        $locMsg = $this->getDoctrine()->getManager();
-        $syndic = $locMsg->getRepository(Syndic::class)->findOneByUser($this->getUser());
+    public function replyMessageAction(Request $request, Message $message) {
+        $reply = new Message();
+        $form = $this->createForm(MessageReplyType::class, $reply);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sender = $this->getUser();
+            //recuperer l'expéditeur du message original
+            $expediteur = $message->getExpediteur();
+
+            $reply
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($sender)
+                ->setIsSupprime(false)
+                ->setIsLu(false)
+                ->setDestinataireCompte($expediteur->getType());
+
+            //l'utiliser comme cible de la réponse
+            $reply->setDestinataire($expediteur);
+            //recuperer le titre original du message
+            $titre = $message->getTitre();
+            //l'utiliser comme titre de sujet avec "Re:" avant
+            $reply->setTitre('Re:' . $titre);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reply);
+            $em->flush();
+            $this->addFlash('info', 'Votre réponse a été envoyée !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/reply_message.html.twig', array(
+            'formReply' => $form->createView(),
+            'messageId' => $message->getId(),
+        ));
+    }
+
+    public function showMessageAction(Message $message)
+    {
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
 
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
+            $expediteurToString= $this->get('akyos.stringify_user')->stringify($message->getExpediteur());
 
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('syndic_inbox');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(), 'syndic' => $syndic
-
+                'message' => $message,
+                'expediteurToString' => $expediteurToString,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
-    public function showMessageFromCorbeilleAction(Request $request, Message $message)
+    public function showMessageFromCorbeilleAction(Message $message)
     {
-        $locMsg = $this->getDoctrine()->getManager();
-        $syndic = $locMsg->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
 
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
-
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
-
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('syndic_corbeille');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message_from_corbeille.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(),'syndic' => $syndic
+                'message' => $message,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
-    public function showMessagefromEnvoyesAction(Request $request, Message $message)
+    public function showMessagefromEnvoyesAction(Message $message)
     {
-        $locMsg = $this->getDoctrine()->getManager();
-        $syndic = $locMsg->getRepository(syndic::class)->findOneByUser($this->getUser());
-
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
 
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
+            $destinataireToString= $this->get('akyos.stringify_user')->stringify($message->getDestinataire());
 
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
-
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('syndic_messages_envoyes');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/show_message_from_envoyes.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(), 'syndic' => $syndic
+                'message' => $message,
+                'destinataireToString' => $destinataireToString,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
@@ -968,6 +918,30 @@ class SyndicController extends Controller
         }
         $this->addFlash('info', "Ce Message n'existe pas !");
         return $this->redirectToRoute('syndic_inbox');
+    }
+
+    public function createMessageAction(Request $request) {
+
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($this->getUser())
+                ->setisSupprime(false)
+                ->setIsLu(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/create_message.html.twig', array(
+            'formSend' => $form->createView(),
+        ));
     }
 
     public function revertMessageAction(Request $request, Message $message)
@@ -1014,6 +988,35 @@ class SyndicController extends Controller
             ->findInboxMessagesByUser($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/inbox.html.twig', array(
+            'formSend' => $form->createView(),
+            'messages' => $messages,
+        ));
+    }
+
+    public function inboxTESTAction(Request $request)
+    {
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message
+            ->setDateEnvoi(new \DateTime());
+        $sender=$this->getUser();
+        $message->setExpediteur($sender);
+        $message->setisSupprime(false);
+        $message->setIsLu(false);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('syndic_inbox');
+        }
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)
+            ->findInboxMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/MessageTEST.html.twig', array(
             'formSend' => $form->createView(),
             'messages' => $messages,
         ));
@@ -1128,6 +1131,33 @@ class SyndicController extends Controller
 
         $this->addFlash('info', "Ce message n'existe pas !");
         return $this->redirectToRoute('syndic_corbeille');
+    }
+
+    // ACTIONS LIEES A LA RECHERCHE
+    //-----------------------------
+
+    public function searchAction(Request $request) {
+
+        $search = $request->get('top-search');
+
+        $em = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
+        $documents = $em->getRepository(Document::class)->findSyndicDocumentsBySearch($syndic, $search);
+        $lots = $em->getRepository(Lot::class)->findSyndicLotsBySearch($syndic, $search);
+        $coproprietaires = $em->getRepository(Coproprietaire::class)->findSyndicCoproprietairesBySearch($syndic, $search);
+        $locataires = $em->getRepository(Locataire::class)->findSyndicLocatairesBySearch($syndic, $search);
+        $artisans= $em->getRepository(Artisan::class)->findSyndicArtisansBySearch($syndic, $search);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/search.html.twig', array(
+            'recherche' => $search,
+            'documents' => $documents,
+            'lots' => $lots,
+            'coproprietaires' => $coproprietaires,
+            'locataires' => $locataires,
+            'artisans' => $artisans,
+        ));
+
     }
 
     // ACTIONS REQUETES AJAX

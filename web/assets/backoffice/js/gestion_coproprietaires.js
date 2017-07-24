@@ -14,7 +14,7 @@ $( document ).ready(function() {
         $('#delete-doc').attr('href',url);
     });
 
-    // Fonction pour supprimer un coproprietaire
+    // Fonction pour supprimer un artisan
     $('.btn-delete-artisan').on('click', function (e) {
         var artisanId = $(this).data('artisan');
         var url = "/syndic/delete/artisan/" + artisanId;

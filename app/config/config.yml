@@ -108,13 +108,13 @@ vich_uploader:
             upload_destination: '%kernel.root_dir%/../web/assets/img/avatar'
             inject_on_load:     false
             delete_on_update:   true
-            delete_on_remove:   true
+            delete_on_remove:   false
         copropriete_images:
             uri_prefix:         '%app.path.copropriete_images%'
             upload_destination: '%kernel.root_dir%/../web/assets/img/copropriete'
             inject_on_load:     false
             delete_on_update:   true
-            delete_on_remove:   true
+            delete_on_remove:   false
 
 # KNP Snappy Configuration
 knp_snappy:

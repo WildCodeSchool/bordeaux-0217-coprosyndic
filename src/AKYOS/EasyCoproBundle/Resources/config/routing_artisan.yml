@@ -14,7 +14,15 @@ artisan_parameters:
     path: /parameters
     defaults: {_controller: AKYOSEasyCoproBundle:Artisan:parameters }
     
+artisan_show_copropriete:
+    path: /show/copropriete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:showCopropriete}
 
+artisan_edit_copropriete:
+    path: /edit/copropriete
+    defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:editCopropriete}
+    
+    
 # ROUTE LIEES AUX DOCUMENTS
 #--------------------------
 
@@ -44,6 +52,14 @@ artisan_show_message_from_envoye:
 artisan_inbox:
         path: /inbox
         defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:inbox}
+
+artisan_create_message:
+    path: /create/message
+    defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:createMessage}
+
+artisan_reply_message:
+    path: /reply/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Artisan:replyMessage}
 
 artisan_delete_message:
         path: /delete/message/{id}

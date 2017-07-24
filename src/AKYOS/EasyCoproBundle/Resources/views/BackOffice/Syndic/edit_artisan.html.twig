@@ -110,6 +110,13 @@
             {{ form_widget(form_edit_artisan.contactTelephone, { 'attr': {'class': 'form-control', 'placeholder':'Téléphone du contact'}}) }}
         </div>
     </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            {{ form_label(form_edit_artisan.commentSyndic,'Commentaire', {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_widget(form_edit_artisan.commentSyndic, { 'attr': {'class': 'form-control', 'placeholder':'Commentaire'}}) }}
+            {{ form_errors(form_edit_artisan.commentSyndic) }}
+        </div>
+    </div>
 </div>
 
 <div class="block">

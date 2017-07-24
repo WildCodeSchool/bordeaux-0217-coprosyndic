@@ -1,0 +1,11 @@
+.single ul {
+    margin-bottom: 0; }
+.single li {
+    color: #666;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 40px;
+    display: block;
+    text-decoration: none; }
+.single li:last-child {
+    border-bottom: 0; }

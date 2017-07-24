@@ -14,7 +14,6 @@ $( document ).ready(function() {
                 $label.html('');
             }
         });
-
     });
 
     // Fonction de formattage des dates des fichiers
@@ -39,9 +38,10 @@ $( document ).ready(function() {
         $(this).parent().addClass('active');
 
         var categorie = this.dataset.categorie;
+        var typeCompte = this.dataset.compte;
         var loader = startLoader($('#page-content'));
         $.ajax({
-            url: "/syndic/list/docs/" + categorie,
+            url: "/"+typeCompte+"/list/docs/"+categorie,
             method: 'POST',
             dataType: 'json',
             success: function (response) {
@@ -51,7 +51,7 @@ $( document ).ready(function() {
                 for (i = 0; i < documents.length; i++) {
                     html += '<tr>' +
                         '<td class="text-center" style="display:none">' + documents[i].doc_id + '</td>' +
-                        '<td style="padding-left:17px;"><a href="/syndic/show/doc/' + documents[i].doc_id + '"><strong style="cursor: pointer !important;">' + documents[i].doc_titre + '</strong></a></td>' +
+                        '<td style="padding-left:17px;"><a href="/'+typeCompte+'/show/doc/' + documents[i].doc_id + '"><strong style="cursor: pointer !important;">' + documents[i].doc_titre + '</strong></a></td>' +
                         '<td><span class="label label-' + documents[i].cat_nom + '" style="background-color:' + documents[i].couleur + '">' + documents[i].cat_nom + '</span></td>' +
                         '<td class="text-center">' + getFormattedDate(documents[i].dateAjout.timestamp) + '</td>' +
                         '<td class="text-center">' +
@@ -118,6 +118,5 @@ $( document ).ready(function() {
             }
         });
     });
-
 
 });

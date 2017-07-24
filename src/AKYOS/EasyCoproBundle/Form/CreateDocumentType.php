@@ -74,7 +74,6 @@ class CreateDocumentType extends AbstractType
                 'label' => 'Diffuser également aux locataires ?',
                 'label_attr' => array('class' => 'control-label', 'style' => 'margin-right: 15px;'),
                 'required' => false,
-                'mapped' => false,
             ))
             ->add('submit',SubmitType::class, array(
                 'label' => 'Ajouter',

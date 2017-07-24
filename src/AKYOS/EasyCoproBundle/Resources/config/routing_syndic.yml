@@ -18,7 +18,6 @@ syndic_parameters:
     defaults: {_controller: AKYOSEasyCoproBundle:Syndic:parameters }
 
 
-
 # ROUTE LIEES AUX COPROPRIETAIRES
 #--------------------------------
 
@@ -104,7 +103,6 @@ syndic_edit_copropriete:
 syndic_show_copropriete:
     path:     /show/copropriete/{id}
     defaults: { _controller: AKYOSEasyCoproBundle:Syndic:showCopropriete }
-
 
 syndic_list_coproprietes:
     path:     /list/coproprietes
@@ -206,6 +204,14 @@ syndic_inbox:
     path: /inbox
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:inbox}
 
+syndic_create_message:
+    path: /create/message
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:createMessage}
+
+syndic_reply_message:
+    path: /reply/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:replyMessage}
+
 syndic_delete_message:
     path: /delete/message/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:deleteMessage}
@@ -234,3 +240,9 @@ syndic_revertMessage:
     path: /inbox/message/{id}/revert
     defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:revertMessage}
 
+# ROUTE LIEES A LA RECHERCHE
+#---------------------------
+
+syndic_search:
+    path: /search
+    defaults: {  _controller: AKYOSEasyCoproBundle:Syndic:search}

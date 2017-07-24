@@ -19,6 +19,35 @@ class CategorieRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
+    public function findCategoriesCountByLot($lot) {
+
+        $qb = $this->createQueryBuilder('c')
+            ->select('c', 'COUNT(d.nom)')
+            ->leftJoin('c.documents', 'd')
+            ->leftJoin('d.lots','l')
+            ->where('l = :lot')
+            ->setParameter('lot', $lot)
+            ->groupBy('c')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findCategoriesCountByLotForLocataires($lot) {
+
+        $qb = $this->createQueryBuilder('c')
+            ->select('c', 'COUNT(d.nom)')
+            ->leftJoin('c.documents', 'd')
+            ->leftJoin('d.lots','l')
+            ->where('l = :lot')
+            ->andWhere('d.toLocataires = true')
+            ->setParameter('lot', $lot)
+            ->groupBy('c')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
     public function findCategorieByNomAndSyndic($nom, $syndic) {
         $qb = $this->createQueryBuilder('c')
             ->where('c.nom = :nom')
@@ -41,7 +70,8 @@ class CategorieRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c')
             ->select('c', 'COUNT(d.nom)')
             ->leftJoin('c.documents', 'd')
-            ->where('c.artisan = :artisan')
+            ->leftJoin('d.artisans', 'a')
+            ->where('a = :artisan')
             ->setParameter('artisan', $artisan)
             ->groupBy('c')
         ;

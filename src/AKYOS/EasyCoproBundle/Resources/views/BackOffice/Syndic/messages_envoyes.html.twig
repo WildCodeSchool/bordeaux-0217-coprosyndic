@@ -7,9 +7,6 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block scripts %}
-{% endblock %}
-
 {% block titre_page %}
     Messages envoyés
 {% endblock %}
@@ -66,8 +63,8 @@
                     <!-- Title -->
                     <div class="block-title clearfix">
                         {#<div class="block-options pull-left" style="padding-left:18px;">#}
-                            {#<label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>#}
-                            {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>#}
+                        {#<label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>#}
+                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>#}
                         {#</div>#}
                     </div>
                     <!-- END Title -->
@@ -88,7 +85,7 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="{{ path('syndic_show_message_from_envoye', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                            <a href="{{ path('syndic_show_message_from_envoye', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre|limitObject }}</strong></a>
                                         </h4>
                                         <span class="text-muted"> {{ message.contenu|limitMessage }}</span>
                                     </td>
@@ -117,55 +114,14 @@
                     <h3 class="modal-title"><strong>Écrire un nouveau message</strong></h3>
                 </div>
                 <div class="modal-body">
-                    {{ form_start(formSend, {'attr': {'class': 'form-horizontal form-bordered'}}) }}
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.destinataire, {'attr': {'class': 'form-control'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.titre, {'attr': {'class': 'form-control', 'placeholder':'Objet du message ...'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre message ...'}}) }}
-                        </div>
-                    </div>
-                    {#<div class="form-group">#}
-                    {#<div class="col-xs-12">#}
-                    {#<label class="control-label">Importer depuis mes documents :</label>#}
-                    {#<select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="Rechercher.." style="width: 250px;" multiple="">#}
-                    {#<option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->#}
-                    {#<option value="john.doe">Tableur des habitants de la Résidence Roserai.indd</option>#}
-                    {#<option value="sara.castillo">Journal "Charlie Hebdo" - Edition spéciale.pdf</option>#}
-                    {#</select>#}
-                    {#</div>#}
-                    {#</div>#}
-                    {#<div class="form-group">#}
-                    {#<div class="col-xs-12">#}
-                    {#<label class="control-label">Importer depuis mon ordinateur :</label>#}
-                    {#<input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">#}
-                    {#<div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">#}
-                    {#<span class="group-span-filestyle input-group-btn" tabindex="0">#}
-                    {#<label for="fileInput" class="btn btn-info">#}
-                    {#<span class="glyphicon fa fa-file-o"></span> &nbsp; Sélectionnez un fichier#}
-                    {#</label>#}
-                    {#</span>#}
-                    {#</div>#}
-                    {#</div>#}
-                    {#</div>#}
-
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            {{ form_row(formSend.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
-                        </div>
-                    </div>
-                    {{ form_end(formSend) }}
+                    {{ render(controller('AKYOSEasyCoproBundle:Syndic:createMessage')) }}
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
 
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/backoffice/js/messages.js') }}"></script>
 {% endblock %}

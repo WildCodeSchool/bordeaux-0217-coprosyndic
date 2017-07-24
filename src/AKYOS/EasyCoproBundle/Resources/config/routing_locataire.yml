@@ -33,6 +33,10 @@ locataire_show_document:
     path: /show/doc/{id}
     defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:showDocument}
 
+locataire_list_categorie_documents:
+    path: /list/docs/{categorieId}
+    defaults: { _controller: AKYOSEasyCoproBundle:Locataire:listCategorieDocuments }
+
 # ROUTE LIEES AUX MESSAGES
 #--------------------------
 
@@ -51,6 +55,14 @@ locataire_show_message_from_envoye:
 locataire_inbox:
         path: /inbox
         defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:inbox}
+
+locataire_create_message:
+    path: /create/message
+    defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:createMessage}
+
+locataire_reply_message:
+    path: /reply/message/{id}
+    defaults: {  _controller: AKYOSEasyCoproBundle:Locataire:replyMessage}
 
 locataire_delete_message:
         path: /delete/message/{id}

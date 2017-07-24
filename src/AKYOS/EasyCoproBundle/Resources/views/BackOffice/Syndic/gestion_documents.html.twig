@@ -37,14 +37,14 @@
                         <div class="block-section">
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="active">
-                                    <a href="" class="categorie-link" data-categorie="all">
+                                    <a href="" class="categorie-link" data-categorie="all" data-compte="syndic">
                                         <span class="badge pull-right">{{ documentsCount }}</span>
                                         <strong>Toutes</strong>
                                     </a>
                                 </li>
                                 {% for categorie in categoriesCount %}
                                     <li>
-                                        <a href="" class="categorie-link" data-categorie="{{ categorie[0]['id'] }}">
+                                        <a href="" class="categorie-link" data-categorie="{{ categorie[0]['id'] }}" data-compte="syndic">
                                             <span class="badge pull-right">{{ categorie[1] }}</span>
                                             <strong>{{ categorie[0]['nom'] }}</strong>
                                         </a>
@@ -86,13 +86,13 @@
                                     <td class="text-center">
                                         <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}"
                                            data-toggle="tooltip" title="Télécharger le document"
-                                           class="btn btn-effect-ripple btn-xs btn-primary">
-                                            <i class="fa fa-download"></i></a>
+                                           class="btn btn-effect-ripple btn-xs btn-primary" style="cursor: pointer">
+                                            <i class="fa fa-download" style="cursor: pointer;"></i></a>
 
-                                        <span data-toggle="modal" data-target="#modal-fade-del-document">
+                                        <span data-toggle="modal" data-target="#modal-fade-del-document" >
                                         <a data-toggle="tooltip" data-placement="top" title="Supprimer le document" data-document="{{ document.id }}"
-                                           class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc">
-                                            <i class="fa fa-times"></i></a></span>
+                                           class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc" style="cursor: pointer;">
+                                            <i class="fa fa-times" style="cursor: pointer;"></i></a></span>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -142,5 +142,6 @@
 {% endblock %}
 
 {% block scripts %}
+    {{ parent() }}
     <script src="{{ asset('assets/backoffice/js/gestion_documents.js') }}"></script>
 {% endblock %}

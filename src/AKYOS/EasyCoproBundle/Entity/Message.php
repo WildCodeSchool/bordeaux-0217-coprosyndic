@@ -43,6 +43,13 @@ class Message
     private $contenu;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="destinataire_compte", type="string", length=255)
+     */
+    private $destinataireCompte;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="messages_envoyes")
      */
     private $expediteur;
@@ -241,5 +248,29 @@ class Message
     public function getIsLu()
     {
         return $this->isLu;
+    }
+
+    /**
+     * Set destinataireCompte
+     *
+     * @param string $destinataireCompte
+     *
+     * @return Message
+     */
+    public function setDestinataireCompte($destinataireCompte)
+    {
+        $this->destinataireCompte = $destinataireCompte;
+
+        return $this;
+    }
+
+    /**
+     * Get destinataireCompte
+     *
+     * @return string
+     */
+    public function getDestinataireCompte()
+    {
+        return $this->destinataireCompte;
     }
 }

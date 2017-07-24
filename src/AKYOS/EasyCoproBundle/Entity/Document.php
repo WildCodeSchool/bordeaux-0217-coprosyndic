@@ -53,17 +53,19 @@ class Document
      */
     private $extension;
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="to_locataires", type="boolean")
+     */
+    private $toLocataires;
+    /**
      * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="documents")
      */
     private $syndic;
     /**
-     * @ORM\ManyToOne(targetEntity="Artisan")
+     * @ORM\ManyToMany(targetEntity="Artisan", inversedBy="documents", cascade={"persist"})
      */
-    private $artisan;
-    /**
-     * @ORM\ManyToOne(targetEntity="Locataire")
-     */
-    private $locataire;
+    private $artisans;
     /**
      * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="documents")
      */
@@ -140,6 +142,7 @@ class Document
         $this->dateAjout = new \DateTime();
         return $this;
     }
+
     /**
      * Get dateAjout
      *
@@ -149,6 +152,7 @@ class Document
     {
         return $this->dateAjout;
     }
+
     /**
      * Set dateModif
      *
@@ -192,48 +196,7 @@ class Document
     {
         return $this->syndic;
     }
-    /**
-     * Set artisan
-     *
-     * @param Artisan $artisan
-     *
-     * @return Document
-     */
-    public function setArtisan(Artisan $artisan = null)
-    {
-        $this->artisan = $artisan;
-        return $this;
-    }
-    /**
-     * Get artisan
-     *
-     * @return Artisan
-     */
-    public function getArtisan()
-    {
-        return $this->artisan;
-    }
-    /**
-     * Set locataire
-     *
-     * @param Locataire $locataire
-     *
-     * @return Document
-     */
-    public function setLocataire(Locataire $locataire = null)
-    {
-        $this->locataire = $locataire;
-        return $this;
-    }
-    /**
-     * Get locataire
-     *
-     * @return Locataire
-     */
-    public function getLocataire()
-    {
-        return $this->locataire;
-    }
+
     /**
      * Add lot
      *
@@ -380,5 +343,63 @@ class Document
     public function getCopropriete()
     {
         return $this->copropriete;
+    }
+
+    /**
+     * Set toLocataires
+     *
+     * @param boolean $toLocataires
+     *
+     * @return Document
+     */
+    public function setToLocataires($toLocataires)
+    {
+        $this->toLocataires = $toLocataires;
+
+        return $this;
+    }
+
+    /**
+     * Get toLocataires
+     *
+     * @return boolean
+     */
+    public function getToLocataires()
+    {
+        return $this->toLocataires;
+    }
+
+    /**
+     * Add artisan
+     *
+     * @param Artisan $artisan
+     *
+     * @return Document
+     */
+    public function addArtisan(Artisan $artisan)
+    {
+        $this->artisans[] = $artisan;
+
+        return $this;
+    }
+
+    /**
+     * Remove artisan
+     *
+     * @param Artisan $artisan
+     */
+    public function removeArtisan(Artisan $artisan)
+    {
+        $this->artisans->removeElement($artisan);
+    }
+
+    /**
+     * Get artisans
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArtisans()
+    {
+        return $this->artisans;
     }
 }

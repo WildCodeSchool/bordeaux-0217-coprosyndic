@@ -4,6 +4,7 @@ namespace AKYOS\EasyCoproBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -39,10 +40,12 @@ class CreateCoproprieteType extends AbstractType
                 'required' => false,
                 ))
             ->add('parcelleCadastrale',TextType::class, array(
-                'required' => false
+                'required' => false,
             ))
             ->add('nbBatiments', IntegerType::class, array(
-                'constraints' => new Range(array('min'=> 0))))
+                'constraints' => new Range(array('min'=> 0)),
+                'required' => false
+            ))
             ->add('periodeConstruction', DateType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
@@ -54,8 +57,14 @@ class CreateCoproprieteType extends AbstractType
                 'required' => false,
             ))
             ->add('nbAscenseurs', IntegerType::class, array(
-                'constraints' => new Range(array('min'=> 0))))
+                'constraints' => new Range(array('min'=> 0)),
+                'required' => false,
+            ))
             ->add('typeChauffage',TextType::class, array(
+                'required' => false,
+            ))
+            ->add('illustrationFile', FileType::class, array(
+                'label' => 'Choisissez une illustration :',
                 'required' => false,
             ))
             ->add('submit', SubmitType::class, array(

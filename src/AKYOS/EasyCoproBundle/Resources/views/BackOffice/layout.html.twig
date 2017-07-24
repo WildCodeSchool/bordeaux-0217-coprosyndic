@@ -92,13 +92,6 @@
 
                     <!-- Right Header Navigation -->
                     <ul class="nav navbar-nav-custom pull-right">
-                        <!-- Search Form -->
-                        {#<li>#}
-                            {#<form action="" method="post" class="navbar-form-custom" role="search">#}
-                                {#<input type="text" id="top-search" name="top-search" class="form-control" placeholder="Rechercher..">#}
-                            {#</form>#}
-                        {#</li>#}
-                        <!-- END Search Form -->
 
                         <!-- User Dropdown -->
                         {% block userMenu %}{% endblock %}
@@ -153,79 +146,7 @@
 </div>
 <!-- END Page Wrapper -->
 
-
-{#<!-- Regular Modals -->
-<div id="modal-fade-add-coownership" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title"><strong>Ajouter une copropriété</strong></h3>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12"><small>Nombre de copropriétés restantes : <strong>5</strong></small></div>
-                </div><br>
-                <form action="<?= WWW; ?>/" method="post" class="form-horizontal" onsubmit="return false;">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-7" style="margin-right:30px">
-                                <div class="form-group">
-                                    <label for="val-coownership-name">Nom de la propriété *</label>
-                                    <input type="text" id="val-coownership-name" name="val-coownership-name" value="" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="val-city">Ville *</label>
-                                    <input type="text" id="val-city" name="val-city" value="" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-7" style="margin-right:30px">
-                                <div class="form-group">
-                                    <label for="val-address">Adresse *</label>
-                                    <input type="text" id="val-address" name="val-address" value="" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="val-postal-code">Code postal *</label>
-                                    <input type="text" id="val-postal-code" name="val-postal-code" value="" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="control-label">Image</label>
-                            <input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
-                            <div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">
-                                <span class="group-span-filestyle input-group-btn" tabindex="0">
-                                            <label for="fileInput" class="btn btn-info">
-                                                <span class="glyphicon fa fa-file-image-o"></span> Importer une image
-                                            </label>
-                                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <div class="col-md-12">
-                    <div class="form-group pull-right">
-                        <input type="submit" class="btn btn-effect-ripple btn-primary" value="Sauvegarder">
-                        <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END Regular Fade -->#}
+{% block modals %}{% endblock %}
 
 <script src="{{ asset('assets/vendor/jquery/jquery-2.2.4.min.js') }}"></script>
 

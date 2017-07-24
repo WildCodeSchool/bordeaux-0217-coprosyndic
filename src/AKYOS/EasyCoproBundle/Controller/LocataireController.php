@@ -11,8 +11,12 @@ use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditLocataireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class LocataireController extends Controller
 {
@@ -24,8 +28,15 @@ class LocataireController extends Controller
         $copropriete = $locataire->getLot()->getCopropriete();
         $request->getSession()->set('copro', $copropriete);
 
+        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLotForLocataire($locataire->getLot());
+        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
+        $nbMessagesNonLus = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/index.html.twig', array(
-            'locataire' => $locataire));
+            'nbDocuments' => $nbDocuments,
+            'nbMessagesTotal' => $nbMessagesTotal,
+            'nbMessagesNonLus' => $nbMessagesNonLus,
+            ));
     }
 
     public function editAction(Request $request)
@@ -52,8 +63,14 @@ class LocataireController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+
+        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
+        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLotForLocataire($locataire->getLot());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show.html.twig', array(
-            'locataire' => $locataire
+            'locataire' => $locataire,
+            'nbDocuments' => $nbDocuments,
+            'nbMessagesTotal' => $nbMessagesTotal,
         ));
     }
 
@@ -133,157 +150,107 @@ class LocataireController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+        $lot = $locataire->getLot();
 
-        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByLocataire($locataire);
-        $allDocuments = $em->getRepository(Document::class)->findLocataireDocumentsSortedByDate($locataire);
+        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByLotForLocataires($lot);
+        $allDocuments = $em->getRepository(Document::class)->findLotDocumentsSortedByDateForLocataires($lot);
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/gestion_documents.html.twig', array(
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,
-            'locataire' => $locataire
         ));
     }
-
 
     // ACTIONS LIEES AUX MSGS
     //-----------------------
 
-    public function showMessageAction(Request $request, Message $message)
-    {
-        $locMsg = $this->getDoctrine()->getManager();
-        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
+    public function replyMessageAction(Request $request, Message $message) {
+        $reply = new Message();
+        $form = $this->createForm(MessageReplyType::class, $reply);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sender = $this->getUser();
+            //recuperer l'expéditeur du message original
+            $expediteur = $message->getExpediteur();
+
+            $reply
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($sender)
+                ->setIsSupprime(false)
+                ->setIsLu(false)
+                ->setDestinataireCompte($expediteur->getType());
+
+            //l'utiliser comme cible de la réponse
+            $reply->setDestinataire($expediteur);
+            //recuperer le titre original du message
+            $titre = $message->getTitre();
+            //l'utiliser comme titre de sujet avec "Re:" avant
+            $reply->setTitre('Re:' . $titre);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reply);
+            $em->flush();
+            $this->addFlash('info', 'Votre réponse a été envoyée !');
+            return $this->redirectToRoute('locataire_inbox');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/reply_message.html.twig', array(
+            'formReply' => $form->createView(),
+            'messageId' => $message->getId(),
+        ));
+    }
+
+    public function showMessageAction(Message $message)
+    {
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
 
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
+            $expediteurToString= $this->get('akyos.stringify_user')->stringify($message->getExpediteur());
 
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('locataire_inbox');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(), 'locataire' => $locataire
-
+                'message' => $message,
+                'expediteurToString' => $expediteurToString,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
-    public function showMessageFromCorbeilleAction(Request $request, Message $message)
+    public function showMessageFromCorbeilleAction(Message $message)
     {
-        $locMsg = $this->getDoctrine()->getManager();
-        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
-
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
 
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
-
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
-
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('locataire_corbeille');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message_from_corbeille.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(),'locataire' => $locataire
+                'message' => $message,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
-    public function showMessagefromEnvoyesAction(Request $request, Message $message)
+    public function showMessagefromEnvoyesAction(Message $message)
     {
-        $locMsg = $this->getDoctrine()->getManager();
-        $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
-
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
 
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
+            $destinataireToString= $this->get('akyos.stringify_user')->stringify($message->getDestinataire());
 
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
-
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('locataire_messages_envoyes');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/show_message_from_envoyes.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(), 'locataire' => $locataire
+                'message' => $message,
+                'destinataireToString' => $destinataireToString,
             ));
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
@@ -352,6 +319,30 @@ class LocataireController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/inbox.html.twig', array(
             'formSend' => $form->createView(),
             'messages' => $messages,
+        ));
+    }
+
+    public function createMessageAction(Request $request) {
+
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($this->getUser())
+                ->setisSupprime(false)
+                ->setIsLu(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('locataire_inbox');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/create_message.html.twig', array(
+            'formSend' => $form->createView(),
         ));
     }
 
@@ -465,5 +456,37 @@ class LocataireController extends Controller
         $this->addFlash('info', "Ce message n'existe pas !");
         return $this->redirectToRoute('locataire_corbeille');
     }
+
+    // ACTIONS REQUETES AJAX
+    //----------------------
+
+    public function listCategorieDocumentsAction(Request $request, $categorieId) {
+
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
+            $lot = $locataire->getLot();
+
+            if ($categorieId == 'all') {
+                $documents = $em->getRepository(Document::class)->findAllDocumentsByLotForLocataires($lot);
+            } else {
+                $categorie = $em->getRepository(Categorie::class)->find($categorieId);
+                $documents = $em->getRepository(Document::class)->findLotDocumentsByCategorieForLocataires($categorie,$lot);
+            }
+
+            $encoder = new JsonEncoder();
+            $normalizer = new ObjectNormalizer();
+
+            $serializer = new Serializer(array($normalizer), array($encoder));
+
+            $jsonDocuments = $serializer->serialize($documents, 'json');
+
+            return new JsonResponse(array(
+                'data'=> $jsonDocuments
+            ));
+        }
+        throw new HttpException('501', 'Invalid Call');
+    }
+
 
 }

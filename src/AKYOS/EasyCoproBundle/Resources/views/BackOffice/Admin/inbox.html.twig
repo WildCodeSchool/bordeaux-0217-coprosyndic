@@ -1,13 +1,10 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Admin/layout.html.twig' %}
 
 {% block title %}
-    Boite de Reception
+    Boîte de réception
 {% endblock %}
 
 {% block stylesheets %}
-{% endblock %}
-
-{% block scripts %}
 {% endblock %}
 
 {% block titre_page %}
@@ -19,123 +16,100 @@
     <li class="active">Ma boîte de réception</li>
 {% endblock %}
 
-{% block boo %}
+{% block content %}
 
-<div class="row">
-    <div class="col-md-2">
-        <!-- Inner Sidebar -->
-        <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
-        <div class="block-section">
-            <a href="#modal-compose" class="btn btn-effect-ripple btn-block btn-success" data-toggle="modal"><i class="fa fa-pencil"></i> Nouveau message</a>
-        </div>
-        <!-- END Compose Message -->
-
-        <!-- Collapsible Navigation -->
-        <a href="javascript:void(0)" class="btn btn-block btn-effect-ripple btn-default visible-xs" data-toggle="collapse" data-target="#email-nav">Navigation</a>
-        <div id="email-nav" class="collapse navbar-collapse remove-padding">
-            <!-- Menu -->
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <!-- Inner Sidebar -->
+            <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
             <div class="block-section">
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                        <a href="{{path('admin_inbox')}}">
-                            <i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{path('admin_messages_envoyes')}}">
-                            <i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{path('admin_corbeille')}}">
-                            <i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong>
-                        </a>
-                    </li>
-                </ul>
+                <a href="#modal-compose" class="btn btn-effect-ripple btn-block btn-success" data-toggle="modal"><i class="fa fa-pencil"></i> Nouveau message</a>
             </div>
-            <!-- END Menu -->
-        </div>
-    </div>
-    <!-- END Inner Sidebar -->
+            <!-- END Compose Message -->
 
-    <div class="col-md-10">
-        <!-- Email Center Content -->
-        <div class="block overflow-hidden">
-            <!-- Message List -->
-            <div id="message-list">
-                <!-- Title -->
-                <div class="block-title clearfix">
-                    <div class="block-options pull-left" style="padding-left:18px;">
-                        <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>
-                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="(non fonctionnel) Marquer comme non lu"><i class="fa fa-exclamation-circle"></i></a>
-                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>
-                    </div>
+            <!-- Collapsible Navigation -->
+            <a href="javascript:void(0)" class="btn btn-block btn-effect-ripple btn-default visible-xs" data-toggle="collapse" data-target="#email-nav">Navigation</a>
+            <div id="email-nav" class="collapse navbar-collapse remove-padding">
+                <!-- Menu -->
+                <div class="block-section">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a href="{{ path('admin_inbox') }}">
+                                <i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_messages_envoyes') }}">
+                                <i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_corbeille') }}">
+                                <i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- END Title -->
+                <!-- END Menu -->
+            </div>
+        </div>
+        <!-- END Inner Sidebar -->
 
-                <!-- Messages -->
-                <div class="block-content-full">
-                    <table class="table table-borderless table-striped table-vcenter remove-margin">
-                        <tbody>
-                        <!-- Use the first row as a prototype for your column widths -->
+        <div class="col-sm-8 col-md-9">
+            <!-- Email Center Content -->
+            <div class="block overflow-hidden">
+                <!-- Message List -->
+                <div id="message-list">
+                    <!-- Title -->
+                    <div class="block-title clearfix">
+                        {#<div class="block-options pull-left" style="padding-left:18px;">#}
+                        {#<label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>#}
+                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="(non fonctionnel) Marquer comme non lu"><i class="fa fa-exclamation-circle"></i></a>#}
+                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>#}
+                        {#</div>#}
+                    </div>
+                    <!-- END Title -->
 
-                        {% for message in app.user.messagesrecus %}
-                            {% if  message.IsSupprime == false and (message.isLu == false) %}
-                        <tr>
-                            <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
-                            </td>
-                            <td class="text-center" style="width: 7%;">
-                                <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
-                            </td>
-                            <td>
-                                <h4>
-                                    <a href="{{ path('admin_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
-                                </h4>
-                                <span class="text-muted"><strong>NON LU :</strong> {{ message.contenu }}</span>
-                            </td>
-                            <td class="hidden-xs text-center" style="width: 30px;">
-                                <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
-                            </td>
-                            <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
-                        </tr>
-                                {% endif %}
-                        {% endfor %}
-                        {% for message in app.user.messagesrecus %}
-                            {% if message.IsSupprime == false and (message.isLu == true) %}
-                                <tr>
-                                    <td class="td-label td-label-muted text-center" style="width: 5%;">
-                                        <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                    <!-- Messages -->
+                    <div class="block-content-full">
+                        <table class="table table-borderless table-striped table-vcenter remove-margin">
+                            <tbody>
+                            <!-- Use the first row as a prototype for your column widths -->
+
+                            {% for message in messages %}
+                                <tr {% if message.isLu == false %}style="background-color: #f7efb2"{% endif %}>
+                                    <td class="td-label {% if message.isLu == false %}td-label-warning{% else %}td-label-info{% endif %} text-center" style="width: 2%;">
+                                        {#<label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>#}
                                     </td>
                                     <td class="text-center" style="width: 7%;">
-                                        <img src="" alt="avatar" class="img-circle">
+                                        <img src="{{ vich_uploader_asset(message.expediteur, 'imageFile') }}" alt="avatar" class="img-circle">
                                     </td>
                                     <td>
                                         <h4>
-                                            <a href="{{ path('admin_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre }}</strong></a>
+                                            <a href="{{ path('admin_show_message', {'id': message.id}) }}" class="text-dark"><strong>{{ message.titre|limitObject }}</strong></a>
+                                            {% if message.isLu == false %}<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 20px;"></i>{% endif %}
                                         </h4>
-                                        <span class="text-muted">{{ message.contenu }}</span>
+                                        <span class="text-muted"> {{ message.contenu|limitMessage }}</span>
                                     </td>
                                     <td class="hidden-xs text-center" style="width: 30px;">
                                         <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
                                     </td>
-                                    <td class="hidden-xs text-right text-muted" style="width: 120px;"><em>{{ message.dateEnvoi|compteRebours }}</em></td>
+                                    <td class="hidden-xs text-right {% if message.isLu == false %}text-warning{% else %}text-info{% endif %}" style="width: 180px;"><em>reçu il y a {{ message.dateEnvoi|compteRebours }}</em></td>
                                 </tr>
-                            {% endif %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END Messages -->
                 </div>
-                <!-- END Messages -->
+                <!-- END Message List -->
             </div>
-            <!-- END Message List -->
+            <!-- END Email Center Content -->
         </div>
-        <!-- END Email Center Content -->
+
     </div>
 
-</div>
-
-<!-- Compose Modal -->
+    <!-- Compose Modal -->
     <div id="modal-compose" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -144,55 +118,15 @@
                     <h3 class="modal-title"><strong>Écrire un nouveau message</strong></h3>
                 </div>
                 <div class="modal-body">
-                    {{ form_start(formSend, {'attr': {'class': 'form-horizontal form-bordered'}}) }}
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.destinataire, {'attr': {'class': 'form-control'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.titre, {'attr': {'class': 'form-control', 'placeholder':'Objet du message ...'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            {{ form_row(formSend.contenu, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre message ...'}}) }}
-                        </div>
-                    </div>
-                    {#<div class="form-group">#}
-                        {#<div class="col-xs-12">#}
-                            {#<label class="control-label">Importer depuis mes documents :</label>#}
-                            {#<select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="Rechercher.." style="width: 250px;" multiple="">#}
-                                {#<option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->#}
-                                {#<option value="john.doe">Tableur des habitants de la Résidence Roserai.indd</option>#}
-                                {#<option value="sara.castillo">Journal "Charlie Hebdo" - Edition spéciale.pdf</option>#}
-                            {#</select>#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="form-group">#}
-                        {#<div class="col-xs-12">#}
-                            {#<label class="control-label">Importer depuis mon ordinateur :</label>#}
-                            {#<input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">#}
-                            {#<div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">#}
-                                {#<span class="group-span-filestyle input-group-btn" tabindex="0">#}
-                                {#<label for="fileInput" class="btn btn-info">#}
-                                    {#<span class="glyphicon fa fa-file-o"></span> &nbsp; Sélectionnez un fichier#}
-                                {#</label>#}
-                            {#</span>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            {{ form_row(formSend.send, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
-                        </div>
-                    </div>
-                    {{ form_end(formSend) }}
+                    {{ render(controller('AKYOSEasyCoproBundle:Admin:createMessage')) }}
                 </div>
             </div>
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/backoffice/js/messages.js') }}"></script>
 {% endblock %}
