@@ -18,31 +18,31 @@ class FrontOfficeController extends Controller
             $user = $this->get('security.token_storage')->getToken()->getUser();
             $em = $this->getDoctrine()->getManager();
 
-            if($user->getType() == 'Syndic'){
+            if($user->getType() == 'syndic'){
                 $syndic = $em->getRepository(Syndic::class)->findByUser($user);
                 $request->getSession()->set('user_account', $syndic);
                 return $this->redirectToRoute('syndic_index');
             }
 
-            if($user->getType() == 'Coproprietaire'){
+            if($user->getType() == 'coproprietaire'){
                 $coproprietaire = $em->getRepository(Coproprietaire::class)->findByUser($user);
                 $request->getSession()->set('user_account', $coproprietaire);
                 return $this->redirectToRoute('coproprietaire_index');
             }
 
-            if($user->getType() == 'Locataire'){
+            if($user->getType() == 'locataire'){
                 $locataire = $em->getRepository(Locataire::class)->findByUser($user);
                 $request->getSession()->set('user_account', $locataire);
                 return $this->redirectToRoute('locataire_index');
             }
 
-            if($user->getType() == 'Artisan'){
+            if($user->getType() == 'artisan'){
                 $artisan = $em->getRepository(Artisan::class)->findByUser($user);
                 $request->getSession()->set('user_account', $artisan);
                 return $this->redirectToRoute('artisan_index');
             }
 
-            if($user->getType() == 'Admin'){
+            if($user->getType() == 'admin'){
                 return $this->redirectToRoute('admin_index');
             }
         }

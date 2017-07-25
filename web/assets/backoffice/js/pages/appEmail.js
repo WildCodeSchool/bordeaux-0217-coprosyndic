@@ -9,7 +9,7 @@ var AppEmail = function() {
     return {
         init: function() {
             // Choose one of the highlight classes for the message list rows: 'active', 'success', 'warning', 'danger'
-            var rowHighlightClass = 'warning';
+            var rowHighlightClass = 'info';
 
             /* Add/Remove row highlighting on checkbox click */
             $('tbody input:checkbox').click(function() {

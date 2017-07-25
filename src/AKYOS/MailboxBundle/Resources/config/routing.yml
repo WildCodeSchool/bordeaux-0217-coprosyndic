@@ -3,3 +3,27 @@ mailbox_homepage:
     defaults: { _controller: AKYOSMailboxBundle:Mailbox:index }
     requirements:
         type: admin|syndic|coproprietaire|locataire|artisan
+
+mailbox_show:
+    path:     /{type}/messagerie/{id}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:show }
+    requirements:
+        id: \d+
+        type: admin|syndic|coproprietaire|locataire|artisan
+
+mailbox_new:
+    path:     /messagerie/new
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:new }
+
+mailbox_reply:
+    path:     /messagerie/reply/{id}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:reply }
+    requirements:
+        id: \d+
+
+mailbox_filter:
+    path:     /messagerie/filter/{category}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:filter }
+    requirements:
+        category: inbox|favorites|important|sent|spam|trash
+        type: admin|syndic|coproprietaire|locataire|artisan

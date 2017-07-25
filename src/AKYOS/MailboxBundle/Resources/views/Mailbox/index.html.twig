@@ -1,29 +1,24 @@
 {% extends '@AKYOSEasyCopro/BackOffice/'~app.user.type|capitalize~'/layout.html.twig' %}
 
-{% block title %}
-    Boîte de réception
-{% endblock %}
-
 {% block stylesheets %}
 {% endblock %}
 
 {% block titre_page %}
-    Boîte de réception
+    Messagerie
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('locataire_inbox') }}">Mes messages</a></li>
+    <li><a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}">Mes messages</a></li>
     <li class="active">Ma boîte de réception</li>
 {% endblock %}
 
 {% block content %}
-
     <div class="row">
-        <div class="col-sm-4 col-md-3">
+        <div class="col-md-3">
             <!-- Inner Sidebar -->
             <!-- Compose Message (Modal markup is at the bottom of this page before including JS scripts) -->
             <div class="block-section">
-                <a href="#modal-compose" class="btn btn-effect-ripple btn-block btn-success" data-toggle="modal"><i class="fa fa-pencil"></i> Nouveau message</a>
+                <a href="#modal-compose" class="btn btn-effect-ripple btn-block btn-success" data-toggle="modal"><i class="fa fa-pencil" style="margin-right: 10px"></i> Nouveau message</a>
             </div>
             <!-- END Compose Message -->
 
@@ -34,19 +29,22 @@
                 <div class="block-section">
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active">
-                            <a href="{{ path('locataire_inbox') }}">
-                                <i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong>
-                            </a>
+                            <a href="" data-category="inbox"><i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong></a>
                         </li>
                         <li>
-                            <a href="{{ path('locataire_messages_envoyes') }}">
-                                <i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong>
-                            </a>
+                            <a href="" data-category="favorites"><i class="fa fa-fw text-warning fa-star icon-push"></i> <strong>Favoris</strong></a>
                         </li>
                         <li>
-                            <a href="{{ path('locataire_corbeille') }}">
-                                <i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong>
-                            </a>
+                            <a href="" data-category="important"><i class="fa fa-fw text-info fa-exclamation-circle icon-push"></i> <strong>Important</strong></a>
+                        </li>
+                        <li>
+                            <a href="" data-category="sent"><i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong></a>
+                        </li>
+                        <li>
+                            <a href="" data-category="spam"><i class="fa fa-fw fa-exclamation-triangle text-danger icon-push"></i> <strong>Spams</strong></a>
+                        </li>
+                        <li>
+                            <a href="" data-category="trash"><i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong></a>
                         </li>
                     </ul>
                 </div>
@@ -55,18 +53,25 @@
         </div>
         <!-- END Inner Sidebar -->
 
-        <div class="col-sm-8 col-md-9">
+
+        <div class="col-md-9">
             <!-- Email Center Content -->
             <div class="block overflow-hidden">
                 <!-- Message List -->
                 <div id="message-list">
                     <!-- Title -->
                     <div class="block-title clearfix">
-                        {#<div class="block-options pull-left" style="padding-left:18px;">#}
-                        {#<label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>#}
-                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="(non fonctionnel) Marquer comme non lu"><i class="fa fa-exclamation-circle"></i></a>#}
-                        {#<a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="(non fonctionnel) Supprimer"><i class="fa fa-times"></i></a>#}
-                        {#</div>#}
+                        <div class="block-options pull-right">
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default"><i class="fa fa-arrow-left"></i> Préc.</a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default">Suivant <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                        <div class="block-options pull-left" style="padding-left:18px;">
+                            <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Mettre en favoris"><i class="fa fa-star"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme important"><i class="fa fa-exclamation-circle"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Marquer comme SPAM"><i class="fa fa-exclamation-triangle"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="Supprimer"><i class="fa fa-times"></i></a>
+                        </div>
                     </div>
                     <!-- END Title -->
 
@@ -75,27 +80,29 @@
                         <table class="table table-borderless table-striped table-vcenter remove-margin">
                             <tbody>
                             <!-- Use the first row as a prototype for your column widths -->
-
                             {% for mail in mails %}
-                                <tr {% if mail.read == false %}style="background-color: #f7efb2"{% endif %}>
-                                    <td class="td-label {% if mail.read == false %}td-label-warning{% else %}td-label-info{% endif %} text-center" style="width: 2%;">
-                                        {#<label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>#}
-                                    </td>
-                                    <td class="text-center" style="width: 7%;">
-                                        <img src="{{ vich_uploader_asset(mail.sender, 'imageFile') }}" alt="avatar" class="img-circle">
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            <a href="" class="text-dark"><strong>{{ mail.subject|limitObject }}</strong></a>
-                                            {% if mail.read == false %}<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 20px;"></i>{% endif %}
-                                        </h4>
-                                        <span class="text-muted"> {{ mail.content|limitMessage }}</span>
-                                    </td>
-                                    <td class="hidden-xs text-center" style="width: 30px;">
-                                        <!--<i class="fa fa-paperclip fa-2x text-muted"></i>-->
-                                    </td>
-                                    <td class="hidden-xs text-right {% if mail.read == false %}text-warning{% else %}text-info{% endif %}" style="width: 180px;"><em>reçu il y a {{ mail.sendingDate|compteRebours }}</em></td>
-                                </tr>
+                            <tr {% if mail.read == false %}style="background-color: #f7efb2"{% endif %}>
+                                <td class="td-label {% if mail.read == false %}td-label-warning{% else %}td-label-info{% endif %} text-center" style="width: 5%;">
+                                    <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                                </td>
+                                <td class="text-center" style="width: 7%;">
+                                    <img src="{{ vich_uploader_asset(mail.sender, 'imageFile') }}" alt="avatar" class="img-circle">
+                                </td>
+                                <td>
+                                    <h4>
+                                        <a href="{{ path('mailbox_show', {'id': mail.id, 'type': app.user.type}) }}" class="text-dark"><strong>{{ mail.subject|limitSubject }}</strong></a>
+
+                                    </h4>
+                                    <span class="text-muted"> {{ mail.content|limitContent }}</span>
+                                </td>
+                                <td class="hidden-xs text-center" style="width: 30px;">
+                                    {% if mail.read == false %}<i class="fa fa-envelope fa-2x text-muted"></i>{% endif %}
+                                </td>
+                                {#<td class="hidden-xs text-center" style="width: 30px;">#}
+                                    {#<i class="fa fa-paperclip fa-2x text-muted"></i>#}
+                                {#</td>#}
+                                <td class="hidden-xs text-right {% if mail.read == false %}text-warning{% else %}text-info{% endif %}" style="width: 180px;"><em>reçu il y a {{ mail.sendingDate|countUp }}</em></td>
+                            </tr>
                             {% endfor %}
                             </tbody>
                         </table>
@@ -106,7 +113,6 @@
             </div>
             <!-- END Email Center Content -->
         </div>
-
     </div>
 
     <!-- Compose Modal -->
@@ -118,15 +124,15 @@
                     <h3 class="modal-title"><strong>Écrire un nouveau message</strong></h3>
                 </div>
                 <div class="modal-body">
-                    {{ form(form) }}
+                    {{ render(controller('AKYOSMailboxBundle:Mailbox:new')) }}
                 </div>
             </div>
         </div>
     </div>
-
+    <!-- END Compose Modal -->
 {% endblock %}
 
 {% block scripts %}
     {{ parent() }}
-    <script src="{{ asset('assets/backoffice/js/messages.js') }}"></script>
+    <script src="{{ asset('assets/backoffice/js/custom/mailbox.js') }}"></script>
 {% endblock %}

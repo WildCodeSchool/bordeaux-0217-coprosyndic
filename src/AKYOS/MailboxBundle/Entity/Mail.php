@@ -55,12 +55,12 @@ class Mail
     private $deleted = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User", inversedBy="sentMessages")
+     * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User")
      */
     private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User", inversedBy="receivedMessages")
+     * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User")
      */
     private $recipient;
 

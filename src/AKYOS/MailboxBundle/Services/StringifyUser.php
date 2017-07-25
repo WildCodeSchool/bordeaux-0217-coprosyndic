@@ -1,6 +1,6 @@
 <?php
 
-namespace AKYOS\EasyCoproBundle\Service;
+namespace AKYOS\MailboxBundle\Services;
 
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
@@ -18,20 +18,21 @@ class StringifyUser
         $this->container = $container;
     }
 
-    public function stringify(User $user) {
+    public function stringify(User $user)
+    {
         $em = $this->container->get('doctrine')->getManager();
         $result ='';
 
-        if ($user->getType() == 'SYNDIC') {
+        if ($user->getType() == 'syndic') {
             $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
             $result = $syndic->getNom();
-        } elseif ($user->getType() == 'COPRO') {
+        } elseif ($user->getType() == 'coproprietaire') {
             $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($user);
-            $result = $coproprietaire->getNom().' '.$coproprietaire->getPrenom();
-        } elseif ($user->getType() == 'LOC') {
+            $result = $coproprietaire->getPrenom().' '.$coproprietaire->getNom();
+        } elseif ($user->getType() == 'locataire') {
             $locataire = $em->getRepository(Locataire::class)->findOneByUser($user);
-            $result = $locataire->getNom().' '.$locataire->getPrenom();
-        } elseif ($user->getType() == 'ARTISAN') {
+            $result = $locataire->getPrenom().' '.$locataire->getNom();
+        } elseif ($user->getType() == 'artisan') {
             $artisan = $em->getRepository(Artisan::class)->findOneByUser($user);
             $result = $artisan->getRaisonSociale();
         }

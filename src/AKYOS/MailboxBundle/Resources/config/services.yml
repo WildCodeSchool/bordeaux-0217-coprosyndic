@@ -1,4 +1,22 @@
 services:
-#    akyos_mailbox.example:
-#        class: AKYOS\MailboxBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    akyos.mailbox.mail_serializer:
+        class: AKYOS\MailboxBundle\Services\MailSerializer
+
+    akyos.mailbox.stringify_user:
+        class: AKYOS\MailboxBundle\Services\StringifyUser
+        arguments: ['@service_container']
+
+    akyos.mailbox.recipient_choices:
+        class: AKYOS\MailboxBundle\Services\RecipientChoices
+        arguments: ['@service_container']
+
+    akyos.mailbox.twig_filters:
+        class: AKYOS\MailboxBundle\Services\TwigFilters
+        tags:
+            - { name: twig.extension }
+
+    akyos.mailbox.form_mail:
+        class: AKYOS\MailboxBundle\Form\MailType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }

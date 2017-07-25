@@ -50,12 +50,12 @@ class Message
     private $destinataireCompte;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages_envoyes")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     private $expediteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages_recus")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     private $destinataire;
 
