@@ -1,0 +1,5 @@
+mailbox_homepage:
+    path:     /{type}/messagerie
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:index }
+    requirements:
+        type: admin|syndic|coproprietaire|locataire|artisan
