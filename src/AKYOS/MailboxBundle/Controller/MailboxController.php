@@ -16,7 +16,7 @@ class MailboxController extends Controller
     public function indexAction()
     {
         $mails = $this->getDoctrine()->getManager()->getRepository(Mail::class)
-            ->findAllReceivedMails($this->getUser());
+            ->findReceivedMailsByState($this->getUser(), 'inbox');
 
         return $this->render('AKYOSMailboxBundle:Mailbox:index.html.twig', array(
             'mails' => $mails,
@@ -27,9 +27,11 @@ class MailboxController extends Controller
     {
         if ($this->getUser() == $mail->getRecipient())
         {
-            $mail->setRead(true);
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            if (!$mail->getRead()) {
+                $mail->setRead(true);
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+            }
 
             $sender = $this->get('akyos.mailbox.stringify_user')->stringify($mail->getSender());
 
@@ -109,29 +111,20 @@ class MailboxController extends Controller
         ));
     }
 
-    public function filterAction(Request $request, $category)
+    public function filterAction(Request $request, $state)
     {
         if ($request->isXmlHttpRequest())
         {
             $repo = $this->getDoctrine()->getManager()->getRepository(Mail::class);
-            $mails = [];
-            switch ($category) {
-                case 'inbox':
-                    $mails = $repo->findAllReceivedMails($this->getUser());
-                    break;
-                case 'favorites':
-                    break;
-                case 'important':
-                    break;
+            switch ($state) {
                 case 'sent':
                     $mails = $repo->findSentMails($this->getUser());
-                    break;
-                case 'spam':
                     break;
                 case 'trash':
                     $mails = $repo->findDeletedMails($this->getUser());
                     break;
                 default:
+                    $mails = $repo->findReceivedMailsByState($this->getUser(), $state);
                     break;
             }
 
@@ -143,5 +136,45 @@ class MailboxController extends Controller
         else {
             throw new HttpException('501', 'Invalid Call');
         }
+    }
+
+    public function changeStateAction(Request $request, $oldState, $newState)
+    {
+        $ids = $request->get('data');
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($ids as $id) {
+            $mail = $em->getRepository(Mail::class)->find($id);
+            if ($mail->getRecipient() == $this->getUser() && $newState != 'sent') {
+                $mail->setRecipientState($newState);
+            } elseif ($mail->getSender() == $this->getUser() && $newState == 'trash') {
+                $mail->setSenderState($newState);
+            }
+        }
+        $em->flush();
+
+        return $this->filterAction($request, $oldState);
+    }
+
+    public function deleteAction(Mail $mail)
+    {
+        if ($mail !== null) {
+            if ($this->getUser() == $mail->getRecipient() && $mail->getRecipientState() != 'trash') {
+                $mail->setRecipientState('trash');
+            } elseif ($this->getUser() == $mail->getSender() && $mail->getRecipientState() != 'trash') {
+                $mail->setSenderState('trash');
+            } else {
+                return $this->redirectToRoute('mailbox_homepage', array('type' => $this->getUser()->getType()));
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('info', 'Le message a été placé dans la corbeille.');
+
+            return $this->redirectToRoute('mailbox_homepage', array('type' => $this->getUser()->getType()));
+        }
+
+        return $this->redirectToRoute('mailbox_homepage', array('type' => $this->getUser()->getType()));
     }
 }

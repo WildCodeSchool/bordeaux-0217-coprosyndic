@@ -48,12 +48,6 @@ class Mail
      */
     private $read = false;
 
-    /** @var boolean
-     *
-     * @ORM\Column(name="deleted", type="boolean")
-     */
-    private $deleted = false;
-
     /**
      * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User")
      */
@@ -70,6 +64,20 @@ class Mail
      * @ORM\Column(name="recipient_type", type="string")
      */
     private $recipientType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sender_state", type="string")
+     */
+    private $senderState = 'sent';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="recipient_state", type="string")
+     */
+    private $recipientState ='inbox';
 
 
     /**
@@ -179,30 +187,6 @@ class Mail
     }
 
     /**
-     * Set deleted
-     *
-     * @param boolean $deleted
-     *
-     * @return Mail
-     */
-    public function setDeleted($deleted)
-    {
-        $this->deleted = $deleted;
-
-        return $this;
-    }
-
-    /**
-     * Get deleted
-     *
-     * @return boolean
-     */
-    public function getDeleted()
-    {
-        return $this->deleted;
-    }
-
-    /**
      * Set recipientType
      *
      * @param string $recipientType
@@ -272,5 +256,53 @@ class Mail
     public function getRecipient()
     {
         return $this->recipient;
+    }
+
+    /**
+     * Set senderState
+     *
+     * @param string $senderState
+     *
+     * @return Mail
+     */
+    public function setSenderState($senderState)
+    {
+        $this->senderState = $senderState;
+
+        return $this;
+    }
+
+    /**
+     * Get senderState
+     *
+     * @return string
+     */
+    public function getSenderState()
+    {
+        return $this->senderState;
+    }
+
+    /**
+     * Set recipientState
+     *
+     * @param string $recipientState
+     *
+     * @return Mail
+     */
+    public function setRecipientState($recipientState)
+    {
+        $this->recipientState = $recipientState;
+
+        return $this;
+    }
+
+    /**
+     * Get recipientState
+     *
+     * @return string
+     */
+    public function getRecipientState()
+    {
+        return $this->recipientState;
     }
 }

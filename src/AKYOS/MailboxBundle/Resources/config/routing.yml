@@ -22,8 +22,20 @@ mailbox_reply:
         id: \d+
 
 mailbox_filter:
-    path:     /messagerie/filter/{category}
+    path:     /messagerie/filter/{state}
     defaults: { _controller: AKYOSMailboxBundle:Mailbox:filter }
     requirements:
-        category: inbox|favorites|important|sent|spam|trash
-        type: admin|syndic|coproprietaire|locataire|artisan
+        state: inbox|favorite|important|sent|spam|trash
+
+mailbox_change_state:
+    path:     /messagerie/change/{oldState}/{newState}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:changeState }
+    requirements:
+        oldState: inbox|favorite|important|sent|spam|trash
+        newState: inbox|favorite|important|sent|spam|trash
+
+mailbox_delete:
+    path:     /messagerie/delete/{id}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:delete }
+    requirements:
+        id: \d+

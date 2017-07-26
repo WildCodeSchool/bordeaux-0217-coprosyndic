@@ -10,11 +10,11 @@ $( document ).ready(function() {
 
         var loader = startLoader($('#page-content'));
 
-        var mailCategory = $(this).data('category');
+        var mailState = $(this).data('state');
         var avatarDir = '/assets/img/avatar/';
-        var currentConfig = categoryConfig[mailCategory];
+        var currentConfig = categoryConfig[mailState];
         $.ajax({
-            url : '/messagerie/filter/' + mailCategory,
+            url : '/messagerie/filter/' + mailState,
             type: 'post',
             success: function(response) {
                 var user = JSON.parse(response.user);
@@ -22,7 +22,7 @@ $( document ).ready(function() {
                 var html = '';
 
                 for (mail of mails) {
-                    html += formatMailRow(mailCategory, mail, user, currentConfig, avatarDir);
+                    html += formatMailRow(mailState, mail, user, currentConfig, avatarDir);
                 }
 
                 stopLoader(loader);
@@ -33,7 +33,6 @@ $( document ).ready(function() {
 
     // Fonction de mise à jour des destinataires en fonction du type de compte choisi
     var $recipientType = $('#akyos_mailboxbundle_mail_recipientType');
-
     $recipientType.change(function() {
         var $form = $(this).closest('form');
         var data = {};
@@ -54,19 +53,54 @@ $( document ).ready(function() {
         });
     });
 
+    //Fonction pour déplacer les mails en fonction du bouton choisi
+    $('#options a').on('click', function (e) {
+        e.preventDefault();
+        var newState = ($(this).data('state'));
+        var data = [];
+        var i = 0;
+        $checkedRows = $('#message-list tbody input[type=checkbox]:checkbox:checked');
+        $checkedRows.each(function () {
+            data.push($(this).data('id'));
+            i++;
+        });
+        var loader = startLoader($('#page-content'));
+
+        var mailState = $("#email-nav li.active a").data('state');
+        var avatarDir = '/assets/img/avatar/';
+        var currentConfig = categoryConfig[mailState];
+        $.ajax({
+            url : '/messagerie/change/' + mailState + '/' + newState,
+            type: 'post',
+            data : {'data': data},
+            success: function(response) {
+                var user = JSON.parse(response.user);
+                var mails = JSON.parse(response.data);
+                var html = '';
+
+                for (mail of mails) {
+                    html += formatMailRow(mailState, mail, user, currentConfig, avatarDir);
+                }
+
+                stopLoader(loader);
+                $('#message-list tbody').first().html(html);
+            }
+        });
+    });
+
 });
 
 var categoryConfig = {
     'inbox':     'info',
-    'favorites': 'warning',
+    'favorite':  'warning',
     'important': 'info' ,
     'sent':      'success',
     'spam':      'danger',
     'trash':     'muted'
 };
 
-function formatMailRow(mailCategory, mail, user, currentConfig, avatarDir) {
-    if (mailCategory === 'inbox' && !mail.read) {
+function formatMailRow(mailState, mail, user, currentConfig, avatarDir) {
+    if (mailState === 'inbox' && !mail.read) {
         trStyle = ' style="background-color: #f7efb2"';
         envelopIcon = '<i class="fa fa-envelope fa-2x text-muted"></i>';
     } else {
@@ -77,7 +111,7 @@ function formatMailRow(mailCategory, mail, user, currentConfig, avatarDir) {
 
     return '<tr'+trStyle+'>' +
         `<td class="td-label td-label-${currentConfig} text-center" style="width: 5%;">` +
-        `<label class="csscheckbox csscheckbox-${currentConfig}"><input type="checkbox"><span></span></label></td>` +
+        `<label class="csscheckbox csscheckbox-${currentConfig}"><input type="checkbox" data-id="${mail.id}"><span></span></label></td>` +
         `<td class="text-center" style="width: 7%;"><img src="`+avatarDir+avatarImage+`" alt="avatar" class="img-circle"></td>` +
         `<td><h4><a href="/${user.type}/messagerie/${mail.id}" class="text-dark"><strong>`+limitSubjectLength(mail.subject)+`</strong></a></h4>` +
         `<span class="text-muted">`+limitContentLength(mail.content)+`</span></td>` +

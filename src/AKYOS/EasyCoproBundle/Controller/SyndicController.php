@@ -29,6 +29,7 @@ use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use AKYOS\EasyCoproBundle\Form\EditSyndicType;
+use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,9 +54,7 @@ class SyndicController extends Controller
         //Requete Locataire Repository
         $nbre_locataires = $em->getRepository(Locataire::class)->findNbrLocatairesBySyndic($syndic);
         $artisans = $syndic->getArtisans();
-        //Requete Messages
-        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
-        $nbMessagesNonLus = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+
         //Requete Document
         $documents = $syndic->getDocuments();
         $coproprietes = $syndic->getCoproprietes();
@@ -63,16 +62,20 @@ class SyndicController extends Controller
         $nbre_documents = $em->getRepository(Document::class)->findNbreDocumentByCoproprieteBySyndic($syndic);
         $request->getSession()->set('copro', null);
 
+        //Requêtes pour la vignette 'Mes Messages'
+        $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
+        $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/index.html.twig', array(
             'nbre_coproprietaires' => $nbre_coproprietaires,
             'documents' => $documents,
             'nbre_locataires' => $nbre_locataires,
-            'nbMessagesTotal' => $nbMessagesTotal,
-            'nbMessagesNonLus' => $nbMessagesNonLus,
             'artisans' => $artisans,
             'coproprietes' => $coproprietes,
             'nbDocuments' => $nbre_documents,
-            'syndic' => $syndic
+            'syndic' => $syndic,
+            'allReceivedMailsCount' => $allReceivedMailsCount,
+            'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 
@@ -115,11 +118,11 @@ class SyndicController extends Controller
 
         $coproprietes = $em->getRepository(Copropriete::class)->find3LastCoproprietesBySyndic($syndic);
 
-        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+        $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Syndic/menu.html.twig', array(
             'coproprietes'=> $coproprietes,
-            'nbMessages' => $nbMessages,
+            'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 

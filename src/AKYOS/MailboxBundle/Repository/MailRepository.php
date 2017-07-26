@@ -9,8 +9,8 @@ class MailRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('m')
             ->select('COUNT(m)')
             ->where('m.recipient = :user')
-            ->andWhere('m.deleted = false')
-            ->setParameter('user', $user)
+            ->andWhere('m.recipientState != :state')
+            ->setParameters(array('user' => $user, 'state' => 'trash'))
             ;
 
         return $qb->getQuery()->getSingleScalarResult();
@@ -21,8 +21,8 @@ class MailRepository extends \Doctrine\ORM\EntityRepository
             ->select('COUNT(m)')
             ->where('m.recipient = :user')
             ->andWhere('m.read = false')
-            ->andWhere('m.deleted = false')
-            ->setParameter('user', $user)
+            ->andWhere('m.recipientState != :state')
+            ->setParameters(array('user' => $user, 'state' => 'trash'))
         ;
 
         return $qb->getQuery()->getSingleScalarResult();
@@ -41,9 +41,9 @@ class MailRepository extends \Doctrine\ORM\EntityRepository
     public function findAllReceivedMails($user) {
         $qb = $this->createQueryBuilder('m')
             ->where('m.recipient = :user')
-            ->andWhere('m.deleted = false')
+            ->andWhere('m.recipientState != :state')
             ->orderBy('m.sendingDate', 'desc')
-            ->setParameter('user', $user)
+            ->setParameters(array('user' => $user, 'state' => 'trash'))
         ;
 
         return $qb->getQuery()->getResult();
@@ -53,9 +53,20 @@ class MailRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('m')
             ->where('m.recipient = :user')
             ->andWhere('m.read = false')
-            ->andWhere('m.deleted = false')
+            ->andWhere('m.recipientState != :state')
             ->orderBy('m.sendingDate', 'desc')
-            ->setParameter('user', $user)
+            ->setParameters(array('user' => $user, 'state' => 'trash'))
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findReceivedMailsByState($user, $state) {
+        $qb = $this->createQueryBuilder('m')
+            ->where('m.recipient = :user')
+            ->andWhere('m.recipientState = :state')
+            ->orderBy('m.sendingDate', 'desc')
+            ->setParameters(array('user' => $user, 'state' => $state))
         ;
 
         return $qb->getQuery()->getResult();
@@ -64,9 +75,9 @@ class MailRepository extends \Doctrine\ORM\EntityRepository
     public function findSentMails($user) {
         $qb = $this->createQueryBuilder('m')
             ->where('m.sender = :user')
-            ->andWhere('m.deleted = false')
+            ->andWhere('m.senderState != :state')
             ->orderBy('m.sendingDate', 'desc')
-            ->setParameter('user', $user)
+            ->setParameters(array('user' => $user, 'state' => 'trash'))
         ;
 
         return $qb->getQuery()->getResult();
@@ -74,10 +85,10 @@ class MailRepository extends \Doctrine\ORM\EntityRepository
 
     public function findDeletedMails($user) {
         $qb = $this->createQueryBuilder('m')
-            ->where('m.sender = :user OR m.recipient = :user')
-            ->andWhere('m.deleted = true')
+            ->where('m.sender = :user AND m.senderState = :state')
+            ->orWhere('m.recipient = :user AND m.recipientState = :state')
             ->orderBy('m.sendingDate', 'desc')
-            ->setParameter('user', $user)
+            ->setParameters(array('user' => $user, 'state' => 'trash'))
         ;
 
         return $qb->getQuery()->getResult();

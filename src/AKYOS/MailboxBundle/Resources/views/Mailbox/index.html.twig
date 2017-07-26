@@ -29,22 +29,22 @@
                 <div class="block-section">
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active">
-                            <a href="" data-category="inbox"><i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong></a>
+                            <a href="" data-state="inbox"><i class="fa fa-fw fa-inbox icon-push"></i> <strong>Boîte de reception</strong></a>
                         </li>
                         <li>
-                            <a href="" data-category="favorites"><i class="fa fa-fw text-warning fa-star icon-push"></i> <strong>Favoris</strong></a>
+                            <a href="" data-state="favorite"><i class="fa fa-fw text-warning fa-star icon-push"></i> <strong>Favoris</strong></a>
                         </li>
                         <li>
-                            <a href="" data-category="important"><i class="fa fa-fw text-info fa-exclamation-circle icon-push"></i> <strong>Important</strong></a>
+                            <a href="" data-state="important"><i class="fa fa-fw text-info fa-exclamation-circle icon-push"></i> <strong>Important</strong></a>
                         </li>
                         <li>
-                            <a href="" data-category="sent"><i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong></a>
+                            <a href="" data-state="sent"><i class="fa fa-fw fa-send text-success icon-push"></i> <strong>Envoyés</strong></a>
                         </li>
                         <li>
-                            <a href="" data-category="spam"><i class="fa fa-fw fa-exclamation-triangle text-danger icon-push"></i> <strong>Spams</strong></a>
+                            <a href="" data-state="spam"><i class="fa fa-fw fa-exclamation-triangle text-danger icon-push"></i> <strong>Spams</strong></a>
                         </li>
                         <li>
-                            <a href="" data-category="trash"><i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong></a>
+                            <a href="" data-state="trash"><i class="fa fa-fw fa-trash-o icon-push"></i> <strong>Corbeille</strong></a>
                         </li>
                     </ul>
                 </div>
@@ -65,12 +65,13 @@
                             <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default"><i class="fa fa-arrow-left"></i> Préc.</a>
                             <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default">Suivant <i class="fa fa-arrow-right"></i></a>
                         </div>
-                        <div class="block-options pull-left" style="padding-left:18px;">
+                        <div id="options" class="block-options pull-left" style="padding-left:18px;">
                             <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Mettre en favoris"><i class="fa fa-star"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme important"><i class="fa fa-exclamation-circle"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Marquer comme SPAM"><i class="fa fa-exclamation-triangle"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="Supprimer"><i class="fa fa-times"></i></a>
+                            <a href="" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Placer dans la boîte de réception" data-state="inbox"><i class="fa fa-inbox"></i></a>
+                            <a href="" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Mettre en favoris" data-state="favorite"><i class="fa fa-star"></i></a>
+                            <a href="" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme important" data-state="important"><i class="fa fa-exclamation-circle"></i></a>
+                            <a href="" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Marquer comme SPAM" data-state="spam"><i class="fa fa-exclamation-triangle"></i></a>
+                            <a href="" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="Supprimer" data-state="trash"><i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                     <!-- END Title -->
@@ -83,7 +84,7 @@
                             {% for mail in mails %}
                             <tr {% if mail.read == false %}style="background-color: #f7efb2"{% endif %}>
                                 <td class="td-label {% if mail.read == false %}td-label-warning{% else %}td-label-info{% endif %} text-center" style="width: 5%;">
-                                    <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+                                    <label class="csscheckbox csscheckbox-primary"><input type="checkbox" data-id="{{ mail.id }}"><span></span></label>
                                 </td>
                                 <td class="text-center" style="width: 7%;">
                                     <img src="{{ vich_uploader_asset(mail.sender, 'imageFile') }}" alt="avatar" class="img-circle">
