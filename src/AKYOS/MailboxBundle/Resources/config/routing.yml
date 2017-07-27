@@ -29,11 +29,12 @@ mailbox_filter:
         page: \d+
 
 mailbox_change_state:
-    path:     /messagerie/change/{oldState}/{newState}
+    path:     /messagerie/change/{selection}/{oldState}/{newState}
     defaults: { _controller: AKYOSMailboxBundle:Mailbox:changeState }
     requirements:
+        selection: single|multiple
         oldState: inbox|favorite|important|sent|spam|trash
-        newState: inbox|favorite|important|sent|spam|trash
+        newState: inbox|favorite|important|sent|spam|trash|unread
 
 mailbox_delete:
     path:     /messagerie/delete/{id}

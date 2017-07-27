@@ -8,6 +8,7 @@ use AKYOS\MailboxBundle\Form\ReplyType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class MailboxController extends Controller
@@ -140,27 +141,57 @@ class MailboxController extends Controller
         }
     }
 
-    public function changeStateAction(Request $request, $oldState, $newState)
+    public function changeStateAction(Request $request, $selection, $oldState, $newState)
     {
-        $ids = $request->get('data');
+        if ($request->isXmlHttpRequest()) {
+            if ($selection == 'multiple') {
+                $ids = $request->get('data');
 
-        if ($ids != null && $oldState != $newState) {
-            $em = $this->getDoctrine()->getManager();
+                if ($ids != null && $oldState != $newState) {
+                    $em = $this->getDoctrine()->getManager();
 
-            foreach ($ids as $id) {
-                $mail = $em->getRepository(Mail::class)->find($id);
-                if ($mail->getRecipient() == $this->getUser() && $newState != 'sent') {
-                    $mail->setRecipientState($newState);
-                } elseif ($mail->getSender() == $this->getUser() && $newState == 'trash') {
-                    $mail->setSenderState($newState);
+                    foreach ($ids as $id) {
+                        $mail = $em->getRepository(Mail::class)->find($id);
+                        if ($mail->getRecipient() == $this->getUser() && $newState != 'sent') {
+                            $mail->setRecipientState($newState);
+                        } elseif ($mail->getSender() == $this->getUser() && $newState == 'trash') {
+                            $mail->setSenderState($newState);
+                        }
+                    }
+                    $em->flush();
+
+                    return $this->filterAction($request, $oldState);
+
+                } else {
+                    return new JsonResponse(array('data' => null, 'user' => null));
                 }
+
+            } elseif ($selection = 'single') {
+                $id = $request->get('data');
+
+                if ($id != null && $oldState != $newState) {
+                    $em = $this->getDoctrine()->getManager();
+                    $mail = $em->getRepository(Mail::class)->find($id);
+                    if ($mail->getRecipient() == $this->getUser() && $newState == 'unread') {
+                        $mail->setRead(false);
+                        $newState = 'unread';
+                    } elseif ($mail->getRecipient() == $this->getUser() && $newState != 'sent') {
+                        $mail->setRecipientState($newState);
+                    } elseif ($mail->getSender() == $this->getUser() && $newState == 'trash') {
+                        $mail->setSenderState($newState);
+                    }
+                    $em->flush();
+                    return new JsonResponse(json_encode($newState));
+                }
+                return new JsonResponse(json_encode($oldState));
+
+            } else {
+                throw new HttpException('501', 'Invalid Call');
             }
-            $em->flush();
 
-            return $this->filterAction($request, $oldState);
+        } else {
+            throw new HttpException('501', 'Invalid Call');
         }
-
-        return new JsonResponse(array('data'=> null, 'user'=> null));
     }
 
     public function deleteAction(Mail $mail)

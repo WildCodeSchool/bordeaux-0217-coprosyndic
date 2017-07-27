@@ -55,7 +55,7 @@ $( document ).ready(function() {
         });
     });
 
-    //Fonction pour déplacer les mails en fonction du bouton choisi
+    //Fonction pour déplacer les mails en fonction du bouton choisi (dans la boîte de réception)
     $('#options a').on('click', function (e) {
         e.preventDefault();
         var newState = ($(this).data('state'));
@@ -75,7 +75,7 @@ $( document ).ready(function() {
             var avatarDir = '/assets/img/avatar/';
             var currentConfig = categoryConfig[mailState];
             $.ajax({
-                url: '/messagerie/change/' + mailState + '/' + newState,
+                url: '/messagerie/change/multiple/' + mailState + '/' + newState,
                 type: 'post',
                 data: {'data': data},
                 success: function (response) {
@@ -93,6 +93,35 @@ $( document ).ready(function() {
                 }
             });
         }
+    });
+
+    //Fonction pour déplacer les mails en fonction du bouton choisi (dans la vue d'un message)
+    $('#message-view #markers a').on('click', function (e) {
+        e.preventDefault();
+        var newState = ($(this).data('state'));
+        var data = id;
+
+        var loader = startLoader($('#page-content'));
+
+        $.ajax({
+            url: '/messagerie/change/single/' + mailState + '/' + newState,
+            type: 'post',
+            data: {'data': data},
+            success: function (response) {
+                var state = JSON.parse(response);
+                if (state === 'unread') {
+                    $('#state').parent().append('<span class="pull-right" style="background-color: #e0cf62; color: #FFF; border-radius: 2px; padding: 0 5px; margin-right: 10px;">Non lu</span>');
+                } else {
+                    $('#state').html(stateString[state]);
+                    var prevConfig = categoryConfig[mailState];
+                    var currentConfig = categoryConfig[newState];
+                    $('#state').removeClass('label-' + prevConfig);
+                    $('#state').addClass('label-' + currentConfig);
+                    mailState = newState;
+                }
+                stopLoader(loader);
+            }
+        });
     });
 
     //Fonction pour naviguer dans les messages (précédent / suivant)
@@ -139,11 +168,19 @@ var categoryConfig = {
     'important': 'info' ,
     'sent':      'success',
     'spam':      'danger',
-    'trash':     'muted'
+    'trash':     'primary'
+};
+var stateString = {
+    'inbox':     'Boîte de réception',
+    'favorite':  'Favoris',
+    'important': 'Important' ,
+    'sent':      'Envoyé',
+    'spam':      'SPAM',
+    'trash':     'Corbeille'
 };
 
 function formatMailRow(mailState, mail, user, currentConfig, avatarDir) {
-    if (mailState === 'inbox' && !mail.read) {
+    if (mailState !== 'sent' && !mail.read) {
         trStyle = ' style="background-color: #f7efb2"';
         envelopIcon = '<i class="fa fa-envelope fa-2x text-muted"></i>';
     } else {
