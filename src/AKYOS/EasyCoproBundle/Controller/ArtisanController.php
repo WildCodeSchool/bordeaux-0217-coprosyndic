@@ -11,6 +11,7 @@ use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
+use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,10 +70,10 @@ class ArtisanController extends Controller
     public function menuAction(){
 
         $em = $this->getDoctrine()->getManager();
-        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+        $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/menu.html.twig', array(
-            'nbMessages' => $nbMessages,
+            'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 

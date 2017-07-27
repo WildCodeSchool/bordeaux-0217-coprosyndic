@@ -15,7 +15,7 @@ class MailboxController extends Controller
 {
     public function indexAction()
     {
-        $limit = 3;
+        $limit = 8;
         $mails = $this->getDoctrine()->getManager()->getRepository(Mail::class)
             ->findReceivedMailsByState($this->getUser(), 'inbox', 1, $limit);
 
@@ -118,7 +118,7 @@ class MailboxController extends Controller
         if ($request->isXmlHttpRequest())
         {
             $repo = $this->getDoctrine()->getManager()->getRepository(Mail::class);
-            $limit = 3;
+            $limit = 8;
             switch ($state) {
                 case 'sent':
                     $mails = $repo->findSentMails($this->getUser(), $page, $limit);

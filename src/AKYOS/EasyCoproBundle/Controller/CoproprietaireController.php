@@ -11,6 +11,7 @@ use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditSyndicType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
+use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,10 +81,10 @@ class CoproprietaireController extends Controller
     public function menuAction(){
 
         $em = $this->getDoctrine()->getManager();
-        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+        $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/menu.html.twig', array(
-            'nbMessages' => $nbMessages,
+            'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 

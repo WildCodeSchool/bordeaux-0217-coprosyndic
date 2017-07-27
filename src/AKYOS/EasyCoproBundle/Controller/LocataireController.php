@@ -10,6 +10,7 @@ use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditLocataireType;
+use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,10 +78,10 @@ class LocataireController extends Controller
     public function menuAction(){
 
         $em = $this->getDoctrine()->getManager();
-        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+        $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/menu.html.twig', array(
-            'nbMessages' => $nbMessages,
+            'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 

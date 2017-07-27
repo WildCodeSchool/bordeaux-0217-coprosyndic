@@ -179,8 +179,9 @@ var stateString = {
     'trash':     'Corbeille'
 };
 
-function formatMailRow(mailState, mail, user, currentConfig, avatarDir) {
-    if (mailState !== 'sent' && !mail.read) {
+function formatMailRow(mailState, mail, user, currentConfig, avatarDir)
+{
+    if (mail.sender.username !== user.username && !mail.read) {
         trStyle = ' style="background-color: #f7efb2"';
         envelopIcon = '<i class="fa fa-envelope fa-2x text-muted"></i>';
     } else {

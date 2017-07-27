@@ -30,6 +30,7 @@ use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use AKYOS\EasyCoproBundle\Form\EditSyndicType;
+use AKYOS\MailboxBundle\Entity\Mail;
 use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -85,11 +86,11 @@ class AdminController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $syndics = $em->getRepository(Syndic::class)->findAll();
-        $nbMessages = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+        $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Admin/menu.html.twig', array(
             'syndics' => $syndics,
-            'nbMessages' => $nbMessages,
+            'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 
