@@ -2,44 +2,13 @@
 
 namespace AKYOS\EasyCoproBundle\Controller;
 
-use AKYOS\EasyCoproBundle\Entity\Categorie;
-use AKYOS\EasyCoproBundle\Entity\Copropriete;
-use AKYOS\EasyCoproBundle\Entity\Lot;
-use AKYOS\EasyCoproBundle\Entity\Document;
-use AKYOS\EasyCoproBundle\Entity\Artisan;
-use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
-use AKYOS\EasyCoproBundle\Entity\Locataire;
-use AKYOS\EasyCoproBundle\Entity\Message;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
-use AKYOS\EasyCoproBundle\Entity\User;
-use AKYOS\EasyCoproBundle\Form\CreateArtisanType;
-use AKYOS\EasyCoproBundle\Form\CreateCategorieType;
-use AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType;
-use AKYOS\EasyCoproBundle\Form\CreateCoproprieteType;
-use AKYOS\EasyCoproBundle\Form\CreateDocumentType;
-use AKYOS\EasyCoproBundle\Form\CreateLocataireType;
-use AKYOS\EasyCoproBundle\Form\CreateLotType;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
-use AKYOS\EasyCoproBundle\Form\EditLocataireType;
 use AKYOS\EasyCoproBundle\Form\EditUserType;
-use AKYOS\EasyCoproBundle\Form\MessageReplyType;
-use AKYOS\EasyCoproBundle\Form\MessageType;
-use AKYOS\EasyCoproBundle\Form\EditArtisanType;
-use AKYOS\EasyCoproBundle\Form\EditCategorieType;
-use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
-use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
-use AKYOS\EasyCoproBundle\Form\EditDocumentType;
 use AKYOS\EasyCoproBundle\Form\EditSyndicType;
 use AKYOS\MailboxBundle\Entity\Mail;
-use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class AdminController extends Controller
 {

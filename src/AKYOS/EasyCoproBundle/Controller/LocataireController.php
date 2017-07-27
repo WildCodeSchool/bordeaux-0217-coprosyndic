@@ -7,14 +7,11 @@ use AKYOS\EasyCoproBundle\Entity\Document;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Message;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
-use AKYOS\EasyCoproBundle\Form\MessageReplyType;
-use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditLocataireType;
 use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -30,13 +27,13 @@ class LocataireController extends Controller
         $request->getSession()->set('copro', $copropriete);
 
         $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLotForLocataire($locataire->getLot());
-        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
-        $nbMessagesNonLus = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+        $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
+        $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Locataire/index.html.twig', array(
             'nbDocuments' => $nbDocuments,
-            'nbMessagesTotal' => $nbMessagesTotal,
-            'nbMessagesNonLus' => $nbMessagesNonLus,
+            'allReceivedMailsCount' => $allReceivedMailsCount,
+            'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
             ));
     }
 

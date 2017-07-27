@@ -4,19 +4,15 @@ namespace AKYOS\EasyCoproBundle\Controller;
 
 use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
-use AKYOS\EasyCoproBundle\Entity\Message;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\EditCoproprietaireType;
 use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\EditSyndicType;
-use AKYOS\EasyCoproBundle\Form\MessageReplyType;
-use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AKYOS\EasyCoproBundle\Entity\Document;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -32,13 +28,13 @@ class CoproprietaireController extends Controller
         $request->getSession()->set('copro', $copropriete);
 
         $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLot($coproprietaire->getLot());
-        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
-        $nbMessagesNonLus = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+        $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
+        $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Coproprietaire/index.html.twig', array(
             'nbDocuments' => $nbDocuments,
-            'nbMessagesTotal' => $nbMessagesTotal,
-            'nbMessagesNonLus' => $nbMessagesNonLus,
+            'allReceivedMailsCount' => $allReceivedMailsCount,
+            'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 
