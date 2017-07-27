@@ -7,6 +7,7 @@ use AKYOS\EasyCoproBundle\Entity\Document;
 use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Message;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
+use AKYOS\EasyCoproBundle\Form\EditCoproprieteType;
 use AKYOS\EasyCoproBundle\Form\MessageReplyType;
 use AKYOS\EasyCoproBundle\Form\MessageType;
 use AKYOS\EasyCoproBundle\Form\EditArtisanType;
@@ -16,11 +17,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArtisanController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $artMsg = $this->getDoctrine()->getManager();
-        $artisan = $artMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/index.html.twig', array('artisan'=>$artisan));
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        $copropriete = $artisan->getCopropriete();
+        $request->getSession()->set('copro', $copropriete);
+
+        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByArtisan($artisan);
+        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
+        $nbMessagesNonLus = $em->getRepository(Message::class)->findUnreadMessagesByUser($this->getUser());
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/index.html.twig', array(
+            'nbDocuments' => $nbDocuments,
+            'nbMessagesTotal' => $nbMessagesTotal,
+            'nbMessagesNonLus' => $nbMessagesNonLus,
+        ));
     }
 
     public function editAction(Request $request)
@@ -38,8 +50,10 @@ class ArtisanController extends Controller
 
             return $this->redirectToRoute('artisan_show');
         }
+
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/edit.html.twig', array(
-            'form' => $form->createView(),'artisan'=>$artisan
+            'form' => $form->createView(),
+            'artisan'=> $artisan,
         ));
     }
 
@@ -72,6 +86,43 @@ class ArtisanController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/menuUser.html.twig');
     }
 
+    public function showCoproprieteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        $copropriete = $artisan->getCopropriete();
+        $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
+        $nbArtisans = $em->getRepository(Artisan::class)->findNbrArtisansByCopropriete($copropriete);
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_copropriete.html.twig', array(
+            'artisan' => $artisan,
+            'documents' => $documents,
+            'copropriete' => $copropriete,
+            'nbArtisans' => $nbArtisans,
+        ));
+    }
+
+    public function editCoproprieteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+        $copropriete = $artisan->getCopropriete();
+        $form = $this->createForm(EditCoproprieteType::class, $copropriete);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur la copropriété ont bien été enregistrées.');
+            return $this->redirectToRoute('artisan_show_copropriete');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/edit_copropriete.html.twig', array(
+            'my_form' => $form->createView(),
+            'coproprieteId' => $copropriete->getId(),
+        ));
+    }
+
     // ACTIONS LIEES AUX DOCUMENTS
     //----------------------------
 
@@ -88,10 +139,6 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($artisan->getSyndic());
-
-        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
-        $allDocuments = $em->getRepository(Document::class)->findArtisanDocumentsSortedByDate($syndic);
 
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
         $allDocuments = $em->getRepository(Document::class)->findArtisanDocumentsSortedByDate($artisan);
@@ -107,142 +154,96 @@ class ArtisanController extends Controller
     // ACTIONS LIEES AUX MSGS
     //-----------------------
 
-    public function showMessageAction(Request $request, Message $message)
-    {
-        $locMsg = $this->getDoctrine()->getManager();
-        $artisan = $locMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
+    public function replyMessageAction(Request $request, Message $message) {
+        $reply = new Message();
+        $form = $this->createForm(MessageReplyType::class, $reply);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sender = $this->getUser();
+            //recuperer l'expéditeur du message original
+            $expediteur = $message->getExpediteur();
+
+            $reply
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($sender)
+                ->setIsSupprime(false)
+                ->setIsLu(false)
+                ->setDestinataireCompte($expediteur->getType());
+
+            //l'utiliser comme cible de la réponse
+            $reply->setDestinataire($expediteur);
+            //recuperer le titre original du message
+            $titre = $message->getTitre();
+            //l'utiliser comme titre de sujet avec "Re:" avant
+            $reply->setTitre('Re:' . $titre);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reply);
+            $em->flush();
+            $this->addFlash('info', 'Votre réponse a été envoyée !');
+            return $this->redirectToRoute('artisan_inbox');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/reply_message.html.twig', array(
+            'formReply' => $form->createView(),
+            'messageId' => $message->getId(),
+        ));
+    }
+
+    public function showMessageAction(Message $message)
+    {
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
 
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
+            $expediteurToString= $this->get('akyos.stringify_user')->stringify($message->getExpediteur());
 
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('artisan_inbox');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_message.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(), 'artisan' => $artisan
-
+                'message' => $message,
+                'expediteurToString' => $expediteurToString,
             ));
+
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
-    public function showMessageFromCorbeilleAction(Request $request, Message $message)
+    public function showMessageFromCorbeilleAction(Message $message)
     {
-        $locMsg = $this->getDoctrine()->getManager();
-        $artisan = $locMsg->getRepository(Artisan::class)->findOneByUser($this->getUser());
-
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
 
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
-
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
-
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('artisan_corbeille');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_message_from_corbeille.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(),'artisan' => $artisan
+                'message' => $message,
             ));
+
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
     }
 
-    public function showMessagefromEnvoyesAction(Request $request, Message $message)
+    public function showMessagefromEnvoyesAction(Message $message)
     {
-        $locMsg = $this->getDoctrine()->getManager();
-        $artisan = $locMsg->getRepository(artisan::class)->findOneByUser($this->getUser());
-
         if ($this->getUser() == $message->getDestinataire() || $this->getUser() == $message->getExpediteur()) {
             $message->setIsLu(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
 
-            $reply = new Message();
-            $form = $this->createForm(MessageReplyType::class, $reply);
-            $sender = $this->getUser();
-            $reply
-                ->setDateEnvoi(new \DateTime())
-                ->setExpediteur($sender)
-                ->setIsSupprime(false)
-                ->setIsLu(false);
+            $destinataireToString= $this->get('akyos.stringify_user')->stringify($message->getDestinataire());
 
-            //recuperer l'expéditeur du message
-            $expediteur = $message->getExpediteur();
-
-            //l'utiliser comme cible de la réponse
-            $reply->setDestinataire($expediteur);
-
-            //recuperer le titre original du message
-            $titre = $message->getTitre();
-
-            //l'utiliser comme titre de sujet avec "Re:" avant
-            $reply->setTitre('Re:' . $titre);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($reply);
-                $em->flush();
-                $this->addFlash('info', 'Votre réponse a été envoyé !');
-                return $this->redirectToRoute('artisan_messages_envoyes');
-            }
             return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/show_message_from_envoyes.html.twig', array(
-                'message' => $message, 'formReply' => $form->createView(), 'artisan' => $artisan
+                'message' => $message,
+                'destinataireToString' => $destinataireToString,
             ));
+
         } else {
             return new Response("Vous n'êtes pas autorisé à lire ce message");
         }
@@ -310,6 +311,30 @@ class ArtisanController extends Controller
         return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/inbox.html.twig', array(
             'formSend' => $form->createView(),
             'messages' => $messages,
+        ));
+    }
+
+    public function createMessageAction(Request $request) {
+
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message
+                ->setDateEnvoi(new \DateTime())
+                ->setExpediteur($this->getUser())
+                ->setisSupprime(false)
+                ->setIsLu(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            $this->addFlash('info', 'Le message a été envoyé !');
+            return $this->redirectToRoute('artisan_inbox');
+        }
+
+        return $this->render('@AKYOSEasyCopro/BackOffice/Artisan/create_message.html.twig', array(
+            'formSend' => $form->createView(),
         ));
     }
 

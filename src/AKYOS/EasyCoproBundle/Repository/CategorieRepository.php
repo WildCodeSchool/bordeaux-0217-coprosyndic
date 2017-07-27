@@ -70,7 +70,8 @@ class CategorieRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c')
             ->select('c', 'COUNT(d.nom)')
             ->leftJoin('c.documents', 'd')
-            ->where('c.artisan = :artisan')
+            ->leftJoin('d.artisans', 'a')
+            ->where('a = :artisan')
             ->setParameter('artisan', $artisan)
             ->groupBy('c')
         ;

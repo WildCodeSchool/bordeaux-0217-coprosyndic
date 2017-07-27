@@ -38,7 +38,7 @@ class Syndic
     /**
      * @var string
      *
-     * @ORM\Column(name="siret", type="string", length=255, unique=true)
+     * @ORM\Column(name="siret", type="string", length=255, unique=true, nullable=true)
      */
     private $siret;
 
@@ -52,7 +52,7 @@ class Syndic
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse_sec", type="string", length=255)
+     * @ORM\Column(name="adresse_sec", type="string", length=255, nullable=true)
      */
     private $adresseSec;
 

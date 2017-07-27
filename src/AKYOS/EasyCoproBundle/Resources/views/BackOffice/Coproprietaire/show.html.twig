@@ -1,14 +1,14 @@
 {% extends '@AKYOSEasyCopro/BackOffice/Coproprietaire/layout.html.twig' %}
 
 {% block title %}
-    Affichage COPROPRIETAIRE
+    Affichage du profil
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block titre_page %}
-    Mes informations
+    Affichage du profil
 {% endblock %}
 
 {% block breadcrumb %}
@@ -17,11 +17,6 @@
     <li class="active">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</li>
 {% endblock %}
 {% block content %}
-
-    {% for message in app.session.flashbag.get('infoCopro') %}
-        <p>Message flash : {{ message }}</p>
-    {% endfor %}
-
 
     <div class="row">
         <div class="col-md-5 col-lg-4">
@@ -32,8 +27,8 @@
                     <span class="text-light-op">Copropriétaire</span>
                 </div>
                 <div class="widget-content widget-content-mini themed-background-dark border-bottom">
-                    <span class="pull-right text-light-op">Depuis le {{ coproprietaire.dateArrivee|date("m/d/Y") }}</span>
                     <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp;{{ coproprietaire.lot.copropriete }}</strong>
+                    <p><span class="pull-right text-light-op">Inscrit depuis le {{ coproprietaire.user.dateInscription|date("m/d/Y") }}</span></p>
                 </div>
                 <div class="widget-content widget-content-full border-bottom">
                     <div class="row text-center">
@@ -44,7 +39,7 @@
                                         {% set nbdocs = coproprietaire.lot.documents|length %}
                                         {{ nbdocs }}
                                     </strong>
-                                    {% if nbdocs > 1 %} Fichiers uploadés{% else %} Fichier uploadé
+                                    {% if nbdocs > 1 %} Documents{% else %} Document
                                     {% endif %}
                                 </small></h3>
                         </div>

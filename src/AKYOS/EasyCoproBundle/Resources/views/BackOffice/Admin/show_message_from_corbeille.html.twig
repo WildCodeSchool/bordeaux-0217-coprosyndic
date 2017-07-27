@@ -7,9 +7,6 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block scripts %}
-{% endblock %}
-
 {% block titre_page %}
     Affichage d'un message
 {% endblock %}
@@ -79,4 +76,8 @@
         </div>
         <!-- END Message View -->
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
 {% endblock %}

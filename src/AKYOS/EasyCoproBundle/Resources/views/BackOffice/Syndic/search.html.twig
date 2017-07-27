@@ -33,11 +33,11 @@
                         <h4 class="inner-sidebar-header">Vos résultats : </h4>
                         <div class="single category">
                             <ul class="list-unstyled">
-                                <li>{{ documents|length }} document(s)</li>
-                                <li>{{ lots|length }} lot(s)</li>
-                                <li>{{ coproprietaires|length }} copropriétaire(s)</li>
-                                <li>{{ locataires|length }} locataire(s)</li>
-                                <li>{{ artisans|length }} fournisseur(s)</li>
+                                <li><strong style="color: #1B6D85;">{{ documents|length }}</strong> document{% if documents|length > 1 %}s{% endif %}</li>
+                                <li><strong style="color: #1B6D85;">{{ lots|length }}</strong> lot{% if lots|length > 1 %}s{% endif %}</li>
+                                <li><strong style="color: #1B6D85;">{{ coproprietaires|length }}</strong> copropriétaire{% if coproprietaires|length > 1 %}s{% endif %}</li>
+                                <li><strong style="color: #1B6D85;">{{ locataires|length }}</strong> locataire{% if locataires|length > 1 %}s{% endif %}</li>
+                                <li><strong style="color: #1B6D85;">{{ artisans|length }}</strong> fournisseur{% if artisans|length > 1 %}s{% endif %}</li>
                             </ul>
                         </div>
                     </div>
@@ -270,4 +270,5 @@
 {% endblock %}
 
 {% block scripts %}
+    {{ parent() }}
 {% endblock %}
