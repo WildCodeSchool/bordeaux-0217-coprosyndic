@@ -22,10 +22,11 @@ mailbox_reply:
         id: \d+
 
 mailbox_filter:
-    path:     /messagerie/filter/{state}
+    path:     /messagerie/filter/{state}/{page}
     defaults: { _controller: AKYOSMailboxBundle:Mailbox:filter }
     requirements:
         state: inbox|favorite|important|sent|spam|trash
+        page: \d+
 
 mailbox_change_state:
     path:     /messagerie/change/{oldState}/{newState}

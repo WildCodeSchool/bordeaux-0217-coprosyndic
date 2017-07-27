@@ -14,7 +14,7 @@ $( document ).ready(function() {
         var avatarDir = '/assets/img/avatar/';
         var currentConfig = categoryConfig[mailState];
         $.ajax({
-            url : '/messagerie/filter/' + mailState,
+            url : '/messagerie/filter/' + mailState + '/1',
             type: 'post',
             success: function(response) {
                 var user = JSON.parse(response.user);
@@ -25,8 +25,10 @@ $( document ).ready(function() {
                     html += formatMailRow(mailState, mail, user, currentConfig, avatarDir);
                 }
 
-                stopLoader(loader);
                 $('#message-list tbody').first().html(html);
+                $('#navigation a').first().data('page', 0);
+                $('#navigation a').last().data('page', 2);
+                stopLoader(loader);
             }
         });
     });
@@ -59,33 +61,74 @@ $( document ).ready(function() {
         var newState = ($(this).data('state'));
         var data = [];
         var i = 0;
+
         $checkedRows = $('#message-list tbody input[type=checkbox]:checkbox:checked');
-        $checkedRows.each(function () {
-            data.push($(this).data('id'));
-            i++;
-        });
-        var loader = startLoader($('#page-content'));
+        if ($checkedRows.length > 0) {
+            $checkedRows.each(function () {
+                data.push($(this).data('id'));
+                i++;
+            });
 
-        var mailState = $("#email-nav li.active a").data('state');
-        var avatarDir = '/assets/img/avatar/';
-        var currentConfig = categoryConfig[mailState];
-        $.ajax({
-            url : '/messagerie/change/' + mailState + '/' + newState,
-            type: 'post',
-            data : {'data': data},
-            success: function(response) {
-                var user = JSON.parse(response.user);
-                var mails = JSON.parse(response.data);
-                var html = '';
+            var loader = startLoader($('#page-content'));
 
-                for (mail of mails) {
-                    html += formatMailRow(mailState, mail, user, currentConfig, avatarDir);
+            var mailState = $("#email-nav li.active a").data('state');
+            var avatarDir = '/assets/img/avatar/';
+            var currentConfig = categoryConfig[mailState];
+            $.ajax({
+                url: '/messagerie/change/' + mailState + '/' + newState,
+                type: 'post',
+                data: {'data': data},
+                success: function (response) {
+                    var user = JSON.parse(response.user);
+                    var mails = JSON.parse(response.data);
+                    var html = '';
+
+                    if (user !== null && mails !== null) {
+                        for (mail of mails) {
+                            html += formatMailRow(mailState, mail, user, currentConfig, avatarDir);
+                        }
+                        $('#message-list tbody').first().html(html);
+                    }
+                    stopLoader(loader);
                 }
+            });
+        }
+    });
 
-                stopLoader(loader);
-                $('#message-list tbody').first().html(html);
-            }
-        });
+    //Fonction pour naviguer dans les messages (précédent / suivant)
+    $('#navigation a').on('click', function (e) {
+        e.preventDefault();
+
+        var newPage = $(this).data('page');
+        if (newPage > 0) {
+            var mailState = $("#email-nav li.active a").data('state');
+            var avatarDir = '/assets/img/avatar/';
+            var currentConfig = categoryConfig[mailState];
+
+            var loader = startLoader($('#page-content'));
+
+            $.ajax({
+                url: '/messagerie/filter/' + mailState + '/' + newPage,
+                type: 'post',
+                success: function (response) {
+                    var user = JSON.parse(response.user);
+                    var mails = JSON.parse(response.data);
+                    var html = '';
+
+                    if (mails.length > 0) {
+                        for (mail of mails) {
+                            html += formatMailRow(mailState, mail, user, currentConfig, avatarDir);
+                        }
+
+                        $('#navigation a').first().data('page', newPage - 1);
+                        $('#navigation a').last().data('page', newPage + 1);
+                        $('#message-list tbody').first().html(html);
+                    }
+
+                    stopLoader(loader);
+                }
+            });
+        }
     });
 
 });

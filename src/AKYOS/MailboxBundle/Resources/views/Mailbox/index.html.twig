@@ -61,9 +61,9 @@
                 <div id="message-list">
                     <!-- Title -->
                     <div class="block-title clearfix">
-                        <div class="block-options pull-right">
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default"><i class="fa fa-arrow-left"></i> Préc.</a>
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default">Suivant <i class="fa fa-arrow-right"></i></a>
+                        <div id="navigation" class="block-options pull-right">
+                            <a href="" class="btn btn-effect-ripple btn-default" data-page="{{ page - 1 }}"><i class="fa fa-arrow-left"></i> Préc.</a>
+                            <a href="" class="btn btn-effect-ripple btn-default" data-page="{{ page + 1 }}">Suivant <i class="fa fa-arrow-right"></i></a>
                         </div>
                         <div id="options" class="block-options pull-left" style="padding-left:18px;">
                             <label class="csscheckbox csscheckbox-primary" style="margin-right:15px;" ><input type="checkbox" id="selecctall"><span></span></label>

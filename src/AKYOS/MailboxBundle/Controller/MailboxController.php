@@ -8,18 +8,19 @@ use AKYOS\MailboxBundle\Form\ReplyType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class MailboxController extends Controller
 {
     public function indexAction()
     {
+        $limit = 3;
         $mails = $this->getDoctrine()->getManager()->getRepository(Mail::class)
-            ->findReceivedMailsByState($this->getUser(), 'inbox');
+            ->findReceivedMailsByState($this->getUser(), 'inbox', 1, $limit);
 
         return $this->render('AKYOSMailboxBundle:Mailbox:index.html.twig', array(
             'mails' => $mails,
+            'page' => 1,
         ));
     }
 
@@ -111,20 +112,21 @@ class MailboxController extends Controller
         ));
     }
 
-    public function filterAction(Request $request, $state)
+    public function filterAction(Request $request, $state, $page = 1)
     {
         if ($request->isXmlHttpRequest())
         {
             $repo = $this->getDoctrine()->getManager()->getRepository(Mail::class);
+            $limit = 3;
             switch ($state) {
                 case 'sent':
-                    $mails = $repo->findSentMails($this->getUser());
+                    $mails = $repo->findSentMails($this->getUser(), $page, $limit);
                     break;
                 case 'trash':
-                    $mails = $repo->findDeletedMails($this->getUser());
+                    $mails = $repo->findDeletedMails($this->getUser(), $page, $limit);
                     break;
                 default:
-                    $mails = $repo->findReceivedMailsByState($this->getUser(), $state);
+                    $mails = $repo->findReceivedMailsByState($this->getUser(), $state, $page, $limit);
                     break;
             }
 
@@ -141,19 +143,24 @@ class MailboxController extends Controller
     public function changeStateAction(Request $request, $oldState, $newState)
     {
         $ids = $request->get('data');
-        $em = $this->getDoctrine()->getManager();
 
-        foreach ($ids as $id) {
-            $mail = $em->getRepository(Mail::class)->find($id);
-            if ($mail->getRecipient() == $this->getUser() && $newState != 'sent') {
-                $mail->setRecipientState($newState);
-            } elseif ($mail->getSender() == $this->getUser() && $newState == 'trash') {
-                $mail->setSenderState($newState);
+        if ($ids != null && $oldState != $newState) {
+            $em = $this->getDoctrine()->getManager();
+
+            foreach ($ids as $id) {
+                $mail = $em->getRepository(Mail::class)->find($id);
+                if ($mail->getRecipient() == $this->getUser() && $newState != 'sent') {
+                    $mail->setRecipientState($newState);
+                } elseif ($mail->getSender() == $this->getUser() && $newState == 'trash') {
+                    $mail->setSenderState($newState);
+                }
             }
-        }
-        $em->flush();
+            $em->flush();
 
-        return $this->filterAction($request, $oldState);
+            return $this->filterAction($request, $oldState);
+        }
+
+        return new JsonResponse(array('data'=> null, 'user'=> null));
     }
 
     public function deleteAction(Mail $mail)
