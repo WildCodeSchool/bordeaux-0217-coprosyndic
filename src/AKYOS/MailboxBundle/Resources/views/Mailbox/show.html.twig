@@ -39,7 +39,7 @@
                 <span id="state" class="pull-right" style="color: #FFF; border-radius: 2px; padding: 0 5px;">{{ mail.recipientState }}</span></p>
             {% elseif recipient is defined %}
                 <p>à <strong style="color: #45A7B9">{{ recipient }}</strong>
-                <span id="state" class="pull-right">{{ mail.senderState }}</span></p>
+                <span id="state" class="pull-right" style="color: #FFF; border-radius: 2px; padding: 0 5px;">{{ mail.senderState }}</span></p>
             {% endif %}
 
             {#TODO : voir si on permet l'affichage du profil de l'expéditeur#}
@@ -76,7 +76,6 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script src="{{ asset('assets/backoffice/js/custom/mailbox.js') }}"></script>
     <script>
         var id = {{ mail.id }};
         {% if sender is defined %}
