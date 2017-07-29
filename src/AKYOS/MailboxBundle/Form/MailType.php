@@ -44,7 +44,6 @@ class MailType extends AbstractType
             ))
             ->add('recipientType', ChoiceType::class, array(
                 'choices' => $this->choices,
-                'expanded' => false,
             ))
             ->add('submit', SubmitType::class)
         ;
@@ -139,8 +138,6 @@ class MailType extends AbstractType
                     }
                     return null === $user ? 'Aucun destinataire' : $label;
                 },
-                'attr' => array('class' => 'select-chosen'),
-                'multiple' => false,
             ));
         };
 

@@ -66,7 +66,11 @@
 
                             {% for lot in document.lots %}
                                 {% set coproprietaire = lot|actuelCoproprietaire %}
-                                <span class="label label-primary">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</span>
+                                {% if coproprietaire is not null %}
+                                    <span class="label label-primary">{{ coproprietaire.prenom ~ ' ' ~ coproprietaire.nom }}</span>
+                                {% else %}
+                                    <span class="label label-primary">Inconnu</span>
+                                {% endif %}
                             {% endfor %}
 
                             {% if document.toLocataires %}
@@ -128,5 +132,5 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script src="{{ asset('assets/backoffice/js/gestion_documents.js') }}"></script>
+    <script src="{{ asset('assets/backoffice/js/documents.js') }}"></script>
 {% endblock %}

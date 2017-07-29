@@ -5,8 +5,10 @@ namespace AKYOS\EasyCoproBundle\Form;
 use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Copropriete;
+use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -59,14 +61,14 @@ class CreateDocumentType extends AbstractType
             ->add('categorie', ChoiceType::class, array(
                 'choices' => $categories,
                 'choice_label' => function ($categorie) {
-                    return $categorie->getNom();
+                        return $categorie->getNom();
                 },
                 'label' => 'Catégorie',
             ))
             ->add('copropriete', ChoiceType::class, array(
                 'choices' => $coproprietes,
                 'choice_label' => function ($copropriete) {
-                    return $copropriete->getNom();
+                        return $copropriete->getNom();
                 },
                 'label' => 'Copropriété',
             ))

@@ -2,14 +2,10 @@
 
 <div class="form-group">
     <div class="col-sm-5">
-        {{ form_label(form.recipientType) }}
-        {{ form_widget(form.recipientType, {'attr': {'class': 'select-chosen', 'data-placeholder':'Type de destinataire ...'}}) }}
-        {{ form_errors(form.recipientType) }}
+        {{ form_row(form.recipientType, {'attr': {'style':'width: 100%;'}}) }}
     </div>
     <div class="col-sm-7">
-        {{ form_label(form.recipient) }}
-        {{ form_widget(form.recipient, {'attr': {'class': 'select-chosen', 'data-placeholder':'À ...'}}) }}
-        {{ form_errors(form.recipient) }}
+        {{ form_row(form.recipient, {'attr': {'style':'width: 100%;'}}) }}
     </div>
 </div>
 <div class="form-group">
@@ -58,4 +54,5 @@
     </div>
 </div>
 
+{{ form_rest(form) }}
 {{ form_end(form) }}
