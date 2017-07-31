@@ -47,10 +47,10 @@
                 <a href="{{ path('syndic_gestion_documents') }}"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
             </li>
             <li>
-                <a href="{{ path('syndic_inbox') }}"><i class="fa fa-envelope sidebar-nav-icon"></i>
-                    {% if nbMessages > 0 %}
+                <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}"><i class="fa fa-envelope sidebar-nav-icon"></i>
+                    {% if unreadReceivedMailsCount > 0 %}
                         <span class="badge badge-menu-item label-primary pull-right sidebar-nav-mini-hide" style="font-weight: bold;">
-                            {{ nbMessages }}
+                            {{ unreadReceivedMailsCount }}
                         </span>
                     {% endif %}
                     <span class="sidebar-nav-mini-hide">Mes Messages</span>

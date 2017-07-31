@@ -1,0 +1,14 @@
+{{ form_start(form, {'attr':{'action':path('mailbox_reply', { 'id' : mailId }) }}) }}
+
+<div class="col-sm-12">
+    <div class="form-group">
+        {{ form_row(form.content, {'attr': {'rows': 5,'class': 'form-control push-bit', 'placeholder':'Répondez au message ici ...'}}) }}
+    </div>
+</div>
+<div class="col-sm-12">
+    <div class="form-group">
+        {{ form_label(form.submit, 'Répondre') }}
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+    </div>
+</div>
+{{ form_end(form) }}

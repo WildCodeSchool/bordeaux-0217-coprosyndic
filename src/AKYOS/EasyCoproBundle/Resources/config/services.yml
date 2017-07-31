@@ -13,10 +13,6 @@ services:
         class: AKYOS\EasyCoproBundle\Service\GenerateDocument
         arguments: ['@service_container']
 
-    akyos.stringify_user:
-        class: AKYOS\EasyCoproBundle\Service\StringifyUser
-        arguments: ['@service_container']
-
     form.type.create_document:
         class: AKYOS\EasyCoproBundle\Form\CreateDocumentType
         arguments: ['@service_container', '@session']
@@ -69,9 +65,3 @@ services:
             arguments: ['@service_container']
             tags:
                 - { name: form.type }
-
-    form.type.message:
-        class: AKYOS\EasyCoproBundle\Form\MessageType
-        arguments: ['@service_container']
-        tags:
-            - { name: form.type }

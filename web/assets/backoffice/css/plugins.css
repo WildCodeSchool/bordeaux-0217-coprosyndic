@@ -5293,7 +5293,7 @@ span.easytree-checkbox:hover {
 * 1st character: 'e': expanded, 'c': collapsed
 * 2nd character (optional): 'f': folder
 */
-span.easytree-icon { /* Default icon */
+span.easytree-icon { /* Mailbox icon */
     margin-left: 3px;
     background-position: 0px 0px;
 }

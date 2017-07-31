@@ -694,7 +694,7 @@
   };
 
   /*
-   * Default plugin options
+   * Mailbox plugin options
    */
   var defaults = {
     horizontal: false, // horizontal mode layout ?

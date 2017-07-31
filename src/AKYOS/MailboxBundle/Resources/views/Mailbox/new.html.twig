@@ -1,0 +1,58 @@
+{{ form_start(form, {'attr': {'action': path('mailbox_new'),'class': 'form-horizontal form-bordered'}}) }}
+
+<div class="form-group">
+    <div class="col-sm-5">
+        {{ form_row(form.recipientType, {'attr': {'style':'width: 100%;'}}) }}
+    </div>
+    <div class="col-sm-7">
+        {{ form_row(form.recipient, {'attr': {'style':'width: 100%;'}}) }}
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12">
+        {{ form_label(form.subject) }}
+        {{ form_widget(form.subject, {'attr': {'class': 'form-control', 'placeholder':'Objet du message ...'}}) }}
+        {{ form_errors(form.subject) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-xs-12">
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre message ...'}}) }}
+        {{ form_errors(form.content) }}
+    </div>
+</div>
+
+{#<div class="form-group">#}
+{#<div class="col-xs-12">#}
+    {#<label class="control-label">Importer depuis mes documents :</label>#}
+    {#<select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="Rechercher.." style="width: 250px;" multiple="">#}
+        {#<option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->#}
+        {#<option value="john.doe">Tableur des habitants de la Résidence Roserai.indd</option>#}
+        {#<option value="sara.castillo">Journal "Charlie Hebdo" - Edition spéciale.pdf</option>#}
+    {#</select>#}
+{#</div>#}
+{#</div>#}
+{#<div class="form-group">#}
+{#<div class="col-xs-12">#}
+    {#<label class="control-label">Importer depuis mon ordinateur :</label>#}
+    {#<input type="file" class="filestyle" id="fileInput" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">#}
+    {#<div class="bootstrap-filestyle input-group"><input type="text" class="form-control " disabled="">#}
+        {#<span class="group-span-filestyle input-group-btn" tabindex="0">#}
+        {#<label for="fileInput" class="btn btn-info">#}
+            {#<span class="glyphicon fa fa-file-o"></span> &nbsp; Sélectionnez un fichier#}
+        {#</label>#}
+    {#</span>#}
+    {#</div>#}
+{#</div>#}
+{#</div>#}
+
+<div class="form-group form-actions">
+    <div class="col-xs-12 text-right">
+        {{ form_row(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+    </div>
+</div>
+
+{{ form_rest(form) }}
+{{ form_end(form) }}
