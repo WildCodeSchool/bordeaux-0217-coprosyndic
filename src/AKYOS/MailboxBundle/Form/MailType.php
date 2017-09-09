@@ -39,13 +39,18 @@ class MailType extends AbstractType
     {
         $builder
             ->add('subject', TextType::class, array(
+                'label' => 'mail.new.subject',
             ))
             ->add('content', TextareaType::class, array(
+                'label' => 'mail.new.content',
             ))
             ->add('recipientType', ChoiceType::class, array(
                 'choices' => $this->choices,
+                'label' => 'mail.new.recipientType',
             ))
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, array(
+                'label' => 'mail.new.submit'
+            ))
         ;
 
         $formModifier = function (FormInterface $form, $recipientType = null) {
@@ -118,6 +123,7 @@ class MailType extends AbstractType
 
             $form->add('recipient', EntityType::class, array(
                 'class' => 'AKYOS\EasyCoproBundle\Entity\User',
+                'label' => 'mail.new.recipient',
                 'choices' => $availableRecipients,
                 'choice_label' => function (User $user) {
                     $em = $this->container->get('doctrine');

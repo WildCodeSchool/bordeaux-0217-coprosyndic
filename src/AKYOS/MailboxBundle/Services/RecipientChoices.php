@@ -25,19 +25,19 @@ class RecipientChoices
         $em = $this->container->get('doctrine')->getManager();
         $this->type = $user->getType();
         if ($this->type == 'admin') {
-            $this->choices = array('Syndic' => 'syndic', 'Coproprietaire' => 'coproprietaire', 'Locataire' => 'locataire', 'Fournisseur' => 'artisan');
+            $this->choices = array('mail.new.choices.union' => 'syndic', 'mail.new.choices.coowner' => 'coproprietaire', 'mail.new.choices.tenant' => 'locataire', 'mail.new.choices.provider' => 'artisan');
         } elseif ($this->type == 'syndic') {
             $this->userAccount = $em->getRepository(Syndic::class)->findOneByUser($user);
-            $this->choices = array('Coproprietaire' => 'coproprietaire','Locataire' => 'locataire','Fournisseur' => 'artisan');
+            $this->choices = array('mail.new.choices.coowner' => 'coproprietaire','mail.new.choices.tenant' => 'locataire','mail.new.choices.provider' => 'artisan');
         } elseif ($this->type == 'coproprietaire') {
             $this->userAccount = $em->getRepository(Coproprietaire::class)->findOneByUser($user);
-            $this->choices = array('Syndic' => 'syndic', 'Coproprietaire' => 'coproprietaire','Locataire' => 'locataire','Fournisseur' => 'artisan');
+            $this->choices = array('mail.new.choices.union' => 'syndic', 'mail.new.choices.coowner' => 'coproprietaire','mail.new.choices.tenant' => 'locataire','mail.new.choices.provider' => 'artisan');
         } elseif ($this->type == 'locataire') {
             $this->userAccount = $em->getRepository(Locataire::class)->findOneByUser($user);
-            $this->choices = array('Syndic' => 'syndic', 'Coproprietaire' => 'coproprietaire','Locataire' => 'locataire','Fournisseur' => 'artisan');
+            $this->choices = array('mail.new.choices.union' => 'syndic', 'mail.new.choices.coowner' => 'coproprietaire','mail.new.choices.tenant' => 'locataire','mail.new.choices.provider' => 'artisan');
         } elseif ($this->type == 'artisan') {
             $this->userAccount = $em->getRepository(Artisan::class)->findOneByUser($user);
-            $this->choices = array('Syndic' => 'syndic', 'Coproprietaire' => 'coproprietaire','Locataire' => 'locataire');
+            $this->choices = array('mail.new.choices.union' => 'syndic', 'mail.new.choices.coowner' => 'coproprietaire','mail.new.choices.tenant' => 'locataire');
         } else {
             $this->userAccount = null;
             $this->choices = null;

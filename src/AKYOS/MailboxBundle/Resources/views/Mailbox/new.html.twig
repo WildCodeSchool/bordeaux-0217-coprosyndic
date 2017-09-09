@@ -11,7 +11,7 @@
 <div class="form-group">
     <div class="col-xs-12">
         {{ form_label(form.subject) }}
-        {{ form_widget(form.subject, {'attr': {'class': 'form-control', 'placeholder':'Objet du message ...'}}) }}
+        {{ form_widget(form.subject, {'attr': {'class': 'form-control', 'placeholder':'mail.new.placeholders.subject'}}) }}
         {{ form_errors(form.subject) }}
     </div>
 </div>
@@ -19,7 +19,7 @@
 <div class="form-group">
     <div class="col-xs-12">
         {{ form_label(form.content) }}
-        {{ form_widget(form.content, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'Votre message ...'}}) }}
+        {{ form_widget(form.content, {'attr': {'rows': 7,'class': 'form-control', 'placeholder':'mail.new.placeholders.content'}}) }}
         {{ form_errors(form.content) }}
     </div>
 </div>

@@ -15,10 +15,10 @@ class ReplyType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, array(
-                'label' => 'Votre réponse',
+                'label' => 'mail.reply.content',
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Répondre',
+                'label' => 'mail.reply.submit',
             ))
         ;
     }
