@@ -16,11 +16,12 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AKYOS\EasyCoproBundle\AKYOSEasyCoproBundle(),
+            new AKYOS\MailboxBundle\AKYOSMailboxBundle(),
+            new AKYOS\FrontofficeBundle\AKYOSFrontofficeBundle(),
+            new AKYOS\PostitBundle\AKYOSPostitBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new AKYOS\MailboxBundle\AKYOSMailboxBundle(),
-            new AKYOS\FrontofficeBundle\AKYOSFrontofficeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

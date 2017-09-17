@@ -2,10 +2,6 @@ akyos_frontoffice:
     resource: "@AKYOSFrontofficeBundle/Resources/config/routing.yml"
     prefix:   /
 
-akyos_easy_copro_postit:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing.yml"
-    prefix:   /
-
 akyos_easy_copro_back_office_admin:
     resource: "@AKYOSEasyCoproBundle/Resources/config/routing_admin.yml"
     prefix:   /admin
@@ -26,9 +22,13 @@ akyos_easy_copro_back_office_artisan:
     resource: "@AKYOSEasyCoproBundle/Resources/config/routing_artisan.yml"
     prefix:   /artisan
 
-akyos_easy_copro_mailbox:
+akyos_mailbox:
     resource: "@AKYOSMailboxBundle/Resources/config/routing.yml"
     prefix:   /
+
+akyos_postit:
+    resource: "@AKYOSPostitBundle/Resources/config/routing.yml"
+    prefix:   /postit
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

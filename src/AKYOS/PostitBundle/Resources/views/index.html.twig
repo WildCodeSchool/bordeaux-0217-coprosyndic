@@ -1,0 +1,22 @@
+<h5 class="text-center">Vous pouvez écrire vos mémos et les sauvegarder !</h5>
+
+<div id="notes">
+    {% for postit in postits %}
+        <div class="col-md-10">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <span class="postit_line"
+                  style="word-wrap:break-word; line-height: 1.1em; margin-bottom: 5px;">{{ postit.content }}</span>
+        </div>
+        <div class="col-md-2">
+            <a href="{{ path('postit_delete', {'id':postit.id }) }}">
+                <i class="fa fa-trash pull-right" style="color: red;" aria-hidden="true"></i>
+            </a>
+        </div>
+    {% endfor %}
+
+</div>
+
+<div class="text-right" style="position: absolute; bottom: 10px; z-index: 1000; right: 5%;">
+    <a href="#modal-create-postit" data-toggle="modal" data-target="#modal-create-postit"><i
+                class="fa fa-2x fa-plus-circle" aria-hidden="true"></i></a>
+</div>

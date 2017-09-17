@@ -1,3 +1,0 @@
-akyos_easy_copro_postit:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing/postit.yml"
-    prefix:   /postit

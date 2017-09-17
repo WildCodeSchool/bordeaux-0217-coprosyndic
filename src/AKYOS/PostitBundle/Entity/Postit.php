@@ -1,14 +1,15 @@
 <?php
 
-namespace AKYOS\EasyCoproBundle\Entity;
+namespace AKYOS\PostitBundle\Entity;
 
+use AKYOS\EasyCoproBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Postit
  *
  * @ORM\Table(name="postit")
- * @ORM\Entity(repositoryClass="AKYOS\EasyCoproBundle\Repository\PostitRepository")
+ * @ORM\Entity(repositoryClass="AKYOS\PostitBundle\Repository\PostitRepository")
  */
 class Postit
 {
@@ -37,7 +38,7 @@ class Postit
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity = "User", inversedBy = "postits")
+     * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User", inversedBy = "postits")
      */
     private $user;
 
@@ -106,7 +107,7 @@ class Postit
      *
      * @return Postit
      */
-    public function setUser(\AKYOS\EasyCoproBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 

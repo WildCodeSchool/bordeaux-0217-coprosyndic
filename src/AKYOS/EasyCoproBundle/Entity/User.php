@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Entity;
 
+use AKYOS\PostitBundle\Entity\Postit;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -67,7 +68,7 @@ class User extends BaseUser
 
     /**
      *
-     * @ORM\OneToMany(targetEntity = "Postit", mappedBy = "user")
+     * @ORM\OneToMany(targetEntity="AKYOS\PostitBundle\Entity\Postit", mappedBy = "user")
      */
     private $postits;
 
@@ -186,11 +187,11 @@ class User extends BaseUser
     /**
      * Add postit
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Postit $postit
+     * @param Postit $postit
      *
      * @return User
      */
-    public function addPostit(\AKYOS\EasyCoproBundle\Entity\Postit $postit)
+    public function addPostit(Postit $postit)
     {
         $this->postits[] = $postit;
 
@@ -200,9 +201,9 @@ class User extends BaseUser
     /**
      * Remove postit
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\Postit $postit
+     * @param Postit $postit
      */
-    public function removePostit(\AKYOS\EasyCoproBundle\Entity\Postit $postit)
+    public function removePostit(Postit $postit)
     {
         $this->postits->removeElement($postit);
     }
