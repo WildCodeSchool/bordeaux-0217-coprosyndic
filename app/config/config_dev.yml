@@ -124,13 +124,3 @@ bazinga_faker:
                 rib : { method: iban, parameters: ['FR'] }
                 actuel: { method: boolean, parameters: [ 80 ]}
                 commentSyndic: { method: text, parameters: [ 120 ] }
-#        AKYOS\EasyCoproBundle\Entity\Document:
-#            number: 5
-#            custom_formatters:
-#                titre : { method: sentence, parameters: [6, true] }
-#                description : { method: text, parameters: [ 50 ] }
-#                dateAjout: {method: dateTime }
-#                dateModif : {method: dateTime }
-#                confidentialite: { method: numberBetween, parameters: [0, 4] }
-#                url: { method: url }
-
