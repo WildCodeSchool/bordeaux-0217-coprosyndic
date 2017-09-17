@@ -1,0 +1,132 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title"><strong>Créer une copropriété</strong></h3>
+</div>
+
+<div class="modal-body">
+    {{ form_start(my_form, {'attr': {'action': path('syndic_create_copropriete'), 'class': 'form-horizontal' }}) }}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-md-5">
+                    {{ form_label(my_form.nom, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(my_form.nom) }}
+                    {{ form_widget(my_form.nom, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.name'}}) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(my_form.immatriculation, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(my_form.immatriculation) }}
+                    {{ form_widget(my_form.immatriculation, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.immatriculation'}}) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_label(my_form.dateImmat, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(my_form.dateImmat) }}
+                    {{ form_widget(my_form.dateImmat, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.immatDate'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    {{ form_label(my_form.adressePrinc, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(my_form.adressePrinc) }}
+                    {{ form_widget(my_form.adressePrinc, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.postalAddress'}}) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_label(my_form.adresseSec, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(my_form.adresseSec) }}
+                    {{ form_widget(my_form.adresseSec, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.addressComplement'}}) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_label(my_form.codePostal, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(my_form.codePostal) }}
+                    {{ form_widget(my_form.codePostal, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.postalCode'}}) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_label(my_form.ville, null, {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(my_form.ville) }}
+                    {{ form_widget(my_form.ville, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.city'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="collapse" id="collapseSecondaire">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        {{ form_label(my_form.dateDebutGestion, null, {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(my_form.dateDebutGestion) }}
+                        {{ form_widget(my_form.dateDebutGestion, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.beginningManagingDate'}}) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(my_form.parcelleCadastrale, null, {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(my_form.parcelleCadastrale) }}
+                        {{ form_widget(my_form.parcelleCadastrale, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.cadastralParcel'}}) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(my_form.nbBatiments, null, {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(my_form.nbBatiments) }}
+                        {{ form_widget(my_form.nbBatiments, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.buildingCount'}}) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(my_form.nbAscenseurs, null, {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(my_form.nbAscenseurs) }}
+                        {{ form_widget(my_form.nbAscenseurs, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.elevatorCount'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        {{ form_label(my_form.periodeConstruction, null, {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(my_form.periodeConstruction) }}
+                        {{ form_widget(my_form.periodeConstruction, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.buildingPeriod'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_label(my_form.typeChauffage, null, {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(my_form.typeChauffage) }}
+                        {{ form_widget(my_form.typeChauffage, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.heatingSystem'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_label(my_form.dateReglement, null, {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(my_form.dateReglement) }}
+                        {{ form_widget(my_form.dateReglement, { 'attr': {'class': 'form-control', 'placeholder':'copropriete.new.placeholders.internalRegulationDate'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        {{ form_row(my_form.illustrationFile, {'attr':{'class':'filestyle inputfile-copropriete','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                        <div class="bootstrap-filestyle input-group">
+                            <input type="text" id="filename-box-copropriete" class="form-control" disabled="">
+                            <span class="group-span-filestyle input-group-btn" tabindex="0">
+                                <label for="akyos_BackofficeBundle_copropriete_illustrationFile" class="btn btn-info">
+                                    <span class="glyphicon fa fa-file-o"></span> Importer
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <a role="button" data-toggle="collapse" href="#collapseSecondaire" aria-expanded="false" aria-controls="collapseSecondaire">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> Ajoutez des informations complémentaires
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <div class="col-md-12">
+        <div class="form-group pull-right">
+            {{ form_widget(my_form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal"
+                    style="margin-left: 20px;">Annuler
+            </button>
+        </div>
+    </div>
+</div>
+
+{{ form_rest(my_form) }}
+{{ form_errors(my_form) }}
+{{ form_end(my_form) }}
+

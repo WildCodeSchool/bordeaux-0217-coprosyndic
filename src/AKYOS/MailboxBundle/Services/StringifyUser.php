@@ -2,10 +2,10 @@
 
 namespace AKYOS\MailboxBundle\Services;
 
-use AKYOS\EasyCoproBundle\Entity\Artisan;
-use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
-use AKYOS\EasyCoproBundle\Entity\Locataire;
-use AKYOS\EasyCoproBundle\Entity\Syndic;
+use AKYOS\BackofficeBundle\Entity\Artisan;
+use AKYOS\BackofficeBundle\Entity\Coproprietaire;
+use AKYOS\BackofficeBundle\Entity\Locataire;
+use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

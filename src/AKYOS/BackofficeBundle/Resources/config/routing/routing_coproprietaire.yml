@@ -1,0 +1,43 @@
+coproprietaire_index:
+    path:     /
+    defaults: { _controller: AKYOSBackofficeBundle:Coproprietaire:index }
+
+coproprietaire_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSBackofficeBundle:Coproprietaire:edit }
+
+coproprietaire_show:
+    path:     /show
+    defaults: {_controller: AKYOSBackofficeBundle:Coproprietaire:show }
+
+coproprietaire_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSBackofficeBundle:Coproprietaire:parameters }
+
+coproprietaire_show_document:
+    path: /show/doc/{id}/
+    defaults: {  _controller: AKYOSBackofficeBundle:Coproprietaire:showDocument}
+
+coproprietaire_gestion_documents:
+    path: /documents
+    defaults: { _controller: AKYOSBackofficeBundle:Coproprietaire:gestionDocuments }
+
+coproprietaire_list_categorie_documents:
+    path: /list/docs/{categorieId}
+    defaults: { _controller: AKYOSBackofficeBundle:Coproprietaire:listCategorieDocuments }
+
+coproprietaire_show_copropriete:
+    path: /show/copropriete
+    defaults: {  _controller: AKYOSBackofficeBundle:Coproprietaire:showCopropriete}
+
+coproprietaire_edit_copropriete:
+    path: /edit/copropriete
+    defaults: {  _controller: AKYOSBackofficeBundle:Coproprietaire:editCopropriete}
+
+coproprietaire_show_syndic:
+    path: /show/syndic/
+    defaults: {  _controller: AKYOSBackofficeBundle:Coproprietaire:showSyndic}
+
+coproprietaire_edit_syndic:
+    path: /edit/syndic/
+    defaults: {  _controller: AKYOSBackofficeBundle:Coproprietaire:editSyndic}

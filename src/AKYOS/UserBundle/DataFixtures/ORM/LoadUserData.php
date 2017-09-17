@@ -1,11 +1,11 @@
 <?php
 
-namespace AKYOS\EasyCoproBundle\DataFixtures\ORM;
+namespace AKYOS\BackofficeBundle\DataFixtures\ORM;
 
-use AKYOS\EasyCoproBundle\Entity\Artisan;
-use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
-use AKYOS\EasyCoproBundle\Entity\Locataire;
-use AKYOS\EasyCoproBundle\Entity\Syndic;
+use AKYOS\BackofficeBundle\Entity\Artisan;
+use AKYOS\BackofficeBundle\Entity\Coproprietaire;
+use AKYOS\BackofficeBundle\Entity\Locataire;
+use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

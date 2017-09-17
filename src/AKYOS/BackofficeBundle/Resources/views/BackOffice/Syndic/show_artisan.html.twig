@@ -1,0 +1,60 @@
+{% extends '@AKYOSBackoffice/BackOffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Affichage d'un fournisseur
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Affichage d'un fournisseur
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Tableau de bord</a></li>
+    <li><a href="{{ path('syndic_gestion_artisans') }}">Mes fournisseurs</a></li>
+    <li class="active">{{ artisan.raisonSociale }}</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-5 col-lg-4">
+        <div class="widget">
+            <div class="widget-content themed-background-info clearfix">
+                <img src="{{ vich_uploader_asset(artisan.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
+                <h2 class="widget-heading h3 text-light"><strong>{{ artisan.raisonSociale }}</strong></h2>
+                <span class="text-light-op">{{ artisan.activite }}</span>
+            </div>
+            <div class="widget-content widget-content-mini themed-background-dark border-bottom">
+                <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp; <a style="text-decoration: none; color: #FFF" href="{{ path('syndic_show_copropriete', {'id': artisan.copropriete.id}) }}">{{ artisan.copropriete }}</a></strong>
+            </div>
+
+            <div class="widget-content widget-content-full border-bottom" style="padding: 15px 10px;">
+                <p style="margin-bottom: 0">Inscrit depuis le <strong style="color: #5CAFDE;">{{ artisan.user.dateInscription|date('d/m/Y') }}</strong><br>
+                    Dernière connexion le <strong style="color: #5CAFDE;">{{ artisan.user.lastLogin|date('d/m/Y') }}</strong></p>
+                <hr>
+                <h4 style="margin-top: 0;">Contact</h4>
+                <address style="margin-bottom: 0">
+                    <strong style="padding-left: 5px">{{ artisan.contactPrenom ~ ' ' ~ artisan.contactNom }}</strong><br>
+                    <i class="fa fa-mobile fa-fw" aria-hidden="true"></i> {{ artisan.contactTelephone|telNumber }}<br>
+                    <i class="fa fa-at fa-fw" aria-hidden="true"></i> {{ artisan.contactEmail }}<br>
+                </address>
+            </div>
+            <div class="widget-content border-bottom">
+                <h4>Votre commentaire :</h4>
+                <p>{{ artisan.commentSyndic }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7 col-lg-8">
+        {{ render(controller('AKYOSBackofficeBundle:Syndic:editArtisan', {'id': artisan.id })) }}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+{% endblock %}

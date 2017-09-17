@@ -7,7 +7,7 @@ akyos_user:
     prefix:   /user
 
 akyos_backoffice:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing.yml"
+    resource: "@AKYOSBackofficeBundle/Resources/config/routing.yml"
     prefix:   /
 
 akyos_mailbox:

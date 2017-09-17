@@ -1,0 +1,74 @@
+{% extends '@AKYOSBackoffice/BackOffice/Syndic/layout.html.twig' %}
+{% block title %}
+    Affichage d'un locataire
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Affichage d'un locataire
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Tableau de bord</a></li>
+    <li><a href="{{ path('syndic_list_locataires') }}">Mes locataires</a></li>
+    <li class="active">{{ locataire.prenom ~ ' ' ~ locataire.nom }}</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-5 col-lg-4">
+            <div class="widget">
+                <div class="widget-content themed-background-danger clearfix">
+                    <img src="{{ vich_uploader_asset(locataire.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-right">
+                    <h2 class="widget-heading h3 text-light"><strong>{{ locataire.prenom~' '~locataire.nom }}</strong></h2>
+                    <span class="text-light-op">Locataire</span>
+                </div>
+                <div class="widget-content widget-content-mini themed-background-dark border-bottom">
+                    <span class="pull-right text-light-op">Depuis le {{ locataire.dateArrivee|date("m/d/Y") }}</span>
+                    <i class="fa fa-archive text-light"></i><strong class="text-light"> &nbsp;{{ locataire.lot.copropriete }}</strong>
+                </div>
+                <div class="widget-content widget-content-full border-bottom">
+                    <div class="row text-center">
+                        <div class="col-xs-6 push-inner-top-bottom border-right">
+                            <h3 class="widget-heading"><i class="fa fa-file-o push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbdocs = locataire.lot.documents|length %}
+                                        {{ nbdocs }}
+                                    </strong>
+                                    {% if nbdocs > 1 %} Fichiers uploadés{% else %} Fichier uploadé
+                                    {% endif %}
+                                </small></h3>
+                        </div>
+                        <div class="col-xs-6 push-inner-top-bottom">
+                            <h3 class="widget-heading"><i class="fa fa-envelope-o themed-color-social push"></i> <br>
+                                <small>
+                                    <strong>
+                                        {% set nbmessages = locataire.user.messagesRecus|length %}
+                                        {{ nbmessages }}
+                                    </strong>
+                                    {% if nbmessages > 1 %} Messages{% else %} Message
+                                    {% endif %}
+                                </small></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content border-bottom">
+                    <h4>Votre commentaire :</h4>
+                    <p>{{ locataire.commentSyndic }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-lg-8">
+            {{ render(controller('AKYOSBackofficeBundle:Syndic:editLocataire', {'id':locataire.id } )) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+{% endblock %}

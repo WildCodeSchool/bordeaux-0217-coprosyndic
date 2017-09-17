@@ -1,0 +1,32 @@
+{% extends '@AKYOSBackoffice/BackOffice/layout.html.twig' %}
+
+{% block title %}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block menu %}
+    {{ render(controller('AKYOSBackofficeBundle:Admin:menu')) }}
+{% endblock %}
+
+{% block userMenu %}
+    {{ render(controller('AKYOSBackofficeBundle:Admin:userMenu')) }}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block modals %}
+    <div id="modal-fade-add-syndic" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{ render(controller('AKYOSBackofficeBundle:Admin:createSyndic')) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('assets/backoffice/js/syndics.js') }}"></script>
+{% endblock %}

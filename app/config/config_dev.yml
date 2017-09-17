@@ -37,7 +37,7 @@ bazinga_faker:
     orm: doctrine
     locale: fr_FR
     entities:
-        AKYOS\EasyCoproBundle\Entity\Syndic:
+        AKYOS\BackofficeBundle\Entity\Syndic:
             number: 3
             custom_formatters:
                 nom: { method: company }
@@ -53,7 +53,7 @@ bazinga_faker:
                 contactPrenom : { method: firstName }
                 contactTelephone : { method: regexify, parameters: [ '0[1-9]{9}' ] }
                 contactEmail : { method: email }
-        AKYOS\EasyCoproBundle\Entity\Copropriete:
+        AKYOS\BackofficeBundle\Entity\Copropriete:
             number: 6
             custom_formatters:
                 nom : { method: company }
@@ -73,14 +73,14 @@ bazinga_faker:
                 dateReglement: { method: dateTime }
                 nbAscenseurs: { method: numberBetween, parameters: [0, 4] }
                 typeChauffage: { method: randomElement, parameters: [ ['Gaz collectif', 'Electrique'] ] }
-        AKYOS\EasyCoproBundle\Entity\Lot:
+        AKYOS\BackofficeBundle\Entity\Lot:
             number: 60
             custom_formatters:
                 identifiant : { method: regexify, parameters: [ '[A-Z][0-9]{3}' ] }
                 type : { method: randomElement, parameters: [ [ 'appartement', 'partie commune', 'cave', 'garage' ] ] }
                 quotePart : { method: numberBetween, parameters: [ 0, 99 ]}
                 loueAct : { method: boolean }
-        AKYOS\EasyCoproBundle\Entity\Artisan:
+        AKYOS\BackofficeBundle\Entity\Artisan:
             number: 3
             custom_formatters:
                 raisonSociale : { method: company }
@@ -96,7 +96,7 @@ bazinga_faker:
                 contactTelephone : { method: regexify, parameters: [ '0[1-9]{9}' ] }
                 contactEmail : { method: email }
                 activite : { method: jobTitle }
-        AKYOS\EasyCoproBundle\Entity\Coproprietaire:
+        AKYOS\BackofficeBundle\Entity\Coproprietaire:
             number: 60
             custom_formatters:
                 nom : { method: lastName }
@@ -110,7 +110,7 @@ bazinga_faker:
                 membreConseil : {method: boolean, parameters: [ 20 ] }
                 actuel: { method: boolean, parameters: [ 80 ]}
                 commentSyndic: { method: text, parameters: [ 120 ] }
-        AKYOS\EasyCoproBundle\Entity\Locataire:
+        AKYOS\BackofficeBundle\Entity\Locataire:
             number: 25
             custom_formatters:
                 nom : { method: lastName }

@@ -1,0 +1,193 @@
+# ROUTE LIEES AU COMPTE SYNDIC ACTUEL
+#------------------------------------
+
+syndic_index:
+    path:     /
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:index }
+
+syndic_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:edit }
+
+syndic_show:
+    path:     /show
+    defaults: {_controller: AKYOSBackofficeBundle:Syndic:show }
+
+syndic_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSBackofficeBundle:Syndic:parameters }
+
+
+# ROUTE LIEES AUX COPROPRIETAIRES
+#--------------------------------
+
+syndic_create_coproprietaire:
+    path:     /create/coproprietaire
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:createCoproprietaire }
+
+syndic_edit_coproprietaire:
+    path:     /edit/coproprietaire/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:editCoproprietaire }
+
+syndic_show_coproprietaire:
+    path:     /show/coproprietaire/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:showCoproprietaire }
+
+syndic_list_coproprietaires:
+    path:     /list/coproprietaires
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:listCoproprietaires }
+
+syndic_delete_coproprietaire:
+    path:     /delete/coproprietaire/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:deleteCoproprietaire }
+
+
+# ROUTE LIEES AUX LOCATAIRES
+#---------------------------
+
+syndic_create_locataire:
+    path:     /create/locataire
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:createLocataire }
+
+syndic_edit_locataire:
+    path:     /edit/locataire/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:editLocataire }
+
+syndic_show_locataire:
+    path:     /show/locataire/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:showLocataire }
+
+syndic_list_locataires:
+    path:     /list/locataires
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:listLocataires }
+
+syndic_delete_locataire:
+    path:     /delete/locataire/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:deleteLocataire }
+
+# ROUTE LIEES AUX ARTISANS
+#-------------------------
+
+syndic_gestion_artisans:
+    path:     /list/artisans
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:gestionArtisans }
+
+syndic_create_artisan:
+    path:     /create/artisan
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:createArtisan }
+
+syndic_edit_artisan:
+    path:     /edit/artisan/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:editArtisan }
+
+syndic_show_artisan:
+    path:     /show/artisan/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:showArtisan }
+
+syndic_delete_artisan:
+    path:     /delete/artisan/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:deleteArtisan }
+
+
+# ROUTE LIEES AUX COPROPRIETES
+#-----------------------------
+
+syndic_create_copropriete:
+    path:     /create/copropriete
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:createCopropriete }
+
+syndic_edit_copropriete:
+    path:     /edit/copropriete/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:editCopropriete }
+
+syndic_show_copropriete:
+    path:     /show/copropriete/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:showCopropriete }
+
+syndic_list_coproprietes:
+    path:     /list/coproprietes
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:listCoproprietes }
+
+syndic_delete_copropriete:
+    path:     /delete/copropriete/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:deleteCopropriete }
+
+
+# ROUTE LIEES AUX LOTS
+#---------------------
+
+syndic_create_lot:
+    path:     /create/lot
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:createLot }
+
+syndic_edit_lot:
+    path:     /edit/lot/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:editLot }
+
+syndic_show_lot:
+    path:     /show/lot/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:showLot }
+
+syndic_list_lots:
+    path:     /list/lots
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:listLots }
+
+syndic_delete_lot:
+    path:     /delete/lot/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:deleteLot }
+
+
+# ROUTE LIEES AUX DOCUMENTS
+#--------------------------
+
+syndic_gestion_documents:
+    path: /list/docs
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:gestionDocuments }
+
+syndic_create_document:
+    path: /create/doc
+    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:createDocument}
+
+syndic_edit_document:
+    path: /edit/doc/{id}
+    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:editDocument}
+
+syndic_show_document:
+    path: /show/doc/{id}
+    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:showDocument}
+
+syndic_delete_document:
+    path: /delete/doc/{id}
+    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:deleteDocument}
+
+syndic_list_categorie_documents:
+    path: /list/docs/{categorieId}
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:listCategorieDocuments }
+
+
+# ROUTE LIEES AUX CATEGORIES
+#--------------------------
+
+syndic_gestion_categories:
+    path: /list/categories
+    defaults: { _controller: AKYOSBackofficeBundle:Syndic:gestionCategories }
+
+syndic_create_categorie:
+    path: /create/categorie
+    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:createCategorie }
+
+syndic_edit_categorie:
+    path: /edit/categorie/{id}
+    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:editCategorie }
+
+syndic_delete_categorie:
+    path: /delete/categorie/{id}
+    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:deleteCategorie }
+
+
+# ROUTE LIEES A LA RECHERCHE
+#---------------------------
+
+syndic_search:
+    path: /search
+    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:search}

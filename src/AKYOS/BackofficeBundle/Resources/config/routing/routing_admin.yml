@@ -1,0 +1,35 @@
+admin_index:
+    path:     /
+    defaults: { _controller: AKYOSBackofficeBundle:Admin:index }
+
+admin_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSBackofficeBundle:Admin:edit }
+
+admin_show:
+    path:     /show
+    defaults: {_controller: AKYOSBackofficeBundle:Admin:show }
+
+admin_create_syndic:
+    path:     /create/syndic
+    defaults: { _controller: AKYOSBackofficeBundle:Admin:createSyndic }
+
+admin_list_syndics:
+    path:     /list/syndics
+    defaults: { _controller: AKYOSBackofficeBundle:Admin:listSyndic }
+
+admin_show_syndic:
+    path:     /show/syndic/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Admin:showSyndic }
+
+admin_edit_syndic:
+    path:     /edit/syndic/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Admin:editSyndic }
+
+admin_delete_syndic:
+    path:     /delete/syndic/{id}
+    defaults: { _controller: AKYOSBackofficeBundle:Admin:deleteSyndic }
+
+admin_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSBackofficeBundle:Admin:parameters }

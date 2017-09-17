@@ -2,10 +2,10 @@
 
 namespace AKYOS\UserBundle\Service;
 
-use AKYOS\EasyCoproBundle\Entity\Categorie;
-use AKYOS\EasyCoproBundle\Entity\Document;
-use AKYOS\EasyCoproBundle\Entity\Lot;
-use AKYOS\EasyCoproBundle\Entity\Syndic;
+use AKYOS\BackofficeBundle\Entity\Categorie;
+use AKYOS\BackofficeBundle\Entity\Document;
+use AKYOS\BackofficeBundle\Entity\Lot;
+use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

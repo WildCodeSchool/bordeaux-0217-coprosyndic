@@ -1,0 +1,36 @@
+{% extends '@AKYOSBackoffice/BackOffice/layout.html.twig' %}
+
+{% block title %}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block menu %}
+    {{ render(controller('AKYOSBackofficeBundle:Syndic:menu')) }}
+{% endblock %}
+
+{% block listeCoproprietes %}
+    {{ render(controller('AKYOSBackofficeBundle:Syndic:menuCoproprietes')) }}
+{% endblock %}
+
+{% block userMenu %}
+    {{ render(controller('AKYOSBackofficeBundle:Syndic:userMenu')) }}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block modals %}
+    <div id="modal-fade-add-copropriete" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                {{ render(controller('AKYOSBackofficeBundle:Syndic:createCopropriete')) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('assets/backoffice/js/coproprietes.js') }}"></script>
+{% endblock %}
