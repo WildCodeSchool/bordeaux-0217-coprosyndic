@@ -4,7 +4,6 @@ namespace AKYOS\EasyCoproBundle\Form;
 
 use AKYOS\EasyCoproBundle\Entity\Lot;
 use Doctrine\ORM\EntityRepository;
-use Faker\Provider\Text;
 use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;

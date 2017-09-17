@@ -4,7 +4,7 @@ namespace AKYOS\EasyCoproBundle\Controller;
 
 use AKYOS\EasyCoproBundle\Entity\Syndic;
 use AKYOS\EasyCoproBundle\Form\CreateSyndicType;
-use AKYOS\EasyCoproBundle\Form\EditUserType;
+use AKYOS\UserBundle\Form\EditUserType;
 use AKYOS\EasyCoproBundle\Form\EditSyndicType;
 use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -40,14 +40,10 @@ class AdminController extends Controller
 
     public function showAction()
     {
-        $em = $this->getDoctrine()->getManager();
         $admin = $this->getUser();
-
-        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
 
         return $this->render('@AKYOSEasyCopro/BackOffice/Admin/show.html.twig', array(
             'admin' => $admin,
-            'nbMessagesTotal' => $nbMessagesTotal,
         ));
     }
 

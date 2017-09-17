@@ -6,7 +6,7 @@ use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
-use AKYOS\EasyCoproBundle\Entity\User;
+use AKYOS\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -122,7 +122,7 @@ class MailType extends AbstractType
             }
 
             $form->add('recipient', EntityType::class, array(
-                'class' => 'AKYOS\EasyCoproBundle\Entity\User',
+                'class' => 'AKYOS\UserBundle\Entity\User',
                 'label' => 'mail.new.recipient',
                 'choices' => $availableRecipients,
                 'choice_label' => function (User $user) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AKYOS\EasyCoproBundle\Repository;
+namespace AKYOS\UserBundle\Repository;
 
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {

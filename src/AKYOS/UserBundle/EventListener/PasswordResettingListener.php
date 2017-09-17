@@ -1,6 +1,6 @@
 <?php
 
-namespace AKYOS\EasyCoproBundle\EventListener;
+namespace AKYOS\UserBundle\EventListener;
 
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
@@ -35,7 +35,7 @@ class PasswordResettingListener implements EventSubscriberInterface
 
     public function onPasswordResettingSuccess(FormEvent $event)
     {
-        $url = $this->router->generate('homepage');
+        $url = $this->router->generate('frontoffice_homepage');
 
         $this->session->getFlashBag()->add('info', 'Votre mot de passe a bien été réinitialisé.');
 

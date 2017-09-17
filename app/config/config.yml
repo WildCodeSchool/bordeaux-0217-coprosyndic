@@ -70,7 +70,7 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: AKYOS\EasyCoproBundle\Entity\User
+    user_class: AKYOS\UserBundle\Entity\User
     service:
         mailer: fos_user.mailer.twig_swift
     from_email:
@@ -78,7 +78,7 @@ fos_user:
         sender_name: EasyCopro
     registration:
         form:
-            type: AKYOS\EasyCoproBundle\Form\CreateUserType
+            type: AKYOS\UserBundle\Form\CreateUserType
         confirmation:
             enabled: true
             template: 'FOSUserBundle:Registration:email.txt.twig'

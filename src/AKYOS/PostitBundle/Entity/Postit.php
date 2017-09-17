@@ -2,7 +2,7 @@
 
 namespace AKYOS\PostitBundle\Entity;
 
-use AKYOS\EasyCoproBundle\Entity\User;
+use AKYOS\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,7 +38,7 @@ class Postit
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User", inversedBy = "postits")
+     * @ORM\ManyToOne(targetEntity="AKYOS\UserBundle\Entity\User", inversedBy = "postits")
      */
     private $user;
 
@@ -103,7 +103,7 @@ class Postit
     /**
      * Set user
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\User $user
+     * @param \AKYOS\UserBundle\Entity\User $user
      *
      * @return Postit
      */
@@ -117,7 +117,7 @@ class Postit
     /**
      * Get user
      *
-     * @return \AKYOS\EasyCoproBundle\Entity\User
+     * @return \AKYOS\UserBundle\Entity\User
      */
     public function getUser()
     {

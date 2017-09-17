@@ -2,6 +2,8 @@
 
 namespace AKYOS\EasyCoproBundle\Entity;
 
+use AKYOS\UserBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -120,7 +122,7 @@ class Artisan
     private $commentSyndic;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="AKYOS\UserBundle\Entity\User", cascade={"persist", "remove"})
      */
     private $user;
 
@@ -140,9 +142,17 @@ class Artisan
     private $copropriete;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -460,86 +470,6 @@ class Artisan
     {
         return $this->activite;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->syndics = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Set user
-     *
-     * @param \AKYOS\EasyCoproBundle\Entity\User $user
-     *
-     * @return Artisan
-     */
-    public function setUser(\AKYOS\EasyCoproBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AKYOS\EasyCoproBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-
-    /**
-     * Set syndic
-     *
-     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
-     *
-     * @return Artisan
-     */
-    public function setSyndic(\AKYOS\EasyCoproBundle\Entity\Syndic $syndic = null)
-    {
-        $this->syndic = $syndic;
-
-        return $this;
-    }
-
-    /**
-     * Get syndic
-     *
-     * @return \AKYOS\EasyCoproBundle\Entity\Syndic
-     */
-    public function getSyndic()
-    {
-        return $this->syndic;
-    }
-
-    /**
-     * Set copropriete
-     *
-     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
-     *
-     * @return Artisan
-     */
-    public function setCopropriete(\AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete = null)
-    {
-        $this->copropriete = $copropriete;
-
-        return $this;
-    }
-
-    /**
-     * Get copropriete
-     *
-     * @return \AKYOS\EasyCoproBundle\Entity\Copropriete
-     */
-    public function getCopropriete()
-    {
-        return $this->copropriete;
-    }
 
     /**
      * Set commentSyndic
@@ -566,9 +496,57 @@ class Artisan
     }
 
     /**
+     * Set user
+     *
+     * @param \AKYOS\UserBundle\Entity\User $user
+     *
+     * @return Artisan
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AKYOS\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set syndic
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Syndic $syndic
+     *
+     * @return Artisan
+     */
+    public function setSyndic(Syndic $syndic = null)
+    {
+        $this->syndic = $syndic;
+
+        return $this;
+    }
+
+    /**
+     * Get syndic
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Syndic
+     */
+    public function getSyndic()
+    {
+        return $this->syndic;
+    }
+
+    /**
      * Add document
      *
-     * @param Document $document
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
      *
      * @return Artisan
      */
@@ -582,7 +560,7 @@ class Artisan
     /**
      * Remove document
      *
-     * @param Document $document
+     * @param \AKYOS\EasyCoproBundle\Entity\Document $document
      */
     public function removeDocument(Document $document)
     {
@@ -597,5 +575,29 @@ class Artisan
     public function getDocuments()
     {
         return $this->documents;
+    }
+
+    /**
+     * Set copropriete
+     *
+     * @param \AKYOS\EasyCoproBundle\Entity\Copropriete $copropriete
+     *
+     * @return Artisan
+     */
+    public function setCopropriete(Copropriete $copropriete = null)
+    {
+        $this->copropriete = $copropriete;
+
+        return $this;
+    }
+
+    /**
+     * Get copropriete
+     *
+     * @return \AKYOS\EasyCoproBundle\Entity\Copropriete
+     */
+    public function getCopropriete()
+    {
+        return $this->copropriete;
     }
 }

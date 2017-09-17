@@ -2,6 +2,7 @@
 
 namespace AKYOS\MailboxBundle\Entity;
 
+use AKYOS\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,12 +50,12 @@ class Mail
     private $read = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AKYOS\UserBundle\Entity\User")
      */
     private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AKYOS\EasyCoproBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AKYOS\UserBundle\Entity\User")
      */
     private $recipient;
 
@@ -213,11 +214,11 @@ class Mail
     /**
      * Set sender
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\User $sender
+     * @param \AKYOS\UserBundle\Entity\User $sender
      *
      * @return Mail
      */
-    public function setSender(\AKYOS\EasyCoproBundle\Entity\User $sender = null)
+    public function setSender(User $sender = null)
     {
         $this->sender = $sender;
 
@@ -227,7 +228,7 @@ class Mail
     /**
      * Get sender
      *
-     * @return \AKYOS\EasyCoproBundle\Entity\User
+     * @return \AKYOS\UserBundle\Entity\User
      */
     public function getSender()
     {
@@ -237,11 +238,11 @@ class Mail
     /**
      * Set recipient
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\User $recipient
+     * @param \AKYOS\UserBundle\Entity\User $recipient
      *
      * @return Mail
      */
-    public function setRecipient(\AKYOS\EasyCoproBundle\Entity\User $recipient = null)
+    public function setRecipient(User $recipient = null)
     {
         $this->recipient = $recipient;
 
@@ -251,7 +252,7 @@ class Mail
     /**
      * Get recipient
      *
-     * @return \AKYOS\EasyCoproBundle\Entity\User
+     * @return \AKYOS\UserBundle\Entity\User
      */
     public function getRecipient()
     {

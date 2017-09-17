@@ -3,8 +3,8 @@
 namespace AKYOS\EasyCoproBundle\Form;
 
 use AKYOS\EasyCoproBundle\Entity\Lot;
+use AKYOS\UserBundle\Form\CreateUserType;
 use Doctrine\ORM\EntityRepository;
-use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\HttpFoundation\Request;
 
 class CreateLocataireType extends AbstractType
 {

@@ -6,7 +6,7 @@ use AKYOS\EasyCoproBundle\Entity\Artisan;
 use AKYOS\EasyCoproBundle\Entity\Coproprietaire;
 use AKYOS\EasyCoproBundle\Entity\Locataire;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
-use AKYOS\EasyCoproBundle\Entity\User;
+use AKYOS\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class StringifyUser

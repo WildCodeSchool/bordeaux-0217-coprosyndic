@@ -1,5 +1,5 @@
 <?php
-namespace AKYOS\EasyCoproBundle\Form;
+namespace AKYOS\UserBundle\Form;
 
 use function Sodium\add;
 use Symfony\Component\Form\AbstractType;

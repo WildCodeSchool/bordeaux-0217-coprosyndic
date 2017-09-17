@@ -1,1 +1,19 @@
 services:
+    akyos.password_resetting:
+        class: AKYOS\UserBundle\EventListener\PasswordResettingListener
+        arguments: ['@router', '@session']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    akyos.confirm_registration:
+        class: AKYOS\UserBundle\Service\RegistrationConfirmation
+        arguments: ['@fos_user.mailer','@fos_user.util.token_generator','@router','@session', '@service_container']
+
+    akyos.generate_document:
+        class: AKYOS\UserBundle\Service\GenerateDocument
+        arguments: ['@service_container']
+
+    app.form.registration:
+        class: AKYOS\UserBundle\Form\CreateUserType
+        tags:
+            - { name: form.type, alias: app_user_registration }

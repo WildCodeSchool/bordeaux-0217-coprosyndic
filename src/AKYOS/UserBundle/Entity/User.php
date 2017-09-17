@@ -1,6 +1,6 @@
 <?php
 
-namespace AKYOS\EasyCoproBundle\Entity;
+namespace AKYOS\UserBundle\Entity;
 
 use AKYOS\PostitBundle\Entity\Postit;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -12,7 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity
  * @Vich\Uploadable
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AKYOS\EasyCoproBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="AKYOS\UserBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
@@ -45,7 +45,7 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $image = 'avatar15.jpg';
+    private $image = 'avatar13.jpg';
 
     /**
      * @Vich\UploadableField(mapping="avatar_images", fileNameProperty="image")

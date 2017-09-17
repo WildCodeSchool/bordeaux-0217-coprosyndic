@@ -1,12 +1,12 @@
 <?php
 
-namespace AKYOS\EasyCoproBundle\Service;
+namespace AKYOS\UserBundle\Service;
 
 use AKYOS\EasyCoproBundle\Entity\Categorie;
 use AKYOS\EasyCoproBundle\Entity\Document;
 use AKYOS\EasyCoproBundle\Entity\Lot;
 use AKYOS\EasyCoproBundle\Entity\Syndic;
-use AKYOS\EasyCoproBundle\Entity\User;
+use AKYOS\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class GenerateDocument
@@ -34,7 +34,7 @@ class GenerateDocument
 
         $this->container->get('knp_snappy.pdf')->generateFromHtml(
             $this->container->get('templating')->render(
-                '@AKYOSEasyCopro/BackOffice/Documents/doc_registration.html.twig', array(
+                'AKYOSUserBundle::registration_doc.html.twig', array(
                     'expediteur' => $expediteur,
                     'expediteurType' => $expediteurType,
                     'destinataire' => $destinataire,

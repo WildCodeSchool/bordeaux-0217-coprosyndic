@@ -1,8 +1,8 @@
 <?php
 
-namespace AKYOS\EasyCoproBundle\Service;
+namespace AKYOS\UserBundle\Service;
 
-use AKYOS\EasyCoproBundle\Entity\User;
+use AKYOS\UserBundle\Entity\User;
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -19,14 +19,15 @@ class RegistrationConfirmation
 
     public function __construct(MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator, UrlGeneratorInterface $router, SessionInterface $session, ContainerInterface $container)
     {
-        $this->mailer = $mailer;
+        $this->mailer         = $mailer;
         $this->tokenGenerator = $tokenGenerator;
-        $this->router = $router;
-        $this->session = $session;
-        $this->container = $container;
+        $this->router         = $router;
+        $this->session        = $session;
+        $this->container      = $container;
     }
 
-    public function confirm(User $user) {
+    public function confirm(User $user)
+    {
 
         $user->setEnabled(false);
         if (null === $user->getConfirmationToken()) {

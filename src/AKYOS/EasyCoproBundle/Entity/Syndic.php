@@ -2,6 +2,8 @@
 
 namespace AKYOS\EasyCoproBundle\Entity;
 
+use AKYOS\UserBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -113,7 +115,7 @@ class Syndic
     private $contactEmail;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="AKYOS\UserBundle\Entity\User", cascade={"persist", "remove"})
      */
     private $user;
 
@@ -134,6 +136,7 @@ class Syndic
 
     /**
      * @ORM\OneToMany(targetEntity="Categorie", mappedBy="syndic")
+     * @var ArrayCollection
      */
     private $categories;
 
@@ -469,9 +472,9 @@ class Syndic
      */
     public function __construct()
     {
-        $this->artisans = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->documents = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->coproprietes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->artisans = new ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->coproprietes = new ArrayCollection();
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Entity;
 
+use AKYOS\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -125,7 +126,7 @@ class Coproprietaire
     private $lot;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="AKYOS\UserBundle\Entity\User", cascade={"persist", "remove"})
      */
     private $user;
 
@@ -410,7 +411,7 @@ class Coproprietaire
      *
      * @return Coproprietaire
      */
-    public function setLot(\AKYOS\EasyCoproBundle\Entity\Lot $lot = null)
+    public function setLot(Lot $lot = null)
     {
         $this->lot = $lot;
 
@@ -430,11 +431,11 @@ class Coproprietaire
     /**
      * Set user
      *
-     * @param \AKYOS\EasyCoproBundle\Entity\User $user
+     * @param \AKYOS\UserBundle\Entity\User $user
      *
      * @return Coproprietaire
      */
-    public function setUser(\AKYOS\EasyCoproBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -444,7 +445,7 @@ class Coproprietaire
     /**
      * Get user
      *
-     * @return \AKYOS\EasyCoproBundle\Entity\User
+     * @return \AKYOS\UserBundle\Entity\User
      */
     public function getUser()
     {

@@ -2,7 +2,7 @@
 
 namespace AKYOS\EasyCoproBundle\Form;
 
-use FOS\UserBundle\Form\Type\RegistrationFormType;
+use AKYOS\UserBundle\Form\CreateUserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

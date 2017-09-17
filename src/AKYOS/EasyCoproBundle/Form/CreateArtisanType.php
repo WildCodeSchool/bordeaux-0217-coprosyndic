@@ -3,7 +3,7 @@
 namespace AKYOS\EasyCoproBundle\Form;
 
 use AKYOS\EasyCoproBundle\Entity\Artisan;
-use FOS\UserBundle\Form\Type\RegistrationFormType;
+use AKYOS\UserBundle\Form\CreateUserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

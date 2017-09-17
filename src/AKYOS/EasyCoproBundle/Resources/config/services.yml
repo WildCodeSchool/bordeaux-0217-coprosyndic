@@ -1,18 +1,4 @@
 services:
-    akyos.password_resetting:
-        class: AKYOS\EasyCoproBundle\EventListener\PasswordResettingListener
-        arguments: ['@router', '@session']
-        tags:
-            - { name: kernel.event_subscriber }
-
-    akyos.confirm_registration:
-        class: AKYOS\EasyCoproBundle\Service\RegistrationConfirmation
-        arguments: ['@fos_user.mailer','@fos_user.util.token_generator','@router','@session', '@service_container']
-
-    akyos.generate_document:
-        class: AKYOS\EasyCoproBundle\Service\GenerateDocument
-        arguments: ['@service_container']
-
     form.type.create_document:
         class: AKYOS\EasyCoproBundle\Form\CreateDocumentType
         arguments: ['@service_container', '@session']
@@ -30,11 +16,6 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: twig.extension }
-
-    app.form.registration:
-        class: AKYOS\EasyCoproBundle\Form\CreateUserType
-        tags:
-            - { name: form.type, alias: app_user_registration }
 
     form.type.create_coproprietaire:
         class: AKYOS\EasyCoproBundle\Form\CreateCoproprietaireType
