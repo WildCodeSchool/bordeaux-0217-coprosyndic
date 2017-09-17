@@ -2,6 +2,10 @@ akyos_frontoffice:
     resource: "@AKYOSFrontofficeBundle/Resources/config/routing.yml"
     prefix:   /
 
+akyos_user:
+    resource: "@AKYOSUserBundle/Resources/config/routing.yml"
+    prefix:   /user
+
 akyos_easy_copro_back_office_admin:
     resource: "@AKYOSEasyCoproBundle/Resources/config/routing_admin.yml"
     prefix:   /admin
