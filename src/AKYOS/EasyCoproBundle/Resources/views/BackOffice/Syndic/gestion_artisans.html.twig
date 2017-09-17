@@ -101,7 +101,7 @@
                                     </td>
                                     <td class="text-center" style="width: 100px;">
 
-                                        <a href="{{ path('syndic_inbox') }}" data-toggle="tooltip" title="Envoyer un message" class="btn btn-effect-ripple btn-xs btn-info">
+                                        <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}" data-toggle="tooltip" title="Envoyer un message" class="btn btn-effect-ripple btn-xs btn-info">
                                             <i class="fa fa-envelope"></i></a>
 
                                         <span data-toggle="modal" data-target="#modal-fade-del-artisan">

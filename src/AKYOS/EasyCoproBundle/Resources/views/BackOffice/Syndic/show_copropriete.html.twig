@@ -192,7 +192,7 @@
                                             <i class="fa fa-fw fa-map-marker text-info"></i>Lot N° {{ coproprietaire.lot.identifiant }} &nbsp; &nbsp;
                                         </td>
                                         <td class="text-center" style="width: 100px;">
-                                            <a href="{{ path('syndic_inbox') }}" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                            <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
                                                 <i class="fa fa-envelope"></i></a> &nbsp;
 
                                             <span data-toggle="modal" data-target="#modal-fade-del-coproprietaire">
@@ -232,7 +232,7 @@
                                             <i class="fa fa-fw fa-map-marker text-info"></i>Lot N° {{ locataire.lot.identifiant }} &nbsp; &nbsp;
                                         </td>
                                         <td class="text-center" style="width: 100px;">
-                                            <a href="{{ path('syndic_inbox') }}" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                            <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
                                                 <i class="fa fa-envelope"></i></a> &nbsp;
 
                                             <span data-toggle="modal" data-target="#modal-fade-del-locataire">
@@ -273,7 +273,7 @@
                                         </td>
                                         <td class="text-center" style="width: 100px;">
 
-                                            <a href="{{ path('syndic_inbox') }}" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                            <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}" class="btn btn-xs btn-info" data-toggle="tooltip" title="Envoyer un message">
                                                 <i class="fa fa-envelope"></i></a> &nbsp;
 
                                             <span data-toggle="modal" data-target="#modal-fade-del-artisan">

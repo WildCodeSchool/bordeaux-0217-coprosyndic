@@ -90,7 +90,7 @@
                                     {% if locataire.actuel %}<i class="fa fa-fw fa-bookmark"></i> En cours de location{% else %}&nbsp;{% endif %}
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ path('syndic_inbox') }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Envoyer un message">
+                                    <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Envoyer un message">
                                         <i class="fa fa-envelope"></i></a>
                                     <span data-toggle="modal" data-target="#modal-fade-del-locataire">
                                         <a data-toggle="tooltip" data-placement="top" title="Supprimer" data-locataire="{{ locataire.id }}"
