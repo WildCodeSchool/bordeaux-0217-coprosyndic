@@ -25,7 +25,7 @@
                         <h2 class="text-center">Activation du compte</h2>
                         <div class="panel-body">
                             <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
-                            <p><a href="{{ path('homepage') }}">Accéder à votre profil</a> </p>
+                            <p><a href="{{ path('frontoffice_homepage') }}">Accéder à votre profil</a> </p>
                             {% if targetUrl %}
                                 <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
                             {% endif %}
