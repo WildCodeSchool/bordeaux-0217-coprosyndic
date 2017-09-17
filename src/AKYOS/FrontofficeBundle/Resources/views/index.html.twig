@@ -50,7 +50,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('homepage') }}"></a>
+            <a class="navbar-brand" href="{{ path('frontoffice_homepage') }}"></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar-1">
@@ -247,7 +247,7 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <form name="sentMessage" id="contactForm" novalidate="" action="{{ path('contact') }}" method="post">
+                <form name="sentMessage" id="contactForm" novalidate="" action="{{ path('frontoffice_contact') }}" method="post">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -331,7 +331,7 @@
             <div class="col-sm-6 footer-menu">
                 <ul>
                     <li><a class="" href="#">Remonter la Page</a></li>
-                    <li><a class="" href="{{ path('mentions')}}">Mentions légales</a></li>
+                    <li><a class="" href="{{ path('frontoffice_mentions')}}">Mentions légales</a></li>
                 </ul>
             </div>
         </div>

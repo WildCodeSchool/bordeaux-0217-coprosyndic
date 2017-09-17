@@ -1,4 +1,8 @@
-akyos_easy_copro_front_office:
+akyos_frontoffice:
+    resource: "@AKYOSFrontofficeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+akyos_easy_copro_postit:
     resource: "@AKYOSEasyCoproBundle/Resources/config/routing.yml"
     prefix:   /
 

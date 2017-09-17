@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new AKYOS\MailboxBundle\AKYOSMailboxBundle(),
+            new AKYOS\FrontofficeBundle\AKYOSFrontofficeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
