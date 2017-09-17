@@ -15,25 +15,25 @@ class AdminController extends Controller
 
     public function indexAction()
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/index.html.twig');
+        return $this->render('AKYOSBackofficeBundle:Admin:index.html.twig');
     }
 
     public function editAction(Request $request)
     {
         $admin = $this->getUser();
-        $form = $this->createForm(EditUserType::class, $admin);
+        $form  = $this->createForm(EditUserType::class, $admin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Vos modifications ont bien été enregistrées.');
+            $this->addFlash('info', 'Vos modifications ont bien été enregistrées.');
 
             return $this->redirectToRoute('admin_show');
         }
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/edit.html.twig', array(
-            'form' => $form->createView(),
+        return $this->render('AKYOSBackofficeBundle:Admin:edit.html.twig', array(
+            'form'  => $form->createView(),
             'admin' => $admin,
         ));
     }
@@ -42,31 +42,32 @@ class AdminController extends Controller
     {
         $admin = $this->getUser();
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/show.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Admin:show.html.twig', array(
             'admin' => $admin,
         ));
     }
 
-    public function menuAction(){
+    public function menuAction()
+    {
 
-        $em = $this->getDoctrine()->getManager();
-        $syndics = $em->getRepository(Syndic::class)->findAll();
+        $em                       = $this->getDoctrine()->getManager();
+        $syndics                  = $em->getRepository(Syndic::class)->findAll();
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/menu.html.twig', array(
-            'syndics' => $syndics,
+        return $this->render('AKYOSBackofficeBundle:Admin:menu.html.twig', array(
+            'syndics'                  => $syndics,
             'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 
     public function userMenuAction()
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/menuUser.html.twig');
+        return $this->render('AKYOSBackofficeBundle:Admin:menuUser.html.twig');
     }
 
     public function parametersAction()
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/parameters.html.twig');
+        return $this->render('AKYOSBackofficeBundle:Admin:parameters.html.twig');
     }
 
     public function createSyndicAction(Request $request)
@@ -91,32 +92,32 @@ class AdminController extends Controller
 //            $documentService = $this->get('akyos.generate_document');
 //            $documentService->generateRegistrationDocument($this->getUser(), $syndic, $password);
 
-            $request->getSession()->getFlashBag()->add('info', 'Le nouveau compte a été crée avec succès.');
+            $this->addFlash('info', 'Le nouveau compte a été crée avec succès.');
 
             return $this->redirectToRoute('admin_show_syndic', array(
                 'id' => $syndic->getId(),
             ));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/create_syndic.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Admin:create_syndic.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
     public function listSyndicAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em      = $this->getDoctrine()->getManager();
         $syndics = $em->getRepository(Syndic::class)
-            ->findAll();
+                      ->findAll();
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/list_syndic.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Admin:list_syndic.html.twig', array(
             'syndics' => $syndics,
         ));
     }
 
     public function showSyndicAction(Syndic $syndic)
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/show_syndic.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Admin:show_syndic.html.twig', array(
             'syndic' => $syndic,
         ));
     }
@@ -130,31 +131,31 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Le compte SYNDIC a bien été modifié.');
+            $this->addFlash('info', 'Le compte SYNDIC a bien été modifié.');
 
             return $this->redirectToRoute('admin_show_syndic', array(
                 'id' => $syndic->getId(),
             ));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Admin/edit_syndic.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Admin:edit_syndic.html.twig', array(
             'form' => $form->createView(), 'syndic' => $syndic,
         ));
     }
 
-    public function deleteSyndicAction(Request $request, Syndic $syndic)
+    public function deleteSyndicAction(Syndic $syndic)
     {
         if ($syndic !== null) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($syndic);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Le compte a bien été supprimé.');
+            $this->addFlash('info', 'Le compte a bien été supprimé.');
 
             return $this->redirectToRoute('admin_list_syndics');
         }
 
-        $request->getSession()->getFlashBag()->add('info', 'Le compte que vous souhaitez supprimer n\'existe pas !');
+        $this->addFlash('info', 'Le compte que vous souhaitez supprimer n\'existe pas !');
 
         return $this->redirectToRoute('admin_list_syndics');
     }

@@ -57,7 +57,7 @@ class SyndicController extends Controller
         $allReceivedMailsCount    = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/index.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/index.html.twig', array(
             'nbre_coproprietaires'     => $nbre_coproprietaires,
             'documents'                => $documents,
             'nbre_locataires'          => $nbre_locataires,
@@ -85,7 +85,7 @@ class SyndicController extends Controller
 
             return $this->redirectToRoute('syndic_show');
         }
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/edit.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/edit.html.twig', array(
             'form' => $form->createView(), 'syndic' => $syndic
         ));
     }
@@ -96,7 +96,7 @@ class SyndicController extends Controller
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
         $request->getSession()->set('copro', null);
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/show.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/show.html.twig', array(
             'syndic' => $syndic
 
         ));
@@ -112,7 +112,7 @@ class SyndicController extends Controller
 
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/menu.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/menu.html.twig', array(
             'coproprietes'             => $coproprietes,
             'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
@@ -125,21 +125,21 @@ class SyndicController extends Controller
         $syndic       = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $coproprietes = $em->getRepository(Copropriete::class)->findBySyndic($syndic);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/menuCoproprietes.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/menuCoproprietes.html.twig', array(
             'coproprietes' => $coproprietes,
         ));
     }
 
     public function userMenuAction()
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/menuUser.html.twig');
+        return $this->render('@AKYOSBackoffice/Syndic/menuUser.html.twig');
     }
 
     public function parametersAction(Request $request)
     {
         $request->getSession()->set('copro', null);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/parameters.html.twig');
+        return $this->render('@AKYOSBackoffice/Syndic/parameters.html.twig');
     }
 
     // ACTIONS LIEES AUX COPROPRIETAIRES
@@ -176,7 +176,7 @@ class SyndicController extends Controller
             ));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/create_coproprietaire.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/create_coproprietaire.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -197,7 +197,7 @@ class SyndicController extends Controller
                 'id' => $coproprietaire->getId(),
             ));
         }
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/edit_coproprietaire.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/edit_coproprietaire.html.twig', array(
             'form'             => $form->createView(),
             'coproprietaireId' => $coproprietaire->getId(),
         ));
@@ -207,7 +207,7 @@ class SyndicController extends Controller
     {
         $request->getSession()->set('copro', $coproprietaire->getLot()->getCopropriete());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/show_coproprietaire.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/show_coproprietaire.html.twig', array(
             'coproprietaire' => $coproprietaire,
         ));
     }
@@ -222,7 +222,7 @@ class SyndicController extends Controller
 
         $request->getSession()->set('copro', null);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/list_coproprietaires.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/list_coproprietaires.html.twig', array(
             'coproprietaires' => $coproprietaires, 'syndic' => $syndic
         ));
     }
@@ -282,7 +282,7 @@ class SyndicController extends Controller
                                           array('id' => $locataire->getId()));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/create_locataire.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/create_locataire.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -302,7 +302,7 @@ class SyndicController extends Controller
                 'id' => $locataire->getId(),
             ));
         }
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/edit_locataire.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/edit_locataire.html.twig', array(
             'form'        => $form->createView(),
             'locataireId' => $locataire->getId(),
         ));
@@ -312,7 +312,7 @@ class SyndicController extends Controller
     {
         $request->getSession()->set('copro', $locataire->getLot()->getCopropriete());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/show_locataire.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/show_locataire.html.twig', array(
             'locataire' => $locataire,
         ));
     }
@@ -327,7 +327,7 @@ class SyndicController extends Controller
 
         $request->getSession()->set('copro', null);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/list_locataires.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/list_locataires.html.twig', array(
             'locataires' => $locataires,
         ));
     }
@@ -364,7 +364,7 @@ class SyndicController extends Controller
 
         $request->getSession()->set('copro', null);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/gestion_artisans.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/gestion_artisans.html.twig', array(
             'artisans' => $artisans,
         ));
     }
@@ -403,7 +403,7 @@ class SyndicController extends Controller
                                           array('id' => $artisan->getId()));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/create_artisan.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/create_artisan.html.twig', array(
             'form_add_artisan' => $form->createView(),
         ));
     }
@@ -430,7 +430,7 @@ class SyndicController extends Controller
             ));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/edit_artisan.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/edit_artisan.html.twig', array(
             'form_edit_artisan' => $form->createView(),
             'artisanId'         => $artisan->getId(),
         ));
@@ -440,7 +440,7 @@ class SyndicController extends Controller
     {
         $request->getSession()->set('copro', $artisan->getCopropriete());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/show_artisan.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/show_artisan.html.twig', array(
             'artisan' => $artisan,
         ));
     }
@@ -483,7 +483,7 @@ class SyndicController extends Controller
             $request->getSession()->getFlashBag()->add('info', 'La copropriété a été créé avec succès.');
             return $this->redirectToRoute('syndic_list_coproprietes');
         }
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/create_copropriete.html.twig',
+        return $this->render('@AKYOSBackoffice/Syndic/create_copropriete.html.twig',
                              ['my_form' => $form->createView()]);
     }
 
@@ -501,7 +501,7 @@ class SyndicController extends Controller
             ));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/edit_copropriete.html.twig',
+        return $this->render('@AKYOSBackoffice/Syndic/edit_copropriete.html.twig',
                              [
                                  'my_form'       => $form->createView(),
                                  'coproprieteId' => $copropriete->getId(),
@@ -522,7 +522,7 @@ class SyndicController extends Controller
         $locataires           = $em->getRepository(Locataire::class)->findLocatairesByCopropriete($copropriete);
         $documents            = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/show_copropriete.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/show_copropriete.html.twig', array(
             'copropriete'          => $copropriete,
             'nbre_coproprietaires' => $nbre_coproprietaires,
             'coproprietaires'      => $coproprietaires,
@@ -554,7 +554,7 @@ class SyndicController extends Controller
 
         $request->getSession()->set('copro', null);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/list_coproprietes.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/list_coproprietes.html.twig', array(
             'coproprietes' => $coproprietes,
             'counts'       => $counts,
         ));
@@ -592,7 +592,7 @@ class SyndicController extends Controller
 
             ));
         }
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/create_lot.html.twig',
+        return $this->render('@AKYOSBackoffice/Syndic/create_lot.html.twig',
                              ['form' => $form->createView()]);
     }
 
@@ -609,13 +609,13 @@ class SyndicController extends Controller
             return $this->redirectToRoute('syndic_list_lots');
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/edit_lot.html.twig',
+        return $this->render('@AKYOSBackoffice/Syndic/edit_lot.html.twig',
                              ['my_form' => $form->createView()]);
     }
 
     public function showLotAction(Lot $lot)
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/show_lot.html.twig',
+        return $this->render('@AKYOSBackoffice/Syndic/show_lot.html.twig',
                              ['lot' => $lot]);
     }
 
@@ -629,7 +629,7 @@ class SyndicController extends Controller
 //        $lots = $copropriete->getLots();
 //        $coproprietes = $em->getRepository(Copropriete::class)->findAll();
 //
-//        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/list_lots.html.twig',
+//        return $this->render('@AKYOSBackoffice/Syndic/list_lots.html.twig',
 //            ['lots' => $lots, 'coproprietes' => $coproprietes]);
     }
 
@@ -658,7 +658,7 @@ class SyndicController extends Controller
 
         $request->getSession()->set('copro', null);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/gestion_documents.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/gestion_documents.html.twig', array(
             'categoriesCount' => $categoriesCount,
             'documentsCount'  => count($allDocuments),
             'documents'       => $allDocuments,
@@ -685,7 +685,7 @@ class SyndicController extends Controller
                                           array('id' => $document->getId()));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/create_document.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/create_document.html.twig', array(
             'form_document' => $form_document->createView(),
         ));
     }
@@ -706,7 +706,7 @@ class SyndicController extends Controller
             ));
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/edit_document.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/edit_document.html.twig', array(
             'form_edit_document' => $form->createView(),
             'documentId'         => $document->getId(),
         ));
@@ -714,7 +714,7 @@ class SyndicController extends Controller
 
     public function showDocumentAction(Document $document)
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/show_document.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/show_document.html.twig', array(
             'document' => $document
         ));
     }
@@ -744,7 +744,7 @@ class SyndicController extends Controller
 
         $categories = $em->getRepository(Categorie::class)->findBySyndic($syndic);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/gestion_categories.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/gestion_categories.html.twig', array(
             'categories' => $categories,
         ));
     }
@@ -823,7 +823,7 @@ class SyndicController extends Controller
         $locataires      = $em->getRepository(Locataire::class)->findSyndicLocatairesBySearch($syndic, $search);
         $artisans        = $em->getRepository(Artisan::class)->findSyndicArtisansBySearch($syndic, $search);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Syndic/search.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Syndic/search.html.twig', array(
             'recherche'       => $search,
             'documents'       => $documents,
             'lots'            => $lots,

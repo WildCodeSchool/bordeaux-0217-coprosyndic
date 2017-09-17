@@ -30,7 +30,7 @@ class LocataireController extends Controller
         $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/index.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Locataire/index.html.twig', array(
             'nbDocuments' => $nbDocuments,
             'allReceivedMailsCount' => $allReceivedMailsCount,
             'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
@@ -52,7 +52,7 @@ class LocataireController extends Controller
 
             return $this->redirectToRoute('locataire_show');
         }
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/edit.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Locataire/edit.html.twig', array(
             'form' => $form->createView(),'locataire' => $locataire
         ));
     }
@@ -65,7 +65,7 @@ class LocataireController extends Controller
         $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
         $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLotForLocataire($locataire->getLot());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/show.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Locataire/show.html.twig', array(
             'locataire' => $locataire,
             'nbDocuments' => $nbDocuments,
             'nbMessagesTotal' => $nbMessagesTotal,
@@ -77,14 +77,14 @@ class LocataireController extends Controller
         $em = $this->getDoctrine()->getManager();
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/menu.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Locataire/menu.html.twig', array(
             'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 
     public function userMenuAction()
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/menuUser.html.twig');
+        return $this->render('@AKYOSBackoffice/Locataire/menuUser.html.twig');
     }
 
     public function parametersAction(){
@@ -92,7 +92,7 @@ class LocataireController extends Controller
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/parameters.html.twig',array('locataire'=> $locataire));
+        return $this->render('@AKYOSBackoffice/Locataire/parameters.html.twig',array('locataire'=> $locataire));
     }
 
     public function showCoproprieteAction(Request $request)
@@ -102,7 +102,7 @@ class LocataireController extends Controller
         $copropriete = $locataire->getLot()->getCopropriete();
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
         $nbrelocataire = $em->getRepository(Locataire::class)->findNbrLocatairesByCopropriete($copropriete);
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/show_copropriete.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Locataire/show_copropriete.html.twig', array(
             'locataire' =>$locataire,
             'documents'=>$documents,
             'copropriete'=>$copropriete,
@@ -125,7 +125,7 @@ class LocataireController extends Controller
             return $this->redirectToRoute('locataire_show_copropriete');
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/edit_copropriete.html.twig',
+        return $this->render('@AKYOSBackoffice/Locataire/edit_copropriete.html.twig',
             ['my_form' => $form->createView(),
                 'coproprieteId'=>$copropriete->getId(),
             ]);
@@ -140,7 +140,7 @@ class LocataireController extends Controller
         $locMsg = $this->getDoctrine()->getManager();
         $locataire = $locMsg->getRepository(Locataire::class)->findOneByUser($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/show_document.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Locataire/show_document.html.twig', array(
             'document' => $document, 'locataire' => $locataire
         ));
     }
@@ -154,7 +154,7 @@ class LocataireController extends Controller
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByLotForLocataires($lot);
         $allDocuments = $em->getRepository(Document::class)->findLotDocumentsSortedByDateForLocataires($lot);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Locataire/gestion_documents.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Locataire/gestion_documents.html.twig', array(
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,

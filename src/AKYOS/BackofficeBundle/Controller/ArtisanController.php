@@ -24,7 +24,7 @@ class ArtisanController extends Controller
         $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/index.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Artisan/index.html.twig', array(
             'nbDocuments' => $nbDocuments,
             'allReceivedMailsCount' => $allReceivedMailsCount,
             'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
@@ -47,7 +47,7 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_show');
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/edit.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Artisan/edit.html.twig', array(
             'form' => $form->createView(),
             'artisan'=> $artisan,
         ));
@@ -57,7 +57,7 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/show.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Artisan/show.html.twig', array(
             'artisan' => $artisan
         ));
     }
@@ -67,19 +67,19 @@ class ArtisanController extends Controller
         $em = $this->getDoctrine()->getManager();
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/menu.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Artisan/menu.html.twig', array(
             'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
         ));
     }
 
     public function parametersAction()
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/parameters.html.twig');
+        return $this->render('@AKYOSBackoffice/Artisan/parameters.html.twig');
     }
 
     public function userMenuAction()
     {
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/menuUser.html.twig');
+        return $this->render('@AKYOSBackoffice/Artisan/menuUser.html.twig');
     }
 
     public function showCoproprieteAction(Request $request)
@@ -90,7 +90,7 @@ class ArtisanController extends Controller
         $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
         $nbArtisans = $em->getRepository(Artisan::class)->findNbrArtisansByCopropriete($copropriete);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/show_copropriete.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Artisan/show_copropriete.html.twig', array(
             'artisan' => $artisan,
             'documents' => $documents,
             'copropriete' => $copropriete,
@@ -113,7 +113,7 @@ class ArtisanController extends Controller
             return $this->redirectToRoute('artisan_show_copropriete');
         }
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/edit_copropriete.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Artisan/edit_copropriete.html.twig', array(
             'my_form' => $form->createView(),
             'coproprieteId' => $copropriete->getId(),
         ));
@@ -126,7 +126,7 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/show_document.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Artisan/show_document.html.twig', array(
             'document' => $document,'artisan'=>$artisan
         ));
     }
@@ -139,7 +139,7 @@ class ArtisanController extends Controller
         $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
         $allDocuments = $em->getRepository(Document::class)->findArtisanDocumentsSortedByDate($artisan);
 
-        return $this->render('@AKYOSBackoffice/BackOffice/Artisan/gestion_documents.html.twig', array(
+        return $this->render('@AKYOSBackoffice/Artisan/gestion_documents.html.twig', array(
             'categoriesCount' => $categoriesCount,
             'documentsCount' => count($allDocuments),
             'documents' => $allDocuments,

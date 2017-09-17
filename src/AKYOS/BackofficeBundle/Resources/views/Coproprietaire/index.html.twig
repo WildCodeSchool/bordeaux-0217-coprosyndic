@@ -1,0 +1,147 @@
+{% extends '@AKYOSBackoffice/Coproprietaire/layout.html.twig' %}
+
+{% block title %}
+    Tableau de bord
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/post_it.css') }}">
+{% endblock %}
+
+{% block titre_page %}
+    Tableau de bord
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="active">Tableau de bord</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h3 style="margin: 0 0 20px 0; text-align: center;">Bienvenue sur votre application <strong style="color: #45A7B9;">EasyCopro</strong>,<br> l'application qui facilite la
+            communication avec votre syndic !</h3>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}" class="dashboard-widget">
+                        <div class="widget" style="box-shadow: 2px 2px #DDD">
+                        <div class="widget-image widget-image-xs" style="position:relative; background-color: #FFF;">
+                            <i class="fa fa-envelope fa-3x" style="height: 100%; position: absolute; top: 45%; left: 38%; z-index: 500; color: #ff5d00;"></i>
+                            <div class="widget-image-content" style="background-color: #FFFFFF">
+                                <h2 class="widget-heading text-light" style="text-align: center; color: #ff9d00">Mes Messages</h2>
+                            </div>
+                        </div>
+                        <div class="widget-content" style="background-color: #FFFFFF">
+                            <div class="row text-center">
+                                <div class="col-xs-12">
+                                    <h4 class="widget-heading" style="color: #222;">Vous avez <strong style="color: #fcb244;">{{ allReceivedMailsCount }}</strong>  message{% if allReceivedMailsCount > 1 %}s{% endif %} dont <strong style="color: #fcb244;">{{ unreadReceivedMailsCount }}</strong> non lu{% if unreadReceivedMailsCount > 1 %}s{% endif %}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 center-block">
+            <div class="post-it center-block">
+                {{ render(controller('AKYOSPostitBundle:Postit:index')) }}
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="{{ path('coproprietaire_gestion_documents') }}" class="dashboard-widget">
+                        <div class="widget" style="box-shadow: 2px 2px #DDD">
+                            <div class="widget-image widget-image-xs" style="position:relative; background-color: #FFF;">
+                                <i class="fa fa-folder fa-3x" style="height: 100%; position: absolute; top: 45%; left: 38%; z-index: 500; color: #4913dd;"></i>
+                                <div class="widget-image-content" style="background-color: #FFFFFF">
+                                    <h2 class="widget-heading text-light" style="text-align: center; color: #4913dd">Mes Documents</h2>
+                                </div>
+                            </div>
+                            <div class="widget-content" style="background-color: #FFFFFF">
+                                <div class="row text-center">
+                                    <div class="col-xs-12">
+                                        <h4 class="widget-heading" style="color: #222;">Vous avez reçu <strong style="color: #6136d8;">{{ nbDocuments }}</strong> document{% if nbDocuments > 1 %}s{% endif %}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <!-- widget meteo -->
+            <div class="center-block" id="cont_MzMwMDB8MXwzfDF8MXxGRkZGRkZ8NHxGRkZGRkZ8Y3wx">
+                <div id="spa_MzMwMDB8MXwzfDF8MXxGRkZGRkZ8NHxGRkZGRkZ8Y3wx">
+                    <a id="a_MzMwMDB8MXwzfDF8MXxGRkZGRkZ8NHxGRkZGRkZ8Y3wx" href="http://www.meteocity.com/france/paris_v75056/" target="_blank" style="color:#333;text-decoration:none;">
+                        Météo Paris</a> ©<a href="http://www.meteocity.com">meteocity.com<br>
+                    </a>
+                    <h4 class="widget-heading text-center" style="color: #222;">La météo de votre ville !</h4>
+                </div>
+                <script type="text/javascript" src="http://widget.meteocity.com/js/MzMwMDB8MXwzfDF8MXxGRkZGRkZ8NHxGRkZGRkZ8Y3wx"></script></div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="{{ path('coproprietaire_show_copropriete') }}" class="dashboard-widget">
+                        <div class="widget" style="box-shadow: 2px 2px #DDD">
+                            <div class="widget-image widget-image-xs" style="position:relative; background-color: #FFF;">
+                                <i class="fa fa-building fa-3x" style="height: 100%; position: absolute; top: 50%; left: 40%; z-index: 500; color: #08e02c;"></i>
+                                <div class="widget-image-content" style="background-color: #FFFFFF">
+                                    <h2 class="widget-heading text-light" style="text-align: center; color: #08e02c">Ma Copropriété</h2>
+                                </div>
+                            </div>
+                            <div class="widget-content" style="background-color: #FFFFFF">
+                                <div class="row text-center">
+                                    <div class="col-xs-12">
+                                        <h4 class="widget-heading" style="color: #222;">{{ app.session.get('copro').nom }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 text-center">
+            <!-- widget calendrier -->
+            <iframe class="center-block" src="http://winky.fr/winky_widget_calendar/?wid=0"
+                    style="width: 240px; height: 240px; border: none;">
+            </iframe>
+        </div>
+
+    </div>
+
+    <!-- Add postit Modal -->
+    <div id="modal-create-postit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Ajouter une note</h3>
+                </div>
+                <div class="modal-body">
+                    {{ render(controller('AKYOSPostitBundle:Postit:new')) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END postit Modal -->
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

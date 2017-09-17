@@ -1,0 +1,274 @@
+{% extends '@AKYOSBackoffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Résultats de recherche
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/search.css') }}">
+{% endblock %}
+
+{% block titre_page %}
+    Résultats de la recherche
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Tableau de bord</a></li>
+    <li class="active">Résultats de votre recherche</li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="row" style="background:#FFF; margin-bottom: 20px;">
+                <div class="col-md-12">
+                    <div id="recherche" class="remove-padding">
+                        <h4 class="inner-sidebar-header">Votre recherche : </h4>
+                        <div class="block-section">
+                            <strong>{{ recherche }}</strong>
+                        </div>
+
+                        <h4 class="inner-sidebar-header">Vos résultats : </h4>
+                        <div class="single category">
+                            <ul class="list-unstyled">
+                                <li><strong style="color: #1B6D85;">{{ documents|length }}</strong> document{% if documents|length > 1 %}s{% endif %}</li>
+                                <li><strong style="color: #1B6D85;">{{ lots|length }}</strong> lot{% if lots|length > 1 %}s{% endif %}</li>
+                                <li><strong style="color: #1B6D85;">{{ coproprietaires|length }}</strong> copropriétaire{% if coproprietaires|length > 1 %}s{% endif %}</li>
+                                <li><strong style="color: #1B6D85;">{{ locataires|length }}</strong> locataire{% if locataires|length > 1 %}s{% endif %}</li>
+                                <li><strong style="color: #1B6D85;">{{ artisans|length }}</strong> fournisseur{% if artisans|length > 1 %}s{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="block full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    <ul class="nav nav-tabs" data-toggle="tabs">
+                        <li class="active"><a href="#coownerships-files">Documents</a></li>
+                        <li><a href="#coownerships-lots">Lots</a></li>
+                        <li><a href="#coownerships-residents">Copropriétaires</a></li>
+                        <li><a href="#coownerships-locataires">Locataires</a></li>
+                        <li><a href="#coownerships-providers">Fournisseurs</a></li>
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+
+                <!-- Tabs Content -->
+                <div class="tab-content">
+
+                    <!-- Documents -->
+                    <div class="tab-pane active" id="coownerships-files">
+                        <div class="block-content-full animation-fadeInQuick2">
+                            {% if documents|length > 0 %}
+                                <div class="table-responsive">
+                                    <table id="files-datatable" class="table table-striped table-borderless style-hover table-vcenter">
+                                        <thead>
+                                        <tr style="background:#EDEDED;">
+                                            <th class="text-center" style="width: 25px; display:none">ID</th>
+                                            <th>Nom du fichier</th>
+                                            <th>Catégorie</th>
+                                            <th style="width: 25px; display:none">Auteur</th>
+                                            <th style="width: 80px;">Ajouté le</th>
+                                            <th class="text-center" style="width: 42px;"><i class="fa fa-flash"></i></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for document in documents %}
+                                        <tr>
+                                            <td class="text-center" style="display:none">{{ document.id }}</td>
+                                            <td style="padding-left:17px;">
+                                                <a href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.titre }}</strong></a>
+                                            </td>
+                                            <td>
+                                                <span class="label label-{{ document.categorie }}" style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span>
+                                            </td>
+                                            <th style="width: 25px; display:none"></th>
+                                            <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
+                                            <td class="text-center">
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <h4>Aucun résultat dans la catégorie 'Documents'.</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Lots -->
+                    <div class="tab-pane" id="coownerships-lots">
+                        <div class="block-content-full animation-fadeInQuick2">
+                            {% if lots|length > 0 %}
+                            <table class="table table-striped table-borderless table-vcenter remove-margin-bottom">
+                                <thead class="themed-background-muted-off">
+                                <tr style="background:#EDEDED;">
+                                    <th class="text-center" style="width: 45px; display:none">ID</th>
+                                    <th  class="text-center" style="width: 100px;">Numéro</th>
+                                    <th class="text-center" style="width: 100px;">Type du lot</th>
+                                    <th class="text-center" style="width: 100px;">Quote Part</th>
+                                    <th class="text-center" style="width: 100px;">Occupé</th>
+                                    <td colspan="10" style="padding:10px;">
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for lot in lots %}
+                                <tr class="animation-fadeInQuick2">
+                                    <td  class="text-center">
+                                        <i class="fa fa-fw fa-map-marker text-info"></i>{{ lot.identifiant }}
+                                    </td>
+                                    <td class="text-center">
+                                         {{ lot.type }}
+                                    </td>
+                                    <td class="text-center">
+                                       <span>{{ lot.quotePart }}</span>
+                                    </td>
+
+                                    <td class="text-center">
+                                        {% if lot.loueAct %}<i class="fa fa-fw fa-check text-info"></i>{% endif %}
+                                    </td>
+
+                                    <td class="text-center" style="width: 100px;">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                                <h4>Aucun résultat dans la catégorie 'Lots'.</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- END Lots -->
+
+                    <!-- Coproprietaires -->
+                    <div class="tab-pane" id="coownerships-residents">
+                        <div class="block-content-full animation-fadeInQuick2">
+                            {% if coproprietaires|length > 0 %}
+                            <table class="table table-striped table-borderless table-vcenter remove-margin-bottom">
+                                <thead class="themed-background-muted-off">
+                                    <tr>
+                                        <td colspan="10" style="padding:10px;">
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for coproprietaire in coproprietaires %}
+                                    <tr class="animation-fadeInQuick2">
+                                        <td class="text-center" style="width: 100px;">
+                                            <img src="{{ vich_uploader_asset(coproprietaire.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('syndic_show_coproprietaire', {'id': coproprietaire.id }) }}"><h4><strong>{{ coproprietaire.nom }}</strong> {{ coproprietaire.prenom }}</h4></a>
+                                                <span>{% if coproprietaire.membreConseil  %}
+                                                    <i class="fa fa-fw fa-bookmark"></i> Membre du Conseil
+                                                {% endif %}
+                                                </span>
+                                            <i class="fa fa-fw fa-envelope"></i> {{ coproprietaire.email }}  &nbsp; &nbsp;
+                                            <i class="fa fa-fw fa-phone"></i> {{ coproprietaire.telephone|telNumber }}  &nbsp; &nbsp;
+                                            <i class="fa fa-fw fa-map-marker text-info"></i>Lot N° {{ coproprietaire.lot.identifiant }} &nbsp; &nbsp;
+                                        </td>
+                                        <td class="text-center" style="width: 100px;">
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                                <h4>Aucun résultat dans la catégorie 'Copropriétaires'.</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- END Coproprietaires -->
+
+                    <!-- Locataires -->
+                    <div class="tab-pane" id="coownerships-locataires">
+                        <div class="block-content-full animation-fadeInQuick2">
+                            {% if locataires|length > 0 %}
+                            <table class="table table-striped table-borderless table-vcenter remove-margin-bottom">
+                                <thead class="themed-background-muted-off">
+                                <tr>
+                                    <td colspan="10" style="padding:10px;">
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for locataire in locataires %}
+                                    <tr class="animation-fadeInQuick2">
+                                        <td class="text-center" style="width: 100px;">
+                                            <img src="{{ vich_uploader_asset(locataire.user, 'imageFile') }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('syndic_show_locataire', {'id': locataire.id }) }}"><h4><strong>{{ locataire.nom }}</strong> {{ locataire.prenom }}</h4></a>
+                                            <i class="fa fa-fw fa-envelope"></i> {{ locataire.email }}  &nbsp; &nbsp;
+                                            <i class="fa fa-fw fa-phone"></i> {{ locataire.telephone|telNumber }}  &nbsp; &nbsp;
+                                            <i class="fa fa-fw fa-map-marker text-info"></i>Lot N° {{ locataire.lot.identifiant }} &nbsp; &nbsp;
+                                        </td>
+                                        <td class="text-center" style="width: 100px;">
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                            {% else %}
+                                <h4>Aucun résultat dans la catégorie 'Locataires'.</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- END Locataires -->
+
+                    <!-- Artisans -->
+                    <div class="tab-pane" id="coownerships-providers">
+                        <div class="block-content-full animation-fadeInQuick2">
+                            {% if artisans|length > 0 %}
+                            <table class="table table-striped table-borderless table-hover table-vcenter" style="margin-bottom:0">
+                                <thead class="themed-background-muted-off">
+                                    <tr>
+                                        <td colspan="10" style="padding:10px;">
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for artisan in artisans %}
+                                    <tr class="animation-fadeInQuick">
+                                        <td><strong><a href="{{ path('syndic_show_artisan', {'id': artisan.id}) }}">{{ artisan.raisonSociale }}</a></strong></td>
+                                        <td>{{ artisan.adressePrinc }} - {{ artisan.codePostal }} {{ artisan.ville }}</td>
+                                        <td>
+                                            <a href="javascript:void(0)" data-toggle="tooltip" title=""
+                                               class="btn btn-effect-ripple btn-xs btn-primary" style="overflow: hidden; position: relative;" data-original-title="{{ artisan.telephoneBureau|telNumber }}"><span class="badge"><i class="gi gi-earphone"></i></span></a>
+                                            <a href="javascript:void(0)" data-toggle="tooltip" title=""
+                                               class="btn btn-effect-ripple btn-xs btn-primary" style="overflow: hidden; position: relative;" data-original-title="{{ artisan.contactTelephone|telNumber }}"><span class="badge"><i class="gi gi-iphone"></i></span></a>
+                                        </td>
+                                        <td class="text-center" style="width: 100px;">
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% else %}
+                                <h4>Aucun résultat dans la catégorie 'Fournisseurs'.</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- END Providers -->
+
+                </div>
+                <!-- END Tabs Content -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+{% endblock %}

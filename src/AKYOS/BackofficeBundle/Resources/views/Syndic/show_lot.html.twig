@@ -1,0 +1,33 @@
+{% extends '@AKYOSBackoffice/Syndic/layout.html.twig' %}
+
+{% block title %}
+    Affichage d'un lot
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/css/syndic_dashboard.css') }}">
+{% endblock %}
+
+{% block titre_page %}
+    Affichage d'un lot
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('syndic_index') }}">Tableau de bord</a></li>
+    <li><a href="{{ path('syndic_list_lots') }}">Mes lots</a></li>
+    <li class="active">{{ lot.id }}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="table-bordered">
+        <ul>
+            <li>Type : {{ lot.type }}</li>
+            <li>Type : {{ lot.quotePart }}</li>
+            <li>Type : {{ lot.loueAct }}</li>
+            <li>{{ lot.copropriete.nom }}</li>
+        </ul>
+
+    <a href="{{ path('syndic_edit_lot', {'id':lot.id}) }}"><button type="button" class="btn ">Modifier</button></a>
+    <a href="{{ path('syndic_delete_lot', {'id':lot.id}) }}"><button type="button" class="btn ">Supprimer</button></a>
+    </div>
+{% endblock %}
