@@ -1,5 +1,12 @@
 <?php
-namespace AKYOS\BackofficeBundle\Entity;
+namespace AKYOS\DocumentBundle\Entity;
+
+use AKYOS\BackofficeBundle\Entity\Artisan;
+use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\BackofficeBundle\Entity\Copropriete;
+use AKYOS\BackofficeBundle\Entity\Lot;
+use AKYOS\BackofficeBundle\Entity\Syndic;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -8,7 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * Document
  *
  * @ORM\Table(name="document")
- * @ORM\Entity(repositoryClass="AKYOS\BackofficeBundle\Repository\DocumentRepository")
+ * @ORM\Entity(repositoryClass="AKYOS\DocumentBundle\Repository\DocumentRepository")
  * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks()
  */
@@ -59,19 +66,20 @@ class Document
      */
     private $toLocataires;
     /**
-     * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="AKYOS\BackofficeBundle\Entity\Syndic", inversedBy="documents")
      */
     private $syndic;
     /**
-     * @ORM\ManyToMany(targetEntity="Artisan", inversedBy="documents", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AKYOS\BackofficeBundle\Entity\Artisan", inversedBy="documents", cascade={"persist"})
      */
     private $artisans;
     /**
-     * @ORM\ManyToOne(targetEntity="Copropriete", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="AKYOS\BackofficeBundle\Entity\Copropriete", inversedBy="documents")
      */
     private $copropriete;
     /**
-     * @ORM\ManyToMany(targetEntity="Lot", inversedBy="documents", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AKYOS\BackofficeBundle\Entity\Lot", inversedBy="documents", cascade={"persist"})
+     * @var ArrayCollection $lots
      */
     private $lots;
     /**
@@ -95,10 +103,9 @@ class Document
      */
     public function __construct()
     {
-        $this->lots = new \Doctrine\Common\Collections\ArrayCollection();
-
+        $this->artisans = new ArrayCollection();
+        $this->lots = new ArrayCollection();
     }
-
     /**
      * Get id
      *
@@ -132,8 +139,6 @@ class Document
     /**
      * Set dateAjout
      *
-     * @param \DateTime $dateAjout
-     *
      * @return Document
      * @ORM\PrePersist
      */
@@ -142,7 +147,6 @@ class Document
         $this->dateAjout = new \DateTime();
         return $this;
     }
-
     /**
      * Get dateAjout
      *
@@ -152,7 +156,6 @@ class Document
     {
         return $this->dateAjout;
     }
-
     /**
      * Set dateModif
      *
@@ -196,7 +199,6 @@ class Document
     {
         return $this->syndic;
     }
-
     /**
      * Add lot
      *
@@ -252,6 +254,7 @@ class Document
     }
     /**
      * @param File|null $fichier
+     * @return Document
      */
     public function setFichier(File $fichier = null)
     {
@@ -272,6 +275,7 @@ class Document
     }
     /**
      * @param $nom
+     * @return Document
      */
     public function setNom($nom)
     {
@@ -287,6 +291,7 @@ class Document
     }
     /**
      * @param $titre
+     * @return Document
      */
     public function setTitre($titre)
     {
@@ -302,8 +307,6 @@ class Document
     }
     /**
      * Set extension
-     *
-     * @param string $extension
      *
      * @return Document
      * @ORM\PrePersist
@@ -344,7 +347,6 @@ class Document
     {
         return $this->copropriete;
     }
-
     /**
      * Set toLocataires
      *
@@ -358,7 +360,6 @@ class Document
 
         return $this;
     }
-
     /**
      * Get toLocataires
      *
@@ -368,7 +369,6 @@ class Document
     {
         return $this->toLocataires;
     }
-
     /**
      * Add artisan
      *
@@ -382,7 +382,6 @@ class Document
 
         return $this;
     }
-
     /**
      * Remove artisan
      *
@@ -392,7 +391,6 @@ class Document
     {
         $this->artisans->removeElement($artisan);
     }
-
     /**
      * Get artisans
      *

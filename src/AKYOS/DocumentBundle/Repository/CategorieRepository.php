@@ -1,6 +1,6 @@
 <?php
 
-namespace AKYOS\BackofficeBundle\Repository;
+namespace AKYOS\DocumentBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

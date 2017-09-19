@@ -1,0 +1,12 @@
+services:
+    form.type.create_document:
+        class: AKYOS\DocumentBundle\Form\CreateDocumentType
+        arguments: ['@service_container', '@session']
+        tags:
+            - { name: form.type }
+
+    form.type.edit_document:
+        class: AKYOS\DocumentBundle\Form\EditDocumentType
+        arguments: ['@service_container', '@session']
+        tags:
+            - { name: form.type }

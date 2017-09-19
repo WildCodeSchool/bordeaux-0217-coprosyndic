@@ -1,3 +1,7 @@
+akyos_document:
+    resource: "@AKYOSDocumentBundle/Resources/config/routing.yml"
+    prefix:   /
+
 akyos_frontoffice:
     resource: "@AKYOSFrontofficeBundle/Resources/config/routing.yml"
     prefix:   /

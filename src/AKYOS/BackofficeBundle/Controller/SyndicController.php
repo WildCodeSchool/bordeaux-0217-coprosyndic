@@ -2,27 +2,27 @@
 
 namespace AKYOS\BackofficeBundle\Controller;
 
-use AKYOS\BackofficeBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Categorie;
 use AKYOS\BackofficeBundle\Entity\Copropriete;
 use AKYOS\BackofficeBundle\Entity\Lot;
-use AKYOS\BackofficeBundle\Entity\Document;
+use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Artisan;
 use AKYOS\BackofficeBundle\Entity\Coproprietaire;
 use AKYOS\BackofficeBundle\Entity\Locataire;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\BackofficeBundle\Form\CreateArtisanType;
-use AKYOS\BackofficeBundle\Form\CreateCategorieType;
+use AKYOS\DocumentBundle\Form\CreateCategorieType;
 use AKYOS\BackofficeBundle\Form\CreateCoproprietaireType;
 use AKYOS\BackofficeBundle\Form\CreateCoproprieteType;
-use AKYOS\BackofficeBundle\Form\CreateDocumentType;
+use AKYOS\DocumentBundle\Form\CreateDocumentType;
 use AKYOS\BackofficeBundle\Form\CreateLocataireType;
 use AKYOS\BackofficeBundle\Form\CreateLotType;
 use AKYOS\BackofficeBundle\Form\EditLocataireType;
 use AKYOS\BackofficeBundle\Form\EditArtisanType;
-use AKYOS\BackofficeBundle\Form\EditCategorieType;
+use AKYOS\DocumentBundle\Form\EditCategorieType;
 use AKYOS\BackofficeBundle\Form\EditCoproprietaireType;
 use AKYOS\BackofficeBundle\Form\EditCoproprieteType;
-use AKYOS\BackofficeBundle\Form\EditDocumentType;
+use AKYOS\DocumentBundle\Form\EditDocumentType;
 use AKYOS\BackofficeBundle\Form\EditSyndicType;
 use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -767,7 +767,7 @@ class SyndicController extends Controller
             return $this->redirectToRoute('syndic_gestion_categories');
         }
 
-        return $this->render('AKYOSBackofficeBundle:BackOffice/Syndic:create_categorie.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Syndic:create_categorie.html.twig', array(
             'form_add_categorie' => $form->createView(),
         ));
     }
@@ -785,7 +785,7 @@ class SyndicController extends Controller
             return $this->redirectToRoute('syndic_gestion_categories');
         }
 
-        return $this->render('AKYOSBackofficeBundle:BackOffice/Syndic:edit_categorie.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Syndic:edit_categorie.html.twig', array(
             'form_edit_categorie' => $form->createView(),
             'categorieId'         => $categorie->getId(),
         ));

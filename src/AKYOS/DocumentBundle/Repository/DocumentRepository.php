@@ -1,8 +1,10 @@
 <?php
 
-namespace AKYOS\BackofficeBundle\Repository;
+namespace AKYOS\DocumentBundle\Repository;
 
-class DocumentRepository extends \Doctrine\ORM\EntityRepository
+use Doctrine\ORM\EntityRepository;
+
+class DocumentRepository extends EntityRepository
 {
     public function findCategoriesCountBySyndic($syndic) {
 

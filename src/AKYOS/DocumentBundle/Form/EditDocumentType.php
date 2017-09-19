@@ -1,8 +1,9 @@
 <?php
 
-namespace AKYOS\BackofficeBundle\Form;
+namespace AKYOS\DocumentBundle\Form;
 
-use AKYOS\BackofficeBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -13,7 +14,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use AKYOS\BackofficeBundle\Entity\Document;
 
 class EditDocumentType extends AbstractType
 {
@@ -44,7 +44,7 @@ class EditDocumentType extends AbstractType
             ))
             ->add('categorie', ChoiceType::class, array(
                 'choices' => $categories,
-                'choice_label' => function ($categorie) {
+                'choice_label' => function (Categorie $categorie) {
                     return $categorie->getNom();
                 },
                 'label' => 'Catégorie',

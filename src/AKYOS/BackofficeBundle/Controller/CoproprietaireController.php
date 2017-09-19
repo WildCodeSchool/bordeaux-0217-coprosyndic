@@ -2,7 +2,7 @@
 
 namespace AKYOS\BackofficeBundle\Controller;
 
-use AKYOS\BackofficeBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Categorie;
 use AKYOS\BackofficeBundle\Entity\Coproprietaire;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\BackofficeBundle\Form\EditCoproprietaireType;
@@ -12,7 +12,7 @@ use AKYOS\MailboxBundle\Entity\Mail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use AKYOS\BackofficeBundle\Entity\Document;
+use AKYOS\DocumentBundle\Entity\Document;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -96,29 +96,6 @@ class CoproprietaireController extends Controller
         return $this->render('@AKYOSBackoffice/Coproprietaire/parameters.html.twig');
     }
 
-    public function showDocumentAction(Document $document)
-    {
-        return $this->render('@AKYOSBackoffice/Coproprietaire/show_document.html.twig', array(
-            'document' => $document
-        ));
-    }
-
-    public function gestionDocumentsAction(Request $request)
-    {
-        $em             = $this->getDoctrine()->getManager();
-        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
-        $lot            = $coproprietaire->getLot();
-
-        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByLot($lot);
-        $allDocuments    = $em->getRepository(Document::class)->findLotDocumentsSortedByDate($lot);
-
-        return $this->render('@AKYOSBackoffice/Coproprietaire/gestion_documents.html.twig', array(
-            'categoriesCount' => $categoriesCount,
-            'documentsCount'  => count($allDocuments),
-            'documents'       => $allDocuments,
-        ));
-    }
-
     public function showCoproprieteAction(Request $request)
     {
         $em                 = $this->getDoctrine()->getManager();
@@ -164,7 +141,7 @@ class CoproprietaireController extends Controller
 
         $syndic = $em->getRepository(Syndic::class)->findSyndicByCoproprietaire($coproprietaire);
 
-        return $this->render('AKYOSBackofficeBundle:BackOffice/Coproprietaire:show_syndic.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Coproprietaire:show_syndic.html.twig', array(
             'syndic' => $syndic,
         ));
 
@@ -189,12 +166,35 @@ class CoproprietaireController extends Controller
             return $this->redirectToRoute('coproprietaire_show_syndic');
         }
 
-        return $this->render('AKYOSBackofficeBundle:BackOffice/Coproprietaire:edit_syndic.html.twig', array(
+        return $this->render('AKYOSBackofficeBundle:Coproprietaire:edit_syndic.html.twig', array(
             'syndic' => $syndic,
             'form'   => $form->createView(),
         ));
     }
 
+
+    public function showDocumentAction(Document $document)
+    {
+        return $this->render('@AKYOSBackoffice/Coproprietaire/show_document.html.twig', array(
+            'document' => $document
+        ));
+    }
+
+    public function gestionDocumentsAction(Request $request)
+    {
+        $em             = $this->getDoctrine()->getManager();
+        $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
+        $lot            = $coproprietaire->getLot();
+
+        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByLot($lot);
+        $allDocuments    = $em->getRepository(Document::class)->findLotDocumentsSortedByDate($lot);
+
+        return $this->render('@AKYOSBackoffice/Coproprietaire/gestion_documents.html.twig', array(
+            'categoriesCount' => $categoriesCount,
+            'documentsCount'  => count($allDocuments),
+            'documents'       => $allDocuments,
+        ));
+    }
 
     // ACTIONS REQUETES AJAX
     //----------------------

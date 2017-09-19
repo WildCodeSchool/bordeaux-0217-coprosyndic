@@ -2,6 +2,8 @@
 
 namespace AKYOS\BackofficeBundle\Entity;
 
+use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -125,7 +127,7 @@ class Syndic
     private $artisans;
 
     /**
-     * @ORM\OneToMany(targetEntity="Document", mappedBy="syndic")
+     * @ORM\OneToMany(targetEntity="AKYOS\DocumentBundle\Entity\Document", mappedBy="syndic")
      */
     private $documents;
 
@@ -135,7 +137,7 @@ class Syndic
     private $coproprietes;
 
     /**
-     * @ORM\OneToMany(targetEntity="Categorie", mappedBy="syndic")
+     * @ORM\OneToMany(targetEntity="AKYOS\DocumentBundle\Entity\Categorie", mappedBy="syndic")
      * @var ArrayCollection
      */
     private $categories;

@@ -2,6 +2,8 @@
 
 namespace AKYOS\BackofficeBundle\Entity;
 
+use AKYOS\DocumentBundle\Entity\Document;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,7 +64,7 @@ class Lot
     private $copropriete;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Document", mappedBy="lots", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AKYOS\DocumentBundle\Entity\Document", mappedBy="lots", cascade={"persist"})
      */
     private $documents;
 
@@ -187,9 +189,9 @@ class Lot
      */
     public function __construct()
     {
-        $this->documents = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->coproprietaires = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->locataires = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->coproprietaires = new ArrayCollection();
+        $this->locataires = new ArrayCollection();
     }
 
     /**

@@ -1,8 +1,9 @@
 <?php
 
-namespace AKYOS\BackofficeBundle\Form;
+namespace AKYOS\DocumentBundle\Form;
 
-use AKYOS\BackofficeBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Coproprietaire;
 use AKYOS\BackofficeBundle\Entity\Copropriete;
 use AKYOS\BackofficeBundle\Entity\Lot;
@@ -22,7 +23,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use AKYOS\BackofficeBundle\Entity\Document;
 
 class CreateDocumentType extends AbstractType
 {
@@ -32,49 +32,50 @@ class CreateDocumentType extends AbstractType
     public function __construct(ContainerInterface $container, SessionInterface $session)
     {
         $this->container = $container;
-        $this->session = $session;
+        $this->session   = $session;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $em = $this->container->get('doctrine')->getManager();
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
-        $categories = $em->getRepository(Categorie::class)->findCategorieBySyndic($syndic);
+        $em           = $this->container->get('doctrine')->getManager();
+        $user         = $this->container->get('security.token_storage')->getToken()->getUser();
+        /** @var Syndic $syndic */
+        $syndic       = $em->getRepository(Syndic::class)->findOneByUser($user);
+        $categories   = $em->getRepository(Categorie::class)->findCategorieBySyndic($syndic);
         $coproprietes = $syndic->getCoproprietes();
 
         $builder
-            ->add('titre', TextType::class,array(
-                'attr' => array('placeholder' => 'Saisissez le titre ...'),
+            ->add('titre', TextType::class, array(
+                'attr'  => array('placeholder' => 'Saisissez le titre ...'),
                 'label' => 'Titre du document'
             ))
             ->add('description', TextareaType::class, array(
-                'attr' => array('placeholder' => 'Saisissez la description ...'),
+                'attr'  => array('placeholder' => 'Saisissez la description ...'),
                 'label' => 'Description'
             ))
             ->add('fichier', FileType::class, array(
                 'label' => 'Fichier'
-                ))
+            ))
             ->add('categorie', ChoiceType::class, array(
-                'choices' => $categories,
-                'choice_label' => function ($categorie) {
-                        return $categorie->getNom();
+                'choices'      => $categories,
+                'choice_label' => function (Categorie $categorie) {
+                    return $categorie->getNom();
                 },
-                'label' => 'Catégorie',
+                'label'        => 'Catégorie',
             ))
             ->add('copropriete', ChoiceType::class, array(
-                'choices' => $coproprietes,
-                'choice_label' => function ($copropriete) {
-                        return $copropriete->getNom();
+                'choices'      => $coproprietes,
+                'choice_label' => function (Copropriete $copropriete) {
+                    return $copropriete->getNom();
                 },
-                'label' => 'Copropriété',
+                'label'        => 'Copropriété',
             ))
             ->add('toLocataires', CheckboxType::class, array(
-                'label' => 'Diffuser également aux locataires ?',
+                'label'      => 'Diffuser également aux locataires ?',
                 'label_attr' => array('class' => 'control-label', 'style' => 'margin-right: 15px;'),
-                'required' => false,
+                'required'   => false,
             ))
-            ->add('submit',SubmitType::class, array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Ajouter',
             ));
 
@@ -82,15 +83,16 @@ class CreateDocumentType extends AbstractType
             $lots = null === $copropriete ? array() : $copropriete->getLots();
 
             $form->add('lots', EntityType::class, array(
-                'class' => 'AKYOS\BackofficeBundle\Entity\Lot',
-                'choices' => $lots,
+                'class'        => 'AKYOS\BackofficeBundle\Entity\Lot',
+                'choices'      => $lots,
                 'choice_label' => function (Lot $lot) {
-                    $em = $this->container->get('doctrine')->getManager();
+                    $em             = $this->container->get('doctrine')->getManager();
+                    /** @var Coproprietaire $coproprietaire */
                     $coproprietaire = $em->getRepository(Coproprietaire::class)->findActuelCoproprietaire($lot);
-                    return null === $coproprietaire ? 'Aucun coproprietaire' : $coproprietaire->getPrenom().' '.$coproprietaire->getNom();
-                    },
-                'label' => 'Lots',
-                'multiple' => true,
+                    return null === $coproprietaire ? 'Aucun coproprietaire' : $coproprietaire->getPrenom() . ' ' . $coproprietaire->getNom();
+                },
+                'label'        => 'Lots',
+                'multiple'     => true,
             ));
         };
 
@@ -113,9 +115,7 @@ class CreateDocumentType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Document::class,
-        ));
+        $resolver->setDefaults(array('data_class' => Document::class,));
     }
 
 }

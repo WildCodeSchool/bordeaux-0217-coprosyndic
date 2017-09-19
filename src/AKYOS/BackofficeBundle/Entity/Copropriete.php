@@ -2,6 +2,8 @@
 
 namespace AKYOS\BackofficeBundle\Entity;
 
+use AKYOS\DocumentBundle\Entity\Document;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -161,12 +163,16 @@ class Copropriete
     private $syndic;
 
     /**
-     * @ORM\OneToMany(targetEntity="Document", mappedBy="copropriete")
+     * @ORM\OneToMany(targetEntity="AKYOS\DocumentBundle\Entity\Document", mappedBy="copropriete")
+     *
+     * @var ArrayCollection $documents
      */
     private $documents;
 
     /**
      * @ORM\OneToMany(targetEntity="Lot", mappedBy="copropriete")
+     *
+     * @var ArrayCollection $lots
      */
     private $lots;
 
@@ -174,6 +180,15 @@ class Copropriete
      * @ORM\OneToMany(targetEntity="Artisan", mappedBy="copropriete")
      */
     private $artisans;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->artisans = new ArrayCollection();
+        $this->lots = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -503,30 +518,6 @@ class Copropriete
     }
 
     /**
-     * Set nbLots
-     *
-     * @param integer $nbLots
-     *
-     * @return Copropriete
-     */
-    public function setNbLots($nbLots)
-    {
-        $this->nbLots = $nbLots;
-
-        return $this;
-    }
-
-    /**
-     * Get nbLots
-     *
-     * @return int
-     */
-    public function getNbLots()
-    {
-        return $this->nbLots;
-    }
-
-    /**
      * Set dateReglement
      *
      * @param \DateTime $dateReglement
@@ -597,22 +588,15 @@ class Copropriete
     {
         return $this->typeChauffage;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->lots = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set syndic
      *
-     * @param \AKYOS\BackofficeBundle\Entity\Syndic $syndic
+     * @param Syndic $syndic
      *
      * @return Copropriete
      */
-    public function setSyndic(\AKYOS\BackofficeBundle\Entity\Syndic $syndic = null)
+    public function setSyndic(Syndic $syndic = null)
     {
         $this->syndic = $syndic;
 
@@ -622,7 +606,7 @@ class Copropriete
     /**
      * Get syndic
      *
-     * @return \AKYOS\BackofficeBundle\Entity\Syndic
+     * @return Syndic
      */
     public function getSyndic()
     {
@@ -632,11 +616,11 @@ class Copropriete
     /**
      * Add lot
      *
-     * @param \AKYOS\BackofficeBundle\Entity\Lot $lot
+     * @param Lot $lot
      *
      * @return Copropriete
      */
-    public function addLot(\AKYOS\BackofficeBundle\Entity\Lot $lot)
+    public function addLot(Lot $lot)
     {
         $this->lots[] = $lot;
 
@@ -646,9 +630,9 @@ class Copropriete
     /**
      * Remove lot
      *
-     * @param \AKYOS\BackofficeBundle\Entity\Lot $lot
+     * @param Lot $lot
      */
-    public function removeLot(\AKYOS\BackofficeBundle\Entity\Lot $lot)
+    public function removeLot(Lot $lot)
     {
         $this->lots->removeElement($lot);
     }
@@ -666,11 +650,11 @@ class Copropriete
     /**
      * Add document
      *
-     * @param \AKYOS\BackofficeBundle\Entity\Document $document
+     * @param Document $document
      *
      * @return Copropriete
      */
-    public function addDocument(\AKYOS\BackofficeBundle\Entity\Document $document)
+    public function addDocument(Document $document)
     {
         $this->documents[] = $document;
 
@@ -680,9 +664,9 @@ class Copropriete
     /**
      * Remove document
      *
-     * @param \AKYOS\BackofficeBundle\Entity\Document $document
+     * @param Document $document
      */
-    public function removeDocument(\AKYOS\BackofficeBundle\Entity\Document $document)
+    public function removeDocument(Document $document)
     {
         $this->documents->removeElement($document);
     }
@@ -704,7 +688,7 @@ class Copropriete
      *
      * @return Copropriete
      */
-    public function addArtisan(\AKYOS\BackofficeBundle\Entity\Artisan $artisan)
+    public function addArtisan(Artisan $artisan)
     {
         $this->artisans[] = $artisan;
 
@@ -716,7 +700,7 @@ class Copropriete
      *
      * @param \AKYOS\BackofficeBundle\Entity\Artisan $artisan
      */
-    public function removeArtisan(\AKYOS\BackofficeBundle\Entity\Artisan $artisan)
+    public function removeArtisan(Artisan $artisan)
     {
         $this->artisans->removeElement($artisan);
     }
@@ -732,13 +716,7 @@ class Copropriete
     }
 
     /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $illustration
      *
      * @return Copropriete
      */
@@ -747,8 +725,6 @@ class Copropriete
         $this->illustrationFile = $illustration;
 
         if ($illustration) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();
         }
 
@@ -764,7 +740,7 @@ class Copropriete
     }
 
     /**
-     * @param string $imageName
+     * @param string $name
      *
      * @return Copropriete
      */

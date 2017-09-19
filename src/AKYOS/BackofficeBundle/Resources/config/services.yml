@@ -1,16 +1,4 @@
 services:
-    form.type.create_document:
-        class: AKYOS\BackofficeBundle\Form\CreateDocumentType
-        arguments: ['@service_container', '@session']
-        tags:
-            - { name: form.type }
-
-    form.type.edit_document:
-        class: AKYOS\BackofficeBundle\Form\EditDocumentType
-        arguments: ['@service_container', '@session']
-        tags:
-            - { name: form.type }
-
     akyos.twig.filters:
         class: AKYOS\BackofficeBundle\Service\TwigFilters
         arguments: ['@service_container']

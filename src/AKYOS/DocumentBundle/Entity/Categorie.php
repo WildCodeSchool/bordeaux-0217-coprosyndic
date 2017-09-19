@@ -1,14 +1,18 @@
 <?php
 
-namespace AKYOS\BackofficeBundle\Entity;
+namespace AKYOS\DocumentBundle\Entity;
 
+use AKYOS\BackofficeBundle\Entity\Artisan;
+use AKYOS\BackofficeBundle\Entity\Locataire;
+use AKYOS\BackofficeBundle\Entity\Syndic;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Categorie
  *
  * @ORM\Table(name="categorie")
- * @ORM\Entity(repositoryClass="AKYOS\BackofficeBundle\Repository\CategorieRepository")
+ * @ORM\Entity(repositoryClass="AKYOS\DocumentBundle\Repository\CategorieRepository")
  */
 class Categorie
 {
@@ -46,17 +50,17 @@ class Categorie
     private $documents;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Syndic", inversedBy="categories")
+     * @ORM\ManyToOne(targetEntity="AKYOS\BackofficeBundle\Entity\Syndic", inversedBy="categories")
      */
     private $syndic;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Artisan")
+     * @ORM\ManyToOne(targetEntity="AKYOS\BackofficeBundle\Entity\Artisan")
      */
     private $artisan;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Locataire")
+     * @ORM\ManyToOne(targetEntity="AKYOS\BackofficeBundle\Entity\Locataire")
      */
     private $locataire;
 
@@ -127,7 +131,7 @@ class Categorie
      */
     public function __construct()
     {
-        $this->documents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     /**

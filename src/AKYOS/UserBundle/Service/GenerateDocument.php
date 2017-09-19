@@ -2,8 +2,8 @@
 
 namespace AKYOS\UserBundle\Service;
 
-use AKYOS\BackofficeBundle\Entity\Categorie;
-use AKYOS\BackofficeBundle\Entity\Document;
+use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Lot;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\UserBundle\Entity\User;

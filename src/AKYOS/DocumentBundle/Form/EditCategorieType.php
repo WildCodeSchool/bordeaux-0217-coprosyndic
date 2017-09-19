@@ -1,7 +1,8 @@
 <?php
 
-namespace AKYOS\BackofficeBundle\Form;
+namespace AKYOS\DocumentBundle\Form;
 
+use AKYOS\DocumentBundle\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -38,7 +39,7 @@ class EditCategorieType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AKYOS\BackofficeBundle\Entity\Categorie'
+            'data_class' => Categorie::class
         ));
     }
 
@@ -47,7 +48,7 @@ class EditCategorieType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'akyos_BackofficeBundle_categorie_edit';
+        return 'akyos_document_categorie_edit';
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace AKYOS\BackofficeBundle\Entity;
 
+use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -132,7 +133,7 @@ class Artisan
     private $syndic;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Document", mappedBy="artisans", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AKYOS\DocumentBundle\Entity\Document", mappedBy="artisans", cascade={"persist"})
      */
     private $documents;
 
@@ -546,7 +547,7 @@ class Artisan
     /**
      * Add document
      *
-     * @param \AKYOS\BackofficeBundle\Entity\Document $document
+     * @param Document $document
      *
      * @return Artisan
      */
@@ -560,7 +561,7 @@ class Artisan
     /**
      * Remove document
      *
-     * @param \AKYOS\BackofficeBundle\Entity\Document $document
+     * @param Document $document
      */
     public function removeDocument(Document $document)
     {
@@ -580,7 +581,7 @@ class Artisan
     /**
      * Set copropriete
      *
-     * @param \AKYOS\BackofficeBundle\Entity\Copropriete $copropriete
+     * @param Copropriete $copropriete
      *
      * @return Artisan
      */
@@ -594,7 +595,7 @@ class Artisan
     /**
      * Get copropriete
      *
-     * @return \AKYOS\BackofficeBundle\Entity\Copropriete
+     * @return Copropriete
      */
     public function getCopropriete()
     {
