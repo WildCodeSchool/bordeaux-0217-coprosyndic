@@ -61,7 +61,7 @@
         <div class="col-sm-4">
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="{{ path('syndic_gestion_documents') }}" class="dashboard-widget">
+                    <a href="{{ path('document_index', {'type': app.user.type}) }}" class="dashboard-widget">
                         <div class="widget" style="box-shadow: 2px 2px #DDD">
                             <div class="widget-image widget-image-xs" style="position:relative; background-color: #FFF;">
                                 <i class="fa fa-folder fa-3x" style="height: 100%; position: absolute; top: 45%; left: 38%; z-index: 500; color: #4913dd;"></i>
