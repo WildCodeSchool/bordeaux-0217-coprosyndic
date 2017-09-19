@@ -19,16 +19,16 @@ class CreateCategorieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, array(
-                'label' => 'Nom',
+                'label' => 'category.new.name',
             ))
             ->add('description', TextareaType::class, array(
-                'label' => 'Description',
+                'label' => 'category.new.description',
             ))
             ->add('couleur', TextType::class, array(
-                'label' => 'Vignette',
+                'label' => 'category.new.color',
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Ajouter',
+                'label' => 'category.new.submit',
             ))
             ;
     }

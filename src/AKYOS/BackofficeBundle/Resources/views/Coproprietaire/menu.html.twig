@@ -24,7 +24,7 @@
                                 <i class="fa fa-ellipsis-h"></i>
                         </li>
                         <li>
-                                <a href="{{ path('coproprietaire_gestion_documents') }}"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
+                                <a href="{{ path('document_index', {'type': app.user.type}) }}"><i class="fa fa-folder sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mes Documents</span></a>
                         </li>
                         <li>
                                 <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}"><i class="fa fa-envelope sidebar-nav-icon"></i>

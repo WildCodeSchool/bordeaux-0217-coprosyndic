@@ -11,14 +11,14 @@
         <div class="col-md-12">
             <div class="col-md-7" style="margin-right:30px">
                 <div class="form-group">
-                    {{ form_row(form_edit_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'Saisissez le nom ...'}}) }}
+                    {{ form_row(form_edit_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'category.edit.placeholders.name'}}) }}
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     {{ form_label(form_edit_categorie.couleur) }}
                     <div class="input-group colorpicker-component">
-                        {{ form_widget(form_edit_categorie.couleur, {'attr':{'class': 'form-control', 'placeholder': 'Choisissez une couleur ...'}}) }}
+                        {{ form_widget(form_edit_categorie.couleur, {'attr':{'class': 'form-control', 'placeholder': 'category.edit.placeholders.color'}}) }}
                         <span class="input-group-addon"><i></i></span>
                     </div>
                     {{ form_errors(form_edit_categorie.couleur) }}
@@ -31,7 +31,7 @@
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="form-group">
-                    {{ form_row(form_edit_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'Entrez une description ...'}}) }}
+                    {{ form_row(form_edit_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'category.edit.placeholders.description'}}) }}
                 </div>
             </div>
         </div>

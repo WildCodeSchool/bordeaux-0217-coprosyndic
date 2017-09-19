@@ -3,14 +3,14 @@
 
 <div class="col-sm-12">
     <div class="form-group" style="margin-right: 5px">
-        {{ form_row(form_add_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'Saisissez le nom ...'}}) }}
+        {{ form_row(form_add_categorie.nom, {'attr':{'class': 'form-control', 'placeholder': 'category.new.placeholders.name'}}) }}
     </div>
 </div>
 <div class="col-sm-8    ">
     <div class="form-group">
         {{ form_label(form_add_categorie.couleur) }}
         <div class="input-group colorpicker-component">
-            {{ form_widget(form_add_categorie.couleur, {'attr':{'class': 'form-control', 'placeholder': 'Choisissez une couleur ...'}}) }}
+            {{ form_widget(form_add_categorie.couleur, {'attr':{'class': 'form-control', 'placeholder': 'category.new.placeholders.color'}}) }}
             <span class="input-group-addon"><i></i></span>
         </div>
         {{ form_errors(form_add_categorie.couleur) }}
@@ -19,7 +19,7 @@
 
 <div class="col-sm-12">
     <div class="form-group">
-        {{ form_row(form_add_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'Entrez une description ...'}}) }}
+        {{ form_row(form_add_categorie.description, {'attr':{'class': 'form-control', 'placeholder': 'category.new.placeholders.description'}}) }}
     </div>
 </div>
 

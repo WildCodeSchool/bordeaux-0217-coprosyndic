@@ -31,26 +31,26 @@ class EditDocumentType extends AbstractType
         $em = $this->container->get('doctrine')->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
-        $categories = $em->getRepository(Categorie::class)->findCategorieBySyndic($syndic);
+        $categories = $em->getRepository(Categorie::class)->findCategoriesBySyndic($syndic);
 
         $builder
             ->add('titre', TextType::class,array(
-                'attr' => array('placeholder' => 'Saisissez le titre ...'),
-                'label' => 'Titre du document'
+                'attr' => array('placeholder' => 'document.edit.placeholders.title'),
+                'label' => 'document.edit.title'
             ))
             ->add('description', TextareaType::class, array(
-                'attr' => array('placeholder' => 'Saisissez la description ...'),
-                'label' => 'Description'
+                'attr' => array('placeholder' => 'document.edit.placeholders.description'),
+                'label' => 'document.edit.description'
             ))
             ->add('categorie', ChoiceType::class, array(
                 'choices' => $categories,
                 'choice_label' => function (Categorie $categorie) {
                     return $categorie->getNom();
                 },
-                'label' => 'Catégorie',
+                'label' => 'document.edit.category',
             ))
             ->add('submit',SubmitType::class, array(
-                'label' => 'Modifier',
+                'label' => 'document.edit.submit',
             ));
     }
 

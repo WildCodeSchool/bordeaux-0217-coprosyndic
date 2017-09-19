@@ -1,0 +1,32 @@
+document_index:
+    path:     /{type}/documents
+    defaults: { _controller: AKYOSDocumentBundle:Document:index }
+    requirements:
+        type: admin|syndic|coproprietaire|locataire|artisan
+
+document_show:
+    path:     /{type}/documents/show/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Document:show }
+    requirements:
+        type: admin|syndic|coproprietaire|locataire|artisan
+        id: \d+
+
+document_create:
+    path:     /{type}/documents/create
+    defaults: { _controller: AKYOSDocumentBundle:Document:create }
+    requirements:
+        type: syndic
+
+document_edit:
+    path:     /{type}/documents/edit/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Document:edit }
+    requirements:
+        type: syndic
+        id: \d+
+
+document_delete:
+    path:     /{type}/documents/delete/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Document:delete }
+    requirements:
+        type: syndic
+        id: \d+

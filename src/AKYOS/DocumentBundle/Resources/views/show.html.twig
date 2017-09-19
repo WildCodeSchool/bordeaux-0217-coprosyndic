@@ -1,4 +1,5 @@
-{% extends '@AKYOSBackoffice/Syndic/layout.html.twig' %}
+{% extends '@AKYOSBackoffice/'~app.user.type|capitalize~'/layout.html.twig' %}
+{% set syndicAccount = (app.user.type == 'syndic') %}
 
 {% block title %}
     Affichage d'un document
@@ -12,8 +13,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Tableau de bord</a></li>
-    <li><a href="{{ path('syndic_gestion_documents') }}">Mes documents</a></li>
+    <li><a href="{{ path(app.user.type~'_index') }}">Tableau de bord</a></li>
+    <li><a href="{{ path('document_index', {'type': app.user.type}) }}">Mes documents</a></li>
     <li class="active">{{ document.titre }}</li>
 {% endblock %}
 
@@ -24,14 +25,17 @@
         <div class="col-md-3">
             <div class="row" style="background:#FFF; margin-bottom: 20px">
                 <div class="col-md-12">
-                    <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-informations">Informations</a>
+                    <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse"
+                       data-target="#todo-informations">Informations</a>
                     <div id="todo-informations" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Informations
-
-                            <span data-toggle="modal" data-target="#modal-fade-del-document">
+                            {% if syndicAccount %}
+                                <span data-toggle="modal" data-target="#modal-fade-del-document">
                             <a data-toggle="tooltip" data-placement="top" title="Supprimer le document"
-                               class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc pull-right" data-document="{{ document.id }}">
+                               class="btn btn-effect-ripple btn-xs btn-danger btn-delete-doc pull-right"
+                               data-document="{{ document.id }}">
                                 <i class="fa fa-times"></i></a></span>
+                            {% endif %}
 
                             <a href="{{ vich_uploader_asset(document, 'fichier') }}"
                                download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip"
@@ -39,17 +43,24 @@
                                class="btn btn-effect-ripple btn-xs btn-primary pull-right" style="margin-right: 4px">
                                 <i class="fa fa-download"></i></a>
 
-                            <span data-toggle="modal" data-target="#modal-fade-edit-document">
+                            {% if syndicAccount %}
+                                <span data-toggle="modal" data-target="#modal-fade-edit-document">
                             <a data-toggle="tooltip" data-placement="top" title="Modifier le document"
                                class="btn btn-effect-ripple btn-xs btn-success pull-right" style="margin-right: 4px">
                                 <i class="fa fa-edit"></i></a></span>
+                            {% endif %}
                         </h4>
                         <div class="block-section">
                             <h4 style="margin: 15px 0 8px 0"><strong>{{ document.titre }} </strong></h4>
-                                <p><span class="label pull-right" style="background-color: {{ document.categorie.couleur }}; font-size: small;">{{ document.categorie }}</span></p>
+                            <p><span class="label pull-right"
+                                     style="background-color: {{ document.categorie.couleur }}; font-size: small;">{{ document.categorie }}</span>
+                            </p>
                             <p style="margin-top: 35px">{{ document.description|nl2br }}
-                            <small  class="pull-right text-right"><br><em>ajouté le {{ document.dateAjout|date('d/m/Y') }}</em>
-                                {% if document.dateModif is not null %}<br><em>modifié le {{ document.dateModif|date('d/m/Y') }}</em>{% endif %}</small></p>
+                                <small class="pull-right text-right"><br><em>ajouté
+                                        le {{ document.dateAjout|date('d/m/Y') }}</em>
+                                    {% if document.dateModif is not null %}<br><em>modifié
+                                        le {{ document.dateModif|date('d/m/Y') }}</em>{% endif %}</small>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -61,7 +72,8 @@
                         <h4 class="inner-sidebar-header">Liste de diffusion</h4>
                         <div class="block-section">
 
-                            <h5><strong style="margin-right: 20px">Copropriété :</strong> {{ document.copropriete }}</h5>
+                            <h5><strong style="margin-right: 20px">Copropriété :</strong> {{ document.copropriete }}
+                            </h5>
                             <h5><strong>Copropriétaires :</strong></h5>
 
                             {% for lot in document.lots %}
@@ -95,39 +107,46 @@
 
     </div>
 
-    <div id="modal-fade-edit-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{ render(controller('AKYOSBackofficeBundle:Syndic:editDocument', {'id': document.id})) }}
+    {% if syndicAccount %}
+        <div id="modal-fade-edit-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    {{ render(controller('AKYOSDocumentBundle:Document:edit', {'id': document.id})) }}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="modal-fade-del-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>Voulez-vous vraiment supprimer ce document ?</p>
+        <div id="modal-fade-del-document" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Voulez-vous vraiment supprimer ce document ?</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <div class="form-group pull-right">
-                            <a href="" id="delete-doc" style="margin-right: 20px;"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
-                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                    <div class="modal-footer">
+                        <div class="col-md-12">
+                            <div class="form-group pull-right">
+                                <a href="" id="delete-doc" style="margin-right: 20px;">
+                                    <button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button>
+                                </a>
+                                <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">
+                                    Annuler
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block scripts %}

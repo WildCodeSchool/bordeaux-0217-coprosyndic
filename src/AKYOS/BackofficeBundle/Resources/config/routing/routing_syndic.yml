@@ -140,26 +140,6 @@ syndic_delete_lot:
 # ROUTE LIEES AUX DOCUMENTS
 #--------------------------
 
-syndic_gestion_documents:
-    path: /list/docs
-    defaults: { _controller: AKYOSBackofficeBundle:Syndic:gestionDocuments }
-
-syndic_create_document:
-    path: /create/doc
-    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:createDocument}
-
-syndic_edit_document:
-    path: /edit/doc/{id}
-    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:editDocument}
-
-syndic_show_document:
-    path: /show/doc/{id}
-    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:showDocument}
-
-syndic_delete_document:
-    path: /delete/doc/{id}
-    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:deleteDocument}
-
 syndic_list_categorie_documents:
     path: /list/docs/{categorieId}
     defaults: { _controller: AKYOSBackofficeBundle:Syndic:listCategorieDocuments }

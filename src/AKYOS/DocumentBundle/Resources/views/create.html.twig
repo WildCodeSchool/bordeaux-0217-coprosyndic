@@ -4,18 +4,18 @@
 </div>
 
 <div class="modal-body">
-    {{ form_start(form_document, {'attr': {'class': 'form-horizontal', 'action': path('syndic_create_document') }}) }}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'action': path('document_create', {'type': app.user.type}) }}) }}
 
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-7" style="margin-right:30px">
                 <div class="form-group">
-                    {{ form_row(form_document.titre, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.titre, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    {{ form_row(form_document.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
+                    {{ form_row(form.categorie, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="form-group">
-                    {{ form_row(form_document.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="form-group">
-                    {{ form_row(form_document.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                    {{ form_row(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
                     <div class="bootstrap-filestyle input-group">
                         <input type="text" id="filename-box" class="form-control" disabled="">
                         <span class="group-span-filestyle input-group-btn" tabindex="0">
@@ -50,13 +50,13 @@
         <div class="col-md-12">
             <div class="col-md-5" style="margin-right:30px">
                 <div class="form-group">
-                    {{ form_row(form_document.copropriete, {'attr': {'class':'select-select2 choix-copropriete', 'style':'width: 100%;'}}) }}
+                    {{ form_row(form.copropriete, {'attr': {'class':'select-select2 choix-copropriete', 'style':'width: 100%;'}}) }}
                 </div>
             </div>
             <input type="checkbox" id="checkbox-all" >Select All
             <div class="col-md-6">
                 <div class="form-group">
-                    {{ form_row(form_document.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
+                    {{ form_row(form.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
                 </div>
             </div>
         </div>
@@ -65,9 +65,9 @@
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="form-group">
-                    {{ form_label(form_document.toLocataires) }}
+                    {{ form_label(form.toLocataires) }}
                     <label class="switch switch-warning">
-                        {{ form_widget(form_document.toLocataires) }}<span></span>
+                        {{ form_widget(form.toLocataires) }}<span></span>
                     </label>
                 </div>
             </div>
@@ -78,11 +78,11 @@
 <div class="modal-footer">
     <div class="col-md-12">
         <div class="form-group pull-right">
-            {{ form_widget(form_document.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
         </div>
     </div>
 </div>
 
-{{ form_rest(form_document) }}
-{{ form_end(form_document) }}
+{{ form_rest(form) }}
+{{ form_end(form) }}
