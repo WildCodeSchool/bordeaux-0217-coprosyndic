@@ -41,7 +41,7 @@ class CreateDocumentType extends AbstractType
         $user         = $this->container->get('security.token_storage')->getToken()->getUser();
         /** @var Syndic $syndic */
         $syndic       = $em->getRepository(Syndic::class)->findOneByUser($user);
-        $categories   = $em->getRepository(Categorie::class)->findCategorieBySyndic($syndic);
+        $categories   = $em->getRepository(Categorie::class)->findCategoriesBySyndic($syndic);
         $coproprietes = $syndic->getCoproprietes();
 
         $builder

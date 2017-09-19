@@ -119,32 +119,4 @@ class ArtisanController extends Controller
         ));
     }
 
-    // ACTIONS LIEES AUX DOCUMENTS
-    //----------------------------
-
-    public function showDocumentAction(Document $document)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-        return $this->render('@AKYOSBackoffice/Artisan/show_document.html.twig', array(
-            'document' => $document,'artisan'=>$artisan
-        ));
-    }
-
-    public function gestionDocumentsAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
-
-        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCountByArtisan($artisan);
-        $allDocuments = $em->getRepository(Document::class)->findArtisanDocumentsSortedByDate($artisan);
-
-        return $this->render('@AKYOSBackoffice/Artisan/gestion_documents.html.twig', array(
-            'categoriesCount' => $categoriesCount,
-            'documentsCount' => count($allDocuments),
-            'documents' => $allDocuments,
-            'artisan' => $artisan
-        ));
-    }
-
 }

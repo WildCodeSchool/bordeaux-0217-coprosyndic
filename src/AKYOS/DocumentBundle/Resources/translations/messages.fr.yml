@@ -15,7 +15,7 @@ document:
         title: Titre
         description: Description
         category: Catégorie
-        submit: Ajouter
+        submit: Modifier
         placeholders:
             title: 'Saisissez le titre ...'
             description: 'Saisissez la description ...'

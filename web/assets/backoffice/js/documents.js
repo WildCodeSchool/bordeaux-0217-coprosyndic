@@ -99,7 +99,7 @@ $( document ).ready(function() {
     // Fonction pour supprimer un document
     $('.btn-delete-doc').on('click', function () {
         let documentId = $(this).data('document');
-        let url = "/syndic/delete/doc/" + documentId;
+        let url = "/syndic/documents/delete/" + documentId;
         $('#delete-doc').attr('href',url);
     });
 
