@@ -46,44 +46,44 @@ class CreateDocumentType extends AbstractType
 
         $builder
             ->add('titre', TextType::class, array(
-                'attr'  => array('placeholder' => 'Saisissez le titre ...'),
-                'label' => 'Titre du document'
+                'attr'  => array('placeholder' => 'document.new.placeholders.title'),
+                'label' => 'document.new.title'
             ))
             ->add('description', TextareaType::class, array(
-                'attr'  => array('placeholder' => 'Saisissez la description ...'),
-                'label' => 'Description'
+                'attr'  => array('placeholder' => 'document.new.placeholders.description'),
+                'label' => 'document.new.description'
             ))
             ->add('fichier', FileType::class, array(
-                'label' => 'Fichier'
+                'label' => 'document.new.file'
             ))
             ->add('categorie', ChoiceType::class, array(
                 'choices'      => $categories,
                 'choice_label' => function (Categorie $categorie) {
                     return $categorie->getNom();
                 },
-                'label'        => 'Catégorie',
+                'label'        => 'document.new.category',
             ))
             ->add('copropriete', ChoiceType::class, array(
                 'choices'      => $coproprietes,
                 'choice_label' => function (Copropriete $copropriete) {
                     return $copropriete->getNom();
                 },
-                'label'        => 'Copropriété',
+                'label'        => 'document.new.coownership',
             ))
             ->add('toLocataires', CheckboxType::class, array(
-                'label'      => 'Diffuser également aux locataires ?',
+                'label'      => 'document.new.toLocataires',
                 'label_attr' => array('class' => 'control-label', 'style' => 'margin-right: 15px;'),
                 'required'   => false,
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Ajouter',
+                'label' => 'document.new.submit',
             ));
 
         $formModifier = function (FormInterface $form, Copropriete $copropriete = null) {
             $lots = null === $copropriete ? array() : $copropriete->getLots();
 
             $form->add('lots', EntityType::class, array(
-                'class'        => 'AKYOS\BackofficeBundle\Entity\Lot',
+                'class'        => Lot::class,
                 'choices'      => $lots,
                 'choice_label' => function (Lot $lot) {
                     $em             = $this->container->get('doctrine')->getManager();
@@ -91,7 +91,7 @@ class CreateDocumentType extends AbstractType
                     $coproprietaire = $em->getRepository(Coproprietaire::class)->findActuelCoproprietaire($lot);
                     return null === $coproprietaire ? 'Aucun coproprietaire' : $coproprietaire->getPrenom() . ' ' . $coproprietaire->getNom();
                 },
-                'label'        => 'Lots',
+                'label'        => 'document.new.lots',
                 'multiple'     => true,
             ));
         };

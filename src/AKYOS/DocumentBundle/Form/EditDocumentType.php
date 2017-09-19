@@ -35,22 +35,22 @@ class EditDocumentType extends AbstractType
 
         $builder
             ->add('titre', TextType::class,array(
-                'attr' => array('placeholder' => 'Saisissez le titre ...'),
-                'label' => 'Titre du document'
+                'attr' => array('placeholder' => 'document.edit.placeholders.title'),
+                'label' => 'document.edit.title'
             ))
             ->add('description', TextareaType::class, array(
-                'attr' => array('placeholder' => 'Saisissez la description ...'),
-                'label' => 'Description'
+                'attr' => array('placeholder' => 'document.edit.placeholders.description'),
+                'label' => 'document.edit.description'
             ))
             ->add('categorie', ChoiceType::class, array(
                 'choices' => $categories,
                 'choice_label' => function (Categorie $categorie) {
                     return $categorie->getNom();
                 },
-                'label' => 'Catégorie',
+                'label' => 'document.edit.category',
             ))
             ->add('submit',SubmitType::class, array(
-                'label' => 'Modifier',
+                'label' => 'document.edit.submit',
             ));
     }
 

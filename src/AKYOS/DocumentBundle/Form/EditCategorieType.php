@@ -19,16 +19,16 @@ class EditCategorieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, array(
-                'label' => 'Nom',
+                'label' => 'category.edit.name',
             ))
             ->add('description', TextareaType::class, array(
-                'label' => 'Description',
+                'label' => 'category.edit.description',
             ))
             ->add('couleur', TextType::class, array(
-                'label' => 'Couleur de la vignette',
+                'label' => 'category.edit.color',
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Modifier',
+                'label' => 'category.edit.submit',
             ))
             ;
     }
