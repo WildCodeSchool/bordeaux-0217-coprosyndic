@@ -35,7 +35,7 @@
                     <div id="recherche" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Rechercher par catégorie
                             {% if syndicAccount %}
-                            <a href="{{ path('syndic_gestion_categories') }}" class="pull-right" data-toggle="tooltip" title="Gérer les catégories">
+                            <a href="{{ path('category_index', {'type': app.user.type}) }}" class="pull-right" data-toggle="tooltip" title="Gérer les catégories">
                                 <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
                             {% endif %}
                         </h4>
@@ -51,7 +51,7 @@
                                     <li>
                                         <a href="" class="categorie-link" data-categorie="{{ categorie.nom }}" data-compte="{{ app.user.type }}">
                                             <span class="badge pull-right">{{ categorie.nombre }}</span>
-                                            <strong>{{ categorie['nom'] }}</strong>
+                                            <strong>{{ categorie.nom }}</strong>
                                         </a>
                                     </li>
                                 {% endfor %}

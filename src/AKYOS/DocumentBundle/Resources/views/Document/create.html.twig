@@ -3,9 +3,9 @@
     <h3 class="modal-title"><strong>Ajouter un document</strong></h3>
 </div>
 
-<div class="modal-body">
-    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'action': path('document_create', {'type': app.user.type}) }}) }}
+{{ form_start(form, {'attr': {'class': 'form-horizontal', 'action': path('document_create', {'type': app.user.type}) }}) }}
 
+<div class="modal-body">
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-7" style="margin-right:30px">

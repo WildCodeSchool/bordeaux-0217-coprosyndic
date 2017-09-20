@@ -48,7 +48,7 @@ class CreateCategorieType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'akyos_document_categorie';
+        return 'akyos_categorie_create';
     }
 
 

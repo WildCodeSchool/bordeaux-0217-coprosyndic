@@ -144,27 +144,6 @@ syndic_list_categorie_documents:
     path: /list/docs/{categorieId}
     defaults: { _controller: AKYOSBackofficeBundle:Syndic:listCategorieDocuments }
 
-
-# ROUTE LIEES AUX CATEGORIES
-#--------------------------
-
-syndic_gestion_categories:
-    path: /list/categories
-    defaults: { _controller: AKYOSBackofficeBundle:Syndic:gestionCategories }
-
-syndic_create_categorie:
-    path: /create/categorie
-    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:createCategorie }
-
-syndic_edit_categorie:
-    path: /edit/categorie/{id}
-    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:editCategorie }
-
-syndic_delete_categorie:
-    path: /delete/categorie/{id}
-    defaults: {  _controller: AKYOSBackofficeBundle:Syndic:deleteCategorie }
-
-
 # ROUTE LIEES A LA RECHERCHE
 #---------------------------
 

@@ -21,15 +21,3 @@ artisan_show_copropriete:
 artisan_edit_copropriete:
     path: /edit/copropriete
     defaults: {  _controller: AKYOSBackofficeBundle:Artisan:editCopropriete}
-    
-    
-# ROUTE LIEES AUX DOCUMENTS
-#--------------------------
-
-artisan_gestion_documents:
-    path: /list/docs
-    defaults: { _controller: AKYOSBackofficeBundle:Artisan:gestionDocuments }
-
-artisan_show_document:
-    path: /show/doc/{id}
-    defaults: {  _controller: AKYOSBackofficeBundle:Artisan:showDocument}

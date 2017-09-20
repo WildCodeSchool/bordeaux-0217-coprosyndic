@@ -570,7 +570,6 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_list_coproprietes');
     }
 
-
     // ACTIONS LIEES AUX LOTS
     //-----------------------
 
@@ -643,79 +642,6 @@ class SyndicController extends Controller
         return $this->redirectToRoute('syndic_show_copropriete', array(
             'id' => $copropriete->getId(),
         ));
-    }
-
-
-    // ACTIONS LIEES AUX CATEGORIES
-    //-----------------------------
-
-    public function gestionCategoriesAction()
-    {
-        $em     = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        $categories = $em->getRepository(Categorie::class)->findBySyndic($syndic);
-
-        return $this->render('@AKYOSBackoffice/Syndic/gestion_categories.html.twig', array(
-            'categories' => $categories,
-        ));
-    }
-
-    public function createCategorieAction(Request $request)
-    {
-        $em     = $this->getDoctrine()->getManager();
-        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-
-        $categorie = new Categorie();
-        $form      = $this->createForm(CreateCategorieType::class, $categorie);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $categorie->setSyndic($syndic);
-            $em->persist($categorie);
-            $em->flush();
-
-            $this->addFlash('info', 'Une nouvelle catégorie a été créée avec succès.');
-            return $this->redirectToRoute('syndic_gestion_categories');
-        }
-
-        return $this->render('AKYOSBackofficeBundle:Syndic:create_categorie.html.twig', array(
-            'form_add_categorie' => $form->createView(),
-        ));
-    }
-
-    public function editCategorieAction(Request $request, Categorie $categorie)
-    {
-        $form = $this->createForm(EditCategorieType::class, $categorie);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-            $request->getSession()->getFlashBag()->add('info', 'Les modifications sur la catégorie ont bien été enregistrées.');
-
-            return $this->redirectToRoute('syndic_gestion_categories');
-        }
-
-        return $this->render('AKYOSBackofficeBundle:Syndic:edit_categorie.html.twig', array(
-            'form_edit_categorie' => $form->createView(),
-            'categorieId'         => $categorie->getId(),
-        ));
-    }
-
-    public function deleteCategorieAction(Request $request, Categorie $categorie)
-    {
-        if ($categorie !== null) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($categorie);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('info', 'La catégorie a bien été supprimée.');
-            return $this->redirectToRoute('syndic_gestion_categories');
-        }
-        $request->getSession()->getFlashBag()->add('info', 'La catégorie n\'existe pas.');
-
-        return $this->redirectToRoute('syndic_gestion_categories');
     }
 
     // ACTIONS LIEES A LA RECHERCHE

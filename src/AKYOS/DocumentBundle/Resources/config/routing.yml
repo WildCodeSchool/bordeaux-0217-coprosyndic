@@ -30,3 +30,29 @@ document_delete:
     requirements:
         type: syndic
         id: \d+
+
+category_index:
+    path:     /{type}/categories
+    defaults: { _controller: AKYOSDocumentBundle:Category:index }
+    requirements:
+        type: syndic
+
+category_create:
+    path:     /{type}/categories/create
+    defaults: { _controller: AKYOSDocumentBundle:Category:create }
+    requirements:
+        type: syndic
+
+category_edit:
+    path:     /{type}/categories/edit/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Category:edit }
+    requirements:
+        type: syndic
+        id: \d+
+
+category_delete:
+    path:     /{type}/categories/delete/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Category:delete }
+    requirements:
+        type: syndic
+        id: \d+

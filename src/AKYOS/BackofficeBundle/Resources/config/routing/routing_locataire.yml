@@ -21,18 +21,3 @@ locataire_show_copropriete:
 locataire_edit_copropriete:
     path: /edit/copropriete
     defaults: {  _controller: AKYOSBackofficeBundle:Locataire:editCopropriete}
-
-# ROUTE LIEES AUX DOCUMENTS
-#--------------------------
-
-locataire_gestion_documents:
-    path: /list/docs
-    defaults: { _controller: AKYOSBackofficeBundle:Locataire:gestionDocuments }
-
-locataire_show_document:
-    path: /show/doc/{id}
-    defaults: {  _controller: AKYOSBackofficeBundle:Locataire:showDocument}
-
-locataire_list_categorie_documents:
-    path: /list/docs/{categorieId}
-    defaults: { _controller: AKYOSBackofficeBundle:Locataire:listCategorieDocuments }

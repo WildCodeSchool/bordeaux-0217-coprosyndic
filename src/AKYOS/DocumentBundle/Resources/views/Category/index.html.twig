@@ -1,4 +1,4 @@
-{% extends '@AKYOSBackoffice/Syndic/layout.html.twig' %}
+{% extends '@AKYOSBackoffice/'~app.user.type|capitalize~'/layout.html.twig' %}
 
 {% block title %}
     Gestion des catégories
@@ -13,8 +13,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{{ path('syndic_index') }}">Tableau de bord</a></li>
-    <li><a href="{{ path('syndic_gestion_documents') }}">Mes documents</a></li>
+    <li><a href="{{ path(app.user.type~'_index') }}">Tableau de bord</a></li>
+    <li><a href="{{ path('document_index', {'type': app.user.type}) }}">Mes documents</a></li>
     <li class="active">Mes catégories</li>
 {% endblock %}
 
@@ -31,7 +31,7 @@
                         <h4 class="inner-sidebar-header">Ajouter une catégorie</h4>
                         <div class="block-section">
                             <div class="animation-fadeInQuick2">
-                                {{ render(controller('AKYOSBackofficeBundle:Syndic:createCategorie')) }}
+                                {{ render(controller('AKYOSDocumentBundle:Category:create')) }}
                             </div>
                         </div>
                     </div>
@@ -59,11 +59,13 @@
                                 <td class="text-center" style="display:none">{{ categorie.id }}</td>
                                 <td style="padding-left:17px;">{{ categorie.nom }}</td>
                                 <td style="padding-left:17px;">{{ categorie.description }}</td>
-                                <td><span class="label" style="background-color: {{ categorie.couleur }}">Vignette</span>
+                                <td><span class="label"
+                                          style="background-color: {{ categorie.couleur }}">Vignette</span>
                                 </td>
                                 <td class="text-center">
 
-                                    <a data-categorie="{{ categorie.id }}" data-toggle="tooltip" data-placement="top" title="Modifier"
+                                    <a data-categorie="{{ categorie.id }}" data-toggle="tooltip" data-placement="top"
+                                       title="Modifier"
                                        class="btn btn-effect-ripple btn-xs btn-success btn-edit-categorie">
                                         <i class="fa fa-edit"></i></a>
 
@@ -94,7 +96,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <p><strong>Attention !</strong> La suppression d'une catégorie entraîne la suppression de tous les documents associés.</p>
+                            <p><strong>Attention !</strong> La suppression d'une catégorie entraîne la suppression de
+                                tous les documents associés.</p>
                             <p>Voulez-vous vraiment supprimer cette catégorie ?</p>
                         </div>
                     </div>
@@ -102,8 +105,12 @@
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="form-group pull-right">
-                            <a href="" id="delete-categorie" style="margin-right: 20px;"><button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button></a>
-                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Annuler</button>
+                            <a href="" id="delete-categorie" style="margin-right: 20px;">
+                                <button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button>
+                            </a>
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">
+                                Annuler
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -126,7 +133,7 @@
     <script src="{{ asset('assets/backoffice/js/documents.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
     <script>
-        $(function() {
+        $(function () {
             $('.colorpicker-component').colorpicker();
         });
     </script>

@@ -20,7 +20,7 @@ class DocumentController extends Controller
 
         $request->getSession()->set('copro', null);
 
-        return $this->render('AKYOSDocumentBundle::index.html.twig', array(
+        return $this->render('AKYOSDocumentBundle:Document:index.html.twig', array(
             'categoriesCount' => $categoriesCount,
             'documents'       => $allDocuments,
         ));
@@ -46,14 +46,14 @@ class DocumentController extends Controller
             ));
         }
 
-        return $this->render('AKYOSDocumentBundle::create.html.twig', array(
+        return $this->render('AKYOSDocumentBundle:Document:create.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
     public function showAction(Document $document)
     {
-        return $this->render('AKYOSDocumentBundle::show.html.twig', array(
+        return $this->render('AKYOSDocumentBundle:Document:show.html.twig', array(
             'document' => $document
         ));
     }
@@ -75,13 +75,13 @@ class DocumentController extends Controller
             ));
         }
 
-        return $this->render('AKYOSDocumentBundle::edit.html.twig', array(
+        return $this->render('AKYOSDocumentBundle:Document:edit.html.twig', array(
             'form'       => $form->createView(),
             'documentId' => $document->getId(),
         ));
     }
 
-    public function deleteAction(Request $request, Document $document)
+    public function deleteAction(Document $document)
     {
         if ($document !== null) {
             $em = $this->getDoctrine()->getManager();

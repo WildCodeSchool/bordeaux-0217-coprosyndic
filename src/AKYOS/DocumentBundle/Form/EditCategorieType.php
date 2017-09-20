@@ -48,7 +48,7 @@ class EditCategorieType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'akyos_document_categorie_edit';
+        return 'akyos_categorie_edit';
     }
 
 
