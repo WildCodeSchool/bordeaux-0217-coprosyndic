@@ -11,13 +11,12 @@ use Doctrine\ORM\EntityRepository;
 
 class CategorieRepository extends EntityRepository
 {
-
     public function findCategoriesCount(User $user)
     {
         $qb = $this->createQueryBuilder('c')
-                   ->select('c.nom', 'COUNT(d.nom) AS nombre')
+                   ->select('c.id', 'c.nom', 'COUNT(d.nom) AS nombre')
                    ->leftJoin('c.documents', 'd')
-                   ->groupBy('c.nom');
+                   ->groupBy('c.id', 'c.nom');
 
         $em          = $this->getEntityManager();
         $accountType = $user->getType();
@@ -56,12 +55,13 @@ class CategorieRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function findCategoriesBySyndic($syndic)
+    public function findArrayCategorie($categorieId)
     {
+        if ($categorieId !== 'all')
         $qb = $this->createQueryBuilder('c')
-                   ->where('c.syndic = :syndic')
-                   ->setParameter('syndic', $syndic);
+                   ->where('c.id = :categorieId')
+                   ->setParameter('categorieId', $categorieId);
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getSingleResult(2);
     }
 }

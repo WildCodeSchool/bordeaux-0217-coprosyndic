@@ -671,34 +671,4 @@ class SyndicController extends Controller
         ));
 
     }
-
-    // ACTIONS REQUETES AJAX
-    //----------------------
-
-    public function listCategorieDocumentsAction(Request $request, $categorieId)
-    {
-
-        if ($request->isXmlHttpRequest()) {
-            $em     = $this->getDoctrine()->getManager();
-            $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
-            if ($categorieId == 'all') {
-                $documents = $em->getRepository(Document::class)->findAllDocumentsBySyndic($syndic);
-            } else {
-                $categorie = $em->getRepository(Categorie::class)->find($categorieId);
-                $documents = $em->getRepository(Document::class)->findDocumentsByCategorie($categorie);
-            }
-            $encoder    = new JsonEncoder();
-            $normalizer = new ObjectNormalizer();
-
-            $serializer = new Serializer(array($normalizer), array($encoder));
-
-            $jsonDocuments = $serializer->serialize($documents, 'json');
-
-            return new JsonResponse(array(
-                                        'data' => $jsonDocuments
-                                    ));
-        }
-        throw new HttpException('501', 'Invalid Call');
-    }
-
 }

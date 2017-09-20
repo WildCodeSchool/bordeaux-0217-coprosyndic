@@ -137,13 +137,6 @@ syndic_delete_lot:
     defaults: { _controller: AKYOSBackofficeBundle:Syndic:deleteLot }
 
 
-# ROUTE LIEES AUX DOCUMENTS
-#--------------------------
-
-syndic_list_categorie_documents:
-    path: /list/docs/{categorieId}
-    defaults: { _controller: AKYOSBackofficeBundle:Syndic:listCategorieDocuments }
-
 # ROUTE LIEES A LA RECHERCHE
 #---------------------------
 

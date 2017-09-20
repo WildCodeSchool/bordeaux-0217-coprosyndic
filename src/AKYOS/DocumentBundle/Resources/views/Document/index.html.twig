@@ -49,7 +49,7 @@
                                 </li>
                                 {% for categorie in categoriesCount %}
                                     <li>
-                                        <a href="" class="categorie-link" data-categorie="{{ categorie.nom }}" data-compte="{{ app.user.type }}">
+                                        <a href="" class="categorie-link" data-categorie="{{ categorie.id }}" data-compte="{{ app.user.type }}">
                                             <span class="badge pull-right">{{ categorie.nombre }}</span>
                                             <strong>{{ categorie.nom }}</strong>
                                         </a>

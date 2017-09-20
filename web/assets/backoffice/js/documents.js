@@ -28,19 +28,20 @@ $( document ).ready(function() {
         let typeCompte = this.dataset.compte;
         let loader = startLoader($('#page-content'));
         $.ajax({
-            url: "/"+typeCompte+"/list/docs/"+categorie,
+            url: "/"+typeCompte+"/documents/categories/"+categorie,
             method: 'POST',
             dataType: 'json',
             success: function (response) {
-                let documents = JSON.parse(response.data);
+                let documents = JSON.parse(response.documents);
                 let html = '';
                 stopLoader(loader);
-                for (let i = 0; i < documents.length; i++) {
+                console.log(documents);
+                for (let document of documents) {
                     html += '<tr>' +
-                        '<td class="text-center" style="display:none">' + documents[i].doc_id + '</td>' +
-                        '<td style="padding-left:17px;"><a href="/'+typeCompte+'/show/doc/' + documents[i].doc_id + '"><strong style="cursor: pointer !important;">' + documents[i].doc_titre + '</strong></a></td>' +
-                        '<td><span class="label label-' + documents[i].cat_nom + '" style="background-color:' + documents[i].couleur + '">' + documents[i].cat_nom + '</span></td>' +
-                        '<td class="text-center">' + getFormattedDate(documents[i].dateAjout.timestamp) + '</td>' +
+                        '<td class="text-center" style="display:none">' + document.id + '</td>' +
+                        '<td style="padding-left:17px;"><a href="/'+typeCompte+'/documents/show/' + document.id + '"><strong style="cursor: pointer !important;">' + document.titre + '</strong></a></td>' +
+                        '<td><span class="label label-' + document.categorie.nom + '" style="background-color:' + document.categorie.couleur + '">' + document.categorie.nom + '</span></td>' +
+                        '<td class="text-center">' + getFormattedDate(document.dateAjout.date) + '</td>' +
                         '<td class="text-center">' +
                         '<a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">' +
                         '<i class="fa fa-download"></i></a>' + ' ' +
@@ -58,13 +59,13 @@ $( document ).ready(function() {
     // --> Ajout 'placeholder' pour listes déroulantes
     let $copropriete = $('#create_document_copropriete');
     $("#create_document_categorie").select2("destroy").prepend('<option></option>').select2({
-        placeholder: "Sélectionnez une catégorie ...",
+        placeholder: "Sélectionnez une catégorie ..."
     }).val('').trigger('change');
     $copropriete.select2("destroy").prepend('<option></option>').select2({
-        placeholder: "Sélectionnez une copropriété ...",
+        placeholder: "Sélectionnez une copropriété ..."
     }).val('').trigger('change');
     $("#create_document_lots").select2({
-        placeholder: "Sélectionnez le(s) lot(s) ...",
+        placeholder: "Sélectionnez le(s) lot(s) ..."
     });
     // --> Mise à jour
     $copropriete.change(function() {
@@ -73,7 +74,7 @@ $( document ).ready(function() {
         data[$copropriete.attr('name')] = $copropriete.val();
         let loader = startLoader($('.modal-content'));
         $.ajax({
-            url : "/syndic/create/doc",
+            url : "/syndic/documents/create",
             type: $form.attr('method'),
             data : data,
             success: function(html) {
@@ -106,7 +107,7 @@ $( document ).ready(function() {
     // Fonction pour supprimer une categorie
     $('.btn-delete-categorie').on('click', function () {
         let categorieId = $(this).data('categorie');
-        let url = "/syndic/delete/categorie/" + categorieId;
+        let url = "/syndic/categories/delete/" + categorieId;
         $('#delete-categorie').attr('href',url);
     });
 
@@ -115,7 +116,7 @@ $( document ).ready(function() {
         let categorieId = $(this).data('categorie');
         let loader = startLoader($('#page-content'));
         $.ajax({
-            url : "/syndic/edit/categorie/" + categorieId,
+            url : "/syndic/categories/edit/" + categorieId,
             method: 'post',
             success: function(html) {
                 stopLoader(loader);
@@ -130,8 +131,8 @@ $( document ).ready(function() {
 });
 
 // Fonction de formattage des dates des fichiers
-function getFormattedDate(timestamp) {
-    let date = new Date(timestamp * 1000);
+function getFormattedDate(fullDate) {
+    let date = new Date(fullDate);
 
     let day = date.getDate();
     day = day < 10 ? "0"+day : day;

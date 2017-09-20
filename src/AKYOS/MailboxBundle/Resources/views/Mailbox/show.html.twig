@@ -64,7 +64,6 @@
             <!-- END Attachments Row -->
 
             <!-- Quick Reply Form -->
-            {#TODO : adapter formulaire de réponse#}
             {% if sender is defined %}
                 {{ render(controller('AKYOSMailboxBundle:Mailbox:reply', {'id': mail.id})) }}
             {% endif %}

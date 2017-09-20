@@ -31,7 +31,7 @@ class EditDocumentType extends AbstractType
         $em = $this->container->get('doctrine')->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
-        $categories = $em->getRepository(Categorie::class)->findCategoriesBySyndic($syndic);
+        $categories = $em->getRepository(Categorie::class)->findBySyndic($syndic);
 
         $builder
             ->add('titre', TextType::class,array(

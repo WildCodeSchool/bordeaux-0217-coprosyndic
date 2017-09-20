@@ -56,3 +56,10 @@ category_delete:
     requirements:
         type: syndic
         id: \d+
+
+documents_by_category:
+    path: /{type}/documents/categories/{categorieId}
+    defaults: { _controller: AKYOSDocumentBundle:Category:getDocumentsByCategory }
+    requirements:
+        type: admin|syndic|coproprietaire|locataire|artisan
+        id: \d+
