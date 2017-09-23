@@ -13,4 +13,6 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
-/web/uploads/
+/web/uploads/avatar
+/web/uploads/copropriete
+/web/uploads/document
