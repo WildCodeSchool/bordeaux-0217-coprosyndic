@@ -13,6 +13,14 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
-/web/uploads/avatar
-/web/uploads/copropriete
-/web/uploads/document
+/web/uploads/*
+!/web/uploads/avatar
+/web/uploads/avatar/*
+!web/uploads/avatar/.gitkeep
+!web/uploads/copropriete
+/web/uploads/copropriete/*
+!web/uploads/copropriete/.gitkeep
+!/web/uploads/document
+/web/uploads/document/*
+!web/uploads/document/.gitkeep
+
