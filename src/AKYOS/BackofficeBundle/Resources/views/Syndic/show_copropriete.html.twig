@@ -97,7 +97,7 @@
                                             <a href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.titre }}</strong></a>
                                         </td>
                                         <td>
-                                            <span class="label label-{{ document.categorie }}" style="background-color: {{ document.categorie.couleur }}">{{ document.categorie }}</span>
+                                            <span class="label label-{{ document.category }}" style="background-color: {{ document.category.couleur }}">{{ document.category }}</span>
                                         </td>
                                         <th style="width: 25px; display:none"></th>
                                         <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>

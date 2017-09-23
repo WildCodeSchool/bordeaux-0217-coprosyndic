@@ -2,7 +2,7 @@
 
 namespace AKYOS\UserBundle\Service;
 
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Lot;
 use AKYOS\BackofficeBundle\Entity\Syndic;
@@ -48,7 +48,7 @@ class GenerateDocument
         //pour les test
         $mylot = $em->getRepository(Lot::class)
             ->find(540);
-        $categorie = $em->getRepository(Categorie::class)
+        $categorie = $em->getRepository(Category::class)
             ->find(1);
 
 

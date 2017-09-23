@@ -2,7 +2,7 @@
 
 namespace AKYOS\BackofficeBundle\Controller;
 
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Artisan;
 use AKYOS\BackofficeBundle\Form\EditCoproprieteType;

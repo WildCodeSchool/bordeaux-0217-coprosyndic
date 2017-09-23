@@ -3,7 +3,7 @@
 namespace AKYOS\DocumentBundle\Controller;
 
 use AKYOS\BackofficeBundle\Entity\Syndic;
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\DocumentBundle\Form\CreateDocumentType;
 use AKYOS\DocumentBundle\Form\EditDocumentType;
@@ -15,7 +15,7 @@ class DocumentController extends Controller
     public function indexAction(Request $request)
     {
         $em              = $this->getDoctrine()->getManager();
-        $categoriesCount = $em->getRepository(Categorie::class)->countByCategorieByUser($this->getUser());
+        $categoriesCount = $em->getRepository(Category::class)->countByCategorieByUser($this->getUser());
         $documents       = $em->getRepository(Document::class)->findAllByUser($this->getUser());
 
         $request->getSession()->set('copro', null);

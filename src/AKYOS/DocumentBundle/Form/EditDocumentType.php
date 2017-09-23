@@ -2,7 +2,7 @@
 
 namespace AKYOS\DocumentBundle\Form;
 
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,7 +31,7 @@ class EditDocumentType extends AbstractType
         $em = $this->container->get('doctrine')->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
-        $categories = $em->getRepository(Categorie::class)->findBySyndic($syndic);
+        $categories = $em->getRepository(Category::class)->findBySyndic($syndic);
 
         $builder
             ->add('titre', TextType::class,array(
@@ -42,9 +42,9 @@ class EditDocumentType extends AbstractType
                 'attr' => array('placeholder' => 'document.edit.placeholders.description'),
                 'label' => 'document.edit.description'
             ))
-            ->add('categorie', ChoiceType::class, array(
+            ->add('category', ChoiceType::class, array(
                 'choices' => $categories,
-                'choice_label' => function (Categorie $categorie) {
+                'choice_label' => function (Category $categorie) {
                     return $categorie->getNom();
                 },
                 'label' => 'document.edit.category',

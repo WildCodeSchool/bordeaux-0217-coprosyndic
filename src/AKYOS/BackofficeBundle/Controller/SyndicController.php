@@ -2,7 +2,7 @@
 
 namespace AKYOS\BackofficeBundle\Controller;
 
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\BackofficeBundle\Entity\Copropriete;
 use AKYOS\BackofficeBundle\Entity\Lot;
 use AKYOS\DocumentBundle\Entity\Document;

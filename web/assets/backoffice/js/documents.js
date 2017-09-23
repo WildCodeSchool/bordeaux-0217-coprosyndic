@@ -17,18 +17,18 @@ $( document ).ready(function() {
     });
 
     // Fonction pour récupérer les documents en fonction de la catégorie
-    $('.categorie-link').on('click', function (e) {
+    $('.category-link').on('click', function (e) {
         e.preventDefault();
 
         let $activeCat = $(this).parent().siblings('.active');
         $activeCat.removeClass('active');
         $(this).parent().addClass('active');
 
-        let categorie = this.dataset.categorie;
+        let category = this.dataset.category;
         let typeCompte = this.dataset.compte;
         let loader = startLoader($('#page-content'));
         $.ajax({
-            url: "/"+typeCompte+"/documents/categories/"+categorie,
+            url: "/"+typeCompte+"/documents/categories/"+category,
             method: 'POST',
             dataType: 'json',
             success: function (response) {
@@ -40,7 +40,7 @@ $( document ).ready(function() {
                     html += '<tr>' +
                         '<td class="text-center" style="display:none">' + document.id + '</td>' +
                         '<td style="padding-left:17px;"><a href="/'+typeCompte+'/documents/show/' + document.id + '"><strong style="cursor: pointer !important;">' + document.titre + '</strong></a></td>' +
-                        '<td><span class="label label-' + document.categorie.nom + '" style="background-color:' + document.categorie.couleur + '">' + document.categorie.nom + '</span></td>' +
+                        '<td><span class="label label-' + document.category.nom + '" style="background-color:' + document.category.couleur + '">' + document.category.nom + '</span></td>' +
                         '<td class="text-center">' + getFormattedDate(document.dateAjout.date) + '</td>' +
                         '<td class="text-center">' +
                         '<a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">' +
@@ -105,16 +105,16 @@ $( document ).ready(function() {
         $('#delete-doc').attr('href',url);
     });
 
-    // Fonction pour supprimer une categorie
-    $('.btn-delete-categorie').on('click', function () {
-        let categorieId = $(this).data('categorie');
+    // Fonction pour supprimer une category
+    $('.btn-delete-category').on('click', function () {
+        let categorieId = $(this).data('category');
         let url = "/syndic/categories/delete/" + categorieId;
-        $('#delete-categorie').attr('href',url);
+        $('#delete-category').attr('href',url);
     });
 
-    // Fonction pour éditer une categorie
-    $('.btn-edit-categorie').on('click', function () {
-        let categorieId = $(this).data('categorie');
+    // Fonction pour éditer une category
+    $('.btn-edit-category').on('click', function () {
+        let categorieId = $(this).data('category');
         let loader = startLoader($('#page-content'));
         $.ajax({
             url : "/syndic/categories/edit/" + categorieId,
@@ -123,7 +123,7 @@ $( document ).ready(function() {
                 stopLoader(loader);
                 $('#modal-edit-form').html(html);
                 $('.colorpicker-component').colorpicker();
-                $('#modal-fade-edit-categorie').modal();
+                $('#modal-fade-edit-category').modal();
 
             }
         });

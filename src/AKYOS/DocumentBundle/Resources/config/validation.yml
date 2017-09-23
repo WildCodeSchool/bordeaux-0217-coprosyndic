@@ -1,4 +1,4 @@
-AKYOS\DocumentBundle\Entity\Categorie:
+AKYOS\DocumentBundle\Entity\Category:
     properties:
         nom:
             - NotBlank: ~
@@ -19,7 +19,7 @@ AKYOSDocumentBundle\Entity\Document:
                 maxMessage: 'Le titre ne doit pas dépasser {{ limit }} caractères'
         fichier:
             - NotNull: ~
-        categorie:
+        category:
             - NotNull: ~
         copropriete:
             - NotNull: ~

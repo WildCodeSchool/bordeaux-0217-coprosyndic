@@ -58,7 +58,7 @@ class DocumentRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('d')
                    ->addSelect('c')
-                   ->join('d.categorie', 'c')
+                   ->join('d.category', 'c')
                    ->orderBy('d.dateAjout', 'desc');
 
         $em          = $this->getEntityManager();
@@ -97,8 +97,8 @@ class DocumentRepository extends EntityRepository
         }
 
         if ($categorieId !== 'all') {
-            $qb->andWhere('c.id = :categorie');
-            $parameters['categorie'] = $categorieId;
+            $qb->andWhere('c.id = :category');
+            $parameters['category'] = $categorieId;
         }
 
         if (!empty($parameters)) {

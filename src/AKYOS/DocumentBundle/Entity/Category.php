@@ -9,12 +9,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Categorie
+ * Category
  *
- * @ORM\Table(name="categorie")
- * @ORM\Entity(repositoryClass="AKYOS\DocumentBundle\Repository\CategorieRepository")
+ * @ORM\Table(name="category")
+ * @ORM\Entity(repositoryClass="AKYOS\DocumentBundle\Repository\CategoryRepository")
  */
-class Categorie
+class Category
 {
     /**
      * @var int
@@ -45,7 +45,7 @@ class Categorie
     private $couleur;
 
     /**
-     * @ORM\OneToMany(targetEntity="Document", mappedBy="categorie", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="category", cascade={"remove"})
      */
     private $documents;
 
@@ -74,7 +74,7 @@ class Categorie
      *
      * @param string $nom
      *
-     * @return Categorie
+     * @return Category
      */
     public function setNom($nom)
     {
@@ -98,7 +98,7 @@ class Categorie
      *
      * @param string $description
      *
-     * @return Categorie
+     * @return Category
      */
     public function setDescription($description)
     {
@@ -129,7 +129,7 @@ class Categorie
      *
      * @param Document $document
      *
-     * @return Categorie
+     * @return Category
      */
     public function addDocument(Document $document)
     {
@@ -163,7 +163,7 @@ class Categorie
      *
      * @param Syndic $syndic
      *
-     * @return Categorie
+     * @return Category
      */
     public function setSyndic(Syndic $syndic = null)
     {
@@ -187,7 +187,7 @@ class Categorie
      *
      * @param string $couleur
      *
-     * @return Categorie
+     * @return Category
      */
     public function setCouleur($couleur)
     {

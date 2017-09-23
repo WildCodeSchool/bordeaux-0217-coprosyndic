@@ -9,7 +9,7 @@ use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
-class CategorieRepository extends EntityRepository
+class CategoryRepository extends EntityRepository
 {
     public function countByCategorieByUser(User $user)
     {

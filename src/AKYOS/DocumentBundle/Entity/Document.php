@@ -2,7 +2,7 @@
 namespace AKYOS\DocumentBundle\Entity;
 
 use AKYOS\BackofficeBundle\Entity\Artisan;
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\BackofficeBundle\Entity\Copropriete;
 use AKYOS\BackofficeBundle\Entity\Lot;
 use AKYOS\BackofficeBundle\Entity\Syndic;
@@ -83,9 +83,9 @@ class Document
      */
     private $lots;
     /**
-     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="documents")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="documents")
      */
-    private $categorie;
+    private $category;
     /**
      * @Vich\UploadableField(mapping="documents", fileNameProperty="nom")
      * @var File
@@ -232,25 +232,25 @@ class Document
         return $this->lots;
     }
     /**
-     * Set categorie
+     * Set category
      *
-     * @param Categorie $categorie
+     * @param Category $categorie
      *
      * @return Document
      */
-    public function setCategorie(Categorie $categorie = null)
+    public function setCategorie(Category $categorie = null)
     {
-        $this->categorie = $categorie;
+        $this->category = $categorie;
         return $this;
     }
     /**
-     * Get categorie
+     * Get category
      *
-     * @return Categorie
+     * @return Category
      */
     public function getCategorie()
     {
-        return $this->categorie;
+        return $this->category;
     }
     /**
      * @param File|null $fichier
@@ -399,5 +399,29 @@ class Document
     public function getArtisans()
     {
         return $this->artisans;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AKYOS\DocumentBundle\Entity\Category $category
+     *
+     * @return Document
+     */
+    public function setCategory(Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AKYOS\DocumentBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

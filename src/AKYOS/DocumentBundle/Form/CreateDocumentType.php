@@ -2,7 +2,7 @@
 
 namespace AKYOS\DocumentBundle\Form;
 
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Coproprietaire;
 use AKYOS\BackofficeBundle\Entity\Copropriete;
@@ -56,9 +56,9 @@ class CreateDocumentType extends AbstractType
             ->add('fichier', FileType::class, array(
                 'label' => 'document.new.file'
             ))
-            ->add('categorie', ChoiceType::class, array(
+            ->add('category', ChoiceType::class, array(
                 'choices'      => $categories,
-                'choice_label' => function (Categorie $categorie) {
+                'choice_label' => function (Category $categorie) {
                     return $categorie->getNom();
                 },
                 'label'        => 'document.new.category',

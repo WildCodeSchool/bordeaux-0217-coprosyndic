@@ -3,7 +3,7 @@
 namespace AKYOS\DocumentBundle\Controller;
 
 use AKYOS\BackofficeBundle\Entity\Syndic;
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\DocumentBundle\Form\CreateCategorieType;
 use AKYOS\DocumentBundle\Form\EditCategorieType;
@@ -11,10 +11,6 @@ use SensioLabs\Security\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class CategoryController extends Controller
 {
@@ -23,7 +19,7 @@ class CategoryController extends Controller
         $em     = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
-        $categories = $em->getRepository(Categorie::class)->findBySyndic($syndic);
+        $categories = $em->getRepository(Category::class)->findBySyndic($syndic);
 
         return $this->render('AKYOSDocumentBundle:Category:index.html.twig', array(
             'categories' => $categories,
@@ -35,7 +31,7 @@ class CategoryController extends Controller
         $em     = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
-        $categorie = new Categorie();
+        $categorie = new Category();
         $form      = $this->createForm(CreateCategorieType::class, $categorie);
         $form->handleRequest($request);
 
@@ -54,7 +50,7 @@ class CategoryController extends Controller
         ));
     }
 
-    public function editAction(Request $request, Categorie $categorie)
+    public function editAction(Request $request, Category $categorie)
     {
         $form = $this->createForm(EditCategorieType::class, $categorie);
         $form->handleRequest($request);
@@ -74,7 +70,7 @@ class CategoryController extends Controller
         ));
     }
 
-    public function deleteAction(Categorie $categorie)
+    public function deleteAction(Category $categorie)
     {
         if ($categorie !== null) {
             $em = $this->getDoctrine()->getManager();

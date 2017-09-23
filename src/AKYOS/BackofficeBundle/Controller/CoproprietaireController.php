@@ -2,7 +2,7 @@
 
 namespace AKYOS\BackofficeBundle\Controller;
 
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\BackofficeBundle\Entity\Coproprietaire;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\BackofficeBundle\Form\EditCoproprietaireType;

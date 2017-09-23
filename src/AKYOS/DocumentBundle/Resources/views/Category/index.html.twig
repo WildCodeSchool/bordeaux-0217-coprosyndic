@@ -26,8 +26,8 @@
             <div class="row" style="background:#FFF;  margin-bottom: 20px;">
                 <div class="col-md-12">
                     <a href="" class="btn btn-block btn-default visible-xs" data-toggle="collapse"
-                       data-target="#add-categorie">Ajouter une catégorie</a>
-                    <div id="add-categorie" class="collapse navbar-collapse remove-padding">
+                       data-target="#add-category">Ajouter une catégorie</a>
+                    <div id="add-category" class="collapse navbar-collapse remove-padding">
                         <h4 class="inner-sidebar-header">Ajouter une catégorie</h4>
                         <div class="block-section">
                             <div id="form-box" class="animation-fadeInQuick2">
@@ -54,25 +54,25 @@
                         </tr>
                         </thead>
                         <tbody class="categories-rows">
-                        {% for categorie in categories %}
+                        {% for category in categories %}
                             <tr>
-                                <td class="text-center" style="display:none">{{ categorie.id }}</td>
-                                <td style="padding-left:17px;">{{ categorie.nom }}</td>
-                                <td style="padding-left:17px;">{{ categorie.description }}</td>
+                                <td class="text-center" style="display:none">{{ category.id }}</td>
+                                <td style="padding-left:17px;">{{ category.nom }}</td>
+                                <td style="padding-left:17px;">{{ category.description }}</td>
                                 <td><span class="label"
-                                          style="background-color: {{ categorie.couleur }}">Vignette</span>
+                                          style="background-color: {{ category.couleur }}">Vignette</span>
                                 </td>
                                 <td class="text-center">
 
-                                    <a data-categorie="{{ categorie.id }}" data-toggle="tooltip" data-placement="top"
+                                    <a data-category="{{ category.id }}" data-toggle="tooltip" data-placement="top"
                                        title="Modifier"
-                                       class="btn btn-effect-ripple btn-xs btn-success btn-edit-categorie">
+                                       class="btn btn-effect-ripple btn-xs btn-success btn-edit-category">
                                         <i class="fa fa-edit"></i></a>
 
-                                    <span data-toggle="modal" data-target="#modal-fade-del-categorie">
+                                    <span data-toggle="modal" data-target="#modal-fade-del-category">
                                     <a data-toggle="tooltip" data-placement="top"
-                                       data-categorie="{{ categorie.id }}" title="Supprimer"
-                                       class="btn btn-effect-ripple btn-xs btn-danger btn-delete-categorie">
+                                       data-category="{{ category.id }}" title="Supprimer"
+                                       class="btn btn-effect-ripple btn-xs btn-danger btn-delete-category">
                                         <i class="fa fa-times"></i></a></span>
 
                                 </td>
@@ -86,7 +86,7 @@
     </div>
 
     <!-- Regular Modals -->
-    <div id="modal-fade-del-categorie" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="modal-fade-del-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,7 +105,7 @@
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="form-group pull-right">
-                            <a href="" id="delete-categorie" style="margin-right: 20px;">
+                            <a href="" id="delete-category" style="margin-right: 20px;">
                                 <button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button>
                             </a>
                             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">
@@ -119,7 +119,7 @@
     </div>
 
 
-    <div id="modal-fade-edit-categorie" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="modal-fade-edit-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div id="modal-edit-form" class="modal-content">
             </div>

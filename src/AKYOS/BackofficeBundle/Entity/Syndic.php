@@ -2,7 +2,7 @@
 
 namespace AKYOS\BackofficeBundle\Entity;
 
-use AKYOS\DocumentBundle\Entity\Categorie;
+use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -137,7 +137,7 @@ class Syndic
     private $coproprietes;
 
     /**
-     * @ORM\OneToMany(targetEntity="AKYOS\DocumentBundle\Entity\Categorie", mappedBy="syndic")
+     * @ORM\OneToMany(targetEntity="AKYOS\DocumentBundle\Entity\Category", mappedBy="syndic")
      * @var ArrayCollection
      */
     private $categories;
@@ -574,11 +574,11 @@ class Syndic
     /**
      * Add category
      *
-     * @param Categorie $category
+     * @param Category $category
      *
      * @return Syndic
      */
-    public function addCategory(Categorie $category)
+    public function addCategory(Category $category)
     {
         $this->categories[] = $category;
 
@@ -588,9 +588,9 @@ class Syndic
     /**
      * Remove category
      *
-     * @param Categorie $category
+     * @param Category $category
      */
-    public function removeCategory(Categorie $category)
+    public function removeCategory(Category $category)
     {
         $this->categories->removeElement($category);
     }
