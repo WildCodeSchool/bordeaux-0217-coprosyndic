@@ -35,6 +35,7 @@
                 <div class="form-group">
                     {{ form_row(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
                     <div class="bootstrap-filestyle input-group">
+                        {#TODO : permettre de choisir le type de compte comme dans les messages#}
                         <input type="text" id="filename-box" class="form-control" disabled="">
                         <span class="group-span-filestyle input-group-btn" tabindex="0">
                             <label for="create_document_fichier" class="btn btn-info">
@@ -53,7 +54,10 @@
                     {{ form_row(form.copropriete, {'attr': {'class':'select-select2 choix-copropriete', 'style':'width: 100%;'}}) }}
                 </div>
             </div>
-            <input type="checkbox" id="checkbox-all" >Select All
+            <label class="csscheckbox csscheckbox-info" for="checkbox-all">Tout sélectionner
+            <input type="checkbox" id="checkbox-all">
+                <span></span>
+            </label>
             <div class="col-md-6">
                 <div class="form-group">
                     {{ form_row(form.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
@@ -66,7 +70,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     {{ form_label(form.toLocataires) }}
-                    <label class="switch switch-warning">
+                    <label class="switch switch-info">
                         {{ form_widget(form.toLocataires) }}<span></span>
                     </label>
                 </div>

@@ -15,14 +15,14 @@ class DocumentController extends Controller
     public function indexAction(Request $request)
     {
         $em              = $this->getDoctrine()->getManager();
-        $categoriesCount = $em->getRepository(Categorie::class)->findCategoriesCount($this->getUser());
-        $allDocuments    = $em->getRepository(Document::class)->findDocumentsByUser($this->getUser());
+        $categoriesCount = $em->getRepository(Categorie::class)->countByCategorieByUser($this->getUser());
+        $documents       = $em->getRepository(Document::class)->findAllByUser($this->getUser());
 
         $request->getSession()->set('copro', null);
 
         return $this->render('AKYOSDocumentBundle:Document:index.html.twig', array(
             'categoriesCount' => $categoriesCount,
-            'documents'       => $allDocuments,
+            'documents'       => $documents,
         ));
     }
 

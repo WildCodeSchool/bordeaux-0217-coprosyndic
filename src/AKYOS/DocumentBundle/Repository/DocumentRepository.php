@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
 
 class DocumentRepository extends EntityRepository
 {
-    public function findDocumentsByUser(User $user)
+    public function findAllByUser(User $user)
     {
         $qb = $this->createQueryBuilder('d')
                    ->orderBy('d.dateAjout', 'desc');
@@ -54,7 +54,7 @@ class DocumentRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findDocumentsByCategorie($categorieId, User $user)
+    public function findAllByCategorie($categorieId, User $user)
     {
         $qb = $this->createQueryBuilder('d')
                    ->addSelect('c')
@@ -108,50 +108,53 @@ class DocumentRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
+    public function countByUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('d')
+                   ->select('COUNT(d)');
+
+        $em          = $this->getEntityManager();
+        $accountType = $user->getType();
+
+        if ($accountType == 'syndic') {
+            $syndic = $em->getRepository(Syndic::class)->findOneByUser($user);
+
+            $qb->where('d.syndic = :syndic')
+               ->setParameter('syndic', $syndic);
+
+        } elseif ($accountType == 'coproprietaire') {
+            $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($user);
+            $lot            = $coproprietaire->getLot();
+
+            $qb->leftJoin('d.lots', 'l')
+               ->where('l = :lot')
+               ->setParameter('lot', $lot);
+
+        } elseif ($accountType == 'locataire') {
+            $locataire = $em->getRepository(Locataire::class)->findOneByUser($user);
+            $lot       = $locataire->getLot();
+
+            $qb->leftJoin('d.lots', 'l')
+               ->where('l = :lot')
+               ->andWhere('d.toLocataires = true')
+               ->setParameter('lot', $lot);
+
+        } elseif ($accountType == 'artisan') {
+            $artisan = $em->getRepository(Artisan::class)->findOneByUser($user);
+
+            $qb->leftJoin('d.artisans', 'a')
+               ->where('a = :artisan')
+               ->setParameter('artisan', $artisan);
+
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 
 //    ----------------------------------------------
-    public
-    function findNbDocumentsByLot($lot)
-    {
 
-        $qb = $this->createQueryBuilder('d')
-                   ->select('COUNT(d)')
-                   ->leftJoin('d.lots', 'l')
-                   ->where('l = :lot')
-                   ->setParameter('lot', $lot);
 
-        return $qb->getQuery()->getSingleScalarResult();
-    }
-
-    public
-    function findNbDocumentsByLotForLocataire($lot)
-    {
-
-        $qb = $this->createQueryBuilder('d')
-                   ->select('COUNT(d)')
-                   ->leftJoin('d.lots', 'l')
-                   ->where('l = :lot')
-                   ->andWhere('d.toLocataires = true')
-                   ->setParameter('lot', $lot);
-
-        return $qb->getQuery()->getSingleScalarResult();
-    }
-
-    public
-    function findNbDocumentsByArtisan($artisan)
-    {
-
-        $qb = $this->createQueryBuilder('d')
-                   ->select('COUNT(d)')
-                   ->leftJoin('d.artisans', 'a')
-                   ->where('a = :artisan')
-                   ->setParameter('artisan', $artisan);
-
-        return $qb->getQuery()->getSingleScalarResult();
-    }
-
-    public
-    function findDocumentsByCopropriete($copropriete)
+    public function findDocumentsByCopropriete($copropriete)
     {
 
         $qb = $this->createQueryBuilder('d')
@@ -161,8 +164,7 @@ class DocumentRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public
-    function findNbreDocumentByCoproprieteBySyndic($syndic)
+    public function findNbreDocumentByCoproprieteBySyndic($syndic)
     {
         $qb = $this->createQueryBuilder('d')
                    ->select('c.nom', 'count(d.nom)')
@@ -175,8 +177,7 @@ class DocumentRepository extends EntityRepository
 
     }
 
-    public
-    function findSyndicDocumentsBySearch($syndic, $search)
+    public function findSyndicDocumentsBySearch($syndic, $search)
     {
 
         $qb = $this->createQueryBuilder('d')

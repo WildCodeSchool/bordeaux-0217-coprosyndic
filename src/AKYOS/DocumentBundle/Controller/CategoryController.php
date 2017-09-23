@@ -11,6 +11,7 @@ use SensioLabs\Security\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -44,6 +45,7 @@ class CategoryController extends Controller
             $em->flush();
 
             $this->addFlash('info', 'Une nouvelle catégorie a été créée avec succès.');
+
             return $this->redirectToRoute('category_index', array('type' => $this->getUser()->getType()));
         }
 
@@ -92,7 +94,7 @@ class CategoryController extends Controller
     {
         if ($request->isXmlHttpRequest()) {
             $em        = $this->getDoctrine()->getManager();
-            $documents = $em->getRepository(Document::class)->findDocumentsByCategorie($categorieId, $this->getUser());
+            $documents = $em->getRepository(Document::class)->findAllByCategorie($categorieId, $this->getUser());
 
             return new JsonResponse(array('documents' => json_encode($documents)));
         }

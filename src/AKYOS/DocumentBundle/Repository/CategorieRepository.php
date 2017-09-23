@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
 
 class CategorieRepository extends EntityRepository
 {
-    public function findCategoriesCount(User $user)
+    public function countByCategorieByUser(User $user)
     {
         $qb = $this->createQueryBuilder('c')
                    ->select('c.id', 'c.nom', 'COUNT(d.nom) AS nombre')
@@ -53,15 +53,5 @@ class CategorieRepository extends EntityRepository
         }
 
         return $qb->getQuery()->getArrayResult();
-    }
-
-    public function findArrayCategorie($categorieId)
-    {
-        if ($categorieId !== 'all')
-        $qb = $this->createQueryBuilder('c')
-                   ->where('c.id = :categorieId')
-                   ->setParameter('categorieId', $categorieId);
-
-        return $qb->getQuery()->getSingleResult(2);
     }
 }

@@ -69,6 +69,7 @@ $( document ).ready(function() {
     });
     // --> Mise à jour
     $copropriete.change(function() {
+        $('#checkbox-all').prop('checked', false);
         let $form = $(this).closest('form');
         let data = {};
         data[$copropriete.attr('name')] = $copropriete.val();
@@ -91,7 +92,7 @@ $( document ).ready(function() {
         let $lots = $('#create_document_lots');
         if($("#checkbox-all").is(':checked') ){
             $lots.find('option').prop("selected","selected");
-        } else{
+        } else {
             $lots.find('option').removeAttr("selected");
         }
         $lots.trigger("change");

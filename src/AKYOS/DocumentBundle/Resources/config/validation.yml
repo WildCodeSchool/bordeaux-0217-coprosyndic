@@ -1,0 +1,26 @@
+AKYOS\DocumentBundle\Entity\Categorie:
+    properties:
+        nom:
+            - NotBlank: ~
+            - Length:
+                max: 255
+                maxMessage: 'Le nom ne doit pas dépasser {{ limit }} caractères'
+        couleur:
+            - Regex:
+                pattern: '/^#[0-9a-fA-F]{6}$/'
+                message: 'La couleur doit être au format hexadécimal'
+
+AKYOSDocumentBundle\Entity\Document:
+    properties:
+        titre:
+            - NotBlank: ~
+            - Length:
+                max: 255
+                maxMessage: 'Le titre ne doit pas dépasser {{ limit }} caractères'
+        fichier:
+            - NotNull: ~
+        categorie:
+            - NotNull: ~
+        copropriete:
+            - NotNull: ~
+
