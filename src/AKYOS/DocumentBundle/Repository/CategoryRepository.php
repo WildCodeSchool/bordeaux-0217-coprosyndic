@@ -14,7 +14,7 @@ class CategoryRepository extends EntityRepository
     public function countByCategorieByUser(User $user)
     {
         $qb = $this->createQueryBuilder('c')
-                   ->select('c.id', 'c.nom', 'COUNT(d.nom) AS nombre')
+                   ->select('c.id', 'c.nom', 'COUNT(d) AS nombre')
                    ->leftJoin('c.documents', 'd')
                    ->groupBy('c.id', 'c.nom');
 

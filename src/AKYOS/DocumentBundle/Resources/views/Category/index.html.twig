@@ -1,10 +1,11 @@
-{% extends '@AKYOSBackoffice/'~app.user.type|capitalize~'/layout.html.twig' %}
+{% extends 'AKYOSDocumentBundle::layout.html.twig' %}
 
 {% block title %}
     Gestion des catégories
 {% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
 {% endblock %}
 
@@ -19,7 +20,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="row">
         <div class="col-md-3">
 
@@ -117,20 +117,16 @@
             </div>
         </div>
     </div>
-
-
     <div id="modal-fade-edit-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div id="modal-edit-form" class="modal-content">
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block scripts %}
     {{ parent() }}
-    <script src="{{ asset('assets/backoffice/js/documents.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
     <script>
         $(function () {

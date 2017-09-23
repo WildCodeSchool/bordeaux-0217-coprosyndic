@@ -167,7 +167,7 @@ class DocumentRepository extends EntityRepository
     public function findNbreDocumentByCoproprieteBySyndic($syndic)
     {
         $qb = $this->createQueryBuilder('d')
-                   ->select('c.nom', 'count(d.nom)')
+                   ->select('c.nom', 'count(d)')
                    ->join('d.syndic', 's')
                    ->join('s.coproprietes', 'c')
                    ->groupBy('c.nom')

@@ -3,7 +3,7 @@
     <h3 class="modal-title"><strong>Ajouter un document</strong></h3>
 </div>
 
-{{ form_start(form, {'attr': {'class': 'form-horizontal', 'action': path('document_create', {'type': app.user.type}) }}) }}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-horizontal', 'action': path('document_create', {'type': app.user.type}) }}) }}
 
 <div class="modal-body">
     <div class="row">
@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    {{ form_row(form.category, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
+                    {{ form_row(form.category, {'attr': {'class':'select-select2 select-single', 'style':'width: 100%;'}}) }}
                 </div>
             </div>
         </div>
@@ -33,12 +33,12 @@
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="form-group">
-                    {{ form_row(form.fichier, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
+                    {{ form_row(form.file, {'attr':{'class':'filestyle inputfile','style':'position: absolute; clip: rect(0px 0px 0px 0px);','tabindex':'-1'}}) }}
                     <div class="bootstrap-filestyle input-group">
                         {#TODO : permettre de choisir le type de compte comme dans les messages#}
                         <input type="text" id="filename-box" class="form-control" disabled="">
                         <span class="group-span-filestyle input-group-btn" tabindex="0">
-                            <label for="create_document_fichier" class="btn btn-info">
+                            <label for="create_document_file" class="btn btn-info">
                                 <span class="glyphicon fa fa-file-o"></span> Importer
                             </label>
                         </span>
@@ -51,7 +51,7 @@
         <div class="col-md-12">
             <div class="col-md-5" style="margin-right:30px">
                 <div class="form-group">
-                    {{ form_row(form.copropriete, {'attr': {'class':'select-select2 choix-copropriete', 'style':'width: 100%;'}}) }}
+                    {{ form_row(form.copropriete, {'attr': {'class':'select-select2 select-single', 'style':'width: 100%;'}}) }}
                 </div>
             </div>
             <label class="csscheckbox csscheckbox-info" for="checkbox-all">Tout sélectionner
@@ -60,7 +60,7 @@
             </label>
             <div class="col-md-6">
                 <div class="form-group">
-                    {{ form_row(form.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
+                    {{ form_row(form.lots, {'attr': {'class':'select-select2 select-single', 'style':'width: 100%;'}}) }}
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
 <div class="modal-footer">
     <div class="col-md-12">
         <div class="form-group pull-right">
-            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            {{ form_widget(form.submit, {'label': 'document.submit_create', 'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
             <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal" style="margin-left: 20px;">Annuler</button>
         </div>
     </div>
@@ -90,3 +90,7 @@
 
 {{ form_rest(form) }}
 {{ form_end(form) }}
+
+<script type="text/javascript">
+    let context = 'create';
+</script>

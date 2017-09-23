@@ -1,5 +1,4 @@
-{% extends '@AKYOSBackoffice/'~app.user.type|capitalize~'/layout.html.twig' %}
-{% set syndicAccount = (app.user.type == 'syndic') %}
+{% extends 'AKYOSDocumentBundle::layout.html.twig' %}
 
 {% block title %}
     Gestion des documents
@@ -89,7 +88,7 @@
                                     </td>
                                     <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                     <td class="text-center">
-                                        <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}"
+                                        <a href="{{ vich_uploader_asset(document, 'file') }}" download="{{ document.fileName~'.'~document.extension }}"
                                            data-toggle="tooltip" title="Télécharger le document"
                                            class="btn btn-effect-ripple btn-xs btn-primary" style="cursor: pointer">
                                             <i class="fa fa-download" style="cursor: pointer;"></i></a>
@@ -148,9 +147,4 @@
     <!-- END Regular Fade -->
     {% endif %}
 
-{% endblock %}
-
-{% block scripts %}
-    {{ parent() }}
-    <script src="{{ asset('assets/backoffice/js/documents.js') }}"></script>
 {% endblock %}

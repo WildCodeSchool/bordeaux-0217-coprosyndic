@@ -1,0 +1,23 @@
+{% extends '@AKYOSBackoffice/'~app.user.type|capitalize~'/layout.html.twig' %}
+{% set syndicAccount = (app.user.type == 'syndic') %}
+
+{% block title %}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/backoffice/js/document.js') }}"></script>
+    <script src="{{ asset('assets/backoffice/js/category.js') }}"></script>
+{% endblock %}

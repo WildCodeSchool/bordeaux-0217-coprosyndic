@@ -5,8 +5,7 @@ namespace AKYOS\DocumentBundle\Controller;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
-use AKYOS\DocumentBundle\Form\CreateCategorieType;
-use AKYOS\DocumentBundle\Form\EditCategorieType;
+use AKYOS\DocumentBundle\Form\CategoryType;
 use SensioLabs\Security\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,7 +31,7 @@ class CategoryController extends Controller
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
         $categorie = new Category();
-        $form      = $this->createForm(CreateCategorieType::class, $categorie);
+        $form      = $this->createForm(CategoryType::class, $categorie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,7 +51,7 @@ class CategoryController extends Controller
 
     public function editAction(Request $request, Category $categorie)
     {
-        $form = $this->createForm(EditCategorieType::class, $categorie);
+        $form = $this->createForm(CategoryType::class, $categorie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

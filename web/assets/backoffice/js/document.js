@@ -1,19 +1,24 @@
 $( document ).ready(function() {
+    context = (typeof context !== 'undefined') ? context : '';
 
     // Fonction pour afficher le nom du fichier sur les 'input file'
     $('.inputfile').each(function () {
         let $input = $(this),
             $label = $input.next('label');
 
-        $input.on('change', function (e) {
-            let fileName = e.target.value.split('\\').pop();
+        if (context === 'create') {
+            $input.on('change', function (e) {
+                let fileName = e.target.value.split('\\').pop();
 
-            if (fileName) {
-                $('#filename-box').val(fileName);
-            } else {
-                $label.html('');
-            }
-        });
+                if (fileName) {
+                    $('#filename-box').val(fileName);
+                } else {
+                    $label.html('');
+                }
+            });
+        } else if (context === 'edit') {
+            $('#filename-box').val(originalFileName);
+        }
     });
 
     // Fonction pour récupérer les documents en fonction de la catégorie
@@ -43,6 +48,7 @@ $( document ).ready(function() {
                         '<td><span class="label label-' + document.category.nom + '" style="background-color:' + document.category.couleur + '">' + document.category.nom + '</span></td>' +
                         '<td class="text-center">' + getFormattedDate(document.dateAjout.date) + '</td>' +
                         '<td class="text-center">' +
+                        //TODO : implémenter le téléchargement et la suppression
                         '<a href="javascript:void(0)" data-toggle="tooltip" title="Télécharger le fichier" class="btn btn-effect-ripple btn-xs btn-primary">' +
                         '<i class="fa fa-download"></i></a>' + ' ' +
                         '<a href="javascript:void(0)" data-toggle="tooltip" title="Supprimer le fichier" class="btn btn-effect-ripple btn-xs btn-danger">' +
@@ -55,20 +61,27 @@ $( document ).ready(function() {
         })
     });
 
-    // Fonction de mise à jour des copropriétaires en fonction de la copropriété choisie
-    // --> Ajout 'placeholder' pour listes déroulantes
-    let $copropriete = $('#create_document_copropriete');
-    $("#create_document_categorie").select2("destroy").prepend('<option></option>').select2({
-        placeholder: "Sélectionnez une catégorie ..."
-    }).val('').trigger('change');
-    $copropriete.select2("destroy").prepend('<option></option>').select2({
-        placeholder: "Sélectionnez une copropriété ..."
-    }).val('').trigger('change');
-    $("#create_document_lots").select2({
-        placeholder: "Sélectionnez le(s) lot(s) ..."
-    });
+    let $copropriete = $('#document_copropriete');
+
+    // Fonction pour ajouter les placeholders sur les listes déroulantes en cas de création
+    if (context === 'create') {
+        let $selectSingle = $('.select-single');
+        $selectSingle.select2("destroy").prepend('<option></option>');
+        $("#document_category").select2({
+            placeholder: "Sélectionnez une catégorie ..."
+        });
+        $copropriete.select2({
+            placeholder: "Sélectionnez une copropriété ..."
+        });
+        $("#document_lots").select2({
+            placeholder: "Sélectionnez le(s) lot(s) ..."
+        });
+        $selectSingle.val('').trigger('change');
+    }
+
     // --> Mise à jour
     $copropriete.change(function() {
+        $('#checkbox-box').show();
         $('#checkbox-all').prop('checked', false);
         let $form = $(this).closest('form');
         let data = {};
@@ -79,17 +92,20 @@ $( document ).ready(function() {
             type: $form.attr('method'),
             data : data,
             success: function(html) {
-                $('#s2id_create_document_lots').find('.select2-search-choice').remove();
+                $('#s2id_document_lots').find('.select2-search-choice').remove();
                 stopLoader(loader);
-                $('#create_document_lots').html(
-                    $(html).find('#create_document_lots').html()
+                $('#document_lots').html(
+                    $(html).find('#document_lots').html()
                 );
             }
         });
     });
     // --> Sélection complète des destinataires
+    if (context === 'edit') {
+        $('#checkbox-box').hide();
+    }
     $('#checkbox-all').click(function(){
-        let $lots = $('#create_document_lots');
+        let $lots = $('#document_lots');
         if($("#checkbox-all").is(':checked') ){
             $lots.find('option').prop("selected","selected");
         } else {
@@ -103,30 +119,6 @@ $( document ).ready(function() {
         let documentId = $(this).data('document');
         let url = "/syndic/documents/delete/" + documentId;
         $('#delete-doc').attr('href',url);
-    });
-
-    // Fonction pour supprimer une category
-    $('.btn-delete-category').on('click', function () {
-        let categorieId = $(this).data('category');
-        let url = "/syndic/categories/delete/" + categorieId;
-        $('#delete-category').attr('href',url);
-    });
-
-    // Fonction pour éditer une category
-    $('.btn-edit-category').on('click', function () {
-        let categorieId = $(this).data('category');
-        let loader = startLoader($('#page-content'));
-        $.ajax({
-            url : "/syndic/categories/edit/" + categorieId,
-            method: 'post',
-            success: function(html) {
-                stopLoader(loader);
-                $('#modal-edit-form').html(html);
-                $('.colorpicker-component').colorpicker();
-                $('#modal-fade-edit-category').modal();
-
-            }
-        });
     });
 
 });

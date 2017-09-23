@@ -4,7 +4,6 @@ imports:
     - { resource: services.yml }
 
 parameters:
-    img_documents: '%kernel.root_dir%/web/assets/img/docs'
     locale: fr
 
 framework:
@@ -54,11 +53,6 @@ doctrine:
             default:
                 naming_strategy: doctrine.orm.naming_strategy.underscore
                 auto_mapping: true
-                mappings:
-                    AKYOSBackofficeBundle: ~
-                    AKYOSUserBundle: ~
-                    AKYOSMailboxBundle: ~
-                    AKYOSPostitBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -91,25 +85,19 @@ fos_user:
 vich_uploader:
     db_driver: orm
     mappings:
-        documents:
+        upload_document:
             uri_prefix:         /uploads/document
             upload_destination: '%kernel.root_dir%/../web/uploads/document'
-            inject_on_load:     false
-            delete_on_update:   true
-            delete_on_remove:   true
+            inject_on_load:     true
             namer:              vich_uploader.namer_uniqid
-        avatar_images:
+        upload_avatar:
             uri_prefix:         /uploads/avatar
             upload_destination: '%kernel.root_dir%/../web/uploads/avatar'
             inject_on_load:     false
-            delete_on_update:   true
-            delete_on_remove:   false
-        copropriete_images:
+        upload_copropriete:
             uri_prefix:         /uploads/copropriete
             upload_destination: '%kernel.root_dir%/../web/uploads/copropriete'
             inject_on_load:     false
-            delete_on_update:   true
-            delete_on_remove:   false
 
 # KNP Snappy Configuration
 knp_snappy:

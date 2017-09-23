@@ -2,7 +2,6 @@
 namespace AKYOS\DocumentBundle\Entity;
 
 use AKYOS\BackofficeBundle\Entity\Artisan;
-use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\BackofficeBundle\Entity\Copropriete;
 use AKYOS\BackofficeBundle\Entity\Lot;
 use AKYOS\BackofficeBundle\Entity\Syndic;
@@ -29,74 +28,94 @@ class Document
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
+
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_ajout", type="datetime")
      */
     private $dateAjout;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_modif", type="datetime", nullable=true)
      */
     private $dateModif;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="extension", type="string", length=10, nullable=true)
-     */
-    private $extension;
+
     /**
      * @var boolean
      *
      * @ORM\Column(name="to_locataires", type="boolean")
      */
     private $toLocataires;
+
     /**
      * @ORM\ManyToOne(targetEntity="AKYOS\BackofficeBundle\Entity\Syndic", inversedBy="documents")
      */
     private $syndic;
+
     /**
-     * @ORM\ManyToMany(targetEntity="AKYOS\BackofficeBundle\Entity\Artisan", inversedBy="documents", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AKYOS\BackofficeBundle\Entity\Artisan", inversedBy="documents")
      */
     private $artisans;
+
     /**
      * @ORM\ManyToOne(targetEntity="AKYOS\BackofficeBundle\Entity\Copropriete", inversedBy="documents")
      */
     private $copropriete;
+
     /**
-     * @ORM\ManyToMany(targetEntity="AKYOS\BackofficeBundle\Entity\Lot", inversedBy="documents", cascade={"persist"})
-     * @var ArrayCollection $lots
+     * @ORM\ManyToMany(targetEntity="AKYOS\BackofficeBundle\Entity\Lot", inversedBy="documents")
      */
     private $lots;
+
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="documents")
      */
     private $category;
+
     /**
-     * @Vich\UploadableField(mapping="documents", fileNameProperty="nom")
+     * @Vich\UploadableField(mapping="upload_document", fileNameProperty="fileName", originalName="originalFileName")
      * @var File
      */
-    private $fichier;
+    private $file;
+
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="file_name", type="string", length=255)
      */
-    private $nom;
+    private $fileName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="original_file_name", type="string", length=255)
+     */
+    private $originalFileName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="extension", type="string", length=10, nullable=true)
+     */
+    private $extension;
+
 
     /**
      * Constructor
@@ -106,6 +125,7 @@ class Document
         $this->artisans = new ArrayCollection();
         $this->lots = new ArrayCollection();
     }
+
     /**
      * Get id
      *
@@ -115,6 +135,7 @@ class Document
     {
         return $this->id;
     }
+
     /**
      * Set description
      *
@@ -127,6 +148,7 @@ class Document
         $this->description = $description;
         return $this;
     }
+
     /**
      * Get description
      *
@@ -136,6 +158,7 @@ class Document
     {
         return $this->description;
     }
+
     /**
      * Set dateAjout
      *
@@ -145,8 +168,10 @@ class Document
     public function setDateAjout()
     {
         $this->dateAjout = new \DateTime();
+        $this->dateModif =new \DateTime();
         return $this;
     }
+
     /**
      * Get dateAjout
      *
@@ -156,19 +181,20 @@ class Document
     {
         return $this->dateAjout;
     }
+
     /**
      * Set dateModif
      *
-     * @param \DateTime $dateModif
-     *
      * @return Document
+     * @ORM\PreUpdate
      */
-    public function setDateModif($dateModif = null)
+    public function setDateModif()
     {
-        $this->dateModif = $dateModif === null ? new \DateTime() : $dateModif;
+        $this->dateModif = new \DateTime();
 
         return $this;
     }
+
     /**
      * Get dateModif
      *
@@ -178,6 +204,7 @@ class Document
     {
         return $this->dateModif;
     }
+
     /**
      * Set syndic
      *
@@ -190,6 +217,7 @@ class Document
         $this->syndic = $syndic;
         return $this;
     }
+
     /**
      * Get syndic
      *
@@ -199,6 +227,7 @@ class Document
     {
         return $this->syndic;
     }
+
     /**
      * Add lot
      *
@@ -213,6 +242,7 @@ class Document
 
         return $this;
     }
+
     /**
      * Remove lot
      *
@@ -222,6 +252,7 @@ class Document
     {
         $this->lots->removeElement($lot);
     }
+
     /**
      * Get lots
      *
@@ -231,6 +262,7 @@ class Document
     {
         return $this->lots;
     }
+
     /**
      * Set category
      *
@@ -243,6 +275,7 @@ class Document
         $this->category = $categorie;
         return $this;
     }
+
     /**
      * Get category
      *
@@ -252,43 +285,30 @@ class Document
     {
         return $this->category;
     }
+
     /**
-     * @param File|null $fichier
+     * @param File|null $file
      * @return Document
      */
-    public function setFichier(File $fichier = null)
+    public function setFile(File $file = null)
     {
-        $this->fichier = $fichier;
+        $this->file = $file;
 
-        if ($fichier) {
+        if ($file) {
             $this->dateModif = new \DateTimeImmutable();
         }
 
         return $this;
     }
+
     /**
      * @return File
      */
-    public function getFichier()
+    public function getFile()
     {
-        return $this->fichier;
+        return $this->file;
     }
-    /**
-     * @param $nom
-     * @return Document
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-        return $this;
-    }
-    /**
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
+
     /**
      * @param $titre
      * @return Document
@@ -298,6 +318,7 @@ class Document
         $this->titre = $titre;
         return $this;
     }
+
     /**
      * @return string
      */
@@ -305,6 +326,7 @@ class Document
     {
         return $this->titre;
     }
+
     /**
      * Set extension
      *
@@ -313,9 +335,10 @@ class Document
      */
     public function setExtension()
     {
-        $this->extension = $this->fichier->guessExtension();
+        $this->extension = $this->file->guessExtension();
         return $this;
     }
+
     /**
      * Get extension
      *
@@ -325,6 +348,7 @@ class Document
     {
         return $this->extension;
     }
+
     /**
      * Set copropriete
      *
@@ -338,6 +362,7 @@ class Document
 
         return $this;
     }
+
     /**
      * Get copropriete
      *
@@ -347,6 +372,7 @@ class Document
     {
         return $this->copropriete;
     }
+
     /**
      * Set toLocataires
      *
@@ -360,6 +386,7 @@ class Document
 
         return $this;
     }
+
     /**
      * Get toLocataires
      *
@@ -369,6 +396,7 @@ class Document
     {
         return $this->toLocataires;
     }
+
     /**
      * Add artisan
      *
@@ -382,6 +410,7 @@ class Document
 
         return $this;
     }
+
     /**
      * Remove artisan
      *
@@ -391,6 +420,7 @@ class Document
     {
         $this->artisans->removeElement($artisan);
     }
+
     /**
      * Get artisans
      *
@@ -423,5 +453,53 @@ class Document
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set fileName
+     *
+     * @param string $fileName
+     *
+     * @return Document
+     */
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    /**
+     * Get fileName
+     *
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * Set originalFileName
+     *
+     * @param string $originalFileName
+     *
+     * @return Document
+     */
+    public function setOriginalFileName($originalFileName)
+    {
+        $this->originalFileName = $originalFileName;
+
+        return $this;
+    }
+
+    /**
+     * Get originalFileName
+     *
+     * @return string
+     */
+    public function getOriginalFileName()
+    {
+        return $this->originalFileName;
     }
 }

@@ -145,7 +145,7 @@ class Copropriete
     private $illustrationName;
 
     /**
-     * @Vich\UploadableField(mapping="copropriete_images", fileNameProperty="illustrationName")
+     * @Vich\UploadableField(mapping="upload_copropriete", fileNameProperty="illustrationName")
      * @var File
      */
     private $illustrationFile;

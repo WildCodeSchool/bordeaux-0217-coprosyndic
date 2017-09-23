@@ -1,7 +1,6 @@
 services:
     akyos.twig.filters:
         class: AKYOS\BackofficeBundle\Service\TwigFilters
-        arguments: ['@service_container']
         tags:
             - { name: twig.extension }
 

@@ -1,40 +1,23 @@
 document:
-    new:
-        title: Titre
-        description: Description
-        file: Fichier
-        category: Catégorie
-        coownership: Copropriété
-        lots: Lots
-        toLocataires: 'Diffuser également aux locataires ?'
-        submit: Ajouter
-        placeholders:
-            title: 'Saisissez le titre ...'
-            description: 'Saisissez la description ...'
-    edit:
-        title: Titre
-        description: Description
-        category: Catégorie
-        submit: Modifier
-        placeholders:
-            title: 'Saisissez le titre ...'
-            description: 'Saisissez la description ...'
+    title: Titre
+    description: Description
+    file: Fichier
+    category: Catégorie
+    coownership: Copropriété
+    lots: Lots
+    toLocataires: 'Diffuser également aux locataires ?'
+    submit_create: Ajouter
+    submit_edit: Modifier
+    placeholders:
+        title: 'Saisissez le titre ...'
+        description: 'Saisissez la description ...'
 category:
-    new:
-        name: Nom
-        description: Description
-        color: Vignette
-        submit: Ajouter
-        placeholders:
-            name: Saisissez le nom ...
-            color: Choisissez une couleur ...
-            description: Entrez une description ...
-    edit:
-        name: Nom
-        description: Description
-        color: Vignette
-        submit: Modifier
-        placeholders:
-            name: Saisissez le nom ...
-            color: Choisissez une couleur ...
-            description: Entrez une description ...
+    name: Nom
+    description: Description
+    color: Vignette
+    submit_create: Ajouter
+    submit_edit: Modifier
+    placeholders:
+        name: Saisissez le nom ...
+        color: Choisissez une couleur ...
+        description: Entrez une description ...

@@ -1,11 +1,7 @@
-{% extends '@AKYOSBackoffice/'~app.user.type|capitalize~'/layout.html.twig' %}
-{% set syndicAccount = (app.user.type == 'syndic') %}
+{% extends 'AKYOSDocumentBundle::layout.html.twig' %}
 
 {% block title %}
     Affichage d'un document
-{% endblock %}
-
-{% block stylesheets %}
 {% endblock %}
 
 {% block titre_page %}
@@ -19,7 +15,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="row">
 
         <div class="col-md-3">
@@ -37,8 +32,8 @@
                                 <i class="fa fa-times"></i></a></span>
                             {% endif %}
 
-                            <a href="{{ vich_uploader_asset(document, 'fichier') }}"
-                               download="{{ document.nom~'.'~document.extension }}" data-toggle="tooltip"
+                            <a href="{{ vich_uploader_asset(document, 'file') }}"
+                               download="{{ document.fileName~'.'~document.extension }}" data-toggle="tooltip"
                                title="Télécharger le document"
                                class="btn btn-effect-ripple btn-xs btn-primary pull-right" style="margin-right: 4px">
                                 <i class="fa fa-download"></i></a>
@@ -98,9 +93,9 @@
         <div class="col-md-9">
             <div class="block-content-full">
                 {% if document.extension in ['bmp','jpg', 'jpeg', 'png', 'gif', 'tiff'] %}
-                    <img src="{{ vich_uploader_asset(document, 'fichier') }}">
+                    <img src="{{ vich_uploader_asset(document, 'file') }}">
                 {% else %}
-                    <embed src="{{ vich_uploader_asset(document, 'fichier') }}" width="100%" height="600px"></embed>
+                    <embed src="{{ vich_uploader_asset(document, 'file') }}" width="100%" height="600px"></embed>
                 {% endif %}
             </div>
         </div>
@@ -147,9 +142,4 @@
         </div>
     {% endif %}
 
-{% endblock %}
-
-{% block scripts %}
-    {{ parent() }}
-    <script src="{{ asset('assets/backoffice/js/documents.js') }}"></script>
 {% endblock %}

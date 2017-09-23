@@ -48,7 +48,7 @@ class User extends BaseUser
     private $image = 'avatar13.jpg';
 
     /**
-     * @Vich\UploadableField(mapping="avatar_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="upload_avatar", fileNameProperty="image")
      * @var File
      */
     private $imageFile;

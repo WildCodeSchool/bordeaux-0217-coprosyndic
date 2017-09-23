@@ -2,8 +2,6 @@
 
 namespace AKYOS\DocumentBundle\Entity;
 
-use AKYOS\BackofficeBundle\Entity\Artisan;
-use AKYOS\BackofficeBundle\Entity\Locataire;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;

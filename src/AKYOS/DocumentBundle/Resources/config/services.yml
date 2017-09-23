@@ -1,12 +1,12 @@
 services:
-    form.type.create_document:
-        class: AKYOS\DocumentBundle\Form\CreateDocumentType
-        arguments: ['@service_container', '@session']
+    form.document:
+        class: AKYOS\DocumentBundle\Form\DocumentType
+        arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: form.type }
 
-    form.type.edit_document:
-        class: AKYOS\DocumentBundle\Form\EditDocumentType
-        arguments: ['@service_container', '@session']
+    twig.filters.document:
+        class: AKYOS\DocumentBundle\Service\TwigFilters
+        arguments: ['@doctrine.orm.entity_manager']
         tags:
-            - { name: form.type }
+            - { name: twig.extension }

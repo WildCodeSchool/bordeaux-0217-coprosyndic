@@ -2,6 +2,8 @@
 
 namespace AKYOS\BackofficeBundle\Repository;
 
+use AKYOS\BackofficeBundle\Entity\Lot;
+
 class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
 {
 
@@ -45,7 +47,7 @@ class CoproprietaireRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findActuelCoproprietaire($lot) {
+    public function findActuelByLot(Lot $lot) {
         $qb = $this->createQueryBuilder('c')
             ->where('c.lot = :lot')
             ->andWhere('c.actuel = :actuel')

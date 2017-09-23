@@ -130,6 +130,11 @@ class Coproprietaire
      */
     private $user;
 
+    public function __toString()
+    {
+        return $this->getPrenom() . ' ' . $this->getNom();
+    }
+
     /**
      * Get id
      *

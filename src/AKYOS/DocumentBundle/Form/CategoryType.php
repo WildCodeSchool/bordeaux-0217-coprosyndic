@@ -10,46 +10,30 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateCategorieType extends AbstractType
+class CategoryType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('nom', TextType::class, array(
-                'label' => 'category.new.name',
+                'label' => 'category.name',
             ))
             ->add('description', TextareaType::class, array(
-                'label' => 'category.new.description',
+                'label' => 'category.description',
             ))
             ->add('couleur', TextType::class, array(
-                'label' => 'category.new.color',
+                'label' => 'category.color',
             ))
-            ->add('submit', SubmitType::class, array(
-                'label' => 'category.new.submit',
-            ))
+            ->add('submit', SubmitType::class)
             ;
     }
-    
-    /**
-     * {@inheritdoc}
-     */
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => Category::class
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'akyos_categorie_create';
-    }
-
 
 }

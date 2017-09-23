@@ -7,9 +7,8 @@ use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\BackofficeBundle\Entity\Coproprietaire;
 use AKYOS\BackofficeBundle\Entity\Copropriete;
 use AKYOS\BackofficeBundle\Entity\Lot;
-use AKYOS\BackofficeBundle\Entity\Syndic;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,65 +18,58 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class CreateDocumentType extends AbstractType
+class DocumentType extends AbstractType
 {
-    private $container;
-    private $session;
+    /** @var  EntityManager */
+    private $em;
 
-    public function __construct(ContainerInterface $container, SessionInterface $session)
+    public function __construct(EntityManager $em)
     {
-        $this->container = $container;
-        $this->session   = $session;
+        $this->em = $em;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $em           = $this->container->get('doctrine')->getManager();
-        $user         = $this->container->get('security.token_storage')->getToken()->getUser();
-        /** @var Syndic $syndic */
-        $syndic       = $em->getRepository(Syndic::class)->findOneByUser($user);
+        $syndic       = $options['syndic'];
         $categories   = $syndic->getCategories();
         $coproprietes = $syndic->getCoproprietes();
 
         $builder
             ->add('titre', TextType::class, array(
-                'attr'  => array('placeholder' => 'document.new.placeholders.title'),
-                'label' => 'document.new.title'
+                'attr'  => array('placeholder' => 'document.placeholders.title'),
+                'label' => 'document.title'
             ))
             ->add('description', TextareaType::class, array(
-                'attr'  => array('placeholder' => 'document.new.placeholders.description'),
-                'label' => 'document.new.description'
+                'attr'  => array('placeholder' => 'document.placeholders.description'),
+                'label' => 'document.description'
             ))
-            ->add('fichier', FileType::class, array(
-                'label' => 'document.new.file'
+            ->add('file', FileType::class, array(
+                'label' => 'document.file'
             ))
             ->add('category', ChoiceType::class, array(
                 'choices'      => $categories,
                 'choice_label' => function (Category $categorie) {
                     return $categorie->getNom();
                 },
-                'label'        => 'document.new.category',
+                'label'        => 'document.category',
             ))
             ->add('copropriete', ChoiceType::class, array(
                 'choices'      => $coproprietes,
                 'choice_label' => function (Copropriete $copropriete) {
                     return $copropriete->getNom();
                 },
-                'label'        => 'document.new.coownership',
+                'label'        => 'document.coownership',
             ))
             ->add('toLocataires', CheckboxType::class, array(
-                'label'      => 'document.new.toLocataires',
+                'label'      => 'document.toLocataires',
                 'label_attr' => array('class' => 'control-label', 'style' => 'margin-right: 15px;'),
                 'required'   => false,
             ))
-            ->add('submit', SubmitType::class, array(
-                'label' => 'document.new.submit',
-            ));
+            ->add('submit', SubmitType::class);
 
         $formModifier = function (FormInterface $form, Copropriete $copropriete = null) {
             $lots = null === $copropriete ? array() : $copropriete->getLots();
@@ -86,12 +78,11 @@ class CreateDocumentType extends AbstractType
                 'class'        => Lot::class,
                 'choices'      => $lots,
                 'choice_label' => function (Lot $lot) {
-                    $em             = $this->container->get('doctrine')->getManager();
                     /** @var Coproprietaire $coproprietaire */
-                    $coproprietaire = $em->getRepository(Coproprietaire::class)->findActuelCoproprietaire($lot);
-                    return null === $coproprietaire ? 'Aucun coproprietaire' : $coproprietaire->getPrenom() . ' ' . $coproprietaire->getNom();
+                    $coproprietaire = $this->em->getRepository(Coproprietaire::class)->findActuelByLot($lot);
+                    return null === $coproprietaire ? 'Aucun coproprietaire' : $coproprietaire->__toString();
                 },
-                'label'        => 'document.new.lots',
+                'label'        => 'document.lots',
                 'multiple'     => true,
             ));
         };
@@ -115,7 +106,10 @@ class CreateDocumentType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => Document::class,));
+        $resolver->setDefaults(array(
+                                   'data_class' => Document::class,
+                                   'syndic'     => null,
+                               ));
     }
 
 }

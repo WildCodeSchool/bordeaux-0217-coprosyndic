@@ -5,8 +5,7 @@ namespace AKYOS\DocumentBundle\Controller;
 use AKYOS\BackofficeBundle\Entity\Syndic;
 use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
-use AKYOS\DocumentBundle\Form\CreateDocumentType;
-use AKYOS\DocumentBundle\Form\EditDocumentType;
+use AKYOS\DocumentBundle\Form\DocumentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -31,7 +30,9 @@ class DocumentController extends Controller
         $em       = $this->getDoctrine()->getManager();
         $syndic   = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
         $document = new Document();
-        $form     = $this->createForm(CreateDocumentType::class, $document);
+        $form     = $this->createForm(DocumentType::class, $document, array(
+            'syndic' => $syndic,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,11 +61,14 @@ class DocumentController extends Controller
 
     public function editAction(Request $request, Document $document)
     {
-        $form = $this->createForm(EditDocumentType::class, $document);
+        $em     = $this->getDoctrine()->getManager();
+        $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $form   = $this->createForm(DocumentType::class, $document, array(
+            'syndic' => $syndic,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $document->setDateModif(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('info', 'Les modifications sur le document ont bien été enregistrées.');
@@ -76,8 +80,8 @@ class DocumentController extends Controller
         }
 
         return $this->render('AKYOSDocumentBundle:Document:edit.html.twig', array(
-            'form'       => $form->createView(),
-            'documentId' => $document->getId(),
+            'form'     => $form->createView(),
+            'document' => $document,
         ));
     }
 
