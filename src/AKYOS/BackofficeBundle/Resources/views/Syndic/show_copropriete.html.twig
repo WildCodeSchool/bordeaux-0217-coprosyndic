@@ -94,7 +94,7 @@
                                     <tr>
                                         <td class="text-center" style="display:none">{{ document.id }}</td>
                                         <td style="padding-left:17px;">
-                                            <a href="{{ path('syndic_show_document', {'id': document.id}) }}"><strong style="cursor: pointer !important;">{{ document.titre }}</strong></a>
+                                            <a href="{{ path('document_show', {'id': document.id, 'type': app.user.type}) }}"><strong style="cursor: pointer !important;">{{ document.titre }}</strong></a>
                                         </td>
                                         <td>
                                             <span class="label label-{{ document.category }}" style="background-color: {{ document.category.couleur }}">{{ document.category }}</span>
@@ -102,7 +102,7 @@
                                         <th style="width: 25px; display:none"></th>
                                         <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                         <td class="text-center">
-                                            <a href="{{ vich_uploader_asset(document, 'fichier') }}" download="{{ document.nom~'.'~document.extension }}"
+                                            <a href="{{ vich_uploader_asset(document, 'file') }}" download="{{ document.fileName~'.'~document.extension }}"
                                                data-toggle="tooltip" title="Télécharger le document"
                                                class="btn btn-effect-ripple btn-xs btn-primary">
                                                 <i class="fa fa-download"></i></a>
@@ -418,7 +418,7 @@
     <div id="modal-addfile" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {{ render(controller('AKYOSBackofficeBundle:Syndic:createDocument')) }}
+                {{ render(controller('AKYOSDocumentBundle:Document:create')) }}
             </div>
         </div>
     </div>

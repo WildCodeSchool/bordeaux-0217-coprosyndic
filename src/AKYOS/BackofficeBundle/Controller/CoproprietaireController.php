@@ -101,7 +101,7 @@ class CoproprietaireController extends Controller
         $em                 = $this->getDoctrine()->getManager();
         $coproprietaire     = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
         $copropriete        = $coproprietaire->getLot()->getCopropriete();
-        $documents          = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
+        $documents          = $em->getRepository(Document::class)->findAllByCopropriete($copropriete);
         $nbrecoproprietaire = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesByCopropriete($copropriete);
         return $this->render('@AKYOSBackoffice/Coproprietaire/show_copropriete.html.twig', array(
             'coproprietaire'     => $coproprietaire,

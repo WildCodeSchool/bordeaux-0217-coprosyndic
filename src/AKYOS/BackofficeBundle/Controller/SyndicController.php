@@ -51,7 +51,6 @@ class SyndicController extends Controller
 
         $documents      = $syndic->getDocuments();
         $coproprietes   = $syndic->getCoproprietes();
-        $nbre_documents = $em->getRepository(Document::class)->findNbreDocumentByCoproprieteBySyndic($syndic);
         $request->getSession()->set('copro', null);
 
         $allReceivedMailsCount    = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
@@ -63,7 +62,6 @@ class SyndicController extends Controller
             'nbre_locataires'          => $nbre_locataires,
             'artisans'                 => $artisans,
             'coproprietes'             => $coproprietes,
-            'nbDocuments'              => $nbre_documents,
             'syndic'                   => $syndic,
             'allReceivedMailsCount'    => $allReceivedMailsCount,
             'unreadReceivedMailsCount' => $unreadReceivedMailsCount,
@@ -520,7 +518,7 @@ class SyndicController extends Controller
         $lots                 = $copropriete->getLots();
         $artisans             = $copropriete->getArtisans();
         $locataires           = $em->getRepository(Locataire::class)->findLocatairesByCopropriete($copropriete);
-        $documents            = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
+        $documents            = $em->getRepository(Document::class)->findAllByCopropriete($copropriete);
 
         return $this->render('@AKYOSBackoffice/Syndic/show_copropriete.html.twig', array(
             'copropriete'          => $copropriete,
@@ -655,7 +653,7 @@ class SyndicController extends Controller
         $em     = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
 
-        $documents       = $em->getRepository(Document::class)->findSyndicDocumentsBySearch($syndic, $search);
+        $documents       = $em->getRepository(Document::class)->findBySyndicBySearch($syndic, $search);
         $lots            = $em->getRepository(Lot::class)->findSyndicLotsBySearch($syndic, $search);
         $coproprietaires = $em->getRepository(Coproprietaire::class)->findSyndicCoproprietairesBySearch($syndic, $search);
         $locataires      = $em->getRepository(Locataire::class)->findSyndicLocatairesBySearch($syndic, $search);

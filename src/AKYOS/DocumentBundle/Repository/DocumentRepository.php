@@ -151,33 +151,7 @@ class DocumentRepository extends EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-//    ----------------------------------------------
-
-
-    public function findDocumentsByCopropriete($copropriete)
-    {
-
-        $qb = $this->createQueryBuilder('d')
-                   ->where('d.copropriete = :copropriete')
-                   ->setParameter('copropriete', $copropriete);
-
-        return $qb->getQuery()->getResult();
-    }
-
-    public function findNbreDocumentByCoproprieteBySyndic($syndic)
-    {
-        $qb = $this->createQueryBuilder('d')
-                   ->select('c.nom', 'count(d)')
-                   ->join('d.syndic', 's')
-                   ->join('s.coproprietes', 'c')
-                   ->groupBy('c.nom')
-                   ->where('s = :syndic')
-                   ->setParameter('syndic', $syndic);
-        return $qb->getQuery()->getResult();
-
-    }
-
-    public function findSyndicDocumentsBySearch($syndic, $search)
+    public function findBySyndicBySearch($syndic, $search)
     {
 
         $qb = $this->createQueryBuilder('d')

@@ -87,7 +87,7 @@ class ArtisanController extends Controller
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
         $copropriete = $artisan->getCopropriete();
-        $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
+        $documents = $em->getRepository(Document::class)->findAllByCopropriete($copropriete);
         $nbArtisans = $em->getRepository(Artisan::class)->findNbrArtisansByCopropriete($copropriete);
 
         return $this->render('@AKYOSBackoffice/Artisan/show_copropriete.html.twig', array(

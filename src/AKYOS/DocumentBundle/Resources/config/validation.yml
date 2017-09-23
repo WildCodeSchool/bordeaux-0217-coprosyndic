@@ -17,7 +17,7 @@ AKYOSDocumentBundle\Entity\Document:
             - Length:
                 max: 255
                 maxMessage: 'Le titre ne doit pas dépasser {{ limit }} caractères'
-        fichier:
+        file:
             - NotNull: ~
         category:
             - NotNull: ~

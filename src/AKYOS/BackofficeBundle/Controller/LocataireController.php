@@ -100,7 +100,7 @@ class LocataireController extends Controller
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
         $copropriete = $locataire->getLot()->getCopropriete();
-        $documents = $em->getRepository(Document::class)->findDocumentsByCopropriete($copropriete);
+        $documents = $em->getRepository(Document::class)->findAllByCopropriete($copropriete);
         $nbrelocataire = $em->getRepository(Locataire::class)->findNbrLocatairesByCopropriete($copropriete);
         return $this->render('@AKYOSBackoffice/Locataire/show_copropriete.html.twig', array(
             'locataire' =>$locataire,
