@@ -3,7 +3,7 @@
     <h3 class="modal-title"><strong>Ajouter un document</strong></h3>
 </div>
 
-{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-horizontal', 'action': path('document_create', {'type': app.user.type}) }}) }}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-horizontal form-document-create', 'action': path('document_create', {'type': app.user.type}) }}) }}
 
 <div class="modal-body">
     <div class="row">
@@ -54,10 +54,12 @@
                     {{ form_row(form.copropriete, {'attr': {'class':'select-select2 select-single', 'style':'width: 100%;'}}) }}
                 </div>
             </div>
-            <label class="csscheckbox csscheckbox-info" for="checkbox-all">Tout sélectionner
-            <input type="checkbox" id="checkbox-all">
-                <span></span>
-            </label>
+            <div id="checkbox-box">
+                <label class="csscheckbox csscheckbox-info" for="checkbox-all">Tout sélectionner
+                    <input type="checkbox" id="checkbox-all">
+                    <span></span>
+                </label>
+            </div>
             <div class="col-md-6">
                 <div class="form-group">
                     {{ form_row(form.lots, {'attr': {'class':'select-select2', 'style':'width: 100%;'}}) }}
@@ -93,4 +95,7 @@
 
 <script type="text/javascript">
     let context = 'create';
+    if (typeof addDocumentFormListener === 'function') {
+        addDocumentFormListener('create');
+    }
 </script>

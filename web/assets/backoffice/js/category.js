@@ -16,18 +16,18 @@ $( document ).ready(function() {
             method: 'post',
             success: function(html) {
                 stopLoader(loader);
-                $('#modal-edit-form').html(html);
+                $('#form-edit-box').html(html);
                 $('.colorpicker-component').colorpicker();
                 $('#modal-fade-edit-category').modal();
             }
         });
     });
 
-    addFormListener('create');
+    addCategoryFormListener('create');
 });
 
-function addFormListener(context, categoryId = null) {
-    $('.form-'+context).on('submit', function (e) {
+function addCategoryFormListener(context, categoryId = null) {
+    $('.form-category-'+context).on('submit', function (e) {
         e.preventDefault();
         let url = '/syndic/categories/'+context + (context === 'edit' ? '/'+categoryId : '');
         $.ajax({
@@ -35,12 +35,10 @@ function addFormListener(context, categoryId = null) {
             data: $(this).serialize(),
             method: 'post',
             success: function (html, code, xhr) {
-                console.log(xhr.status);
                 if (xhr.status === 201 || xhr.status === 202) {
                     location.href = xhr.getResponseHeader("Location");
                 } else {
-                    $('#form-box').html(html);
-                    $('.colorpicker-component').colorpicker();
+                    $('#form-'+context+'-box').html(html);
                 }
             },
         });

@@ -7,7 +7,10 @@ use AKYOS\DocumentBundle\Entity\Category;
 use AKYOS\DocumentBundle\Entity\Document;
 use AKYOS\DocumentBundle\Form\DocumentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DocumentController extends Controller
 {
@@ -29,6 +32,7 @@ class DocumentController extends Controller
     {
         $em       = $this->getDoctrine()->getManager();
         $syndic   = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+
         $document = new Document();
         $form     = $this->createForm(DocumentType::class, $document, array(
             'syndic' => $syndic,
@@ -41,10 +45,14 @@ class DocumentController extends Controller
             $em->flush();
 
             $this->addFlash('info', 'Un nouveau document a été importé avec succès.');
-            return $this->redirectToRoute('document_show', array(
-                'id'   => $document->getId(),
-                'type' => $this->getUser()->getType(),
-            ));
+
+            return new JsonResponse('Created', Response::HTTP_CREATED, array(
+                                                 'Location' => $this->generateUrl('document_show', array(
+                                                     'id'   => $document->getId(),
+                                                     'type' => $this->getUser()->getType(),
+                                                 ))
+                                             )
+            );
         }
 
         return $this->render('AKYOSDocumentBundle:Document:create.html.twig', array(

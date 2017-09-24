@@ -44,7 +44,7 @@ class CategoryController extends Controller
 
             return new JsonResponse('Created', Response::HTTP_CREATED, array(
                 'Location' => $this->generateUrl('category_index', array('type' => $this->getUser()->getType()))
-                ));
+            ));
         }
 
         return $this->render('AKYOSDocumentBundle:Category:create.html.twig', array(

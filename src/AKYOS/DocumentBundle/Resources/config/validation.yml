@@ -18,10 +18,11 @@ AKYOS\DocumentBundle\Entity\Document:
             - Length:
                 max: 255
                 maxMessage: 'Le titre ne doit pas dépasser {{ limit }} caractères'
-        file:
-            - NotNull: ~
+#        file:
+#            - NotBlank: ~
         category:
             - NotNull: ~
         copropriete:
             - NotNull: ~
-
+        lots:
+            - NotNull: ~
