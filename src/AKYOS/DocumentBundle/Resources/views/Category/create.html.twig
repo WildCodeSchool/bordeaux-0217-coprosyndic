@@ -1,4 +1,4 @@
-{{ form_start(form, {'attr':{'class':'form-horizontal', 'action': path('category_create', {'type':app.user.type}) }}) }}
+{{ form_start(form, { 'attr':{'novalidate': 'novalidate','class':'form-horizontal form-create', 'action': path('category_create', {'type': app.user.type}) }}) }}
 
 <div class="col-sm-12">
     <div class="form-group" style="margin-right: 5px">
@@ -30,3 +30,9 @@
 
 {{ form_rest(form) }}
 {{ form_end(form) }}
+
+<script>
+    if (typeof addFormListener === 'function') {
+        addFormListener('create');
+    }
+</script>

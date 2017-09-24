@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
 {% endblock %}
 
 {% block titre_page %}
@@ -17,7 +18,8 @@
 {% endblock %}
 
 {% block scripts %}
-    {{ parent() }}
+    <script src="{{ asset('assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+
     <script src="{{ asset('assets/backoffice/js/document.js') }}"></script>
     <script src="{{ asset('assets/backoffice/js/category.js') }}"></script>
 {% endblock %}

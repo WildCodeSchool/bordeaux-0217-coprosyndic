@@ -10,6 +10,7 @@ use SensioLabs\Security\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
@@ -41,7 +42,9 @@ class CategoryController extends Controller
 
             $this->addFlash('info', 'Une nouvelle catégorie a été créée avec succès.');
 
-            return $this->redirectToRoute('category_index', array('type' => $this->getUser()->getType()));
+            return new JsonResponse('Created', Response::HTTP_CREATED, array(
+                'Location' => $this->generateUrl('category_index', array('type' => $this->getUser()->getType()))
+                ));
         }
 
         return $this->render('AKYOSDocumentBundle:Category:create.html.twig', array(
@@ -60,7 +63,9 @@ class CategoryController extends Controller
 
             $this->addFlash('info', 'Les modifications sur la catégorie ont bien été enregistrées.');
 
-            return $this->redirectToRoute('category_index', array('type' => $this->getUser()->getType()));
+            return new JsonResponse('Created', Response::HTTP_ACCEPTED, array(
+                'Location' => $this->generateUrl('category_index', array('type' => $this->getUser()->getType()))
+            ));
         }
 
         return $this->render('AKYOSDocumentBundle:Category:edit.html.twig', array(

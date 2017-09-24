@@ -6,7 +6,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
 {% endblock %}
 
 {% block titre_page %}
@@ -127,10 +126,4 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script src="{{ asset('assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
-    <script>
-        $(function () {
-            $('.colorpicker-component').colorpicker();
-        });
-    </script>
 {% endblock %}
