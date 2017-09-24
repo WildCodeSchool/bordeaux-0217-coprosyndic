@@ -11,7 +11,7 @@ AKYOS\DocumentBundle\Entity\Category:
                 pattern: '/^#[0-9a-fA-F]{6}$/'
                 message: 'La couleur doit être au format hexadécimal'
 
-AKYOSDocumentBundle\Entity\Document:
+AKYOS\DocumentBundle\Entity\Document:
     properties:
         titre:
             - NotBlank: ~
