@@ -102,7 +102,7 @@
                                         <th style="width: 25px; display:none"></th>
                                         <td class="text-center">{{ document.dateAjout|date('d/m/Y') }}</td>
                                         <td class="text-center">
-                                            <a href="{{ vich_uploader_asset(document, 'file') }}" download="{{ document.fileName~'.'~document.extension }}"
+                                            <a href="{{ vich_uploader_asset(document, 'file') }}" download="{{ document.fileName }}"
                                                data-toggle="tooltip" title="Télécharger le document"
                                                class="btn btn-effect-ripple btn-xs btn-primary">
                                                 <i class="fa fa-download"></i></a>
