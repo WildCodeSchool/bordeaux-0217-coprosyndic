@@ -1,0 +1,129 @@
+{% extends 'AKYOSDocumentBundle::layout.html.twig' %}
+
+{% block title %}
+    Gestion des catégories
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block titre_page %}
+    Gestion des catégories
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path(app.user.type~'_index') }}">Tableau de bord</a></li>
+    <li><a href="{{ path('document_index', {'type': app.user.type}) }}">Mes documents</a></li>
+    <li class="active">Mes catégories</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="row" style="background:#FFF;  margin-bottom: 20px;">
+                <div class="col-md-12">
+                    <a href="" class="btn btn-block btn-default visible-xs" data-toggle="collapse"
+                       data-target="#add-category">Ajouter une catégorie</a>
+                    <div id="add-category" class="collapse navbar-collapse remove-padding">
+                        <h4 class="inner-sidebar-header">Ajouter une catégorie</h4>
+                        <div class="block-section">
+                            <div id="form-create-box" class="animation-fadeInQuick2">
+                                {{ render(controller('AKYOSDocumentBundle:Category:create')) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-9" id="syndic-categories">
+            <div class="block-content-full animation-fadeInQuick2">
+                <div class="">
+                    <table id="" class="table table-striped table-borderless style-hover table-vcenter">
+                        <thead>
+                        <tr style="background:#EDEDED;">
+                            <th class="text-center" style="width: 25px; display:none">ID</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Vignette</th>
+                            <th class="text-center"><i class="fa fa-flash"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody class="categories-rows">
+                        {% for category in categories %}
+                            <tr>
+                                <td class="text-center" style="display:none">{{ category.id }}</td>
+                                <td style="padding-left:17px;">{{ category.nom }}</td>
+                                <td style="padding-left:17px;">{{ category.description }}</td>
+                                <td><span class="label"
+                                          style="background-color: {{ category.couleur }}">Vignette</span>
+                                </td>
+                                <td class="text-center">
+
+                                    <a data-category="{{ category.id }}" data-toggle="tooltip" data-placement="top"
+                                       title="Modifier"
+                                       class="btn btn-effect-ripple btn-xs btn-success btn-edit-category">
+                                        <i class="fa fa-edit"></i></a>
+
+                                    <span data-toggle="modal" data-target="#modal-fade-del-category">
+                                    <a data-toggle="tooltip" data-placement="top"
+                                       data-category="{{ category.id }}" title="Supprimer"
+                                       class="btn btn-effect-ripple btn-xs btn-danger btn-delete-category">
+                                        <i class="fa fa-times"></i></a></span>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Regular Modals -->
+    <div id="modal-fade-del-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"><strong>Confirmation de suppression</strong></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><strong>Attention !</strong> La suppression d'une catégorie entraîne la suppression de
+                                tous les documents associés.</p>
+                            <p>Voulez-vous vraiment supprimer cette catégorie ?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right">
+                            <a href="" id="delete-category" style="margin-right: 20px;">
+                                <button type="button" class="btn btn-effect-ripple btn-primary">Supprimer</button>
+                            </a>
+                            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">
+                                Annuler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-fade-edit-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div id="form-edit-box" class="modal-content">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+{% endblock %}

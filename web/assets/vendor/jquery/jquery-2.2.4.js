@@ -7059,7 +7059,7 @@
         slow: 600,
         fast: 200,
 
-        // Default speed
+        // Mailbox speed
         _default: 400
     };
 
@@ -7087,7 +7087,7 @@
         input.type = "checkbox";
 
         // Support: iOS<=5.1, Android<=4.2+
-        // Default value for a checkbox should be "on"
+        // Mailbox value for a checkbox should be "on"
         support.checkOn = input.value !== "";
 
         // Support: IE<=11+
@@ -8410,7 +8410,7 @@
                 // The jqXHR state
                 state = 0,
 
-                // Default abort message
+                // Mailbox abort message
                 strAbort = "canceled",
 
                 // Fake xhr
@@ -9261,7 +9261,7 @@
     var oldCallbacks = [],
         rjsonp = /(=)\?(?=&|$)|\?\?/;
 
-// Default jsonp settings
+// Mailbox jsonp settings
     jQuery.ajaxSetup( {
         jsonp: "callback",
         jsonpCallback: function() {

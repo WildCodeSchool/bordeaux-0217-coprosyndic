@@ -9,12 +9,13 @@ var AppEmail = function() {
     return {
         init: function() {
             // Choose one of the highlight classes for the message list rows: 'active', 'success', 'warning', 'danger'
-            var rowHighlightClass = 'warning';
+            var rowHighlightClass = 'info';
 
             /* Add/Remove row highlighting on checkbox click */
-            $('tbody input:checkbox').click(function() {
-                var checkedStatus   = $(this).prop('checked');
-                var tableRow        = $(this).closest('tr');
+            $('tbody').on('click', 'input:checkbox', function() {
+
+                let checkedStatus   = $(this).prop('checked');
+                let tableRow        = $(this).closest('tr');
 
                 if (checkedStatus) {
                     tableRow.addClass(rowHighlightClass);
@@ -23,21 +24,24 @@ var AppEmail = function() {
                 }
             });
             
-            $('#selecctall').click(function ( evt ) {
+            $('#selecctall').on('click', function () {
+
                 if($(this).prop('checked')){
                     $('tbody input:checkbox').each(function() {
                         this.checked = true;
-                        $(this).closest('tr').addClass(rowHighlightClass);;
+                        $(this).closest('tr').addClass(rowHighlightClass);
                     });
                 }
                 else{
                     $('tbody input:checkbox').each(function() {
                         this.checked = false;
-                        $(this).closest('tr').removeClass(rowHighlightClass);;
+                        $(this).closest('tr').removeClass(rowHighlightClass);
                     });
                 }
             });
 
+
         }
     };
 }();
+

@@ -1,26 +1,26 @@
-akyos_easy_copro_front_office:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing.yml"
+akyos_document:
+    resource: "@AKYOSDocumentBundle/Resources/config/routing.yml"
     prefix:   /
 
-akyos_easy_copro_back_office_admin:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_admin.yml"
-    prefix:   /admin
+akyos_frontoffice:
+    resource: "@AKYOSFrontofficeBundle/Resources/config/routing.yml"
+    prefix:   /
 
-akyos_easy_copro_back_office_syndic:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_syndic.yml"
-    prefix:   /syndic
+akyos_user:
+    resource: "@AKYOSUserBundle/Resources/config/routing.yml"
+    prefix:   /user
 
-akyos_easy_copro_back_office_coproprietaire:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_coproprietaire.yml"
-    prefix:   /coproprietaire
+akyos_backoffice:
+    resource: "@AKYOSBackofficeBundle/Resources/config/routing.yml"
+    prefix:   /
 
-akyos_easy_copro_back_office_locataire:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_locataire.yml"
-    prefix:   /locataire
+akyos_mailbox:
+    resource: "@AKYOSMailboxBundle/Resources/config/routing.yml"
+    prefix:   /
 
-akyos_easy_copro_back_office_artisan:
-    resource: "@AKYOSEasyCoproBundle/Resources/config/routing_artisan.yml"
-    prefix:   /artisan
+akyos_postit:
+    resource: "@AKYOSPostitBundle/Resources/config/routing.yml"
+    prefix:   /postit
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

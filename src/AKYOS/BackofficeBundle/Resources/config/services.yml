@@ -1,0 +1,35 @@
+services:
+    akyos.twig.filters:
+        class: AKYOS\BackofficeBundle\Service\TwigFilters
+        tags:
+            - { name: twig.extension }
+
+    form.type.create_coproprietaire:
+        class: AKYOS\BackofficeBundle\Form\CreateCoproprietaireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
+    form.type.edit_coproprietaire:
+        class: AKYOS\BackofficeBundle\Form\EditCoproprietaireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
+    form.type.create_locataire:
+        class: AKYOS\BackofficeBundle\Form\CreateLocataireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
+    form.type.edit_locataire:
+        class: AKYOS\BackofficeBundle\Form\EditLocataireType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
+    form.type.edit_artisan:
+            class: AKYOS\BackofficeBundle\Form\EditArtisanType
+            arguments: ['@service_container']
+            tags:
+                - { name: form.type }

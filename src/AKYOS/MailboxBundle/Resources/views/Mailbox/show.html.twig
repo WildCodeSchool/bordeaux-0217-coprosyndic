@@ -1,0 +1,92 @@
+{% extends '@AKYOSBackoffice/'~app.user.type|capitalize~'/layout.html.twig' %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre_page %}
+    Messagerie
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}">Mes messages</a></li>
+    <li class="active">Affichage d'un message</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!-- Message View -->
+        <div id="message-view" class="block-section col-md-10 col-md-offset-1" style="background:#FFF">
+            <!-- Title -->
+            <div class="block-title clearfix" style="margin:0px -15px">
+                <div id="markers" class="block-options pull-right">
+                    <a href="" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Placer dans la boîte de réception" data-state="inbox"><i class="fa fa-inbox"></i></a>
+                    <a href="" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Marquer en favori" data-state="favorite"><i class="fa fa-star"></i></a>
+                    <a href="" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme important" data-state="important"><i class="fa fa-exclamation-circle"></i></a>
+                    <a href="" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Marquer comme SPAM" data-state="spam"><i class="fa fa-exclamation-triangle"></i></a>
+                    <a href="" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Marquer comme non lu" data-state="unread"><i class="fa fa-envelope"></i></a>
+                    <a href="" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" title="Supprimer" data-state="trash"><i class="fa fa-trash"></i></a>
+                </div>
+                <div class="block-options pull-left">
+                    <a href="{{ path('mailbox_homepage', {'type': app.user.type}) }}" class="btn btn-effect-ripple btn-default" id="message-view-back"><i class="fa fa-chevron-left"></i> Retour à la boîte de reception</a>
+                </div>
+            </div>
+            <!-- END Title -->
+
+            <!-- Header -->
+            <h3><strong>{{ mail.subject }}</strong> <small><em>il y a {{ mail.sendingDate|countUp }}</em></small></h3>
+            {% if sender is defined %}
+                <p>de <strong style="color: #45A7B9">{{ sender }}</strong>
+                <span id="state" class="pull-right" style="color: #FFF; border-radius: 2px; padding: 0 5px;">{{ mail.recipientState }}</span></p>
+            {% elseif recipient is defined %}
+                <p>à <strong style="color: #45A7B9">{{ recipient }}</strong>
+                <span id="state" class="pull-right" style="color: #FFF; border-radius: 2px; padding: 0 5px;">{{ mail.senderState }}</span></p>
+            {% endif %}
+
+            {#TODO : voir si on permet l'affichage du profil de l'expéditeur#}
+            {#<p><a href="<?= WWW; ?>/coowners/eric-stone"><strong>John Doe</strong></a> <strong>&lt;john.doe@example.com&gt;</strong> to <a href="<?= WWW; ?>/coowners/eric-stone"><strong>Jean Dupont</strong></a> <strong>&lt;jean.dupont21@example.com&gt;</strong></p>#}
+            <!-- END Header -->
+
+            <!-- Message Body -->
+            <hr>
+            <p>{{ mail.content|nl2br }}</p>
+            <hr>
+            <!-- END Message Body -->
+
+            <!-- Attachments Row -->
+            {#<div class="row block-section">#}
+                {#<div class="col-xs-6 col-sm-3 col-lg-2 text-center">#}
+                    {#<a href="<?= ressources('back'); ?>/img/placeholders/photos/photo2.jpg" data-toggle="lightbox-image">#}
+                        {#<img src="<?= ressources('back'); ?>/img/placeholders/photos/photo2.jpg" alt="photo" class="img-responsive push-bit">#}
+                    {#</a>#}
+                    {#<span class="text-muted">IMG0001.JPG</span>#}
+                {#</div>#}
+            {#</div>#}
+            <!-- END Attachments Row -->
+
+            <!-- Quick Reply Form -->
+            {% if sender is defined %}
+                {{ render(controller('AKYOSMailboxBundle:Mailbox:reply', {'id': mail.id})) }}
+            {% endif %}
+            <!-- END Quick Reply Form -->
+        </div>
+        <!-- END Message View -->
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        var id = {{ mail.id }};
+        {% if sender is defined %}
+            mailState = '{{ mail.recipientState }}';
+        {% elseif recipient is defined %}
+            mailState = '{{ mail.senderState }}';
+        {% endif %}
+        var currentConfig = categoryConfig[mailState];
+        $('#state').addClass('label-'+currentConfig);
+        $('#state').html(stateString[mailState]);
+    </script>
+    <script>
+
+    </script>
+{% endblock %}

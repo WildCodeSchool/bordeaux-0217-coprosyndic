@@ -1,0 +1,23 @@
+document:
+    title: Titre
+    description: Description
+    file: Fichier
+    category: Catégorie
+    coownership: Copropriété
+    lots: Lots
+    toLocataires: 'Diffuser également aux locataires ?'
+    submit_create: Ajouter
+    submit_edit: Modifier
+    placeholders:
+        title: 'Saisissez le titre ...'
+        description: 'Saisissez la description ...'
+category:
+    name: Nom
+    description: Description
+    color: Vignette
+    submit_create: Ajouter
+    submit_edit: Modifier
+    placeholders:
+        name: Saisissez le nom ...
+        color: Choisissez une couleur ...
+        description: Entrez une description ...

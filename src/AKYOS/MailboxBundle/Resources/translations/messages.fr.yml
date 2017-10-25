@@ -1,0 +1,18 @@
+mail:
+    new:
+        subject: Objet
+        content: Contenu
+        recipientType: Type de destinataire
+        recipient: Destinataire
+        submit: Envoyer
+        placeholders:
+            subject: 'Objet du message ...'
+            content: 'Votre message ...'
+        choices:
+            union: Syndic
+            coowner: Copropriétaire
+            tenant: Locataire
+            provider: Fournisseur
+    reply:
+        content: "Votre réponse"
+        submit: Répondre

@@ -1,0 +1,23 @@
+artisan_index:
+    path:     /
+    defaults: { _controller: AKYOSBackofficeBundle:Artisan:index }
+
+artisan_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSBackofficeBundle:Artisan:edit }
+
+artisan_show:
+    path:     /show
+    defaults: { _controller: AKYOSBackofficeBundle:Artisan:show }
+
+artisan_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSBackofficeBundle:Artisan:parameters }
+    
+artisan_show_copropriete:
+    path: /show/copropriete
+    defaults: {  _controller: AKYOSBackofficeBundle:Artisan:showCopropriete}
+
+artisan_edit_copropriete:
+    path: /edit/copropriete
+    defaults: {  _controller: AKYOSBackofficeBundle:Artisan:editCopropriete}

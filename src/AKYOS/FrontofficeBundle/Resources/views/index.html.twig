@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easy Copro</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontoffice/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontoffice/css/media-queries.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontoffice/css/style.css') }}">
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/frontoffice/ico/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/frontoffice/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/frontoffice/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/frontoffice/ico/apple-touch-icon-57-precomposed.png') }}">
+
+</head>
+
+<body>
+
+<!-- Flash Messages Box -->
+{% for message in app.session.flashbag.get('info') %}
+    <div class="flash-box">
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                ×</button>
+            <span class="glyphicon glyphicon-ok"></span> <strong>Bien reçu !</strong>
+            <hr class="message-inner-separator">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+{% endfor %}
+
+<!-- Top menu -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('frontoffice_homepage') }}"></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="top-navbar-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="scroll-link" href="#features">Fonctionnalités</a></li>
+                <li><a class="scroll-link" href="#how-it-works">Démo</a></li>
+                <li><a class="scroll-link" href="#testimonials">Tarifs</a></li>
+                <li><a class="scroll-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Top content -->
+<div class="top-content">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text">
+                <h1 class="wow fadeInLeftBig">Gérez vos copropriétés en toute simplicité</h1>
+                <div class="description wow fadeInLeftBig">
+                    <p>
+                        En quelques clics, vous configurez et êtes prets ! L'interface simple d'utilisation mais détaillé vous aidera
+                        dans vos travaux quotidiens en matière de copropriété .
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 r-form-1-box wow fadeInUp">
+                <div class="r-form-1-top">
+                    <div class="r-form-1-top-left">
+                        <h3>Connectez-vous</h3>
+                        <p>Remplissez le formulaire ci-dessous avec les identifiants délivrés par votre Syndic :</p>
+                    </div>
+                    <div class="r-form-1-top-right">
+                        <i class="fa fa-pencil"></i>
+                    </div>
+                </div>
+                <div class="r-form-1-bottom">
+                    {{ render(controller("FOSUserBundle:Security:login")) }}
+                    <p class="text-center"><a class="scroll-link" href="#contact">Demander un accès</a></p>
+                    <p class="text-center"><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié ?</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Features -->
+<div class="features-container section-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 features section-description wow fadeIn">
+                <h2>Pourquoi choisir EasyCopro ?</h2>
+                <div class="divider-1 wow fadeInUp">. . . . . . . . . .</div>
+                <p>EasyCopro est le nouveau leader sur le marché en matière de solution pour les Syndicats. Fiablet et pas cher il vous fournira tous les outils pour gérer au mieux vos copropriétés !</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 features-box wow fadeInUp">
+                <div class="features-box-icon"><i class="fa fa-file-pdf-o"></i></div>
+                <h3>Une plateforme facile à utiliser</h3>
+                <p>Facilitez-vous la gestion grâce à une interface web claire et intuitive.
+                    Gérez la globalité de votre activité de syndic simplement. Partagez facilement les informations et documents sur la plateforme . </p>
+            </div>
+            <div class="col-sm-4 features-box wow fadeInDown">
+                <div class="features-box-icon"><i class="fa fa-cog"></i></div>
+                <h3>Gestion des copropriétés</h3>
+                <p>Tout en simplicité, gérer les copropriétaires grâce à un annuaire classé par Résidence, créez vos lots et copropriétés et mettez à disposition les documents légaux .</p>
+            </div>
+            <div class="col-sm-4 features-box wow fadeInUp">
+                <div class="features-box-icon"><i class="fa fa-commenting"></i></div>
+                <h3>Messagerie interne</h3>
+                <p>Connectez-vous 24h/24, oû que vous soyez! Même de votre mobile Iphone ou Android et contactez vos copropriétaires ou faites des demandes de devis en ligne par le biais d'un annuaire artisan .</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 section-bottom-button wow fadeInUp">
+                <a class="btn btn-link-1 scroll-link" href="#top-content">Abonnez-vous<i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How it works -->
+<div class="how-it-works-container section-container section-container-gray-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5 how-it-works-box wow fadeInLeft">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115014610?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=e36da1"
+                            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-sm-6 col-sm-offset-1 how-it-works-box how-it-works-box-right wow fadeInUp">
+                <h3>Démonstration d'utilisation</h3>
+                <p>
+                    Une vidéo explicative vous montrera pas en pas les fonctionnalités et utilisation de notre solution logicielle.
+                </p>
+                <p>
+                    Un logiciel performant et spécialisé permettant de ne plus s'embarasser inutilemment dans la gestion de vos copropriétés .
+                </p>
+                <p>
+                    <a class="learn-more scroll-link" href="#top-content">Abonnez-vous</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tarifs -->
+<div class="price-table testimonials-container section-container section-container-image-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 testimonials section-description wow fadeIn">
+                <h2>Nos Tarifs</h2>
+                <p>Trois prestations différentes :</p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4 testimonial-list wow fadeInUp">
+                    <div class="pricing text-center">
+                        <div class="pricing-top">
+                            <p><em>35 <sup>€</sup></em>/an</p>
+                            <span>Basic</span>
+                        </div>
+                        <ul>
+                            <li>Choix 1</li>
+                            <li>Choix 2</li>
+                            <li>Choix 3</li>
+                            <li>Choix 4</li>
+                            <li>Choix 5</li>
+                            <li>Et plus encore ...</li>
+                        </ul>
+                        <div class="btn btn-link-1 scroll-link">Commandez maintenant !</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 testimonial-list wow fadeInUp">
+                    <div class="pricing text-center">
+                        <div class="pricing-top">
+                            <p><em>115 <sup>€</sup></em>/an</p>
+                            <span>Middle</span>
+                        </div>
+                        <ul>
+                            <li>Choix 1 à 5</li>
+                            <li>Choix 6</li>
+                            <li>Choix 7</li>
+                            <li>Choix 8</li>
+                            <li>Choix 9</li>
+                            <li>Et plus encore ...</li>
+                        </ul>
+                        <div class="btn btn-link-1 scroll-link">Commandez maintenant !</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 testimonial-list wow fadeInUp">
+                    <div class="pricing text-center">
+                        <div class="pricing-top">
+                            <p><em>175 <sup>€</sup></em>/an</p>
+                            <span>Pro</span>
+                        </div>
+                        <ul>
+                            <li>Choix 1 à 9</li>
+                            <li>Choix 10</li>
+                            <li>Choix 11</li>
+                            <li>Choix 12</li>
+                            <li>Choix 13</li>
+                            <li>Et plus encore ...</li>
+                        </ul>
+                        <div class="btn btn-link-1 scroll-link">Commandez maintenant !</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact -->
+<div class="contact-container section-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 contact section-description wow fadeIn">
+                <h2>Contactez-nous</h2>
+                <div class="divider-1 wow fadeInUp">. . . . . . . . . .</div>
+                <p>
+                    Un projet ? Une question ? Contactez nous ! Utilisez simplement le formulaire ci-dessous .
+
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form name="sentMessage" id="contactForm" novalidate="" action="{{ path('frontoffice_contact') }}" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                               <input name="name" type="text" class="form-control" placeholder="Votre Nom *" id="name" required="" data-validation-required-message="Votre nom...">
+
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <input name="email" type="email" class="form-control" placeholder="Votre Email *" id="email" required="" data-validation-required-message="Please enter your email address.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <input name="tel" type="tel" class="form-control" placeholder="Votre téléphone *" id="phone" required="" data-validation-required-message="Entrez votre numéro de téléphone.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <textarea name="message" class="form-control" placeholder="Votre Message *" id="message" required="" data-validation-required-message="Entrez votre message." rows="5"></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 text-center">
+                            <div id="success"></div>
+                            <button type="submit" class="btn btn-link-1 scroll-link envoi-btn">Envoyer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 contactbox">
+                <p class="pcontact">
+                    <strong><i class="fa fa-map-marker"></i> Adresse</strong><br>
+                    AKYOS : Parc Valmy - 8F rue Jeanne Barret - 21000 DIJON
+                </p>
+                <p class="pcontact"><strong><i class="fa fa-phone"></i> Téléphone</strong><br>
+                    03 80 10 23 57</p>
+                <p class="pcontact">
+                    <strong><i class="fa fa-envelope"></i> Email</strong><br>
+                    info@akyos.com</p>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 footer-about wow fadeInUp">
+                <h3>A propos de nous</h3>
+                <p>
+                    Akyos Communication est spécialisée depuis 2006 dans la création de site Internet et la communication globale.
+                </p>
+                <p>
+                    <a class="scroll-link" href="#about-us">En savoir plus</a>
+                </p>
+            </div>
+            <div class="col-sm-4 footer-contact-info wow fadeInDown">
+                <h3>Easy Copro</h3>
+                <p>
+                    Bientot en vente sur votre plateforme AKYOS, elle vous permettra de gerer sans stress vos copropriétés .
+                </p>
+            </div>
+            <div class="col-sm-4 footer-social wow fadeInUp">
+                <h3>Réseaux sociaux</h3>
+                <p>
+                    <a href="https://www.facebook.com/akyoscomm"><i class="fa fa-facebook"></i></a>
+                    <a href="https://twitter.com/creasiteweb"><i class="fa fa-twitter"></i></a>
+                    <a href="https://plus.google.com/+Akyos_communication"><i class="fa fa-google-plus"></i></a>
+                    <a href="http://www.imgrum.org/tag/akyos"><i class="fa fa-instagram"></i></a>
+                    <a href="https://www.pinterest.com"><i class="fa fa-pinterest"></i></a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 footer-copyright">
+                &copy; Easy Copro by <a href="http://www.akyos.com" target="_blank">AKYOS</a>
+            </div>
+            <div class="col-sm-6 footer-menu">
+                <ul>
+                    <li><a class="" href="#">Remonter la Page</a></li>
+                    <li><a class="" href="{{ path('frontoffice_mentions')}}">Mentions légales</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Javascript -->
+<script src="{{ asset('assets/vendor/jquery/jquery-2.2.4.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery/jquery.backstretch.min.js') }}"></script>
+<script src="{{ asset('assets/frontoffice/js/wow.min.js') }}"></script>
+<script src="{{ asset('assets/frontoffice/js/retina-1.1.0.min.js') }}"></script>
+<script src="{{ asset('assets/frontoffice/js/scripts.js') }}"></script>
+<script src="{{ asset('assets/frontoffice/js/flash_messages_box.js') }}"></script>
+
+<!--[if lt IE 10]>
+<script src="{{ asset('assets/frontoffice/js/placeholder.js') }}"></script>
+<![endif]-->
+
+</body>
+
+</html>

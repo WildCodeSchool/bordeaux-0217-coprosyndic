@@ -1,0 +1,23 @@
+postit_index:
+    path:     /
+    defaults: { _controller: "AKYOSPostitBundle:Postit:index" }
+    methods:  GET
+
+postit_show:
+    path:     /{id}/show
+    defaults: { _controller: "AKYOSPostitBundle:Postit:show" }
+    methods:  GET
+
+postit_new:
+    path:     /new
+    defaults: { _controller: "AKYOSPostitBundle:Postit:new" }
+    methods:  [GET, POST]
+
+postit_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AKYOSPostitBundle:Postit:edit" }
+    methods:  [GET, POST]
+
+postit_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AKYOSPostitBundle:Postit:delete" }

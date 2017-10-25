@@ -1,0 +1,23 @@
+locataire_index:
+    path:     /
+    defaults: { _controller: AKYOSBackofficeBundle:Locataire:index }
+
+locataire_edit:
+    path:     /edit
+    defaults: { _controller: AKYOSBackofficeBundle:Locataire:edit }
+
+locataire_show:
+    path:     /show
+    defaults: {_controller: AKYOSBackofficeBundle:Locataire:show }
+
+locataire_parameters:
+    path: /parameters
+    defaults: {_controller: AKYOSBackofficeBundle:Locataire:parameters }
+
+locataire_show_copropriete:
+    path: /show/copropriete
+    defaults: {  _controller: AKYOSBackofficeBundle:Locataire:showCopropriete}
+
+locataire_edit_copropriete:
+    path: /edit/copropriete
+    defaults: {  _controller: AKYOSBackofficeBundle:Locataire:editCopropriete}

@@ -1,0 +1,11 @@
+frontoffice_homepage:
+    path:     /
+    defaults: { _controller: AKYOSFrontofficeBundle:Frontoffice:index }
+
+frontoffice_contact:
+    path:     /contact
+    defaults: { _controller: AKYOSFrontofficeBundle:Frontoffice:contact }
+
+frontoffice_mentions:
+    path:     /mentions
+    defaults: { _controller: AKYOSFrontofficeBundle:Frontoffice:mentions }

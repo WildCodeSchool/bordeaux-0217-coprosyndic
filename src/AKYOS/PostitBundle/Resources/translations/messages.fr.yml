@@ -1,0 +1,6 @@
+postit:
+    new:
+        content: Contenu
+        submit: Créer
+        placeholders:
+            content: Contenu

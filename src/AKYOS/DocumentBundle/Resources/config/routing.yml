@@ -1,0 +1,65 @@
+document_index:
+    path:     /{type}/documents
+    defaults: { _controller: AKYOSDocumentBundle:Document:index }
+    requirements:
+        type: admin|syndic|coproprietaire|locataire|artisan
+
+document_show:
+    path:     /{type}/documents/show/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Document:show }
+    requirements:
+        type: admin|syndic|coproprietaire|locataire|artisan
+        id: \d+
+
+document_create:
+    path:     /{type}/documents/create
+    defaults: { _controller: AKYOSDocumentBundle:Document:create }
+    requirements:
+        type: syndic
+
+document_edit:
+    path:     /{type}/documents/edit/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Document:edit }
+    requirements:
+        type: syndic
+        id: \d+
+
+document_delete:
+    path:     /{type}/documents/delete/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Document:delete }
+    requirements:
+        type: syndic
+        id: \d+
+
+category_index:
+    path:     /{type}/categories
+    defaults: { _controller: AKYOSDocumentBundle:Category:index }
+    requirements:
+        type: syndic
+
+category_create:
+    path:     /{type}/categories/create
+    defaults: { _controller: AKYOSDocumentBundle:Category:create }
+    requirements:
+        type: syndic
+
+category_edit:
+    path:     /{type}/categories/edit/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Category:edit }
+    requirements:
+        type: syndic
+        id: \d+
+
+category_delete:
+    path:     /{type}/categories/delete/{id}
+    defaults: { _controller: AKYOSDocumentBundle:Category:delete }
+    requirements:
+        type: syndic
+        id: \d+
+
+documents_by_category:
+    path: /{type}/documents/categories/{categorieId}
+    defaults: { _controller: AKYOSDocumentBundle:Category:getDocumentsByCategory }
+    requirements:
+        type: admin|syndic|coproprietaire|locataire|artisan
+        id: \d+

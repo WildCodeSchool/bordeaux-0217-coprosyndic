@@ -1,0 +1,56 @@
+{{ form_start(form, {'attr':{'novalidate': 'novalidate', 'class':'form-horizontal form-category-edit', 'action': path('category_edit', {'type': app.user.type, 'id': categorieId})  }}) }}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 class="modal-title"><strong>Modifier une catégorie</strong></h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-7" style="margin-right:30px">
+                <div class="form-group">
+                    {{ form_row(form.nom, {'attr':{'class': 'form-control', 'placeholder': 'category.placeholders.name'}}) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form_label(form.couleur) }}
+                    <div class="input-group colorpicker-component">
+                        {{ form_widget(form.couleur, {'attr':{'class': 'form-control', 'placeholder': 'category.placeholders.color'}}) }}
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                    {{ form_errors(form.couleur) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form_row(form.description, {'attr':{'class': 'form-control', 'placeholder': 'category.placeholders.description'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="col-md-12">
+        <div class="form-group pull-right">
+            {{ form_widget(form.submit, {'label': 'category.submit_edit', 'attr': {'class': 'btn btn-effect-ripple btn-primary'}}) }}
+            <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal"
+                    style="margin-left: 20px;">Annuler
+            </button>
+        </div>
+    </div>
+</div>
+
+{{ form_rest(form) }}
+{{ form_end(form) }}
+
+<script>
+    addCategoryFormListener('edit', {{ categorieId }});
+</script>

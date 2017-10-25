@@ -1,0 +1,43 @@
+mailbox_homepage:
+    path:     /{type}/messagerie
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:index }
+    requirements:
+        type: admin|syndic|coproprietaire|locataire|artisan
+
+mailbox_show:
+    path:     /{type}/messagerie/{id}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:show }
+    requirements:
+        id: \d+
+        type: admin|syndic|coproprietaire|locataire|artisan
+
+mailbox_new:
+    path:     /messagerie/new
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:new }
+
+mailbox_reply:
+    path:     /messagerie/reply/{id}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:reply }
+    requirements:
+        id: \d+
+
+mailbox_filter:
+    path:     /messagerie/filter/{state}/{page}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:filter }
+    requirements:
+        state: inbox|favorite|important|sent|spam|trash
+        page: \d+
+
+mailbox_change_state:
+    path:     /messagerie/change/{selection}/{oldState}/{newState}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:changeState }
+    requirements:
+        selection: single|multiple
+        oldState: inbox|favorite|important|sent|spam|trash
+        newState: inbox|favorite|important|sent|spam|trash|unread
+
+mailbox_delete:
+    path:     /messagerie/delete/{id}
+    defaults: { _controller: AKYOSMailboxBundle:Mailbox:delete }
+    requirements:
+        id: \d+
