@@ -48,10 +48,9 @@
                             <h3 class="widget-heading"><i class="fa fa-envelope-o themed-color-social push"></i> <br>
                                 <small>
                                     <strong>
-                                        {% set nbmessages = syndic.user.messagesRecus|length %}
-                                        {{ nbmessages }}
+                                        {{ allReceivedMailsCount }}
                                     </strong>
-                                    {% if nbmessages > 1 %} Messages{% else %} Message
+                                    {% if allReceivedMailsCount > 1 %} Messages{% else %} Message
                                     {% endif %}
                                 </small>
                             </h3>

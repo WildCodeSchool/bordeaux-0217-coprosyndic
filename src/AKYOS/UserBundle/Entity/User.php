@@ -31,21 +31,11 @@ class User extends BaseUser
      */
     private $type;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="AKYOS\MailboxBundle\Entity\Mail", mappedBy="sender")
-//     */
-//    private $sentMessages;
-//
-//    /**
-//     * @ORM\OneToMany(targetEntity="AKYOS\MailboxBundle\Entity\Mail", mappedBy="recipient")
-//     */
-//    private $receivedMessages;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $image = 'avatar13.jpg';
+    private $image;
 
     /**
      * @Vich\UploadableField(mapping="upload_avatar", fileNameProperty="image")
@@ -218,71 +208,4 @@ class User extends BaseUser
         return $this->postits;
     }
 
-//    /**
-//     * Add sentMessage
-//     *
-//     * @param \AKYOS\MailboxBundle\Entity\Mail $sentMessage
-//     *
-//     * @return User
-//     */
-//    public function addSentMessage(\AKYOS\MailboxBundle\Entity\Mail $sentMessage)
-//    {
-//        $this->sentMessages[] = $sentMessage;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Remove sentMessage
-//     *
-//     * @param \AKYOS\MailboxBundle\Entity\Mail $sentMessage
-//     */
-//    public function removeSentMessage(\AKYOS\MailboxBundle\Entity\Mail $sentMessage)
-//    {
-//        $this->sentMessages->removeElement($sentMessage);
-//    }
-//
-//    /**
-//     * Get sentMessages
-//     *
-//     * @return \Doctrine\Common\Collections\Collection
-//     */
-//    public function getSentMessages()
-//    {
-//        return $this->sentMessages;
-//    }
-//
-//    /**
-//     * Add receivedMessage
-//     *
-//     * @param \AKYOS\MailboxBundle\Entity\Mail $receivedMessage
-//     *
-//     * @return User
-//     */
-//    public function addReceivedMessage(\AKYOS\MailboxBundle\Entity\Mail $receivedMessage)
-//    {
-//        $this->receivedMessages[] = $receivedMessage;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Remove receivedMessage
-//     *
-//     * @param \AKYOS\MailboxBundle\Entity\Mail $receivedMessage
-//     */
-//    public function removeReceivedMessage(\AKYOS\MailboxBundle\Entity\Mail $receivedMessage)
-//    {
-//        $this->receivedMessages->removeElement($receivedMessage);
-//    }
-//
-//    /**
-//     * Get receivedMessages
-//     *
-//     * @return \Doctrine\Common\Collections\Collection
-//     */
-//    public function getReceivedMessages()
-//    {
-//        return $this->receivedMessages;
-//    }
 }

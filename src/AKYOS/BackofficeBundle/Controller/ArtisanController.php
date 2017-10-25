@@ -20,7 +20,7 @@ class ArtisanController extends Controller
         $copropriete = $artisan->getCopropriete();
         $request->getSession()->set('copro', $copropriete);
 
-        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByArtisan($artisan);
+        $nbDocuments = $em->getRepository(Document::class)->countByUser($this->getUser());
         $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
@@ -57,6 +57,7 @@ class ArtisanController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
+
         return $this->render('@AKYOSBackoffice/Artisan/show.html.twig', array(
             'artisan' => $artisan
         ));
@@ -72,11 +73,6 @@ class ArtisanController extends Controller
         ));
     }
 
-    public function parametersAction()
-    {
-        return $this->render('@AKYOSBackoffice/Artisan/parameters.html.twig');
-    }
-
     public function userMenuAction()
     {
         return $this->render('@AKYOSBackoffice/Artisan/menuUser.html.twig');
@@ -87,7 +83,7 @@ class ArtisanController extends Controller
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository(Artisan::class)->findOneByUser($this->getUser());
         $copropriete = $artisan->getCopropriete();
-        $documents = $em->getRepository(Document::class)->findAllByCopropriete($copropriete);
+        $documents = $em->getRepository(Document::class)->findByCopropriete($copropriete);
         $nbArtisans = $em->getRepository(Artisan::class)->findNbrArtisansByCopropriete($copropriete);
 
         return $this->render('@AKYOSBackoffice/Artisan/show_copropriete.html.twig', array(

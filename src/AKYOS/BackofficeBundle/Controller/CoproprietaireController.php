@@ -27,7 +27,7 @@ class CoproprietaireController extends Controller
         $copropriete    = $coproprietaire->getLot()->getCopropriete();
         $request->getSession()->set('copro', $copropriete);
 
-        $nbDocuments              = $em->getRepository(Document::class)->findNbDocumentsByLot($coproprietaire->getLot());
+        $nbDocuments              = $em->getRepository(Document::class)->countByUser($this->getUser());
         $allReceivedMailsCount    = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
@@ -64,7 +64,7 @@ class CoproprietaireController extends Controller
         $em             = $this->getDoctrine()->getManager();
         $coproprietaire = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
 
-        $nbDocuments           = $em->getRepository(Document::class)->findNbDocumentsByLot($coproprietaire->getLot());
+        $nbDocuments           = $em->getRepository(Document::class)->countByUser($this->getUser());
         $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
 
         return $this->render('@AKYOSBackoffice/Coproprietaire/show.html.twig', array(
@@ -101,8 +101,9 @@ class CoproprietaireController extends Controller
         $em                 = $this->getDoctrine()->getManager();
         $coproprietaire     = $em->getRepository(Coproprietaire::class)->findOneByUser($this->getUser());
         $copropriete        = $coproprietaire->getLot()->getCopropriete();
-        $documents          = $em->getRepository(Document::class)->findAllByCopropriete($copropriete);
+        $documents          = $em->getRepository(Document::class)->findByCopropriete($copropriete);
         $nbrecoproprietaire = $em->getRepository(Coproprietaire::class)->findNbrCoproprietairesByCopropriete($copropriete);
+
         return $this->render('@AKYOSBackoffice/Coproprietaire/show_copropriete.html.twig', array(
             'coproprietaire'     => $coproprietaire,
             'documents'          => $documents,
@@ -141,8 +142,11 @@ class CoproprietaireController extends Controller
 
         $syndic = $em->getRepository(Syndic::class)->findSyndicByCoproprietaire($coproprietaire);
 
+        $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($syndic->getUser());
+
         return $this->render('AKYOSBackofficeBundle:Coproprietaire:show_syndic.html.twig', array(
             'syndic' => $syndic,
+            'allReceivedMailsCount' => $allReceivedMailsCount
         ));
 
     }

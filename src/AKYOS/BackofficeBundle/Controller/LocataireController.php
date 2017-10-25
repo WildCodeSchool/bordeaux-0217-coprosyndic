@@ -26,7 +26,7 @@ class LocataireController extends Controller
         $copropriete = $locataire->getLot()->getCopropriete();
         $request->getSession()->set('copro', $copropriete);
 
-        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLotForLocataire($locataire->getLot());
+        $nbDocuments = $em->getRepository(Document::class)->countByUser($this->getUser());
         $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
         $unreadReceivedMailsCount = $em->getRepository(Mail::class)->countUnreadReceivedMails($this->getUser());
 
@@ -62,13 +62,13 @@ class LocataireController extends Controller
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
 
-        $nbMessagesTotal = $em->getRepository(Message::class)->findNbMessagesByUser($this->getUser());
-        $nbDocuments = $em->getRepository(Document::class)->findNbDocumentsByLotForLocataire($locataire->getLot());
+        $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
+        $nbDocuments = $em->getRepository(Document::class)->countByUser($this->getUser());
 
         return $this->render('@AKYOSBackoffice/Locataire/show.html.twig', array(
             'locataire' => $locataire,
             'nbDocuments' => $nbDocuments,
-            'nbMessagesTotal' => $nbMessagesTotal,
+            'allReceivedMailsCount' => $allReceivedMailsCount,
         ));
     }
 
@@ -100,8 +100,9 @@ class LocataireController extends Controller
         $em = $this->getDoctrine()->getManager();
         $locataire = $em->getRepository(Locataire::class)->findOneByUser($this->getUser());
         $copropriete = $locataire->getLot()->getCopropriete();
-        $documents = $em->getRepository(Document::class)->findAllByCopropriete($copropriete);
+        $documents = $em->getRepository(Document::class)->findByCopropriete($copropriete);
         $nbrelocataire = $em->getRepository(Locataire::class)->findNbrLocatairesByCopropriete($copropriete);
+
         return $this->render('@AKYOSBackoffice/Locataire/show_copropriete.html.twig', array(
             'locataire' =>$locataire,
             'documents'=>$documents,

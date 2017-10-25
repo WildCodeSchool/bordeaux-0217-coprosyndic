@@ -117,8 +117,12 @@ class AdminController extends Controller
 
     public function showSyndicAction(Syndic $syndic)
     {
+        $em = $this->getDoctrine()->getManager();
+        $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($syndic->getUser());
+
         return $this->render('AKYOSBackofficeBundle:Admin:show_syndic.html.twig', array(
             'syndic' => $syndic,
+            'allReceivedMailsCount' => $allReceivedMailsCount
         ));
     }
 

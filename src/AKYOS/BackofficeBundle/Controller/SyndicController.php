@@ -92,11 +92,13 @@ class SyndicController extends Controller
     {
         $em     = $this->getDoctrine()->getManager();
         $syndic = $em->getRepository(Syndic::class)->findOneByUser($this->getUser());
+        $allReceivedMailsCount    = $em->getRepository(Mail::class)->countAllReceivedMails($this->getUser());
 
         $request->getSession()->set('copro', null);
-        return $this->render('@AKYOSBackoffice/Syndic/show.html.twig', array(
-            'syndic' => $syndic
 
+        return $this->render('@AKYOSBackoffice/Syndic/show.html.twig', array(
+            'syndic' => $syndic,
+            'allReceivedMailsCount' => $allReceivedMailsCount
         ));
     }
 
@@ -205,8 +207,12 @@ class SyndicController extends Controller
     {
         $request->getSession()->set('copro', $coproprietaire->getLot()->getCopropriete());
 
+        $em = $this->getDoctrine()->getManager();
+        $allReceivedMailsCount    = $em->getRepository(Mail::class)->countAllReceivedMails($coproprietaire->getUser());
+
         return $this->render('@AKYOSBackoffice/Syndic/show_coproprietaire.html.twig', array(
             'coproprietaire' => $coproprietaire,
+            'allReceivedMailsCount' => $allReceivedMailsCount
         ));
     }
 
@@ -310,8 +316,12 @@ class SyndicController extends Controller
     {
         $request->getSession()->set('copro', $locataire->getLot()->getCopropriete());
 
+        $em = $this->getDoctrine()->getManager();
+        $allReceivedMailsCount = $em->getRepository(Mail::class)->countAllReceivedMails($locataire->getUser());
+
         return $this->render('@AKYOSBackoffice/Syndic/show_locataire.html.twig', array(
             'locataire' => $locataire,
+            'allReceivedMailsCount' => $allReceivedMailsCount
         ));
     }
 
@@ -518,7 +528,7 @@ class SyndicController extends Controller
         $lots                 = $copropriete->getLots();
         $artisans             = $copropriete->getArtisans();
         $locataires           = $em->getRepository(Locataire::class)->findLocatairesByCopropriete($copropriete);
-        $documents            = $em->getRepository(Document::class)->findAllByCopropriete($copropriete);
+        $documents            = $em->getRepository(Document::class)->findByCopropriete($copropriete);
 
         return $this->render('@AKYOSBackoffice/Syndic/show_copropriete.html.twig', array(
             'copropriete'          => $copropriete,
