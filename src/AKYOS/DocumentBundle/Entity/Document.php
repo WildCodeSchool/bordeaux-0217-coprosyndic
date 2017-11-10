@@ -105,7 +105,7 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="original_file_name", type="string", length=255)
+     * @ORM\Column(name="original_file_name", type="string", length=255, nullable=true)
      */
     private $originalFileName;
 
